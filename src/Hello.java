@@ -2,7 +2,8 @@ import javax.swing.*;
 
 public class Hello{
 	public static void main(String[] args){
-
+		JOptionPane.showMessageDialog(null, "Tji fick ni");
+		System.exit(0);
 
 		int start = JOptionPane.showConfirmDialog(null, 				//START
 		"This is a textbased game by the awesome Danny Lam.\n" 

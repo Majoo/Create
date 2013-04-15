@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.sun.xml.internal.txw2.Document;

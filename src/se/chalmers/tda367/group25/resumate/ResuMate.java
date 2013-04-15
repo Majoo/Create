@@ -11,6 +11,7 @@ public class ResuMate {
 	public ResuMate(){
 		Document doc = new Document();
 		docs.add(doc);
+		//return;
 	}
 	
 	public void createDocument(String templ){

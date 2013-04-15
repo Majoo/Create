@@ -2,6 +2,8 @@ package se.chalmers.tda367.group25.resumate;
 
 import java.awt.Image;
 
+import se.chalmers.tda367.group25.resumate.utils.TemplateStorage;
+
 
 
 

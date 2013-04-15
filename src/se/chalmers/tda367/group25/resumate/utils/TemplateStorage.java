@@ -1,7 +1,11 @@
-package se.chalmers.tda367.group25.resumate;
+package se.chalmers.tda367.group25.resumate.utils;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import se.chalmers.tda367.group25.resumate.RMImage;
+import se.chalmers.tda367.group25.resumate.RMText;
+import se.chalmers.tda367.group25.resumate.Template;
 
 public class TemplateStorage {
 	

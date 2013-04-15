@@ -9,7 +9,7 @@ import se.chalmers.tda367.group25.resumate.Template;
 
 public class TemplateStorage {
 	
-	private final static int nbrOfTmps = 3; //Can be replaced by the HashMap method size().
+	private final static int nbrOfTmps = 3;
 	private static Map<String, Template> templates = new HashMap<String, Template>(nbrOfTmps);
 	
 	private static final Template defCVTmp = new Template(new RMImage(), new RMText(), new RMText(), null, null);

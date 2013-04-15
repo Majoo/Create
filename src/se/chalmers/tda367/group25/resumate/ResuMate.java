@@ -3,8 +3,6 @@ package se.chalmers.tda367.group25.resumate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.xml.internal.txw2.Document;
-
 public class ResuMate {
 	
 	private List<Document> docs = new ArrayList<Document>();
@@ -21,7 +19,7 @@ public class ResuMate {
 	}
 	
 	public Document getDoc(int i){
-		docs.get(i);
+		return docs.get(i);
 	}
 
 }

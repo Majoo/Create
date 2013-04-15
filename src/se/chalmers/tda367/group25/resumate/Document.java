@@ -1,5 +1,7 @@
 package se.chalmers.tda367.group25.resumate;
 
+import java.awt.Image;
+
 
 
 
@@ -10,16 +12,13 @@ public class Document {
 	private History history;
 
 	public Document(){
-		templ = TemplateStorage.getTemplate("defaultCV"));
+		templ = TemplateStorage.getTemplate("defaultCV");
 		history = new History();
 		ioH = new IOHandler();
 	}
 
 	public Document(Template templ){
-		this.templ = temp;
+		this.templ = templ;
 	}
 
-	public void setImage(Image image){
-		templ.getImageSection().setImage(image);
-	}
 }

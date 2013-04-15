@@ -13,7 +13,7 @@ public class TemplateStorage {
 	private static final Template classyCVTmp = new Template(null, new RMText(), new RMText(), null, null);
 	
 	public static Template getTemplate(String name){
-		return templates.getValue(name).copy();
+		return templates.get(name).copy();
 	}
 	
 

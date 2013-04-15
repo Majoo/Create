@@ -1,5 +1,7 @@
 package se.chalmers.tda367.group25.resumate;
 
-public class Section {
+public abstract class Section {
 
+	//Will include tips
+	
 }

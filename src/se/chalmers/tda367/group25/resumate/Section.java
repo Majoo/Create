@@ -6,7 +6,7 @@ public abstract class Section {
 	
 	private SectionName secName;
 	
-	//Constructors
+	//---Constructors---//
 	public Section(){
 		this.secName = SectionName.EMPTY;
 	}
@@ -15,7 +15,7 @@ public abstract class Section {
 		this.secName = secName;
 	}
 	
-	//Getters
+	//---Getters---//
 	public SectionName getSecName(){
 		return secName;
 	}

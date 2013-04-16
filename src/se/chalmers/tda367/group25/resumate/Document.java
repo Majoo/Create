@@ -8,19 +8,21 @@ import se.chalmers.tda367.group25.resumate.utils.Template;
 
 
 public class Document {
-
+	//helpers
 	private IOHandler ioH;
-	private Template currentTempl;
 	private History history;
-
+	//other instance variables
+	private Template currentTempl;
+	//sections
 	private List<RMText> texts = new ArrayList<RMText>(2);
 	private RMImage rmI;
 
+	/* Create a new Document using the default template. */
 	public Document(){
 		new Document(Template.DEF_CV);
 	}
 
-
+	/* Create a new Document using the specified template. */
 	public Document(Template templ) {
 		//Set variables
 		this.currentTempl = templ;
@@ -31,9 +33,7 @@ public class Document {
 		createSections();
 	}
 
-	/*
-	 * Create sections according to Template.
-	 */
+	/*Create sections according to Template.*/
 	public void createSections(){
 		switch(currentTempl){
 		
@@ -54,13 +54,15 @@ public class Document {
 		}
 	}
 
-	//Getters
+	//---Getters---//
+	
 	 /* Get the image*/
 	public RMImage getImage(){
 		return rmI;
 	}
 	
-	//Setters
+	//---Setters---//
+	
 	/*Change the image.*/
 	public void setImage(Image image){
 		this.rmI.setImage(image);

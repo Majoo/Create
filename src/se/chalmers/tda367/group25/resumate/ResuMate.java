@@ -18,7 +18,7 @@ public class ResuMate {
 		docs.add(doc);
 	}
 
-	/*Creates a new document*/
+	/*Creates a new document with the specified template*/
 	public void createDocument(Template templ){
 		Document doc = new Document(templ);
 		docs.add(doc);

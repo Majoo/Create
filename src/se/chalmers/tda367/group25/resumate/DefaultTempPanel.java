@@ -8,7 +8,8 @@ import javax.swing.Box;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 
-//Only a test GUi
+//Only a test GUisdfsdfsdfsfds
+//Hejasfasdasaaaffs
 public class DefaultTempPanel extends JPanel {
 	private JTextArea textArea1;
 	private JTextArea textArea2;

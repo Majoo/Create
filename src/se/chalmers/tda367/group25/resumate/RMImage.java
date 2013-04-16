@@ -14,6 +14,10 @@ public class RMImage extends Section{
 		super(SectionName.IMAGE);
 	}
 
+	//Getters
+	
+	
+	//Setters
 	public void setImage(Image image){
 
 	}

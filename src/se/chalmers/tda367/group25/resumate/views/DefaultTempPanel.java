@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate;
+package se.chalmers.tda367.group25.resumate.views;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;

@@ -54,29 +54,21 @@ public class Document {
 		}
 	}
 
+	//Getters
 	 /* Get the image*/
 	public RMImage getImage(){
 		return rmI;
 	}
 	
+	//Setters
 	/*Change the image.*/
 	public void setImage(Image image){
 		this.rmI.setImage(image);
 	}
 
-	public void openTemplate(String name){
-		CurrentTempl = TemplateStorage.getTemplate(name);
-	}
-
-	public void changeTemplate(String name){
-		Template previousTempl = CurrentTempl;
-		openTemplate(name);
-		previousTempl.getTexts();
-
-		for(int i = 0; i < CurrentTempl.getTexts().size(); i ++){
-			String text = previousTempl.getRMText(i).getText();
-			CurrentTempl.getRMText(i).setText(text);
-		}
+	/*Change the Template*/
+	public void setTemplate(Template tmpl){
+		this.currentTempl = tmpl;
 	}
 
 }

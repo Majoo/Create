@@ -10,14 +10,13 @@ import javax.swing.JLabel;
 
 //Only a test GUisdfsdfsdfsfds
 //Hejasfasdasaaaffs
-public class DefaultTempPanel extends JPanel {
-	private JTextArea textArea1;
-	private JTextArea textArea2;
-	private JTextArea textArea3;
-	private JTextArea textArea4;
+public class DefaultCVPanel extends JPanel {
+	private JTextArea personalInfoText;
+	private JTextArea workingExperienceText;
+	private JTextArea emptyText;
 	private JLabel imageLabel;
 	
-	public DefaultTempPanel() {
+	public DefaultCVPanel() {
 		setLayout(new BorderLayout(0, 0));
 		
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
@@ -36,24 +35,18 @@ public class DefaultTempPanel extends JPanel {
 		add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		textArea1 = new JTextArea();
-		panel.add(textArea1, BorderLayout.NORTH);
+		personalInfoText = new JTextArea();
+		panel.add(personalInfoText, BorderLayout.NORTH);
 		
-		textArea2 = new JTextArea();
-		panel.add(textArea2, BorderLayout.WEST);
+		workingExperienceText = new JTextArea();
+		panel.add(workingExperienceText, BorderLayout.WEST);
 		
 		imageLabel = new JLabel("");
-		panel.add(imageLabel, BorderLayout.EAST);
+		//panel.add(imageLabel, BorderLayout.EAST);
 		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1, BorderLayout.SOUTH);
-		panel_1.setLayout(new BorderLayout(0, 0));
-		
-		textArea3 = new JTextArea();
-		panel_1.add(textArea3, BorderLayout.NORTH);
-		
-		textArea4 = new JTextArea();
-		panel_1.add(textArea4, BorderLayout.SOUTH);
+		emptyText = new JTextArea();
+		//panel.add(emptyText, BorderLayout.SOUTH);
+
 	}
 	
 

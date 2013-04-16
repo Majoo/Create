@@ -71,6 +71,8 @@ public class Document {
 	/*Change the Template*/
 	public void setTemplate(Template tmpl){
 		this.currentTempl = tmpl;
+		
+		//När man byter template måste man inte även createSections() då?
 	}
 
 }

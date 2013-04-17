@@ -17,7 +17,7 @@ public class DocumentFormTest extends JFrame {
 		
 		//Setting the frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 400);
+		setBounds(100, 100, 600, 1000);
 		documentPane = new JPanel();
 		documentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(documentPane);
@@ -31,8 +31,13 @@ public class DocumentFormTest extends JFrame {
 		DefaultCVPanel defaultCV = new DefaultCVPanel();
 		ClassyCVPanel classyCV = new ClassyCVPanel();
 		
-		//Position the buttons with SpringLayout
+		//Position the components on the panel
 		SpringLayout pos = new SpringLayout();
+		pos.putConstraint(SpringLayout.NORTH, defaultPL, 64, SpringLayout.NORTH, documentPane);
+		pos.putConstraint(SpringLayout.WEST, defaultPL, 5, SpringLayout.WEST, documentPane);
+		pos.putConstraint(SpringLayout.SOUTH, defaultPL, -5, SpringLayout.SOUTH, documentPane);
+		pos.putConstraint(SpringLayout.EAST, defaultPL, 559, SpringLayout.WEST, documentPane);
+		//position the buttons
 		pos.putConstraint(SpringLayout.NORTH, btnClassyCVButton, 10, SpringLayout.NORTH, documentPane);
 		pos.putConstraint(SpringLayout.NORTH, btnDefaultPLButton, 10, SpringLayout.NORTH, documentPane);
 		pos.putConstraint(SpringLayout.NORTH, btnDefaultCVButton, 0, SpringLayout.NORTH, btnDefaultPLButton);

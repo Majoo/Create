@@ -40,7 +40,6 @@ public class DefaultCVPanel extends JPanel {
 		
 		//Setting the container for the text with personal information
 		personalInfoText = new JEditorPane();
-		sl_panel.putConstraint(SpringLayout.NORTH, personalInfoText, -91, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, personalInfoText, 47, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, personalInfoText, -10, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, personalInfoText, -61, SpringLayout.EAST, panel);
@@ -48,6 +47,7 @@ public class DefaultCVPanel extends JPanel {
 		
 		//Setting the container for the text with working experience
 		workingExperienceText = new JEditorPane();
+		sl_panel.putConstraint(SpringLayout.NORTH, personalInfoText, 6, SpringLayout.SOUTH, workingExperienceText);
 		sl_panel.putConstraint(SpringLayout.NORTH, workingExperienceText, 10, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, workingExperienceText, -4, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, workingExperienceText, 136, SpringLayout.NORTH, panel);

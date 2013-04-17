@@ -26,24 +26,35 @@ public class DocumentFormTest extends JFrame {
 		//Creating components
 		JButton btnDefaultCVButton = new JButton("CV");
 		JButton btnDefaultPLButton = new JButton("Peronligt Brev");
-		JButton btnClassyCVButton = new JButton("Klassiskt");
-		DefaultPLPanel defaultPL = new DefaultPLPanel();
-		DefaultCVPanel defaultCV = new DefaultCVPanel();
-		ClassyCVPanel classyCV = new ClassyCVPanel();
+		JButton btnClassyCVButton = new JButton("Elegant CV");
+		final DefaultPLPanel defaultPL = new DefaultPLPanel();
+		final DefaultCVPanel defaultCV = new DefaultCVPanel();
+		final ClassyCVPanel classyCV = new ClassyCVPanel();
 		
 		//Position the components on the panel
 		SpringLayout pos = new SpringLayout();
+		pos.putConstraint(SpringLayout.NORTH, btnClassyCVButton, 10, SpringLayout.NORTH, documentPane);
+		pos.putConstraint(SpringLayout.NORTH, btnDefaultPLButton, 10, SpringLayout.NORTH, documentPane);
+		pos.putConstraint(SpringLayout.NORTH, btnDefaultCVButton, 0, SpringLayout.NORTH, btnDefaultPLButton);
+		pos.putConstraint(SpringLayout.EAST, btnDefaultCVButton, -6, SpringLayout.WEST, btnClassyCVButton);
+		pos.putConstraint(SpringLayout.EAST, btnClassyCVButton, -4, SpringLayout.WEST, btnDefaultPLButton);
+		pos.putConstraint(SpringLayout.EAST, btnDefaultPLButton, 0, SpringLayout.EAST, defaultPL);
+		pos.putConstraint(SpringLayout.NORTH, defaultCV, 64, SpringLayout.NORTH, documentPane);
+		pos.putConstraint(SpringLayout.WEST, defaultCV, 5, SpringLayout.WEST, documentPane);
+		pos.putConstraint(SpringLayout.SOUTH, defaultCV, -5, SpringLayout.SOUTH, documentPane);
+		pos.putConstraint(SpringLayout.EAST, defaultCV, 559, SpringLayout.WEST, documentPane);
+		
+		
 		pos.putConstraint(SpringLayout.NORTH, defaultPL, 64, SpringLayout.NORTH, documentPane);
 		pos.putConstraint(SpringLayout.WEST, defaultPL, 5, SpringLayout.WEST, documentPane);
 		pos.putConstraint(SpringLayout.SOUTH, defaultPL, -5, SpringLayout.SOUTH, documentPane);
 		pos.putConstraint(SpringLayout.EAST, defaultPL, 559, SpringLayout.WEST, documentPane);
-		//position the buttons
-		pos.putConstraint(SpringLayout.NORTH, btnClassyCVButton, 10, SpringLayout.NORTH, documentPane);
-		pos.putConstraint(SpringLayout.NORTH, btnDefaultPLButton, 10, SpringLayout.NORTH, documentPane);
-		pos.putConstraint(SpringLayout.NORTH, btnDefaultCVButton, 0, SpringLayout.NORTH, btnDefaultPLButton);
-		pos.putConstraint(SpringLayout.EAST, btnDefaultCVButton, -6, SpringLayout.WEST, btnDefaultPLButton);
-		pos.putConstraint(SpringLayout.EAST, btnDefaultPLButton, -6, SpringLayout.WEST, btnClassyCVButton);
-		pos.putConstraint(SpringLayout.EAST, btnClassyCVButton, -25, SpringLayout.EAST, documentPane);
+		
+		
+		pos.putConstraint(SpringLayout.NORTH, classyCV, 64, SpringLayout.NORTH, documentPane);
+		pos.putConstraint(SpringLayout.WEST, classyCV, 5, SpringLayout.WEST, documentPane);
+		pos.putConstraint(SpringLayout.SOUTH, classyCV, -5, SpringLayout.SOUTH, documentPane);
+		pos.putConstraint(SpringLayout.EAST, classyCV, 559, SpringLayout.WEST, documentPane);
 		documentPane.setLayout(pos);
 		
 		
@@ -52,25 +63,36 @@ public class DocumentFormTest extends JFrame {
 		documentPane.add(btnDefaultPLButton);
 		documentPane.add(btnClassyCVButton);
 		documentPane.add(defaultPL);
+		documentPane.add(defaultCV);
+		documentPane.add(classyCV);
 		setTitle("ResuMate");
 		
 		
 		//Giving the Default CV Button an ActionListener
 		btnDefaultCVButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-					//TODO
+				defaultCV.setVisible(true);
+				defaultPL.setVisible(false);
+				classyCV.setVisible(false);
 			}
 		});
 		//Giving the Default PL Button an ActionListener		
 		btnDefaultPLButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					//TODO
+				//documentPane.add(defaultPL);
+				defaultPL.setVisible(true);
+				defaultCV.setVisible(false);
+				classyCV.setVisible(false);
+				
 			}
 		});
 		//Giving the Classy CV Button an ActionListener		
 		btnClassyCVButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					//TODO
+				//documentPane.add(classyCV);
+				classyCV.setVisible(true);
+				defaultCV.setVisible(false);
+				defaultPL.setVisible(false);
 			}
 		});
 					

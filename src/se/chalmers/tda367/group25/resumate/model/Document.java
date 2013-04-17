@@ -86,5 +86,13 @@ public class Document {
 	public Map<SectionType, RMText> getTexts() {
 		return texts;
 	}
+	
+	public void changeText (SectionType st, String text){
+	if (!texts.containsKey(SectionType.WORK_EXPERIENCE) || 
+			!texts.containsKey(SectionType.PERSONAL_INFO) ){
+				createSections();
+		}
 
+	texts.get(st).setText(text);
+	}
 }

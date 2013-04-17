@@ -20,18 +20,11 @@ public class TextController {
 	//A method which updates the text stored in the documents sections.
 	public void updateText(InputMethodEvent arg0, String text){
 		
-		rmt.setText(text);
-		
-		if (!doc.getTexts().containsKey(SectionType.WORK_EXPERIENCE) || 
-			!doc.getTexts().containsKey(SectionType.PERSONAL_INFO) ){
-			doc.createSections();
-		}
-
 		if (arg0.getSource().equals("workingExperienceText")){	
-			doc.getTexts().put(SectionType.WORK_EXPERIENCE, rmt);
+			doc.changeText(SectionType.WORK_EXPERIENCE, text);
 		}
 		else if (arg0.getSource().equals("personalInfoText")){
-			doc.getTexts().put(SectionType.WORK_EXPERIENCE, rmt);		
+			doc.changeText(SectionType.PERSONAL_INFO, text);		
 		}
 			
 			

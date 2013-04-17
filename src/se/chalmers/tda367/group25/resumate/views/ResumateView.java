@@ -71,7 +71,6 @@ public class ResumateView extends JFrame{
 		//create a new Document
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "This will create a new Document");
 			new DocumentView();
 				
 			}
@@ -79,8 +78,10 @@ public class ResumateView extends JFrame{
 		
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "This will exit ResuMate");
-				System.exit(1);
+				int selection = JOptionPane.showConfirmDialog(null, "Är du säker på att du vill avsluta?", null, JOptionPane.YES_NO_OPTION);
+				if(selection == JOptionPane.YES_OPTION){
+					System.exit(1);
+				}
 			}
 		});
 					

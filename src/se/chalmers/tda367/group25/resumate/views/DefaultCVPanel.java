@@ -7,20 +7,21 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import java.awt.Dimension;
+import javax.swing.JEditorPane;
+import javax.swing.SpringLayout;
 
-//Only a test GUisdfsdfsdfsfds
-//Hejasfasdasaaaffs
+//Only a test panel for the Default CV.
 public class DefaultCVPanel extends JPanel {
-	private JTextArea personalInfoText;
-	private JTextArea workingExperienceText;
-	private JTextArea emptyText;
-	private JLabel imageLabel;
+	private JEditorPane personalInfoText;
+	private JEditorPane workingExperienceText;
 	
 	public DefaultCVPanel() {
 		setLayout(new BorderLayout(0, 0));
 		
+		//Setting struts place the components
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
-		add(horizontalStrut_2, BorderLayout.WEST);
+		add(horizontalStrut_2, BorderLayout.EAST);
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
 		add(verticalStrut, BorderLayout.NORTH);
@@ -29,25 +30,28 @@ public class DefaultCVPanel extends JPanel {
 		add(verticalStrut_1, BorderLayout.SOUTH);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
-		add(horizontalStrut, BorderLayout.EAST);
+		add(horizontalStrut, BorderLayout.WEST);
 		
+		//Setting panel which contains the different sections
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BorderLayout(0, 0));
+		SpringLayout sl_panel = new SpringLayout();
+		panel.setLayout(sl_panel);
 		
-		personalInfoText = new JTextArea();
-		panel.add(personalInfoText, BorderLayout.NORTH);
+		//Setting the container for the text with personal information
+		personalInfoText = new JEditorPane();
+		sl_panel.putConstraint(SpringLayout.NORTH, personalInfoText, -91, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, personalInfoText, 47, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, personalInfoText, -10, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, personalInfoText, -61, SpringLayout.EAST, panel);
+		panel.add(personalInfoText);
 		
-		workingExperienceText = new JTextArea();
-		panel.add(workingExperienceText, BorderLayout.WEST);
-		
-		imageLabel = new JLabel("");
-		//panel.add(imageLabel, BorderLayout.EAST);
-		
-		emptyText = new JTextArea();
-		//panel.add(emptyText, BorderLayout.SOUTH);
-
+		//Setting the container for the text with working experience
+		workingExperienceText = new JEditorPane();
+		sl_panel.putConstraint(SpringLayout.NORTH, workingExperienceText, 10, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, workingExperienceText, -4, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, workingExperienceText, 136, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, workingExperienceText, 160, SpringLayout.WEST, panel);
+		panel.add(workingExperienceText);
 	}
-	
-
 }

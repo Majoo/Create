@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import java.awt.Dimension;
 import javax.swing.JEditorPane;
 import javax.swing.SpringLayout;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
 
 //Only a test panel for the Default CV.
 public class DefaultCVPanel extends JPanel {
@@ -48,6 +50,11 @@ public class DefaultCVPanel extends JPanel {
 		
 		//Setting the container for the text with working experience
 		workingExperienceText = new JEditorPane();
+		workingExperienceText.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				
+			}
+		});
 		sl_panel.putConstraint(SpringLayout.NORTH, personalInfoText, 64, SpringLayout.SOUTH, workingExperienceText);
 		sl_panel.putConstraint(SpringLayout.NORTH, workingExperienceText, 10, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, workingExperienceText, 10, SpringLayout.WEST, panel);
@@ -56,5 +63,9 @@ public class DefaultCVPanel extends JPanel {
 		workingExperienceText.setText("Namn:\r\nAdress:\r\nPost.nr:\r\nTelefon.nr:\r\nE-mail:");
 		workingExperienceText.setToolTipText("H\u00E4r ska det st\u00E5 personligt information! ");
 		panel.add(workingExperienceText);
+	}
+	
+	public String getPersonalInfo(){
+		return personalInfoText.getText();
 	}
 }

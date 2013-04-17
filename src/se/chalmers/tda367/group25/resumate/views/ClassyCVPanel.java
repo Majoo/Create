@@ -40,25 +40,28 @@ public class ClassyCVPanel extends JPanel {
 	
 	//Setting the container for the text with personal information
 	personalInfoText = new JEditorPane();
+	sl_panel_1.putConstraint(SpringLayout.SOUTH, personalInfoText, 104, SpringLayout.NORTH, templatePanel);
+	sl_panel_1.putConstraint(SpringLayout.EAST, personalInfoText, 156, SpringLayout.WEST, templatePanel);
+	personalInfoText.setText("Namn:\r\nAdress:\r\nPost.nr:\r\nTelefon.nr:\r\nE-mail:");
+	personalInfoText.setToolTipText("H\u00E4r ska det st\u00E5 personligt information! ");
 	sl_panel_1.putConstraint(SpringLayout.NORTH, personalInfoText, 21, SpringLayout.NORTH, templatePanel);
 	sl_panel_1.putConstraint(SpringLayout.WEST, personalInfoText, 0, SpringLayout.WEST, templatePanel);
-	sl_panel_1.putConstraint(SpringLayout.SOUTH, personalInfoText, 168, SpringLayout.NORTH, templatePanel);
-	sl_panel_1.putConstraint(SpringLayout.EAST, personalInfoText, 164, SpringLayout.WEST, templatePanel);
 	templatePanel.add(personalInfoText);
 	
 	//Setting the container for the image
 	imageLabel = new JLabel("IMAGE");
 	sl_panel_1.putConstraint(SpringLayout.NORTH, imageLabel, 21, SpringLayout.NORTH, templatePanel);
-	sl_panel_1.putConstraint(SpringLayout.WEST, imageLabel, 322, SpringLayout.WEST, templatePanel);
+	sl_panel_1.putConstraint(SpringLayout.WEST, imageLabel, 364, SpringLayout.WEST, templatePanel);
 	sl_panel_1.putConstraint(SpringLayout.EAST, imageLabel, 410, SpringLayout.WEST, templatePanel);
 	templatePanel.add(imageLabel);
 	
 	//Setting the container for the text with working experience
 	workingExperienceText = new JEditorPane();
-	sl_panel_1.putConstraint(SpringLayout.NORTH, workingExperienceText, 22, SpringLayout.SOUTH, personalInfoText);
-	sl_panel_1.putConstraint(SpringLayout.WEST, workingExperienceText, 48, SpringLayout.WEST, templatePanel);
+	workingExperienceText.setToolTipText("Dina referenser, betyg och erfarenhet.");
+	sl_panel_1.putConstraint(SpringLayout.NORTH, workingExperienceText, 190, SpringLayout.NORTH, templatePanel);
+	sl_panel_1.putConstraint(SpringLayout.WEST, workingExperienceText, 0, SpringLayout.WEST, templatePanel);
 	sl_panel_1.putConstraint(SpringLayout.SOUTH, workingExperienceText, -10, SpringLayout.SOUTH, templatePanel);
-	sl_panel_1.putConstraint(SpringLayout.EAST, workingExperienceText, -36, SpringLayout.EAST, templatePanel);
+	sl_panel_1.putConstraint(SpringLayout.EAST, workingExperienceText, 0, SpringLayout.EAST, templatePanel);
 	sl_panel_1.putConstraint(SpringLayout.SOUTH, imageLabel, -22, SpringLayout.NORTH, workingExperienceText);
 	templatePanel.add(workingExperienceText);
 

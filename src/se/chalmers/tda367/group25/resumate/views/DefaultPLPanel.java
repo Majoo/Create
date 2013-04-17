@@ -39,6 +39,7 @@ public class DefaultPLPanel extends JPanel{
 		
 		//Setting the container for the text with personal information
 		personalInfoText = new JEditorPane();
+		personalInfoText.setToolTipText("Ber\u00E4tta om dig sj\u00E4lv!");
 		sl_panel.putConstraint(SpringLayout.NORTH, personalInfoText, 96, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, personalInfoText, 0, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, personalInfoText, -10, SpringLayout.SOUTH, panel);

@@ -40,18 +40,21 @@ public class DefaultCVPanel extends JPanel {
 		
 		//Setting the container for the text with personal information
 		personalInfoText = new JEditorPane();
-		sl_panel.putConstraint(SpringLayout.WEST, personalInfoText, 47, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, personalInfoText, -10, SpringLayout.SOUTH, panel);
+		personalInfoText.setToolTipText("Dina referenser, betyg och erfarenhet.");
+		sl_panel.putConstraint(SpringLayout.WEST, personalInfoText, 47, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, personalInfoText, -61, SpringLayout.EAST, panel);
 		panel.add(personalInfoText);
 		
 		//Setting the container for the text with working experience
 		workingExperienceText = new JEditorPane();
-		sl_panel.putConstraint(SpringLayout.NORTH, personalInfoText, 6, SpringLayout.SOUTH, workingExperienceText);
+		sl_panel.putConstraint(SpringLayout.NORTH, personalInfoText, 64, SpringLayout.SOUTH, workingExperienceText);
 		sl_panel.putConstraint(SpringLayout.NORTH, workingExperienceText, 10, SpringLayout.NORTH, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, workingExperienceText, -4, SpringLayout.WEST, panel);
-		sl_panel.putConstraint(SpringLayout.SOUTH, workingExperienceText, 136, SpringLayout.NORTH, panel);
-		sl_panel.putConstraint(SpringLayout.EAST, workingExperienceText, 160, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, workingExperienceText, 10, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, workingExperienceText, 102, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, workingExperienceText, 174, SpringLayout.WEST, panel);
+		workingExperienceText.setText("Namn:\r\nAdress:\r\nPost.nr:\r\nTelefon.nr:\r\nE-mail:");
+		workingExperienceText.setToolTipText("H\u00E4r ska det st\u00E5 personligt information! ");
 		panel.add(workingExperienceText);
 	}
 }

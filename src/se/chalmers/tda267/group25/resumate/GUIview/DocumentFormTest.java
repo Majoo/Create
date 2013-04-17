@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 
 import se.chalmers.tda367.group25.resumate.views.*;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -17,7 +18,7 @@ public class DocumentFormTest extends JFrame {
 		
 		//Setting the frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 1000);
+		setBounds(100, 100, 580, 650);
 		documentPane = new JPanel();
 		documentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(documentPane);
@@ -25,7 +26,7 @@ public class DocumentFormTest extends JFrame {
 		
 		//Creating components
 		JButton btnDefaultCVButton = new JButton("CV");
-		JButton btnDefaultPLButton = new JButton("Peronligt Brev");
+		JButton btnDefaultPLButton = new JButton("Personligt Brev");
 		JButton btnClassyCVButton = new JButton("Elegant CV");
 		final DefaultPLPanel defaultPL = new DefaultPLPanel();
 		final DefaultCVPanel defaultCV = new DefaultCVPanel();
@@ -33,12 +34,12 @@ public class DocumentFormTest extends JFrame {
 		
 		//Position the components on the panel
 		SpringLayout pos = new SpringLayout();
-		pos.putConstraint(SpringLayout.NORTH, btnClassyCVButton, 10, SpringLayout.NORTH, documentPane);
-		pos.putConstraint(SpringLayout.NORTH, btnDefaultPLButton, 10, SpringLayout.NORTH, documentPane);
-		pos.putConstraint(SpringLayout.NORTH, btnDefaultCVButton, 0, SpringLayout.NORTH, btnDefaultPLButton);
-		pos.putConstraint(SpringLayout.EAST, btnDefaultCVButton, -6, SpringLayout.WEST, btnClassyCVButton);
-		pos.putConstraint(SpringLayout.EAST, btnClassyCVButton, -4, SpringLayout.WEST, btnDefaultPLButton);
-		pos.putConstraint(SpringLayout.EAST, btnDefaultPLButton, 0, SpringLayout.EAST, defaultPL);
+		pos.putConstraint(SpringLayout.NORTH, btnDefaultCVButton, 10, SpringLayout.NORTH, documentPane);
+		pos.putConstraint(SpringLayout.NORTH, btnDefaultPLButton, 0, SpringLayout.NORTH, btnDefaultCVButton);
+		pos.putConstraint(SpringLayout.WEST, btnDefaultPLButton, 6, SpringLayout.EAST, btnClassyCVButton);
+		pos.putConstraint(SpringLayout.EAST, btnDefaultCVButton, -233, SpringLayout.EAST, documentPane);
+		pos.putConstraint(SpringLayout.NORTH, btnClassyCVButton, 0, SpringLayout.NORTH, btnDefaultCVButton);
+		pos.putConstraint(SpringLayout.WEST, btnClassyCVButton, 6, SpringLayout.EAST, btnDefaultCVButton);
 		pos.putConstraint(SpringLayout.NORTH, defaultCV, 64, SpringLayout.NORTH, documentPane);
 		pos.putConstraint(SpringLayout.WEST, defaultCV, 5, SpringLayout.WEST, documentPane);
 		pos.putConstraint(SpringLayout.SOUTH, defaultCV, -5, SpringLayout.SOUTH, documentPane);
@@ -74,6 +75,9 @@ public class DocumentFormTest extends JFrame {
 				defaultCV.setVisible(true);
 				defaultPL.setVisible(false);
 				classyCV.setVisible(false);
+				
+				
+				
 			}
 		});
 		//Giving the Default PL Button an ActionListener		
@@ -95,6 +99,48 @@ public class DocumentFormTest extends JFrame {
 				defaultPL.setVisible(false);
 			}
 		});
+		
+		
+		
+		
+		
+		
+		
+		
+		setTitle("ResuMaaaaaaaaaaaaaaaaate!!!!");
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JMenuItem mntmNew = new JMenuItem("New");
+		mnFile.add(mntmNew);
+		
+		JMenuItem mntmOpen = new JMenuItem("Open");
+		mnFile.add(mntmOpen);
+		
+		JMenuItem mntmSave = new JMenuItem("Save");
+		mnFile.add(mntmSave);
+		
+		JMenuItem mntmSaveAs = new JMenuItem("Save As...");
+		mnFile.add(mntmSaveAs);
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mnFile.add(mntmExit);
+		
+		JMenu mnEdit = new JMenu("Edit");
+		menuBar.add(mnEdit);
+		
+		JMenuItem mntmCut = new JMenuItem("Cut");
+		mnEdit.add(mntmCut);
+		
+		JMenuItem mntmCopy = new JMenuItem("Copy");
+		mnEdit.add(mntmCopy);
+		
+		JMenuItem mntmPaste = new JMenuItem("Paste");
+		mnEdit.add(mntmPaste);
 					
 	}
 }

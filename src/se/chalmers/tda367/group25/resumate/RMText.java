@@ -1,6 +1,6 @@
 package se.chalmers.tda367.group25.resumate;
 
-import se.chalmers.tda367.group25.resumate.utils.SectionName;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 public class RMText extends Section{
 	
@@ -11,7 +11,7 @@ public class RMText extends Section{
 		super();
 	}
 	
-	public RMText(SectionName sectionName){
+	public RMText(SectionType sectionName){
 		super(sectionName);
 	}
 	

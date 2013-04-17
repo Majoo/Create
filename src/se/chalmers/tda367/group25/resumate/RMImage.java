@@ -2,13 +2,13 @@ package se.chalmers.tda367.group25.resumate;
 
 import java.awt.Image;
 
-import se.chalmers.tda367.group25.resumate.utils.SectionName;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 
 public class RMImage extends Section{
 	
 	public RMImage(){
-		super(SectionName.IMAGE);
+		super(SectionType.IMAGE);
 	}
 
 	//Getters

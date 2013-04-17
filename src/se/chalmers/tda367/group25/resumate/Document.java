@@ -3,7 +3,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.chalmers.tda367.group25.resumate.utils.SectionName;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Template;
 
 
@@ -38,19 +38,19 @@ public class Document {
 		switch(currentTempl){
 		
 		case DEF_CV:
-			texts.add(new RMText(SectionName.PERSONAL_INFO));
-			texts.add(new RMText(SectionName.WORK_EXPERIENCE));
-			texts.add(new RMText(SectionName.EMPTY));
+			texts.add(new RMText(SectionType.PERSONAL_INFO));
+			texts.add(new RMText(SectionType.WORK_EXPERIENCE));
+			texts.add(new RMText(SectionType.EMPTY));
 			
 		case DEF_PL:
 			rmI = new RMImage();
-			texts.add(new RMText(SectionName.PERSONAL_INFO));
-			texts.add(new RMText(SectionName.EMPTY));
+			texts.add(new RMText(SectionType.PERSONAL_INFO));
+			texts.add(new RMText(SectionType.EMPTY));
 			
 		case CLASSY_CV:
 			rmI = new RMImage();
-			texts.add(new RMText(SectionName.PERSONAL_INFO));
-			texts.add(new RMText(SectionName.WORK_EXPERIENCE));
+			texts.add(new RMText(SectionType.PERSONAL_INFO));
+			texts.add(new RMText(SectionType.WORK_EXPERIENCE));
 		}
 	}
 

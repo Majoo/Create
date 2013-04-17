@@ -1,5 +1,7 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
+import java.awt.event.InputMethodEvent;
+
 import javax.swing.event.CaretEvent;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
@@ -11,8 +13,12 @@ public class TextController {
 	private Document doc;
 	private RMText rmt = new RMText();
 	
+	public TextController(){
+		doc = new Document();
+	}
+	
 	//A method which updates the text stored in the documents sections.
-	public void updateText(CaretEvent arg0, String text){
+	public void updateText(InputMethodEvent arg0, String text){
 		
 		rmt.setText(text);
 		

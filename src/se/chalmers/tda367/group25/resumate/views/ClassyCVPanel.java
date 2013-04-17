@@ -2,15 +2,18 @@ package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
 
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 //Only a test panel for the Classy CV.
-public class ClassyCVPanel extends JPanel {
+public class ClassyCVPanel extends absTemplatePanel {
 
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
@@ -40,6 +43,14 @@ public class ClassyCVPanel extends JPanel {
 	
 	//Setting the container for the text with personal information
 	personalInfoText = new JEditorPane();
+	personalInfoText.addInputMethodListener(new InputMethodListener() {
+		public void caretPositionChanged(InputMethodEvent arg0) {
+			textUpdate(arg0, getPersonalInfo());
+		}
+		public void inputMethodTextChanged(InputMethodEvent arg0) {
+			textUpdate(arg0, getPersonalInfo());
+		}
+	});
 	sl_panel_1.putConstraint(SpringLayout.SOUTH, personalInfoText, 104, SpringLayout.NORTH, templatePanel);
 	sl_panel_1.putConstraint(SpringLayout.EAST, personalInfoText, 156, SpringLayout.WEST, templatePanel);
 	personalInfoText.setText("Namn:\r\nAdress:\r\nPost.nr:\r\nTelefon.nr:\r\nE-mail:");
@@ -49,22 +60,38 @@ public class ClassyCVPanel extends JPanel {
 	templatePanel.add(personalInfoText);
 	
 	//Setting the container for the image
-	imageLabel = new JLabel("IMAGE");
-	sl_panel_1.putConstraint(SpringLayout.NORTH, imageLabel, 21, SpringLayout.NORTH, templatePanel);
-	sl_panel_1.putConstraint(SpringLayout.WEST, imageLabel, 364, SpringLayout.WEST, templatePanel);
-	sl_panel_1.putConstraint(SpringLayout.EAST, imageLabel, 410, SpringLayout.WEST, templatePanel);
+	imageLabel = new JLabel("");
+	sl_panel_1.putConstraint(SpringLayout.NORTH, imageLabel, 0, SpringLayout.NORTH, personalInfoText);
+	sl_panel_1.putConstraint(SpringLayout.WEST, imageLabel, 360, SpringLayout.WEST, templatePanel);
+	sl_panel_1.putConstraint(SpringLayout.SOUTH, imageLabel, 17, SpringLayout.SOUTH, personalInfoText);
+	imageLabel.setIcon(new ImageIcon(ClassyCVPanel.class.getResource("/se/chalmers/tda367/group25/resumate/other/picture.png")));
 	templatePanel.add(imageLabel);
 	
 	//Setting the container for the text with working experience
 	workingExperienceText = new JEditorPane();
+	sl_panel_1.putConstraint(SpringLayout.EAST, imageLabel, 0, SpringLayout.EAST, workingExperienceText);
+	workingExperienceText.addInputMethodListener(new InputMethodListener() {
+		public void caretPositionChanged(InputMethodEvent arg0) {
+			textUpdate(arg0, getWorkingExperience());
+		}
+		public void inputMethodTextChanged(InputMethodEvent arg0) {
+			textUpdate(arg0, getWorkingExperience());
+		}
+	});
 	workingExperienceText.setToolTipText("Dina referenser, betyg och erfarenhet.");
 	sl_panel_1.putConstraint(SpringLayout.NORTH, workingExperienceText, 190, SpringLayout.NORTH, templatePanel);
 	sl_panel_1.putConstraint(SpringLayout.WEST, workingExperienceText, 0, SpringLayout.WEST, templatePanel);
 	sl_panel_1.putConstraint(SpringLayout.SOUTH, workingExperienceText, -10, SpringLayout.SOUTH, templatePanel);
 	sl_panel_1.putConstraint(SpringLayout.EAST, workingExperienceText, 0, SpringLayout.EAST, templatePanel);
-	sl_panel_1.putConstraint(SpringLayout.SOUTH, imageLabel, -22, SpringLayout.NORTH, workingExperienceText);
 	templatePanel.add(workingExperienceText);
 
 	}
 
+	public String getPersonalInfo(){
+		return personalInfoText.getText();
+	}
+	
+	public String getWorkingExperience(){
+		return workingExperienceText.getText();
+	}
 }

@@ -2,6 +2,8 @@ package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
 
 import javax.swing.Box;
 import javax.swing.JEditorPane;
@@ -10,10 +12,8 @@ import javax.swing.SpringLayout;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
-import se.chalmers.tda367.group25.resumate.controllers.TextController;
-
 //Only a test panel for the Default CV.
-public class DefaultCVPanel extends JPanel {
+public class DefaultCVPanel extends absTemplatePanel {
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
 	
@@ -42,11 +42,12 @@ public class DefaultCVPanel extends JPanel {
 		
 		//Setting the container for the text with personal information
 		personalInfoText = new JEditorPane();
-		personalInfoText.addCaretListener(new CaretListener() {
-			public void caretUpdate(CaretEvent arg0) {
-			//ResumateView.textAction(arg0, getPersonalInfo());
-			//TODO: Either having all the panels having a view OR
-			// making ALL the concerned methods static (which I would not like to)
+		personalInfoText.addInputMethodListener(new InputMethodListener() {
+			public void caretPositionChanged(InputMethodEvent arg0) {
+				textUpdate(arg0, getPersonalInfo());
+			}
+			public void inputMethodTextChanged(InputMethodEvent arg0) {
+				textUpdate(arg0, getPersonalInfo());
 			}
 		});
 		sl_panel.putConstraint(SpringLayout.SOUTH, personalInfoText, -10, SpringLayout.SOUTH, panel);
@@ -57,11 +58,12 @@ public class DefaultCVPanel extends JPanel {
 		
 		//Setting the container for the text with working experience
 		workingExperienceText = new JEditorPane();
-		workingExperienceText.addCaretListener(new CaretListener() {
-			public void caretUpdate(CaretEvent arg0) {
-			//ResumateView.textAction(arg0, getWorkingExperience());
-			//TODO: Either having all the panels having a view OR
-			// making ALL the concerned methods static (which I would not like to)
+		workingExperienceText.addInputMethodListener(new InputMethodListener() {
+			public void caretPositionChanged(InputMethodEvent arg0) {
+				textUpdate(arg0, getWorkingExperience());
+			}
+			public void inputMethodTextChanged(InputMethodEvent arg0) {
+				textUpdate(arg0, getWorkingExperience());
 			}
 		});
 		sl_panel.putConstraint(SpringLayout.NORTH, personalInfoText, 64, SpringLayout.SOUTH, workingExperienceText);

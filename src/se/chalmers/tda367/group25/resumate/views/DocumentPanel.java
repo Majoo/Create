@@ -54,9 +54,9 @@ public class DocumentPanel extends JPanel{
 	add(btnDefaultCVButton);
 	add(btnDefaultPLButton);
 	add(btnClassyCVButton);
-	add(defaultPL);
 	add(defaultCV);
 	add(classyCV);
+	add(defaultPL);
 
 	
 	

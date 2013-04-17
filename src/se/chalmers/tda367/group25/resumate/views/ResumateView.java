@@ -2,6 +2,7 @@ package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputMethodEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -85,7 +86,7 @@ public class ResumateView extends JFrame{
 					
 	}
 	
-	public void textAction(CaretEvent arg0, String text) {
+	public void textAction(InputMethodEvent arg0, String text) {
 		txc.updateText(arg0, text);	
 	}
 }

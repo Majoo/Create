@@ -4,13 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 
 //Only a test panel for the Default CV.
 public class DefaultCVPanel extends absTemplatePanel {
@@ -82,5 +81,12 @@ public class DefaultCVPanel extends absTemplatePanel {
 	
 	public String getWorkingExperience(){
 		return workingExperienceText.getText();
+	}
+	
+	@Override
+	public void updateTextInView(List <String> text) {
+		personalInfoText.setText(text.get(0));
+		workingExperienceText.setText(text.get(1));
+		
 	}
 }

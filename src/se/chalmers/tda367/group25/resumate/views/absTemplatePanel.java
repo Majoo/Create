@@ -1,9 +1,11 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.event.InputMethodEvent;
+import java.util.List;
 
-import javax.swing.JEditorPane;
 import javax.swing.JPanel;
+
+import se.chalmers.tda367.group25.resumate.utils.Template;
 
 public abstract class absTemplatePanel extends JPanel {
 
@@ -17,5 +19,12 @@ public abstract class absTemplatePanel extends JPanel {
 		View.textAction(arg0, text);
 		
 	}
+	
+	public void changedTemplate(Template templateName){
+		View.changedTemplate(templateName);
+		//TODO: detta ger nullpointer, checka why today!
+	}
+	
+	public abstract void updateTextInView(List <String> text);
 	
 }

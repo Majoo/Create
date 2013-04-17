@@ -2,13 +2,16 @@ package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
-public class DocumentPanel extends JPanel{
+import se.chalmers.tda367.group25.resumate.utils.Template;
+
+public class DocumentPanel extends absTemplatePanel {
 
 	public DocumentPanel(){
 	
@@ -16,7 +19,7 @@ public class DocumentPanel extends JPanel{
 	JButton btnDefaultCVButton = new JButton("CV");
 	JButton btnDefaultPLButton = new JButton("Personligt Brev");
 	JButton btnClassyCVButton = new JButton("Elegant CV");
-	//JPanel documentPane = new JPanel();
+
 	this.setBorder(new EmptyBorder(5, 5, 5, 5));
 	final DefaultPLPanel defaultPL = new DefaultPLPanel();
 	final DefaultCVPanel defaultCV = new DefaultCVPanel();
@@ -66,31 +69,36 @@ public class DocumentPanel extends JPanel{
 			defaultCV.setVisible(true);
 			defaultPL.setVisible(false);
 			classyCV.setVisible(false);
-			
-			
+			changedTemplate(Template.DEF_CV);
 			
 		}
 	});
 	//Giving the Default PL Button an ActionListener		
 	btnDefaultPLButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			//documentPane.add(defaultPL);
 			defaultPL.setVisible(true);
 			defaultCV.setVisible(false);
 			classyCV.setVisible(false);
+			changedTemplate(Template.DEF_PL);
 			
 		}
 	});
 	//Giving the Classy CV Button an ActionListener		
 	btnClassyCVButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			//documentPane.add(classyCV);
 			classyCV.setVisible(true);
 			defaultCV.setVisible(false);
 			defaultPL.setVisible(false);
+			changedTemplate(Template.CLASSY_CV);
 		}
 	});
 	
+	}
+
+	@Override
+	public void updateTextInView(List<String> text) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

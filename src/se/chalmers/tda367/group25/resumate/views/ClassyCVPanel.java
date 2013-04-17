@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -93,5 +94,12 @@ public class ClassyCVPanel extends absTemplatePanel {
 	
 	public String getWorkingExperience(){
 		return workingExperienceText.getText();
+	}
+
+	@Override
+	public void updateTextInView(List <String> text) {
+		personalInfoText.setText(text.get(0));
+		workingExperienceText.setText(text.get(1));
+		
 	}
 }

@@ -3,19 +3,24 @@ package se.chalmers.tda367.group25.resumate.views;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputMethodEvent;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.event.CaretEvent;
+import javax.swing.JPanel;
 
+import se.chalmers.tda367.group25.resumate.controllers.DocumentController;
 import se.chalmers.tda367.group25.resumate.controllers.TextController;
+import se.chalmers.tda367.group25.resumate.utils.Template;
+import se.chalmers.tda367.group25.resumate.utils.TemplateToPanel;
 
 public class ResumateView extends JFrame{
 	private DocumentPanel documentPanel;
 	private TextController txc;
+	private DocumentController dc;
 
 	//Create the frame.
 
@@ -23,7 +28,7 @@ public class ResumateView extends JFrame{
 		
 		//The controller
 		txc = new TextController();
-		
+		dc = new DocumentController(this);
 		
 		//Setting the frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,4 +95,15 @@ public class ResumateView extends JFrame{
 	public void textAction(InputMethodEvent arg0, String text) {
 		txc.updateText(arg0, text);	
 	}
+
+	public void changedTemplate(Template templateName) {
+		dc.changedTemplate(templateName);	
+	}
+	
+	public void updateTextInView(Template templateName, List <String> text){
+		absTemplatePanel TemplatePanelName = TemplateToPanel.translate(templateName);
+		TemplatePanelName.updateTextInView(text);
+		
+	}
+	
 }

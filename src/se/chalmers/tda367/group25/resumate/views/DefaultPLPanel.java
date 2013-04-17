@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -11,8 +12,6 @@ import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 
 //Only a test GUI
 public class DefaultPLPanel extends absTemplatePanel{
@@ -72,5 +71,11 @@ public class DefaultPLPanel extends absTemplatePanel{
 	
 	public String getPersonalInfo(){
 		return personalInfoText.getText();
+	}
+	
+	@Override
+	public void updateTextInView(List <String> text) {
+		personalInfoText.setText(text.get(0));
+		
 	}
 }

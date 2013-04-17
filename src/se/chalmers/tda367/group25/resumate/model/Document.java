@@ -1,10 +1,13 @@
 package se.chalmers.tda367.group25.resumate.model;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Template;
+import se.chalmers.tda367.group25.resumate.utils.TemplateToSections;
 
 
 public class Document {
@@ -95,4 +98,14 @@ public class Document {
 
 	texts.get(st).setText(text);
 	}
+
+	public void changeTemplate(Template temp){
+	/*List <SectionType> secs = TemplateToSections.translate(temp);
+	List <String> text = new ArrayList <String>(3);
+		for(int i = 0; i < secs.size(); i++) {
+			text.add(texts.get(secs.get(i)).getText());
+		}*/
+	setTemplate(temp);
+	}
+		
 }

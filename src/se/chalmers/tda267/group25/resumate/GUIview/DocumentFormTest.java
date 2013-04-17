@@ -106,8 +106,8 @@ public class DocumentFormTest extends JFrame {
 		
 		
 		
-		
-		setTitle("ResuMaaaaaaaaaaaaaaaaate!!!!");
+		//the menu bar
+		setTitle("ResuMate");
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -141,6 +141,25 @@ public class DocumentFormTest extends JFrame {
 		
 		JMenuItem mntmPaste = new JMenuItem("Paste");
 		mnEdit.add(mntmPaste);
+		
+		
+		//the menubar action events
+		//create a new Document
+		mntmNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "This will create a new Document");
+				
+				//TODO
+				
+			}
+		});
+		
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "This will exit ResuMate");
+				System.exit(1);
+			}
+		});
 					
 	}
 }

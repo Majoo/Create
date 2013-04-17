@@ -1,23 +1,23 @@
 package se.chalmers.tda367.group25.resumate;
 
-import se.chalmers.tda367.group25.resumate.utils.SectionName;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 public abstract class Section {
 	
-	private SectionName secName;
+	private SectionType secType;
 	
 	//---Constructors---//
 	public Section(){
-		this.secName = SectionName.EMPTY;
+		this.secType = SectionType.EMPTY;
 	}
 	
-	public Section(SectionName secName){
-		this.secName = secName;
+	public Section(SectionType secName){
+		this.secType = secName;
 	}
 	
 	//---Getters---//
-	public SectionName getSecName(){
-		return secName;
+	public SectionType getSecName(){
+		return secType;
 	}
 	
 }

@@ -5,7 +5,7 @@ package se.chalmers.tda367.group25.resumate.utils;
  * the user should put in this Section,
  * and is used to generate appropriate tips, input prompts etc.
  */
-public enum SectionName {
+public enum SectionType {
 	IMAGE,
 	PERSONAL_INFO,
 	WORK_EXPERIENCE,

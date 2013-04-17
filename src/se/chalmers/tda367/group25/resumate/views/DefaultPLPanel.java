@@ -4,21 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 
 import javax.swing.Box;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.SpringLayout;
 
 //Only a test GUI
 public class DefaultPLPanel extends JPanel{
 
-	private JTextArea personalInfoText;
-	private JTextArea workingExperienceText;
-	private JTextArea emptyText;
+	private JEditorPane personalInfoText;
 	private JLabel imageLabel;
 	
 	public DefaultPLPanel() {
 		setLayout(new BorderLayout(0, 0));
 		
+		//Setting struts place the components
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 		add(horizontalStrut_2, BorderLayout.WEST);
 		
@@ -31,22 +31,27 @@ public class DefaultPLPanel extends JPanel{
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		add(horizontalStrut, BorderLayout.EAST);
 		
+		//Setting panel which contains the different sections
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BorderLayout(0, 0));
+		SpringLayout sl_panel = new SpringLayout();
+		panel.setLayout(sl_panel);
 		
-		personalInfoText = new JTextArea();
-		panel.add(personalInfoText, BorderLayout.SOUTH);
+		//Setting the container for the text with personal information
+		personalInfoText = new JEditorPane();
+		sl_panel.putConstraint(SpringLayout.NORTH, personalInfoText, 96, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, personalInfoText, 0, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, personalInfoText, -10, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, personalInfoText, -119, SpringLayout.EAST, panel);
+		panel.add(personalInfoText);
 		
-		workingExperienceText = new JTextArea();
-		//panel.add(workingExperienceText, BorderLayout.WEST);
-		
-		imageLabel = new JLabel("");
-		panel.add(imageLabel, BorderLayout.EAST);
-		
-		emptyText = new JTextArea();
-		//panel.add(emptyText, BorderLayout.SOUTH);
+		//Setting the container for the image
+		imageLabel = new JLabel("IMAGE");
+		sl_panel.putConstraint(SpringLayout.NORTH, imageLabel, 0, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, imageLabel, -91, SpringLayout.EAST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, imageLabel, 143, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, imageLabel, -10, SpringLayout.EAST, panel);
+		panel.add(imageLabel);
 
 	}
-	
 }

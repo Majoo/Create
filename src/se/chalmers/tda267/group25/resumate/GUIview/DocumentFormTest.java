@@ -2,6 +2,9 @@ package se.chalmers.tda267.group25.resumate.GUIview;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import se.chalmers.tda367.group25.resumate.views.*;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -20,10 +23,13 @@ public class DocumentFormTest extends JFrame {
 		setContentPane(documentPane);
 		
 		
-		//Creating a new button
+		//Creating components
 		JButton btnDefaultCVButton = new JButton("CV");
 		JButton btnDefaultPLButton = new JButton("Peronligt Brev");
 		JButton btnClassyCVButton = new JButton("Klassiskt");
+		DefaultPLPanel defaultPL = new DefaultPLPanel();
+		DefaultCVPanel defaultCV = new DefaultCVPanel();
+		ClassyCVPanel classyCV = new ClassyCVPanel();
 		
 		//Position the buttons with SpringLayout
 		SpringLayout pos = new SpringLayout();
@@ -40,6 +46,7 @@ public class DocumentFormTest extends JFrame {
 		documentPane.add(btnDefaultCVButton);
 		documentPane.add(btnDefaultPLButton);
 		documentPane.add(btnClassyCVButton);
+		documentPane.add(defaultPL);
 		setTitle("ResuMate");
 		
 		

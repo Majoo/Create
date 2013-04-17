@@ -14,8 +14,7 @@ public class ResuMate {
 
 	/*An application with the default document is created.*/
 	public ResuMate(){
-		Document doc = new Document();
-		docs.add(doc);
+		createDocument(Template.DEF_CV);
 	}
 
 	/*Creates a new document with the specified template*/

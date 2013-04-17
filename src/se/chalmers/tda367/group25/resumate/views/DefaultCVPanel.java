@@ -1,17 +1,16 @@
 package se.chalmers.tda367.group25.resumate.views;
 
-import javax.swing.JPanel;
-import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Component;
+
 import javax.swing.Box;
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
-import java.awt.Dimension;
 import javax.swing.JEditorPane;
+import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+
+import se.chalmers.tda367.group25.resumate.controllers.TextController;
 
 //Only a test panel for the Default CV.
 public class DefaultCVPanel extends JPanel {
@@ -19,6 +18,7 @@ public class DefaultCVPanel extends JPanel {
 	private JEditorPane workingExperienceText;
 	
 	public DefaultCVPanel() {
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		//Setting struts place the components
@@ -42,6 +42,13 @@ public class DefaultCVPanel extends JPanel {
 		
 		//Setting the container for the text with personal information
 		personalInfoText = new JEditorPane();
+		personalInfoText.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+			//ResumateView.textAction(arg0, getPersonalInfo());
+			//TODO: Either having all the panels having a view OR
+			// making ALL the concerned methods static (which I would not like to)
+			}
+		});
 		sl_panel.putConstraint(SpringLayout.SOUTH, personalInfoText, -10, SpringLayout.SOUTH, panel);
 		personalInfoText.setToolTipText("Dina referenser, betyg och erfarenhet.");
 		sl_panel.putConstraint(SpringLayout.WEST, personalInfoText, 47, SpringLayout.WEST, panel);
@@ -52,7 +59,9 @@ public class DefaultCVPanel extends JPanel {
 		workingExperienceText = new JEditorPane();
 		workingExperienceText.addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent arg0) {
-				
+			//ResumateView.textAction(arg0, getWorkingExperience());
+			//TODO: Either having all the panels having a view OR
+			// making ALL the concerned methods static (which I would not like to)
 			}
 		});
 		sl_panel.putConstraint(SpringLayout.NORTH, personalInfoText, 64, SpringLayout.SOUTH, workingExperienceText);
@@ -67,5 +76,9 @@ public class DefaultCVPanel extends JPanel {
 	
 	public String getPersonalInfo(){
 		return personalInfoText.getText();
+	}
+	
+	public String getWorkingExperience(){
+		return workingExperienceText.getText();
 	}
 }

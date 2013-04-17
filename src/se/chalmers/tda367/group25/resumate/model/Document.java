@@ -1,7 +1,7 @@
 package se.chalmers.tda367.group25.resumate.model;
 import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Template;
@@ -14,7 +14,7 @@ public class Document {
 	//other instance variables
 	private Template currentTempl;
 	//sections
-	private List<RMText> texts = new ArrayList<RMText>(2);
+	private Map <SectionType, RMText> texts = new HashMap<SectionType, RMText>(3);
 	private RMImage rmI;
 
 	/* Create a new Document using the default template. */
@@ -28,7 +28,7 @@ public class Document {
 		this.currentTempl = templ;
 		history = new History();
 		ioH = new IOHandler();
-
+		rmI = new RMImage();
 		//create sections according to Template.
 		createSections();
 	}
@@ -38,19 +38,28 @@ public class Document {
 		switch(currentTempl){
 		
 		case DEF_CV:
-			texts.add(new RMText(SectionType.PERSONAL_INFO));
-			texts.add(new RMText(SectionType.WORK_EXPERIENCE));
-			texts.add(new RMText(SectionType.EMPTY));
+		
+			if(!texts.containsKey(SectionType.PERSONAL_INFO)){
+				texts.put(SectionType.PERSONAL_INFO, new RMText(SectionType.PERSONAL_INFO));
+			}
+			if(!texts.containsKey(SectionType.WORK_EXPERIENCE)){
+				texts.put(SectionType.WORK_EXPERIENCE, new RMText(SectionType.WORK_EXPERIENCE));
+			}
+			//texts.add(new RMText(SectionType.EMPTY));
 			
 		case DEF_PL:
-			rmI = new RMImage();
-			texts.add(new RMText(SectionType.PERSONAL_INFO));
-			texts.add(new RMText(SectionType.EMPTY));
+			if(!texts.containsKey(SectionType.PERSONAL_INFO)){
+				texts.put(SectionType.PERSONAL_INFO, new RMText(SectionType.PERSONAL_INFO));
+			}
+			//texts.add(new RMText(SectionType.EMPTY));
 			
 		case CLASSY_CV:
-			rmI = new RMImage();
-			texts.add(new RMText(SectionType.PERSONAL_INFO));
-			texts.add(new RMText(SectionType.WORK_EXPERIENCE));
+			if(!texts.containsKey(SectionType.PERSONAL_INFO)){
+				texts.put(SectionType.PERSONAL_INFO, new RMText(SectionType.PERSONAL_INFO));
+			}
+			if(!texts.containsKey(SectionType.WORK_EXPERIENCE)){
+				texts.put(SectionType.WORK_EXPERIENCE, new RMText(SectionType.WORK_EXPERIENCE));
+			}
 		}
 	}
 
@@ -71,8 +80,11 @@ public class Document {
 	/*Change the Template*/
 	public void setTemplate(Template tmpl){
 		this.currentTempl = tmpl;
-		
-		//När man byter template måste man inte även createSections() då?
+		createSections();
+	}
+	
+	public Map<SectionType, RMText> getTexts() {
+		return texts;
 	}
 
 }

@@ -2,21 +2,34 @@ package se.chalmers.tda367.group25.resumate.model;
 
 import java.awt.Image;
 
-import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 
-public class RMImage extends Section{
+public class RMImage{
 	
-	public RMImage(){
-		super(SectionType.IMAGE);
+	private Image image;
+	private SectionType secType;
+
+	public RMImage(Image image){
+		this.secType = SectionType.IMAGE;
+		this.image = image;
 	}
 
-	//Getters
+	//-----Getters-----//
+	/**
+	 * Get the Image.
+	 * @return image
+	 */
+	public Image getImage(){
+		return image;
+	}
 	
-	
-	//Setters
+	//-----Setters-----//
+	/**
+	 * Set a new image.
+	 * @param image
+	 */
 	public void setImage(Image image){
-
+		this.image = image;
 	}
 
 }

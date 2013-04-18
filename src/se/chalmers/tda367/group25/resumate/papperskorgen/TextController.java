@@ -1,10 +1,10 @@
-package se.chalmers.tda367.group25.resumate.controllers;
+package se.chalmers.tda367.group25.resumate.papperskorgen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.InputMethodEvent;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
-import se.chalmers.tda367.group25.resumate.utils.SectionType;
+import se.chalmers.tda367.group25.resumate.model.SectionType;
 
 public class TextController {
 

@@ -2,29 +2,33 @@ package se.chalmers.tda367.group25.resumate.model;
 
 import javax.swing.JOptionPane;
 
-import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
-public class RMText extends Section{
+public class RMText{
 	
 	private String text;
+	private SectionType secType;
 
 	//Constructors
 	public RMText(){
-		super();
+		this.secType = SectionType.EMPTY;
 	}
 	
-	public RMText(SectionType sectionName){
-		super(sectionName);
+	public RMText(SectionType sectionType){
+		this.secType = sectionType;
 	}
 	
-	//Getters
+	//-----Getters-----//
 	public String getText(){
 		return this.text;
 	}
 	
+	public SectionType getSecType(){
+		return this.secType;
+	}
+	
+	//-----Setters-----//
 	public void setText(String input){
 		this.text = input;
-		JOptionPane.showMessageDialog(null, text);
 	}
 
 }

@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.utils;
+package se.chalmers.tda367.group25.resumate.model;
 
 /*
  * The Template enum is used to decide what kind 

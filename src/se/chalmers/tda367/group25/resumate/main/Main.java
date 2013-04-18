@@ -1,7 +1,7 @@
 package se.chalmers.tda367.group25.resumate.main;
 
 import se.chalmers.tda367.group25.resumate.model.ResuMate;
-import se.chalmers.tda367.group25.resumate.views.DocumentView;
+import se.chalmers.tda367.group25.resumate.papperskorgen.DocumentView;
 
 /*
  * The Main class is used to start the application.

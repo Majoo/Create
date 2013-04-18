@@ -4,7 +4,6 @@ package se.chalmers.tda367.group25.resumate.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.chalmers.tda367.group25.resumate.utils.Template;
 
 
 public class ResuMate {

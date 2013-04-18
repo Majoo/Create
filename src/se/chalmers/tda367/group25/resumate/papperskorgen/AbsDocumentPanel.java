@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.views;
+package se.chalmers.tda367.group25.resumate.papperskorgen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.InputMethodEvent;
@@ -7,8 +7,8 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import se.chalmers.tda367.group25.resumate.model.RMText;
-import se.chalmers.tda367.group25.resumate.utils.SectionType;
-import se.chalmers.tda367.group25.resumate.utils.Template;
+import se.chalmers.tda367.group25.resumate.model.SectionType;
+import se.chalmers.tda367.group25.resumate.model.Template;
 
 public abstract class AbsDocumentPanel extends JPanel {
 

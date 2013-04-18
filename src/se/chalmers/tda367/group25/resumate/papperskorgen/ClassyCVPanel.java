@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.views;
+package se.chalmers.tda367.group25.resumate.papperskorgen;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 import se.chalmers.tda367.group25.resumate.model.RMText;
-import se.chalmers.tda367.group25.resumate.utils.SectionType;
+import se.chalmers.tda367.group25.resumate.model.SectionType;
 
 //Only a test panel for the Classy CV.
 public class ClassyCVPanel extends AbsDocumentPanel {

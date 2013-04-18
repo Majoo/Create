@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.model;
+package se.chalmers.tda367.group25.resumate.controllers;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -7,7 +7,7 @@ import java.io.IOException;
 /*
  * This class handles IO-stuff.
  */
-public class IOHandler {
+public class IOController {
 
 	
 	/* 
@@ -21,6 +21,7 @@ public class IOHandler {
 		}catch(IOException e){}
 
 	}
+	
 	/*
 	 * Open file. Implementation taken from "Java Direkt".
 	 */

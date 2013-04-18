@@ -5,14 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import se.chalmers.tda367.group25.resumate.utils.SectionType;
-import se.chalmers.tda367.group25.resumate.utils.Template;
-import se.chalmers.tda367.group25.resumate.utils.TemplateToSections;
+import se.chalmers.tda367.group25.resumate.controllers.IOController;
 
 
 public class Document {
 	//helpers
-	private IOHandler ioH;
+	private IOController ioH;
 	private History history;
 	//other instance variables
 	private Template currentTempl;
@@ -30,8 +28,8 @@ public class Document {
 		//Set variables
 		this.currentTempl = templ;
 		history = new History();
-		ioH = new IOHandler();
-		rmI = new RMImage();
+		ioH = new IOController();
+		rmI = new RMImage(null);
 		//create sections according to Template.
 		createSections();
 	}

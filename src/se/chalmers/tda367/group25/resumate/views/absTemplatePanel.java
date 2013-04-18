@@ -7,21 +7,21 @@ import javax.swing.JPanel;
 
 import se.chalmers.tda367.group25.resumate.utils.Template;
 
-public abstract class absTemplatePanel extends JPanel {
+public abstract class AbsTemplatePanel extends JPanel {
 
-	private ResumateView View;
+	private DocumentView view;
 	
 	public void textUpdate(InputMethodEvent arg0, String text){
 		
-		if(View.equals(null)){
-			View = new ResumateView();
+		if(view.equals(null)){
+			view = new DocumentView();
 		}
-		View.textAction(arg0, text);
+		view.textAction(arg0, text);
 		
 	}
 	
 	public void changedTemplate(Template templateName){
-		View.changedTemplate(templateName);
+		view.changedTemplate(templateName);
 		//TODO: detta ger nullpointer, checka why today!
 	}
 	

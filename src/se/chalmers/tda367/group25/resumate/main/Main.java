@@ -1,6 +1,6 @@
 package se.chalmers.tda367.group25.resumate.main;
 
-import se.chalmers.tda367.group25.resumate.views.ResumateView;
+import se.chalmers.tda367.group25.resumate.views.DocumentView;
 
 /*
  * The Main class is used to start the application.
@@ -8,7 +8,7 @@ import se.chalmers.tda367.group25.resumate.views.ResumateView;
 public class Main {
 	
 	public static void main(String[] args) {
-		ResumateView panel = new ResumateView();
+		DocumentView panel = new DocumentView();
 		panel.setVisible(true);
 		panel.setLocationRelativeTo(null);
 	}

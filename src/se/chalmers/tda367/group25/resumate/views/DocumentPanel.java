@@ -11,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import se.chalmers.tda367.group25.resumate.utils.Template;
 
-public class DocumentPanel extends absTemplatePanel {
+public class DocumentPanel extends AbsTemplatePanel {
 
 	public DocumentPanel(){
 	

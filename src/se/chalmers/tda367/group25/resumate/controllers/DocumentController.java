@@ -9,14 +9,15 @@ import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Template;
 import se.chalmers.tda367.group25.resumate.utils.TemplateToSections;
+import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.ResumateView;
 
 public class DocumentController {
 
 	private Document doc;
-	private ResumateView view;
+	private DocumentView view;
 	
-	public DocumentController(ResumateView v){
+	public DocumentController(DocumentView v){
 		doc = new Document();
 		view = v;
 	}

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputMethodEvent;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
 import se.chalmers.tda367.group25.resumate.controllers.DocumentController;
 import se.chalmers.tda367.group25.resumate.controllers.TextController;
 import se.chalmers.tda367.group25.resumate.model.Document;
+import se.chalmers.tda367.group25.resumate.model.RMText;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Template;
 import se.chalmers.tda367.group25.resumate.utils.TemplateToPanel;
 
@@ -94,12 +97,17 @@ public class DocumentView extends JFrame {
 	public void textAction(InputMethodEvent arg0, String text) {
 		txc.updateText(arg0, text);
 	}
+	
+	public void textAction(ActionEvent arg0, String text) {
+		txc.updateText(arg0, text);
+	}
+	
 
 	public void changedTemplate(Template templateName) {
 		dc.changedTemplate(templateName);
 	}
 
-	public void updateTextInView(Template templateName, List<String> text) {
+	public void updateTextInView(Template templateName,Map <SectionType, RMText> text) {
 		documentPanel.updateTextInView(text);
 
 	}

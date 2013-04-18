@@ -3,19 +3,23 @@ package se.chalmers.tda367.group25.resumate.views;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import se.chalmers.tda367.group25.resumate.model.RMText;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Template;
 
 public class DocumentPanel extends AbsDocumentPanel {
-	
+
 	private DefaultPLPanel defaultPL = new DefaultPLPanel();
 	private DefaultCVPanel defaultCV = new DefaultCVPanel();
 	private ClassyCVPanel classyCV = new ClassyCVPanel();
+	private AbsDocumentPanel currentTemplate;
 
 	public DocumentPanel() {
 
@@ -25,6 +29,7 @@ public class DocumentPanel extends AbsDocumentPanel {
 		JButton btnClassyCVButton = new JButton("Elegant CV");
 
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		 currentTemplate = defaultCV;
 
 		// Position the components on the panel
 		SpringLayout pos = new SpringLayout();
@@ -77,6 +82,33 @@ public class DocumentPanel extends AbsDocumentPanel {
 		add(classyCV);
 		add(defaultPL);
 
+		JButton btnSparaText = new JButton("Spara text");
+		btnSparaText.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (currentTemplate.equals("defaultCV")) {
+					textUpdate(arg0, defaultCV.getWorkingExperience());
+					textUpdate(arg0, defaultCV.getPersonalInfo());
+					/*classyCV.textUpdate(arg0, defaultCV.getWorkingExperience());
+					defaultPL.textUpdate(arg0, defaultCV.getWorkingExperience());*/
+				} else if (currentTemplate.equals("classyCV")){
+					textUpdate(arg0, classyCV.getWorkingExperience());
+					textUpdate(arg0, classyCV.getPersonalInfo());
+					/*defaultCV.textUpdate(arg0, defaultCV.getWorkingExperience());
+					defaultPL.textUpdate(arg0, defaultCV.getWorkingExperience());*/
+				} else if(currentTemplate.equals("defaultPL")){
+					textUpdate(arg0, defaultPL.getPersonalInfo());
+					/*defaultCV.textUpdate(arg0, defaultCV.getWorkingExperience());
+					classyCV.textUpdate(arg0, defaultCV.getWorkingExperience());*/
+				}
+
+			}
+		});
+		pos.putConstraint(SpringLayout.NORTH, btnSparaText, 0,
+				SpringLayout.NORTH, btnDefaultCVButton);
+		pos.putConstraint(SpringLayout.EAST, btnSparaText, -6,
+				SpringLayout.WEST, btnDefaultCVButton);
+		add(btnSparaText);
+
 		// Giving the Default CV Button an ActionListener
 		btnDefaultCVButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -84,7 +116,7 @@ public class DocumentPanel extends AbsDocumentPanel {
 				defaultPL.setVisible(false);
 				classyCV.setVisible(false);
 				changedTemplate(Template.DEF_CV);
-
+				currentTemplate = defaultCV;
 			}
 		});
 		// Giving the Default PL Button an ActionListener
@@ -94,7 +126,7 @@ public class DocumentPanel extends AbsDocumentPanel {
 				defaultCV.setVisible(false);
 				classyCV.setVisible(false);
 				changedTemplate(Template.DEF_PL);
-
+				currentTemplate = defaultPL;
 			}
 		});
 		// Giving the Classy CV Button an ActionListener
@@ -104,18 +136,21 @@ public class DocumentPanel extends AbsDocumentPanel {
 				defaultCV.setVisible(false);
 				defaultPL.setVisible(false);
 				changedTemplate(Template.CLASSY_CV);
+				currentTemplate = classyCV;
 			}
 		});
 
 	}
 
-	@Override
-	public void updateTextInView(List<String> text) {
-	defaultPL.updateTextInView(text);
-	defaultCV.updateTextInView(text);
-	classyCV.updateTextInView(text);
-
-
+	public AbsDocumentPanel getCurrentTemplate() {
+		return currentTemplate;
 	}
 
+	@Override
+	public void updateTextInView(Map<SectionType, RMText> text) {
+		defaultPL.updateTextInView(text);
+		defaultCV.updateTextInView(text);
+		classyCV.updateTextInView(text);
+
+	}
 }

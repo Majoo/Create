@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -12,6 +13,9 @@ import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+
+import se.chalmers.tda367.group25.resumate.model.RMText;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 //Only a test panel for the Classy CV.
 public class ClassyCVPanel extends AbsDocumentPanel {
@@ -97,9 +101,9 @@ public class ClassyCVPanel extends AbsDocumentPanel {
 	}
 
 	@Override
-	public void updateTextInView(List <String> text) {
-		personalInfoText.setText(text.get(0));
-		workingExperienceText.setText(text.get(1));
+	public void updateTextInView(Map <SectionType, RMText> text) {
+		personalInfoText.setText(text.get(SectionType.PERSONAL_INFO).getText());
+		workingExperienceText.setText(text.get(SectionType.WORK_EXPERIENCE).getText());
 		
 	}
 }

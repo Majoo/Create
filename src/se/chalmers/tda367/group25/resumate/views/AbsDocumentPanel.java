@@ -1,10 +1,13 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.InputMethodEvent;
-import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 
+import se.chalmers.tda367.group25.resumate.model.RMText;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Template;
 
 public abstract class AbsDocumentPanel extends JPanel {
@@ -15,6 +18,10 @@ public abstract class AbsDocumentPanel extends JPanel {
 		view.textAction(arg0, text);
 	}
 
+	public void textUpdate(ActionEvent arg0, String text) {
+		view.textAction(arg0, text);
+	}
+	
 	public void setView(DocumentView view) {
 		this.view = view;
 	}
@@ -23,6 +30,6 @@ public abstract class AbsDocumentPanel extends JPanel {
 		view.changedTemplate(templateName);
 	}
 
-	public abstract void updateTextInView(List<String> text);
+	public abstract void updateTextInView(Map <SectionType, RMText> text);
 
 }

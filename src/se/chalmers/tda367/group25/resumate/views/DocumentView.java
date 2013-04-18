@@ -36,6 +36,7 @@ public class DocumentView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 580, 650);
 		setTitle("ResuMate");
+		setVisible(true);
 		documentPanel = new DocumentPanel();
 		setContentPane(documentPanel);
 		documentPanel.setView(this);
@@ -76,7 +77,7 @@ public class DocumentView extends JFrame {
 
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//new DocumentView(new Document());
+				new DocumentView(new Document());
 
 			}
 		});
@@ -107,7 +108,7 @@ public class DocumentView extends JFrame {
 		dc.changedTemplate(templateName);
 	}
 
-	public void updateTextInView(Template templateName,Map <SectionType, RMText> text) {
+	public void updateTextInView(Map <SectionType, RMText> text) {
 		documentPanel.updateTextInView(text);
 
 	}

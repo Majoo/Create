@@ -22,6 +22,6 @@ public class DocumentController {
 	
 	public void changedTemplate(Template templateName){
 		doc.changeTemplate(templateName);
-		view.updateTextInView(templateName, doc.getTexts());
+		view.updateTextInView(doc.getTexts());
 	}
 }

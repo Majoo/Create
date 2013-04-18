@@ -11,10 +11,9 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
 public class TextController {
 
 	private Document doc;
-	private RMText rmt = new RMText();
 	
-	public TextController(){
-		doc = new Document();
+	public TextController(Document doc){
+		this.doc = doc;
 	}
 	
 	//A method which updates the text stored in the documents sections.

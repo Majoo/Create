@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 //Only a test GUI
-public class DefaultPLPanel extends AbsTemplatePanel{
+public class DefaultPLPanel extends AbsDocumentPanel{
 
 	private JEditorPane personalInfoText;
 	private JLabel imageLabel;

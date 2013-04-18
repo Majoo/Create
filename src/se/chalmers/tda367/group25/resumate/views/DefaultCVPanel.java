@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 //Only a test panel for the Default CV.
-public class DefaultCVPanel extends AbsTemplatePanel {
+public class DefaultCVPanel extends AbsDocumentPanel {
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
 	

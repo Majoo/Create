@@ -1,5 +1,7 @@
 package se.chalmers.tda367.group25.resumate.model;
 
+import javax.swing.JOptionPane;
+
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 public class RMText extends Section{
@@ -22,6 +24,7 @@ public class RMText extends Section{
 	
 	public void setText(String input){
 		this.text = input;
+		JOptionPane.showMessageDialog(null, text);
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import se.chalmers.tda367.group25.resumate.controllers.DocumentController;
 import se.chalmers.tda367.group25.resumate.controllers.TextController;
+import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.utils.Template;
 import se.chalmers.tda367.group25.resumate.utils.TemplateToPanel;
 
@@ -22,24 +23,19 @@ public class DocumentView extends JFrame {
 	private TextController txc;
 	private DocumentController dc;
 
-	public DocumentView() {
-		DocumentPanel p = new DocumentPanel();
-		add(p);
-		setTitle("ResuMate - Untitled");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setVisible(true);
-		setBounds(100, 100, 580, 650);
-
+	public DocumentView(Document doc) {
 		// The controller
-		txc = new TextController();
-		dc = new DocumentController(this);
+
+		dc = new DocumentController(this, doc);
+		txc = new TextController(doc);
 
 		// Setting the frame
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 580, 650);
 		setTitle("ResuMate");
 		documentPanel = new DocumentPanel();
 		setContentPane(documentPanel);
+		documentPanel.setView(this);
 
 		// the menu bar
 		JMenuBar menuBar = new JMenuBar();
@@ -77,7 +73,7 @@ public class DocumentView extends JFrame {
 
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new DocumentView();
+				//new DocumentView(new Document());
 
 			}
 		});
@@ -104,9 +100,7 @@ public class DocumentView extends JFrame {
 	}
 
 	public void updateTextInView(Template templateName, List<String> text) {
-		AbsTemplatePanel TemplatePanelName = TemplateToPanel
-				.translate(templateName);
-		TemplatePanelName.updateTextInView(text);
+		documentPanel.updateTextInView(text);
 
 	}
 

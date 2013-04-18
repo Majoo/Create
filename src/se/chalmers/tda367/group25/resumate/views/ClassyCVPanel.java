@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 //Only a test panel for the Classy CV.
-public class ClassyCVPanel extends AbsTemplatePanel {
+public class ClassyCVPanel extends AbsDocumentPanel {
 
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;

@@ -5,13 +5,13 @@ import javax.swing.JPanel;
 import se.chalmers.tda367.group25.resumate.views.ClassyCVPanel;
 import se.chalmers.tda367.group25.resumate.views.DefaultCVPanel;
 import se.chalmers.tda367.group25.resumate.views.DefaultPLPanel;
-import se.chalmers.tda367.group25.resumate.views.AbsTemplatePanel;
+import se.chalmers.tda367.group25.resumate.views.AbsDocumentPanel;
 
 public class TemplateToPanel {
 
-	public static AbsTemplatePanel translate(Template temp) {
+	public static AbsDocumentPanel translate(Template temp) {
 
-		AbsTemplatePanel s;
+		AbsDocumentPanel s;
 		switch(temp){
 			
 		case DEF_CV: s = new DefaultCVPanel();

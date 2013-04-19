@@ -17,7 +17,7 @@ import se.chalmers.tda367.group25.resumate.model.RMText;
 import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.model.Template;
 
-public class DocumentView extends JFrame {
+/*public class DocumentView extends JFrame {
 
 	private DocumentPanel documentPanel;
 	private TextController txc;
@@ -109,4 +109,4 @@ public class DocumentView extends JFrame {
 
 	}
 
-}
+}*/

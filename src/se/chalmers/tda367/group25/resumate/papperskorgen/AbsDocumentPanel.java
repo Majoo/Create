@@ -10,7 +10,7 @@ import se.chalmers.tda367.group25.resumate.model.RMText;
 import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.model.Template;
 
-public abstract class AbsDocumentPanel extends JPanel {
+/*public abstract class AbsDocumentPanel extends JPanel {
 
 	protected DocumentView view;
 
@@ -32,4 +32,4 @@ public abstract class AbsDocumentPanel extends JPanel {
 
 	public abstract void updateTextInView(Map <SectionType, RMText> text);
 
-}
+}*/

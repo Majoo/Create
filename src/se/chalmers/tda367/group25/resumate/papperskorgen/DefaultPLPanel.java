@@ -18,7 +18,7 @@ import se.chalmers.tda367.group25.resumate.model.RMText;
 import se.chalmers.tda367.group25.resumate.model.SectionType;
 
 //Only a test GUI
-public class DefaultPLPanel extends AbsDocumentPanel{
+/*public class DefaultPLPanel extends AbsDocumentPanel{
 
 	private JEditorPane personalInfoText;
 	private JLabel imageLabel;
@@ -82,4 +82,4 @@ public class DefaultPLPanel extends AbsDocumentPanel{
 		personalInfoText.setText(text.get(SectionType.PERSONAL_INFO).getText());
 		
 	}
-}
+}*/

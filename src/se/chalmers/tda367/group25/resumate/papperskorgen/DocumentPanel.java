@@ -14,7 +14,7 @@ import se.chalmers.tda367.group25.resumate.model.RMText;
 import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.model.Template;
 
-public class DocumentPanel extends AbsDocumentPanel {
+/*public class DocumentPanel extends AbsDocumentPanel {
 
 	private DefaultPLPanel defaultPL = new DefaultPLPanel();
 	private DefaultCVPanel defaultCV = new DefaultCVPanel();
@@ -90,16 +90,16 @@ public class DocumentPanel extends AbsDocumentPanel {
 					textUpdate(arg0, defaultCV.getPersonalInfo());
 					/*classyCV.textUpdate(arg0, defaultCV.getWorkingExperience());
 					defaultPL.textUpdate(arg0, defaultCV.getWorkingExperience());*/
-				} else if (currentTemplate.equals("classyCV")){
+				/*} else if (currentTemplate.equals("classyCV")){
 					textUpdate(arg0, classyCV.getWorkingExperience());
 					textUpdate(arg0, classyCV.getPersonalInfo());
 					/*defaultCV.textUpdate(arg0, defaultCV.getWorkingExperience());
 					defaultPL.textUpdate(arg0, defaultCV.getWorkingExperience());*/
-				} else if(currentTemplate.equals("defaultPL")){
+				/*} else if(currentTemplate.equals("defaultPL")){
 					textUpdate(arg0, defaultPL.getPersonalInfo());
 					/*defaultCV.textUpdate(arg0, defaultCV.getWorkingExperience());
 					classyCV.textUpdate(arg0, defaultCV.getWorkingExperience());*/
-				}
+				/*}
 
 			}
 		});
@@ -153,4 +153,4 @@ public class DocumentPanel extends AbsDocumentPanel {
 		classyCV.updateTextInView(text);
 
 	}
-}
+}*/

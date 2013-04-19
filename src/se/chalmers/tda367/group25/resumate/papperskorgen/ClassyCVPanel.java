@@ -18,7 +18,7 @@ import se.chalmers.tda367.group25.resumate.model.RMText;
 import se.chalmers.tda367.group25.resumate.model.SectionType;
 
 //Only a test panel for the Classy CV.
-public class ClassyCVPanel extends AbsDocumentPanel {
+/*public class ClassyCVPanel extends AbsDocumentPanel {
 
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
@@ -106,4 +106,4 @@ public class ClassyCVPanel extends AbsDocumentPanel {
 		workingExperienceText.setText(text.get(SectionType.WORK_EXPERIENCE).getText());
 		
 	}
-}
+}*/

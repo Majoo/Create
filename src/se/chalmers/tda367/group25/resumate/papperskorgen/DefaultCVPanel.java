@@ -19,7 +19,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
 //Only a test panel for the Default CV.
-public class DefaultCVPanel extends AbsDocumentPanel {
+/*public class DefaultCVPanel extends AbsDocumentPanel {
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
 	
@@ -101,4 +101,4 @@ public class DefaultCVPanel extends AbsDocumentPanel {
 		workingExperienceText.setText(text.get(SectionType.WORK_EXPERIENCE).getText());
 		
 	}
-}
+}*/

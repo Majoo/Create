@@ -1,7 +1,8 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
+import java.beans.PropertyChangeEvent;
+
 import se.chalmers.tda367.group25.resumate.model.Document;
-import se.chalmers.tda367.group25.resumate.model.Template;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
 
@@ -29,6 +30,16 @@ public class MainController {
 	// public void createDocument(Template templ) {
 	// Document doc = new Document(templ);
 	// }
+
+	/**
+	 * Handles Events from further down in the hiearchy, eg. MainView.
+	 * 
+	 * @param e
+	 *            the Event to handle
+	 */
+	public void propertyChange(PropertyChangeEvent e) {
+
+	}
 
 	/**
 	 * Quit. Documents should be saved

@@ -1,21 +1,10 @@
-package se.chalmers.tda367.group25.resumate.controllers;
+package se.chalmers.tda367.group25.resumate.model;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import se.chalmers.tda367.group25.resumate.model.IOHandler;
-
-/*
- * This class handles IO-stuff.
- */
-public class IOController {
-
-	private IOHandler ioHandler;
-
-	public IOController() {
-
-	}
+public class IOHandler {
 
 	/**
 	 * Save to file.
@@ -61,4 +50,5 @@ public class IOController {
 	public void print() {
 
 	}
+
 }

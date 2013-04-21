@@ -1,6 +1,6 @@
 package se.chalmers.tda367.group25.resumate.model;
 
-/*
+/**
  * A SectionName decides what kind of information
  * the user should put in this Section,
  * and is used to generate appropriate tips, input prompts etc.

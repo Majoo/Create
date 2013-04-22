@@ -1,5 +1,30 @@
 package se.chalmers.tda367.group25.resumate.utils;
 
-public enum Labels {
+/**
+ * The Template enum is used to decide what kind 
+ */
 
+public enum Labels {
+TEXT_ENTERED,
+TEXTFONT_CHANGED,
+TEXTSTYLE_CHANGED,
+TEXTSIZE_CHANGED,
+FIND_TEXT,
+SAVE_DOC,
+SAVE_DOC_AS,
+PRINT_DOC,
+EXPORT_DOC,
+OPEN_DOC,
+NEW_DOC,
+RENAME_DOC,
+SEND_DOC,
+TEMPLATE_CHANGED,
+INSERT_IMAGE,
+CROP_IMAGE,
+RESIZE_IMAGE,
+REORIENT_IMAGE,
+UNDO_ACTION,
+REDO_ACTION,
+
+	
 }

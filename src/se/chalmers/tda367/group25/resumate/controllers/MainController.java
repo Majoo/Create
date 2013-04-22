@@ -14,30 +14,100 @@ public class MainController {
 
 	/* An application with the default document is created. */
 	public MainController() {
-		documentController = new DocumentController(new Document(),
-				new DocumentView());
+		documentController = new DocumentController();
 		ioController = new IOController();
 	}
 
-	// Isn't this unnecessary? New Documents should be created in
-	// DocumentController, or?
-	// /**
-	// * Creates a new Document with the specified Template.
-	// *
-	// * @param templ
-	// * the Template on which to base the Document
-	// */
-	// public void createDocument(Template templ) {
-	// Document doc = new Document(templ);
-	// }
-
 	/**
-	 * Handles Events from further down in the hiearchy, eg. MainView.
+	 * Handles Events from further down in the hiearchy, eg. MainView
+	 * by switching depending on which label the eventname is given.
 	 * 
 	 * @param e
 	 *            the Event to handle
 	 */
 	public void propertyChange(PropertyChangeEvent e) {
+		
+		switch(e.getPropertyName()){
+			case "TEXT_ENTERED":
+				
+				break;
+		
+			case "TEXTFONT_CHANGED":
+				
+				break;	
+			
+			case "TEXTSIZE_CHANGED":
+				
+				break;
+			
+			case "FIND_TEXT":
+				
+				break;
+			
+			case "SAVE_DOC":
+				
+				break;
+			
+			case "SAVE_DOC_AS":
+				
+				break;
+			
+			case "PRINT_DOC":
+				
+				break;
+			
+			case "EXPORT_DOC":
+				
+				break;
+			
+			case "OPEN_DOC":
+				
+				break;
+			
+			case "RENAME_DOC":
+				
+				break;
+				
+			case "NEW_DOC":
+				
+				break;
+				
+			case "SEND_DOC":
+				
+				break;
+				
+			case "TEMPLATE_CHANGED":
+				
+				break;
+				
+			case "INSERT_IMAGE":
+				
+				break;
+				
+			case "CROP_IMAGE":
+				
+				break;
+				
+			case "RESIZE_IMAGE":
+				
+				break;
+				
+			case "REORIENT_IMAGE":
+				
+				break;
+				
+			case "UNDO_ACTION":
+				
+				break;
+				
+			case "REDO_ACTION":
+				
+				break;
+
+			default: 
+				//Do nothing, never invoked
+				break;
+		}
 
 	}
 

@@ -21,7 +21,7 @@ public class DocumentController {
 	 * @param v
 	 *            the first DocumentView
 	 */
-	public DocumentController(Document doc, DocumentView v) {
+	public DocumentController() {
 	}
 
 	/**

@@ -1,7 +1,5 @@
 package se.chalmers.tda367.group25.resumate.model;
 
-import java.io.BufferedReader;
-import java.io.StringReader;
 import java.util.Scanner;
 
 /**
@@ -66,6 +64,13 @@ public class RMText {
 	}
 	
 	
+	/*
+	 * To ResuMate: The idea of having these as instance variables
+	 * and having accessors to them is to know which of these specializations
+	 * has been made on the current RMText and to be able to visualize it
+	 * later when one opens the document again. 
+	 */
+	
 	/**
 	 * Changes the font of the RMText depending  on the 
 	 * parameter font.
@@ -98,7 +103,28 @@ public class RMText {
 	public void changeStyle(String style){
 		this.style = style;
 	}
-
+	
+	/**
+	 * Returns the font of the RMText
+	 */
+	public String getFont(){
+		return this.font;
+	}
+	
+	/**
+	 * Returns the size of the RMText
+	 */
+	public int getSize(){
+		return this.size;
+	}
+	
+	/**
+	 * Returns the style of the RMText
+	 */
+	public String getStyle(){
+		return this.style;
+	}
+	
 	/**
 	 * Searches after the String input in variable text
 	 * 
@@ -107,15 +133,14 @@ public class RMText {
 	 */
 	public void findText(String input){
 		Scanner in = new Scanner(text);
-		//BufferedReader reader = new BufferedReader(new StringReader(input));
 		while(in.hasNext()){
 			if(in.findInLine(input) != null){
-				//return the index where the the text is found
+				/*return the index where the the text is found. 
+				Thus should not be a void, will be changed!*/
 			}
-		}
-		
-				           
-				          
+		}			           			          
 	}
+	
 
+	
 }

@@ -1,5 +1,9 @@
 package se.chalmers.tda367.group25.resumate.model;
 
+import java.io.BufferedReader;
+import java.io.StringReader;
+import java.util.Scanner;
+
 /**
  * A class which represents a section with text
  * of a template.
@@ -102,7 +106,16 @@ public class RMText {
 	 *            the String which is to be found
 	 */
 	public void findText(String input){
-		//TODO: Soya
+		Scanner in = new Scanner(text);
+		//BufferedReader reader = new BufferedReader(new StringReader(input));
+		while(in.hasNext()){
+			if(in.findInLine(input) != null){
+				//return the index where the the text is found
+			}
+		}
+		
+				           
+				          
 	}
 
 }

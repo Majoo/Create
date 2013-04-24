@@ -26,12 +26,14 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import GUI.Form;
+
 public class DannyForm extends JFrame {
 
 	private JTextArea informationTextArea;
 	//private JTextArea aboutmeTextArea;
-	//private String clipBoardData = "";
-	//private String currentFileDirectory = "";
+	private String clipBoardData = "";
+	private String currentFileDirectory = "";
 	private JPanel contentPane;
 
 	/**
@@ -89,19 +91,44 @@ public class DannyForm extends JFrame {
 		menuBar.add(mnEdit);
 		
 		JMenuItem mntmCut = new JMenuItem("Cut");
-		//cut code
+		mntmCut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//copy
+				clipBoardData = informationTextArea.getSelectedText();
+				StringSelection stringSelection = new StringSelection(clipBoardData);
+				Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+				clpbrd.setContents(stringSelection, null);
+				//delete
+				informationTextArea.replaceSelection("");
+			}
+		});
 		mnEdit.add(mntmCut);
 		
 		JMenuItem mntmCopy = new JMenuItem("Copy");
-		//copy code
+		mntmCopy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clipBoardData = informationTextArea.getSelectedText();
+				StringSelection stringSelection = new StringSelection(clipBoardData);
+				Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+				clpbrd.setContents(stringSelection, null);
+			}
+		});
 		mnEdit.add(mntmCopy);
 		
 		JMenuItem mntmPaste = new JMenuItem("Paste");
-		//paste code
+		mntmPaste.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				informationTextArea.append(clipBoardData);
+			}
+		});
 		mnEdit.add(mntmPaste);
 		
 		JMenuItem mntmSelectAll = new JMenuItem("Select All");
-		//select all code
+		mntmSelectAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				informationTextArea.selectAll();
+			}
+		});
 		mnEdit.add(mntmSelectAll);
 		
 		

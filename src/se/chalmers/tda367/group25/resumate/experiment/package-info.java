@@ -3,6 +3,7 @@
  */
 /**
  * A package with classes for experiment
+ * 
  * Name each class with your name first and then what it does, 
  * for example DannySaveDoc, PatriciaImageHandler
  */

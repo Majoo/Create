@@ -86,7 +86,34 @@ public class DannyForm extends JFrame {
 		mnFile.add(mntmNew);
 		
 		JMenuItem mntmOpen = new JMenuItem("Open");
-		//open code
+		mntmOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser opChooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
+				opChooser.setFileFilter(filter);
+				int returnVal = opChooser.showOpenDialog(null);
+				File chosenFile = opChooser.getSelectedFile();
+				
+				try{
+					if(returnVal == JFileChooser.APPROVE_OPTION){
+						BufferedReader br = new BufferedReader(new FileReader(chosenFile));
+						currentFileDirectory = ""; //when open new page, set the current to nothing
+						informationTextArea.setText("");
+						currentFileDirectory = chosenFile.getAbsolutePath(); //then set it to absolute path of chosen
+						
+						
+						String data;
+						while((data = br.readLine()) != null){
+							informationTextArea.append(data + "\n");
+						}
+						br.close();
+					}
+				}catch(IOException err){
+					JOptionPane.showMessageDialog(null,  "ERROR!");
+					
+				}
+			}
+		});
 		mnFile.add(mntmOpen);
 		
 		JMenuItem mntmSave = new JMenuItem("Save");

@@ -117,11 +117,82 @@ public class DannyForm extends JFrame {
 		mnFile.add(mntmOpen);
 		
 		JMenuItem mntmSave = new JMenuItem("Save");
-		//saving code
+		mntmSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if("".equals(currentFileDirectory)){
+					JFileChooser sdChooser = new JFileChooser();
+					FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
+					sdChooser.setFileFilter(filter);
+					int returnVal = sdChooser.showSaveDialog(null);
+					
+					try{
+						if(returnVal == JFileChooser.APPROVE_OPTION){
+							File directory = sdChooser.getCurrentDirectory();
+							String path = directory.getAbsolutePath();
+							String fileName = sdChooser.getSelectedFile().getName();
+							if(!fileName.contains("rsmt")){
+								fileName = fileName + ".rsmt";
+							}
+							BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "\\" + fileName), "UTF-8"));
+							currentFileDirectory = path + "\\" + fileName;
+							bw.write(informationTextArea.getText());
+							bw.close();
+						}
+						
+					}catch(IOException err){
+						JOptionPane.showMessageDialog(null,  "ERROR!");
+					}
+				
+				}else{
+					
+					try{
+						//if it is not empty, we'll save it into the current directory
+						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(currentFileDirectory), "UTF-8"));
+						bw.write(informationTextArea.getText());
+						bw.close();
+						
+					}catch(IOException err){
+						JOptionPane.showMessageDialog(null,  "ERROR!");
+					}
+					
+				}
+			
+			
+			
+			
+			
+			}
+		});
 		mnFile.add(mntmSave);
 		
 		JMenuItem mntmSaveAs = new JMenuItem("Save As...");
-		//save as code
+		mntmSaveAs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser sdChooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
+				sdChooser.setFileFilter(filter);
+				int returnVal = sdChooser.showSaveDialog(null);
+				
+				try {
+					
+					if(returnVal == JFileChooser.APPROVE_OPTION){
+						File directory = sdChooser.getCurrentDirectory();
+						String path = directory.getAbsolutePath();
+						String fileName = sdChooser.getSelectedFile().getName();
+						if(!fileName.contains("rsmt")){
+							fileName = fileName + ".rsmt";
+						}
+						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "\\" + fileName)));
+						currentFileDirectory = path + "\\" + fileName;
+						bw.write(informationTextArea.getText());
+						bw.close();
+					}
+				}catch(IOException err){
+					JOptionPane.showMessageDialog(null, "ERROR!");
+				}
+				
+			}
+		});
 		mnFile.add(mntmSaveAs);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");

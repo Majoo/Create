@@ -70,7 +70,19 @@ public class DannyForm extends JFrame {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmNew = new JMenuItem("New");
-		//new code
+		mntmNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int selection = JOptionPane.showConfirmDialog(null,
+						"Are you sure you want to create a new document?", null,
+						JOptionPane.YES_NO_OPTION);
+				if (selection == JOptionPane.YES_OPTION) {
+					DannyForm textEditor = new DannyForm();
+					textEditor.setLocationRelativeTo(null);
+					textEditor.setVisible(true);
+					currentFileDirectory = "";
+				}
+			}
+		});
 		mnFile.add(mntmNew);
 		
 		JMenuItem mntmOpen = new JMenuItem("Open");
@@ -84,6 +96,19 @@ public class DannyForm extends JFrame {
 		JMenuItem mntmSaveAs = new JMenuItem("Save As...");
 		//save as code
 		mnFile.add(mntmSaveAs);
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selection = JOptionPane.showConfirmDialog(null,
+						"Are you sure you want to exit?", null,
+						JOptionPane.YES_NO_OPTION);
+				if (selection == JOptionPane.YES_OPTION) {
+					System.exit(1);
+				}
+			}
+		});
+		mnFile.add(mntmExit);
 		
 		
 		//the edit

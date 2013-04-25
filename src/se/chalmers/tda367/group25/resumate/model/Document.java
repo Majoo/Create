@@ -1,7 +1,9 @@
 package se.chalmers.tda367.group25.resumate.model;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class Document {
@@ -11,13 +13,14 @@ public class Document {
 	private Map<SectionType, RMText> texts = new HashMap<SectionType, RMText>(3);
 	private RMImage rmI;
 
-	private History history;
+	private List <Document> history;
 
 	/**
 	 * Create a new Document using the default Template.
 	 */
 	public Document() {
 		new Document(Template.DEF_CV);
+		history = new LinkedList <Document>();
 	}
 
 	/**
@@ -29,7 +32,6 @@ public class Document {
 	public Document(Template templ) {
 		// Set variables
 		this.currentTempl = templ;
-		history = new History();
 		rmI = new RMImage(null);
 		// create Sections according to Template.
 		createSections();
@@ -93,7 +95,7 @@ public class Document {
 	 * @param image
 	 *            image to be used in the document
 	 */
-	public void setImage(Image image) {
+	public void setImage(BufferedImage image) {
 		this.rmI.setImage(image);
 	}
 

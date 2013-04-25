@@ -26,8 +26,6 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import GUI.Form;
-
 public class DannyForm extends JFrame {
 
 	private JTextArea informationTextArea;
@@ -79,37 +77,39 @@ public class DannyForm extends JFrame {
 					DannyForm textEditor = new DannyForm();
 					textEditor.setLocationRelativeTo(null);
 					textEditor.setVisible(true);
-					currentFileDirectory = "";
+					currentFileDirectory = "";			//a new file gets renamed to nothing
 				}
 			}
 		});
 		mnFile.add(mntmNew);
 		
+		//open document
 		JMenuItem mntmOpen = new JMenuItem("Open");
 		mntmOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser opChooser = new JFileChooser();
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
-				opChooser.setFileFilter(filter);
-				int returnVal = opChooser.showOpenDialog(null);
+				JFileChooser opChooser = new JFileChooser();		//file chooser
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt"); //a filter that only shows rsmt-files
+				opChooser.setFileFilter(filter);					//applying the file chooser with filter
+				
+				int returnVal = opChooser.showOpenDialog(null); 	
 				File chosenFile = opChooser.getSelectedFile();
 				
 				try{
 					if(returnVal == JFileChooser.APPROVE_OPTION){
 						BufferedReader br = new BufferedReader(new FileReader(chosenFile));
-						currentFileDirectory = ""; //when open new page, set the current to nothing
-						informationTextArea.setText("");
+						currentFileDirectory = ""; //when open new page, set the current file name to nothing
+						informationTextArea.setText(""); //empty the document workspace
 						currentFileDirectory = chosenFile.getAbsolutePath(); //then set it to absolute path of chosen
 						
 						
 						String data;
-						while((data = br.readLine()) != null){
-							informationTextArea.append(data + "\n");
+						while((data = br.readLine()) != null){				//whenever the buffered reader isn't null, 
+							informationTextArea.append(data + "\n");		//overwrite the text area with the opened data
 						}
 						br.close();
 					}
 				}catch(IOException err){
-					JOptionPane.showMessageDialog(null,  "ERROR!");
+					JOptionPane.showMessageDialog(null,  "ERROR!");			
 					
 				}
 			}
@@ -119,8 +119,8 @@ public class DannyForm extends JFrame {
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if("".equals(currentFileDirectory)){
-					JFileChooser sdChooser = new JFileChooser();
+				if("".equals(currentFileDirectory)){					//if the current file is a new one (untitled)
+					JFileChooser sdChooser = new JFileChooser();		//file chooser
 					FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
 					sdChooser.setFileFilter(filter);
 					int returnVal = sdChooser.showSaveDialog(null);
@@ -128,14 +128,14 @@ public class DannyForm extends JFrame {
 					try{
 						if(returnVal == JFileChooser.APPROVE_OPTION){
 							File directory = sdChooser.getCurrentDirectory();
-							String path = directory.getAbsolutePath();
-							String fileName = sdChooser.getSelectedFile().getName();
-							if(!fileName.contains("rsmt")){
-								fileName = fileName + ".rsmt";
+							String path = directory.getAbsolutePath();					//the absolute path of the directory, named "path"
+							String fileName = sdChooser.getSelectedFile().getName();	//get the file name
+							if(!fileName.contains("rsmt")){								//if the file name doesn't contain rsmt,
+								fileName = fileName + ".rsmt";							//name it a new name with .rsmt at the end
 							}
 							BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "\\" + fileName), "UTF-8"));
-							currentFileDirectory = path + "\\" + fileName;
-							bw.write(informationTextArea.getText());
+							currentFileDirectory = path + "\\" + fileName;				//the current file directory is now "theabsolutepath\\filename.rsmt"
+							bw.write(informationTextArea.getText());					//get the document text and write it over
 							bw.close();
 						}
 						
@@ -217,12 +217,11 @@ public class DannyForm extends JFrame {
 		mntmCut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//copy
-				clipBoardData = informationTextArea.getSelectedText();
-				StringSelection stringSelection = new StringSelection(clipBoardData);
+				clipBoardData = informationTextArea.getSelectedText();					//save the text in a clipboard
+				StringSelection stringSelection = new StringSelection(clipBoardData);	
 				Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
 				clpbrd.setContents(stringSelection, null);
-				//delete
-				informationTextArea.replaceSelection("");
+				informationTextArea.replaceSelection("");								//erase the workplace
 			}
 		});
 		mnEdit.add(mntmCut);
@@ -230,10 +229,10 @@ public class DannyForm extends JFrame {
 		JMenuItem mntmCopy = new JMenuItem("Copy");
 		mntmCopy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				clipBoardData = informationTextArea.getSelectedText();
+				clipBoardData = informationTextArea.getSelectedText();					
 				StringSelection stringSelection = new StringSelection(clipBoardData);
 				Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-				clpbrd.setContents(stringSelection, null);
+				clpbrd.setContents(stringSelection, null);								//the selected string copies in the clipboard
 			}
 		});
 		mnEdit.add(mntmCopy);

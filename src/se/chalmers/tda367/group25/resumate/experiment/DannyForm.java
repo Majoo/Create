@@ -26,8 +26,6 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import GUI.Form;
-
 public class DannyForm extends JFrame {
 
 	private JTextArea informationTextArea;

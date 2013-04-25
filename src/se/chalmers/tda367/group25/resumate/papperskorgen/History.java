@@ -1,7 +1,10 @@
-package se.chalmers.tda367.group25.resumate.model;
+package se.chalmers.tda367.group25.resumate.papperskorgen;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import se.chalmers.tda367.group25.resumate.model.Document;
 
 public class History {
 
@@ -10,7 +13,7 @@ public class History {
 	private List<Document> versions;
 
 	public History() {
-		versions = new ArrayList<Document>(3); // One example of how to limit
+		versions = new LinkedList<Document>(); // One example of how to limit
 												// the size of the List
 	}
 

@@ -3,6 +3,7 @@ package se.chalmers.tda367.group25.resumate.controllers;
 import java.beans.PropertyChangeEvent;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
+import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
 
@@ -28,79 +29,79 @@ public class MainController {
 	public void propertyChange(PropertyChangeEvent e) {
 		
 		switch(e.getPropertyName()){
-			case "TEXT_ENTERED":
+			case Labels.TEXT_ENTERED:
 				
 				break;
 		
-			case "TEXTFONT_CHANGED":
+			case Labels.TEXTFONT_CHANGED:
 				
 				break;	
 			
-			case "TEXTSIZE_CHANGED":
+			case Labels.TEXTSIZE_CHANGED:
 				
 				break;
 			
-			case "FIND_TEXT":
+			case Labels.FIND_TEXT:
 				
 				break;
 			
-			case "SAVE_DOC":
+			case Labels.SAVE_DOC:
 				
 				break;
 			
-			case "SAVE_DOC_AS":
+			case  Labels.SAVE_DOC_AS:
 				
 				break;
 			
-			case "PRINT_DOC":
+			case  Labels.PRINT_DOC:
 				
 				break;
 			
-			case "EXPORT_DOC":
+			case  Labels.EXPORT_DOC:
 				
 				break;
 			
-			case "OPEN_DOC":
+			case  Labels.OPEN_DOC:
 				
 				break;
 			
-			case "RENAME_DOC":
+			case  Labels.RENAME_DOC:
 				
 				break;
 				
-			case "NEW_DOC":
+			case  Labels.NEW_DOC:
 				
 				break;
 				
-			case "SEND_DOC":
+			case  Labels.SEND_DOC:
 				
 				break;
 				
-			case "TEMPLATE_CHANGED":
+			case  Labels.TEMPLATE_CHANGED:
 				
 				break;
 				
-			case "INSERT_IMAGE":
+			case  Labels.INSERT_IMAGE:
 				
 				break;
 				
-			case "CROP_IMAGE":
+			case  Labels.CROP_IMAGE:
 				
 				break;
 				
-			case "RESIZE_IMAGE":
+			case  Labels.RESIZE_IMAGE:
 				
 				break;
 				
-			case "REORIENT_IMAGE":
+			case  Labels.REORIENT_IMAGE:
 				
 				break;
 				
-			case "UNDO_ACTION":
+			case  Labels.UNDO_ACTION:
 				
 				break;
 				
-			case "REDO_ACTION":
+			case  Labels.REDO_ACTION:
 				
 				break;
 

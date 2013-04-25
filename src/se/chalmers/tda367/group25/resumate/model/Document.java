@@ -1,6 +1,7 @@
 package se.chalmers.tda367.group25.resumate.model;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -93,7 +94,7 @@ public class Document {
 	 * @param image
 	 *            image to be used in the document
 	 */
-	public void setImage(Image image) {
+	public void setImage(BufferedImage image) {
 		this.rmI.setImage(image);
 	}
 

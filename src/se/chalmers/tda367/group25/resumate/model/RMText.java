@@ -125,22 +125,4 @@ public class RMText {
 		return this.style;
 	}
 	
-	/**
-	 * Searches after the String input in variable text
-	 * 
-	 * @param input
-	 *            the String which is to be found
-	 */
-	public void findText(String input){
-		Scanner in = new Scanner(text);
-		while(in.hasNext()){
-			if(in.findInLine(input) != null){
-				/*return the index where the the text is found. 
-				Thus should not be a void, will be changed!*/
-			}
-		}			           			          
-	}
-	
-
-	
 }

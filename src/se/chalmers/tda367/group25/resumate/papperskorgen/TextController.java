@@ -6,7 +6,7 @@ import java.awt.event.InputMethodEvent;
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.SectionType;
 
-public class TextController {
+/*public class TextController {
 
 	private Document doc;
 
@@ -35,4 +35,4 @@ public class TextController {
 
 	}
 
-}
+}*/

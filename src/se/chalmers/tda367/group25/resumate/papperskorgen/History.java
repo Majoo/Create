@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
-
+/*
 public class History {
 
 	// Holds previous versions of the Document to which a given instance of
@@ -24,7 +24,7 @@ public class History {
 	 * i.e. it should be cleaned once in a while. Maybe an if Statement removing
 	 * the oldest version of a Document if the List is already full?
 	 */
-	public void addVersion() {
+	/*public void addVersion() {
 
 	}
 
@@ -34,8 +34,8 @@ public class History {
 	 * 
 	 * @return the previous version of a Document
 	 */
-	public Document getPrevious() {
+	/*public Document getPrevious() {
 		return null;
 	}
 
-}
+}*/

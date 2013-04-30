@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.JComponent;
+
 public class IOHandler {
 
 	/**
@@ -49,6 +51,13 @@ public class IOHandler {
 	 */
 	public void print() {
 
+	}
+	
+	/**
+	 * Exports document as PDF.
+	 */
+	public void exportAsPDF(JComponent jc){
+		
 	}
 
 }

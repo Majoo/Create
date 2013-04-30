@@ -17,6 +17,8 @@ import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class PDFExp extends JFrame {
 
@@ -24,6 +26,7 @@ public class PDFExp extends JFrame {
 	private JEditorPane editorPane;
 	private JEditorPane editorPane_1;
 	private JPanel panel_1;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -46,7 +49,7 @@ public class PDFExp extends JFrame {
 	 */
 	public PDFExp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 577, 506);
+		setBounds(0, 0, 577, 506);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -79,11 +82,19 @@ public class PDFExp extends JFrame {
 		panel_1.add(editorPane_1, BorderLayout.SOUTH);
 		editorPane = new JEditorPane();
 		panel_1.add(editorPane, BorderLayout.NORTH);
+
+		lblNewLabel = new JLabel();
+		lblNewLabel
+				.setIcon(new ImageIcon(
+						PDFExp.class
+								.getResource("/javax/swing/plaf/metal/icons/ocean/warning.png")));
+		panel_1.add(lblNewLabel, BorderLayout.CENTER);
 	}
 
 	/**
 	 * Creates PDF. The boolean shapes determines whether to save the text as an
-	 * image or text in the created PDF
+	 * image or text in the created PDF. Original taken from
+	 * http://www.javaworld.com/javaworld/jw-12-2006/jw-1209-swing.html
 	 * 
 	 * @param shapes
 	 *            if shapes is true, the text is saved as an image, if false, as
@@ -93,6 +104,8 @@ public class PDFExp extends JFrame {
 		Document document = new Document();
 		try {
 			PdfWriter writer;
+			int x = panel_1.getWidth();
+			int y = panel_1.getHeight();
 			if (shapes)
 				writer = PdfWriter.getInstance(document, new FileOutputStream(
 						"my_jtable_shapes.pdf"));
@@ -101,12 +114,12 @@ public class PDFExp extends JFrame {
 						"my_jtable_fonts.pdf"));
 			document.open();
 			PdfContentByte cb = writer.getDirectContent();
-			PdfTemplate tp = cb.createTemplate(500, 500);
+			PdfTemplate tp = cb.createTemplate(x, y);
 			Graphics2D g2;
 			if (shapes)
-				g2 = tp.createGraphicsShapes(500, 500);
+				g2 = tp.createGraphicsShapes(x, y);
 			else
-				g2 = tp.createGraphics(500, 500);
+				g2 = tp.createGraphics(x, y);
 			panel_1.print(g2);
 			g2.dispose();
 			cb.addTemplate(tp, 30, 300);
@@ -115,5 +128,4 @@ public class PDFExp extends JFrame {
 		}
 		document.close();
 	}
-
 }

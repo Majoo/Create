@@ -1,13 +1,16 @@
-package se.chalmers.tda367.group25.resumate.experiment3;
+package se.chalmers.tda367.group25.resumate.experiment;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
+import java.io.File;
 import java.io.FileOutputStream;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 
@@ -20,7 +23,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
-public class PDFExp extends JFrame {
+public class LaszloPDFExperimentation extends JFrame {
 
 	private JPanel contentPane;
 	private JEditorPane editorPane;
@@ -35,7 +38,7 @@ public class PDFExp extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PDFExp frame = new PDFExp();
+					LaszloPDFExperimentation frame = new LaszloPDFExperimentation();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +50,7 @@ public class PDFExp extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PDFExp() {
+	public LaszloPDFExperimentation() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 577, 506);
 		contentPane = new JPanel();
@@ -86,7 +89,7 @@ public class PDFExp extends JFrame {
 		lblNewLabel = new JLabel();
 		lblNewLabel
 				.setIcon(new ImageIcon(
-						PDFExp.class
+						LaszloPDFExperimentation.class
 								.getResource("/javax/swing/plaf/metal/icons/ocean/warning.png")));
 		panel_1.add(lblNewLabel, BorderLayout.CENTER);
 	}
@@ -100,32 +103,51 @@ public class PDFExp extends JFrame {
 	 *            if shapes is true, the text is saved as an image, if false, as
 	 *            text
 	 */
+	@SuppressWarnings("deprecation")
 	public void createPdf(boolean shapes) {
-		Document document = new Document();
-		try {
-			PdfWriter writer;
-			int x = panel_1.getWidth();
-			int y = panel_1.getHeight();
-			if (shapes)
-				writer = PdfWriter.getInstance(document, new FileOutputStream(
-						"my_jtable_shapes.pdf"));
-			else
-				writer = PdfWriter.getInstance(document, new FileOutputStream(
-						"my_jtable_fonts.pdf"));
-			document.open();
-			PdfContentByte cb = writer.getDirectContent();
-			PdfTemplate tp = cb.createTemplate(x, y);
-			Graphics2D g2;
-			if (shapes)
-				g2 = tp.createGraphicsShapes(x, y);
-			else
-				g2 = tp.createGraphics(x, y);
-			panel_1.print(g2);
-			g2.dispose();
-			cb.addTemplate(tp, 30, 300);
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF",
+				"pdf");
+		chooser.setFileFilter(filter);
+		int returnVal = chooser.showSaveDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			System.out.println("hej");
+			File directory = chooser.getCurrentDirectory();
+			String filePath = directory.getPath()
+					+ chooser.getSelectedFile().getName();
+			Document document = new Document();
+			try {
+				PdfWriter writer;
+				int x = panel_1.getWidth();
+				int y = panel_1.getHeight();
+				String name;
+				if (shapes) {
+					System.out.println("då");
+					name = filePath + "_shapes.pdf";
+					writer = PdfWriter.getInstance(document,
+							new FileOutputStream(name));
+				} else {
+					System.out.println("då");
+					name = filePath + "_fonts.pdf";
+					writer = PdfWriter.getInstance(document,
+							new FileOutputStream(name));
+				}
+				document.open();
+				PdfContentByte cb = writer.getDirectContent();
+				PdfTemplate tp = cb.createTemplate(x, y);
+				Graphics2D g2;
+				if (shapes)
+					g2 = tp.createGraphicsShapes(x, y);
+				else
+					g2 = tp.createGraphics(x, y);
+				panel_1.print(g2);
+				g2.dispose();
+				cb.addTemplate(tp, 30, 300);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+			document.close();
 		}
-		document.close();
 	}
 }

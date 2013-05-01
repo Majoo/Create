@@ -106,53 +106,49 @@ public class LaszloPDFExperimentation extends JFrame {
 	 */
 	@SuppressWarnings("deprecation")
 	public void createPdf(boolean shapes) {
+
+		// Create and open a new File Chooser that only shows PDF-files.
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF",
 				"pdf");
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showSaveDialog(null);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			System.out.println(chooser.getCurrentDirectory().getPath());
-			File directory = chooser.getCurrentDirectory();
-			String filePathAndName = directory.getPath() + "\\"
-					+ chooser.getSelectedFile().getName();
-			try {
+		
+		try {
+			
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				String filePathAndName = chooser.getCurrentDirectory()
+						.getPath() + "\\" + chooser.getSelectedFile().getName();
 				Document document = new Document();
 				PdfWriter writer;
-				int x = panel_1.getWidth();
-				int y = panel_1.getHeight();
+				int panelWidth = panel_1.getWidth();
+				int panelHeight = panel_1.getHeight();
 				String name;
 				if (shapes) {
-					System.out.println("då");
 					name = filePathAndName + "_shapes.pdf";
 					writer = PdfWriter.getInstance(document,
 							new FileOutputStream(new File(name)));
 				} else {
-					System.out.println("då");
 					name = filePathAndName + "_fonts.pdf";
 					writer = PdfWriter.getInstance(document,
 							new FileOutputStream(new File(name)));
 				}
 				document.open();
 				PdfContentByte cb = writer.getDirectContent();
-				PdfTemplate tp = cb.createTemplate(x, y);
+				PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
 				Graphics2D g2;
 				if (shapes)
-					g2 = tp.createGraphicsShapes(x, y);
+					g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
 				else
-					g2 = tp.createGraphics(x, y);
+					g2 = tp.createGraphics(panelWidth, panelHeight);
 				panel_1.print(g2);
 				g2.dispose();
 				cb.addTemplate(tp, 30, 300);
 				document.close();
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
 			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
-	}
-
-	public void createPDF() {
 
 	}
 }

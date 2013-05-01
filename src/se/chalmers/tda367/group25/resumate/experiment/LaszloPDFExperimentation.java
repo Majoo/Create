@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
+@SuppressWarnings("serial")
 public class LaszloPDFExperimentation extends JFrame {
 
 	private JPanel contentPane;
@@ -112,26 +113,26 @@ public class LaszloPDFExperimentation extends JFrame {
 		int returnVal = chooser.showSaveDialog(null);
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			System.out.println("hej");
+			System.out.println(chooser.getCurrentDirectory().getPath());
 			File directory = chooser.getCurrentDirectory();
-			String filePath = directory.getPath()
+			String filePathAndName = directory.getPath() + "\\"
 					+ chooser.getSelectedFile().getName();
-			Document document = new Document();
 			try {
+				Document document = new Document();
 				PdfWriter writer;
 				int x = panel_1.getWidth();
 				int y = panel_1.getHeight();
 				String name;
 				if (shapes) {
 					System.out.println("då");
-					name = filePath + "_shapes.pdf";
+					name = filePathAndName + "_shapes.pdf";
 					writer = PdfWriter.getInstance(document,
-							new FileOutputStream(name));
+							new FileOutputStream(new File(name)));
 				} else {
 					System.out.println("då");
-					name = filePath + "_fonts.pdf";
+					name = filePathAndName + "_fonts.pdf";
 					writer = PdfWriter.getInstance(document,
-							new FileOutputStream(name));
+							new FileOutputStream(new File(name)));
 				}
 				document.open();
 				PdfContentByte cb = writer.getDirectContent();
@@ -144,10 +145,14 @@ public class LaszloPDFExperimentation extends JFrame {
 				panel_1.print(g2);
 				g2.dispose();
 				cb.addTemplate(tp, 30, 300);
+				document.close();
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
-			document.close();
 		}
+	}
+
+	public void createPDF() {
+
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import javax.swing.JFileChooser;
@@ -15,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -65,7 +67,7 @@ public class LaszloPDFExperimentation extends JFrame {
 		JButton btnExportToPdf = new JButton("Export to PDF");
 		btnExportToPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				createPdf(false);
+				savePdf(false);
 			}
 		});
 		panel.add(btnExportToPdf);
@@ -73,7 +75,7 @@ public class LaszloPDFExperimentation extends JFrame {
 		JButton btnExportToPdfShapes = new JButton("Export to PDF with Shapes");
 		btnExportToPdfShapes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				createPdf(true);
+				savePdf(true);
 			}
 		});
 		panel.add(btnExportToPdfShapes);
@@ -103,52 +105,72 @@ public class LaszloPDFExperimentation extends JFrame {
 	 * @param shapes
 	 *            if shapes is true, the text is saved as an image, if false, as
 	 *            text
+	 * @param filePathAndName
+	 *            the String used to decide where the PDF file will be saved and
+	 *            what its name will be
+	 * @throws DocumentException
+	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("deprecation")
-	public void createPdf(boolean shapes) {
+	public void createPdf(boolean shapes, String filePathAndName)
+			throws FileNotFoundException, DocumentException {
 
-		// Create and open a new File Chooser that only shows PDF-files.
+		Document document = new Document();
+		PdfWriter writer;
+
+		String fileName;
+		if (shapes) {
+			fileName = filePathAndName + "_shapes.pdf";
+			writer = PdfWriter.getInstance(document, new FileOutputStream(
+					new File(fileName)));
+		} else {
+			fileName = filePathAndName + "_fonts.pdf";
+			writer = PdfWriter.getInstance(document, new FileOutputStream(
+					new File(fileName)));
+		}
+		
+		int panelWidth = panel_1.getWidth();
+		int panelHeight = panel_1.getHeight();
+		
+		document.open();
+		PdfContentByte cb = writer.getDirectContent();
+		PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
+		Graphics2D g2;
+		if (shapes)
+			g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
+		else
+			g2 = tp.createGraphics(panelWidth, panelHeight);
+		panel_1.print(g2);
+		g2.dispose();
+		cb.addTemplate(tp, 30, 300);
+		document.close();
+	}
+
+	/**
+	 * Decides the path and name of the PDF, and then calls createPdf() to actually create the document.
+	 * 
+	 * @param shapes
+	 *            if shapes is true, the text is saved as an image, if false, as
+	 *            text
+	 */
+	public void savePdf(boolean shapes) {
+
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF",
 				"pdf");
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showSaveDialog(null);
-		
-		try {
-			
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				String filePathAndName = chooser.getCurrentDirectory()
-						.getPath() + "\\" + chooser.getSelectedFile().getName();
-				Document document = new Document();
-				PdfWriter writer;
-				int panelWidth = panel_1.getWidth();
-				int panelHeight = panel_1.getHeight();
-				String name;
-				if (shapes) {
-					name = filePathAndName + "_shapes.pdf";
-					writer = PdfWriter.getInstance(document,
-							new FileOutputStream(new File(name)));
-				} else {
-					name = filePathAndName + "_fonts.pdf";
-					writer = PdfWriter.getInstance(document,
-							new FileOutputStream(new File(name)));
-				}
-				document.open();
-				PdfContentByte cb = writer.getDirectContent();
-				PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
-				Graphics2D g2;
-				if (shapes)
-					g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
-				else
-					g2 = tp.createGraphics(panelWidth, panelHeight);
-				panel_1.print(g2);
-				g2.dispose();
-				cb.addTemplate(tp, 30, 300);
-				document.close();
-			}
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
+		String filePathAndName = chooser.getCurrentDirectory().getPath() + "\\"
+				+ chooser.getSelectedFile().getName();
 
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			try {
+				createPdf(shapes, filePathAndName);
+			} catch (FileNotFoundException e) {
+				System.err.println(e.getMessage());
+			} catch (DocumentException e) {
+				System.err.println(e.getMessage());
+			}
+		}
 	}
 }

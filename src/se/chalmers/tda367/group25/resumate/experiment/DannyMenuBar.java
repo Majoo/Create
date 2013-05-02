@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -27,7 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
-public class DannyMenuBar {
+public class DannyMenuBar extends JFrame {
 	
 	private JTextArea informationTextArea;
 	//private JTextArea aboutmeTextArea;
@@ -36,7 +37,7 @@ public class DannyMenuBar {
 	private JPanel contentPane;
 
 	
-	DannyMenuBar(){
+	public DannyMenuBar(){
 		
 		//create menubar
 				JMenuBar menuBar = new JMenuBar();

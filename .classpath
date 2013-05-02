@@ -9,5 +9,8 @@
 	<classpathentry kind="lib" path="C:/Users/Laszba/Development/iText/itextpdf-5.4.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Laszba/Development/iText/itextpdf-5.4.1-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Laszba/Development/iText/itextpdf-5.4.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lam/Documents/GitHub/Create/iText/itext-pdfa-5.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lam/Documents/GitHub/Create/iText/itext-pdfa-5.4.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lam/Documents/GitHub/Create/iText/itext-pdfa-5.4.1-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

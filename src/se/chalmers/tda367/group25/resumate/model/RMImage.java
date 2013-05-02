@@ -21,14 +21,16 @@ public class RMImage {
 	//-----Constructors-----//
 
 	/*
-	 * Creates an RMImage with default BufferedImage
+	 * Creates an RMImage with default BufferedImage. 
+	 * Tar vi bort sen!!
 	 */
 	public RMImage(){
 		try{
-			origImg = imIO.read(new File("C:\\Users\\Patricia\\workspace\\Images\\resources\\RMImageTestbild.jpg"));
+			this.origImg = imIO.read(new File("C:\\Users\\Patricia\\workspace\\Images\\resources\\RMImageTestbild.jpg"));
 		}catch(IOException e){
 			System.out.println("Kunde inte ladda in bilden från fil till rmimage");
 		}
+		this.curImg = this.origImg;
 		this.secType = SectionType.IMAGE;
 	}
 

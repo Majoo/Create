@@ -1,78 +1,150 @@
 package se.chalmers.tda367.group25.resumate.views;
 
-import java.awt.Container;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.swing.JEditorPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
 
+
+/**
+ * A class which represents the core of a Template. It holds the
+ * methods for accesing the text in the different fields, for 
+ * styling the text in the textareas and basic functions involving writing.
+ * @author Sara
+ *
+ */
 public abstract class TemplatePanel extends JPanel {
 
-	private Container PersonalInfoText;
-	private Container  WorkingExperienceText;
-	private Container  OtherText;
-	private Container imageContainer;
+	private JEditorPane PersonalInfoText;
+	private JEditorPane WorkingExperienceText;
+	private JEditorPane OtherText;
+	private JEditorPane imageContainer;
 	private PropertyChangeSupport pcs;
 	private Boolean isUnderlined = false;
 	
 	/**
 	 * Create the panel.
 	 */
-	public TemplatePanel(Container pIT, Container wET, Container oT) {
+	public TemplatePanel(JEditorPane pIT, JEditorPane wET, JEditorPane oT) {
 		this.PersonalInfoText = pIT;
 		this.WorkingExperienceText = wET;
 		this.OtherText = oT;
 	}
 
 	/**
-	 * Returns the text in the personalInfo JEditorPane.
+	 * Returns the text of the personal information-textarea.
 	 * 
-	 * @return String in the JEditorPane for personal info
+	 * @return String in the JEditorPane for personal information
 	 */
 	public String getPersonalInfo() {
-		return null;
+		return PersonalInfoText.getText();
 	}
 
 	/**
-	 * Returns the text in the workingExperience JEditorPane.
+	 * Returns the text of the working experience-textarea.
 	 * 
 	 * @return String in the JEditorPane for working experience
 	 */
 	public String getWorkingExperienceText() {
-		return null;
-	}
-
-	public String getOtherText() {
-		return null;
+		return WorkingExperienceText.getText();
 	}
 
 	/**
-	 * Searches after the text input in variable text
-	 * If it is found then the current textcontainer will mark this text.
+	 * Returns the text of the (other) textarea.
+	 * 
+	 * @return String in the JEditorPane for working experience
+	 */
+	public String getOtherText() {
+		return OtherText.getText();
+	}
+	
+	/**
+	 * Changes the font of the specific textarea
 	 * 
 	 * @param section
 	 * 			the JEditorPane whose contents is to be customized
 	 * 
-	 * @param input
-	 *			the String which is to be found            
+	 * @param font
+	 * 			the font by which the section is to be customized with
 	 */
-	public void findText(JEditorPane section, String input){
-		//TODO: Change!
-		Scanner in = new Scanner(section.getText());
-		while(in.hasNext()){
-			if(in.findInLine(input) != null){
-				int startIndex = in.findInLine(input).indexOf(input);
-				int endIndex = in.findInLine(input).lastIndexOf(input, startIndex);	
-				section.setSelectionStart(startIndex);
-				section.setSelectionEnd(endIndex);
-			}
-		}			           			          
+	
+	public void changeFont(JEditorPane section, String font){
+		Font currentFont = section.getFont();
+		section.setFont(new Font(font, currentFont.getStyle(), currentFont.getSize()));
+		//Inform to RMtext via pcs
+		if(isUnderlined){
+			changeStyle(section,"U");
+		}
 	}
 	
+	/**
+	 * Changes the size of the specific textarea
+	 * 
+	 * @param section
+	 * 			the JEditorPane whose contents is to be customized
+	 * @param size
+	 * 			the size by which the section is to be customized with
+	 */
+	public void changeSize(JEditorPane section, int size){
+		Font currentFont = section.getFont();
+		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
+		//Inform to RMtext via pcs
+	}
+
+	/**
+	 * Changes the style of the specific textarea
+	 * Checks wether the current style is the one which has been chosen.
+	 * If so then it will remove the specified style.
+	 * 
+	 * @param section
+	 * 			the JEditorPane whose contents is to be customized
+	 * @param style
+	 * 			the style by which the section is to be customized with
+	 */
+	
+	public void changeStyle(JEditorPane section, String style){
+		Font currentFont = section.getFont();
+		Font font = currentFont;
+		
+		switch(style){
+		case "B":
+			if(!currentFont.isBold()){	
+				font = currentFont.deriveFont(currentFont.getStyle() + Font.BOLD);
+			}else{
+				font = currentFont.deriveFont(currentFont.getStyle() & ~Font.BOLD);
+			}
+			break;
+		
+		case "I":	
+			if(!currentFont.isItalic()){	
+				font = currentFont.deriveFont(currentFont.getStyle() + Font.ITALIC);
+			}else{
+				font = currentFont.deriveFont(currentFont.getStyle() & ~Font.ITALIC);
+			}
+			break;
+		
+		case "U":
+			Map  <TextAttribute, Integer> attributes = new HashMap  <TextAttribute, Integer>();
+			if(isUnderlined){
+		        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		       
+			} else {
+				attributes.put(TextAttribute.UNDERLINE, -1);
+			}
+			isUnderlined = !isUnderlined;
+	        font = currentFont.deriveFont(attributes);	
+		}
+		section.setFont(font);	
+		//Inform to RMtext via pcs
+	}
 	
 	/**
 	 * Replaces the a text with another
@@ -88,84 +160,62 @@ public abstract class TemplatePanel extends JPanel {
 	 */
 	public void replaceText(String replace, String replaceWith, JEditorPane section){
 		section.setText(section.getText().replaceAll(replace, replaceWith));
+		//Inform to RMtext via pcs
 	}
 	
 	/**
-	 * Changes the font of the specific textarea
+	 * Searches after the String input in variable text. 
+	 * If it is found then the current textcontainer will mark this text.
 	 * 
-	 * @param section
-	 * 			the JEditorPane whose contents is to be customized
-	 * 
-	 * @param font
-	 * 			the font by which the section is to be customized with
+	 * @param input
+	 *            the String which is to be found
 	 */
-	
-	public void changeFont(JEditorPane section, String font){
-		Font f = section.getFont();
-		section.setFont(new Font(font, f.getStyle(), f.getSize()));	
-	}
-	
-	/**
-	 * Changes the size of the specific textarea
-	 * 
-	 * @param section
-	 * 			the JEditorPane whose contents is to be customized
-	 * @param size
-	 * 			the size by which the section is to be customized with
-	 */
-	public void changeSize(JEditorPane section, int size){
-		Font f = section.getFont();
-		section.setFont(new Font(f.getFontName(), f.getStyle(), size));	
-	}
+	public void findText(String input, JEditorPane section) {
 
-	/**
-	 * Changes the size of the specific textarea
-	 * Checks wether the current style is the one which has been chosen.
-	 * If so then it will remove the specified style and become plain.
-	 * 
-	 * @param section
-	 * 			the JEditorPane whose contents is to be customized
-	 * @param style
-	 * 			the style by which the section is to be customized with
-	 */
-	
-	public void changeStyle(JEditorPane section, String style){
-		Font currentFont = section.getFont();
-		Font font = currentFont;
-		
-		switch(style){
-		case "B":
-			if(!currentFont.isBold()){	
-				font = new Font(currentFont.getFontName(), Font.BOLD, currentFont.getSize());
-			}else{
-				font = currentFont.deriveFont(currentFont.getStyle() & ~Font.BOLD);
-			}
-			break;
-		
-		case "I":	
-			if(!currentFont.isItalic()){	
-				font = new Font(currentFont.getFontName(), Font.ITALIC, currentFont.getSize());
-			}else{
-				font = currentFont.deriveFont(currentFont.getStyle() & ~Font.ITALIC);
-			}
-			break;
-		
-		case "U":
-			/*
-			 * I need some help here, what is to be preferred? Should I let this be this way (which I do not want to)
-			 * or should I choose the Map attributes to be <TextAttribute, Integer> and then typecast currentFont.getAttributes();
-			 */
-			Map attributes = currentFont.getAttributes();
-			if(isUnderlined){
-		        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		       
-			} else {
-				attributes.put(TextAttribute.UNDERLINE, -1);
-			}
-			isUnderlined = !isUnderlined;
-	        font = currentFont.deriveFont(attributes);	
+		// Removes the previous highlights if there were any. (Will be placed somewhere else in the GUI later)
+		section.getHighlighter().removeAllHighlights();
+
+		if (input.length() <= 0) {
+			JOptionPane.showMessageDialog(null, "Nothing to search");
+			return;
 		}
-		section.setFont(font);	
+		/*
+		 * Gets the text from the chosen editorpane and searches after the input from the beginning of the text.
+		 */
+		String content = section.getText();
+		int start = content.indexOf(input, 0);
+		int end;
+		DefaultHighlighter.DefaultHighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(
+				Color.YELLOW);
+		int matchesFound = 0;
+		boolean isSearching = true;
+		
+		/*
+		 * Searches for the specific word.
+		 * The text is found if the index of start is larger or equal to zero. The indexes of start and end it will change 
+		 * so that it will be after the found word. The found word is marked by a highlighter.
+		 */
+		while (isSearching) {
+			if (start >= 0) {
+				++matchesFound;
+				try {
+					end = start + input.length();
+					section.getHighlighter().addHighlight(start, end, painter);
+					start = content.indexOf(input, end);
+
+				} catch (BadLocationException e) {
+					JOptionPane.showMessageDialog(null,
+							"Error: " + e.getMessage());
+				}
+			} else {
+				isSearching = false;
+				if (matchesFound == 0) {
+					JOptionPane.showMessageDialog(null, "'" + input
+							+ "' not found.");
+				}
+			}
+		}
+		JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
 	}
 
 }

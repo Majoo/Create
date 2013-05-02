@@ -23,9 +23,9 @@ import javax.swing.text.DefaultHighlighter;
  */
 public abstract class TemplatePanel extends JPanel {
 
-	private JEditorPane PersonalInfoText;
-	private JEditorPane WorkingExperienceText;
-	private JEditorPane OtherText;
+	private JEditorPane personalInfoText;
+	private JEditorPane workingExperienceText;
+	private JEditorPane otherText;
 	private JEditorPane imageContainer;
 	private PropertyChangeSupport pcs;
 	private Boolean isUnderlined = false;
@@ -34,9 +34,9 @@ public abstract class TemplatePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public TemplatePanel(JEditorPane pIT, JEditorPane wET, JEditorPane oT) {
-		this.PersonalInfoText = pIT;
-		this.WorkingExperienceText = wET;
-		this.OtherText = oT;
+		this.personalInfoText = pIT;
+		this.workingExperienceText = wET;
+		this.otherText = oT;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public abstract class TemplatePanel extends JPanel {
 	 * @return String in the JEditorPane for personal information
 	 */
 	public String getPersonalInfo() {
-		return PersonalInfoText.getText();
+		return personalInfoText.getText();
 	}
 
 	/**
@@ -54,7 +54,7 @@ public abstract class TemplatePanel extends JPanel {
 	 * @return String in the JEditorPane for working experience
 	 */
 	public String getWorkingExperienceText() {
-		return WorkingExperienceText.getText();
+		return workingExperienceText.getText();
 	}
 
 	/**
@@ -63,7 +63,7 @@ public abstract class TemplatePanel extends JPanel {
 	 * @return String in the JEditorPane for working experience
 	 */
 	public String getOtherText() {
-		return OtherText.getText();
+		return otherText.getText();
 	}
 	
 	/**

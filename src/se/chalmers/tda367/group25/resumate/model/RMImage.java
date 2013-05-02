@@ -19,7 +19,8 @@ public class RMImage {
 	//-----Constructors-----//
 
 	/*
-	 * Creates an RMImage with default BufferedImage
+	 * Creates an RMImage with default BufferedImage. Will be deleted/changed
+	 * in real version.
 	 */
 	public RMImage(){
 		try{
@@ -83,7 +84,8 @@ public class RMImage {
 
 	/**
 	 * Crop the Image of this RMImage.
-	 * (NEEDS TO BE TESTED)
+	 * (DOESN'T WORK QUITE AS IT SHOULD
+	 * somtimes rasterFormatException is thrown)
 	 * 
 	 * @param rect 
 	 * 				a rectangle with the coordinates
@@ -95,20 +97,8 @@ public class RMImage {
 	}
 
 	/**
-	 * Resize the Image of this RMImage.
-	 * 
-	 * @param x
-	 *            percentage to resize horizontally
-	 * @param y
-	 *            percentage to resize vertically
-	 */
-	public void resize(int x, int y) {
-
-	}
-
-	/**
 	 * Reorient the Image of this RMImage. A positive parameter rotates the
-	 * image clockwise, and vice versa.
+	 * image clockwise, and vice versa. NOT FINISHED
 	 * 
 	 * @param v
 	 *            degrees to rotate

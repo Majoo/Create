@@ -3,7 +3,9 @@ package se.chalmers.tda367.group25.resumate.model;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 
 public class RMImage {
 
@@ -82,15 +84,13 @@ public class RMImage {
 	
 	/**
 	 * Grayscale the Image of this RMImage.
-	 * (NEEDS TO BE TESTED)
 	 */
 	public void makeGray(){
+		System.out.println("Inne i makeGray");
 		
-		BufferedImage image = new BufferedImage(this.img.getWidth(), this.img.getHeight(),  
-			    BufferedImage.TYPE_BYTE_GRAY);  
-			Graphics g = this.img.getGraphics();  
-			g.drawImage(this.img, 0, 0, null);  
-			g.dispose();
+		ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+		ColorConvertOp op = new ColorConvertOp(cs, null);
+		this.img = op.filter(this.img, null); 
 	}
 
 }

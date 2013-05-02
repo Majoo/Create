@@ -1,7 +1,5 @@
 package se.chalmers.tda367.group25.resumate.model;
 
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
@@ -21,16 +19,15 @@ public class RMImage {
 	//-----Constructors-----//
 
 	/*
-	 * Creates an RMImage with default BufferedImage. 
-	 * Tar vi bort sen!!
+	 * Creates an RMImage with default BufferedImage
 	 */
 	public RMImage(){
 		try{
 			this.origImg = imIO.read(new File("C:\\Users\\Patricia\\workspace\\Images\\resources\\RMImageTestbild.jpg"));
+			this.curImg = imIO.read(new File("C:\\Users\\Patricia\\workspace\\Images\\resources\\RMImageTestbild.jpg"));
 		}catch(IOException e){
 			System.out.println("Kunde inte ladda in bilden från fil till rmimage");
 		}
-		this.curImg = this.origImg;
 		this.secType = SectionType.IMAGE;
 	}
 
@@ -93,10 +90,8 @@ public class RMImage {
 	 * 				the image will have after the cropping.
 	 */
 	public void crop(Rectangle rect) {
-		BufferedImage tmp = this.origImg.getSubimage(rect.x
-				,rect.y, rect.width, rect.height);
-		this.origImg = tmp;
-
+		this.curImg = this.curImg.getSubimage(rect.x
+				,rect.y, rect.width-rect.x, rect.height-rect.y);
 	}
 
 	/**

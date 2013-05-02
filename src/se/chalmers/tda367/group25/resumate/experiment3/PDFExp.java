@@ -3,20 +3,20 @@ package se.chalmers.tda367.group25.resumate.experiment3;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class PDFExp extends JFrame {
 

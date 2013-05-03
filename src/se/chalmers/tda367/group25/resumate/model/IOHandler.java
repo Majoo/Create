@@ -47,17 +47,36 @@ public class IOHandler {
 	}
 
 	/**
-	 * Print the Document.
+	 * Decide whether to print or export PDF.
+	 * 
+	 * @param jc
+	 *            JComponent to print or export
+	 * @param function
+	 *            String deciding how to handle jc
 	 */
-	public void print() {
-
+	public void handlePdf(JComponent jc, String function) {
+		if (function.equals("print"))
+			print(jc);
+		else if (function.equals("export"))
+			exportAsPdf(jc);
 	}
-	
+
 	/**
-	 * Exports document as PDF.
+	 * Print the Document.
+	 * 
+	 * @param jc
+	 *            JComponent to print
 	 */
-	public void exportAsPDF(JComponent jc){
-		
+	public void print(JComponent jc) {
+	}
+
+	/**
+	 * Exports JComponent representation of Document as PDF.
+	 * 
+	 * @param jc
+	 *            JComponent to export
+	 */
+	public void exportAsPdf(JComponent jc) {
 	}
 
 }

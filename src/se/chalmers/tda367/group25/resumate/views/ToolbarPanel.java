@@ -11,13 +11,25 @@ import java.awt.FlowLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JToggleButton;
+
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+
+import java.awt.Font;
+import java.awt.font.TextAttribute;
+import java.awt.Color;
 
 public class ToolbarPanel extends JPanel{
 	private PropertyChangeSupport pcs;
-	
-	
-	
+
+
+
 	private JButton temp1But, temp2But, temp3But;
 	private JComboBox otherTemps;
 
@@ -27,77 +39,112 @@ public class ToolbarPanel extends JPanel{
 	public ToolbarPanel() {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
-		
+
 		//Tools panel
 		JPanel toolsPan = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, toolsPan, 0, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, toolsPan, 0, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, toolsPan, 69, SpringLayout.NORTH, this);
-		
+
 		toolsPan.setLayout(new GridLayout(2,1));
 		//Upper part tools panel
 		JPanel upperToolsPan = new JPanel();
 		upperToolsPan.setLayout(new GridLayout(1,10));
-		
-		
-		
 		toolsPan.add(upperToolsPan);
-		
+
 		JButton btnNewDoc = new JButton("New Doc");
 		upperToolsPan.add(btnNewDoc);
-		
+
 		JButton btnSomething = new JButton("Something");
 		upperToolsPan.add(btnSomething);
-		
+
 		JButton btnSave = new JButton("Save");
 		upperToolsPan.add(btnSave);
-		
+
 		JButton btnSend = new JButton("Send");
 		upperToolsPan.add(btnSend);
-		
+
 		JButton btnPrint = new JButton("Print");
 		upperToolsPan.add(btnPrint);
-		
+
 		JButton btnCut = new JButton("Cut");
 		upperToolsPan.add(btnCut);
-		
+
 		JButton btnCopy = new JButton("Copy");
 		upperToolsPan.add(btnCopy);
-		
+
 		JButton btnPaste = new JButton("Paste");
 		upperToolsPan.add(btnPaste);
-		
+
 		JButton btnForward = new JButton("Forward");
 		upperToolsPan.add(btnForward);
-		
+
 		JButton btnBackward = new JButton("Backward");
 		upperToolsPan.add(btnBackward);
 		//Lower part tools panel
 		JPanel lowerToolsPan = new JPanel();
-		
+
 		JComboBox fontCB = new JComboBox();
+		fontCB.setModel(new DefaultComboBoxModel(new String[] {"Fonts"}));
+
+		JComboBox textSizeCB = new JComboBox();
+		textSizeCB.setModel(new DefaultComboBoxModel(new String[] {"7", "8", "9", "10"
+				, "11", "12", "13", "14", "15", "16", "18", "20", "22", "24", "26", "28"
+				, "30", "32", "36", "40", "44", "48", "52", "56", "60"}));
+
+		JToggleButton tglbtnBold = new JToggleButton("B");
+		tglbtnBold.setFont(new Font("Tahoma", Font.BOLD, 11));
+
+		JToggleButton tglbtnItalic = new JToggleButton("I");
+		tglbtnItalic.setFont(new Font("Tahoma", Font.ITALIC, 11));
+
+		JToggleButton tglbtnUnderline = new JToggleButton("U");
+		Map<TextAttribute, Object> map = new HashMap<TextAttribute, Object>();
+		map.put(TextAttribute.UNDERLINE,
+				TextAttribute.UNDERLINE_ON);
+		tglbtnUnderline.setFont(tglbtnUnderline.getFont().deriveFont(map));
+		
+		JComboBox textColorCB = new JComboBox();
+		textColorCB.setModel(new DefaultComboBoxModel(new String[] {"color"}));
+		textColorCB.setForeground(Color.RED);
+
 		GroupLayout gl_lowerToolsPan = new GroupLayout(lowerToolsPan);
 		gl_lowerToolsPan.setHorizontalGroup(
 			gl_lowerToolsPan.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_lowerToolsPan.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(fontCB, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(417, Short.MAX_VALUE))
+					.addComponent(fontCB, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textSizeCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(32)
+					.addComponent(tglbtnBold)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tglbtnItalic)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tglbtnUnderline)
+					.addGap(46)
+					.addComponent(textColorCB, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(52, Short.MAX_VALUE))
 		);
 		gl_lowerToolsPan.setVerticalGroup(
 			gl_lowerToolsPan.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_lowerToolsPan.createSequentialGroup()
-					.addContainerGap(14, Short.MAX_VALUE)
-					.addComponent(fontCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(gl_lowerToolsPan.createParallelGroup(Alignment.BASELINE)
+						.addComponent(fontCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textColorCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tglbtnBold)
+						.addComponent(tglbtnItalic)
+						.addComponent(tglbtnUnderline)
+						.addComponent(textSizeCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 		);
 		lowerToolsPan.setLayout(gl_lowerToolsPan);
-		
 		toolsPan.add(lowerToolsPan);
-		
-		
+
+
 		add(toolsPan);
-		
-		
+
+
 		//Template chooser panel
 		JPanel tempsPan = new JPanel();
 		springLayout.putConstraint(SpringLayout.EAST, toolsPan, -6, SpringLayout.WEST, tempsPan);
@@ -105,7 +152,7 @@ public class ToolbarPanel extends JPanel{
 		springLayout.putConstraint(SpringLayout.WEST, tempsPan, 525, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, tempsPan, 69, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, tempsPan, -10, SpringLayout.EAST, this);
-		
+
 		tempsPan.setLayout(new GridLayout(1, 4));
 		temp1But = new JButton("temp1");
 		tempsPan.add(temp1But);
@@ -115,22 +162,22 @@ public class ToolbarPanel extends JPanel{
 		tempsPan.add(temp3But);
 		otherTemps = new JComboBox();
 		tempsPan.add(otherTemps);
-		
+
 		add(tempsPan);
-		
+
 		//PropertyChangeSupport, Listeners and other important stuff.
 		pcs = new PropertyChangeSupport(this);
-		
+
 
 	}
-	
+
 	/**
 	 * Add a PropertyChangeListener given as a parameter.
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
 	}
-	
+
 	/**
 	 * Remove the PropertyChangeListener given as a parameter.
 	 */

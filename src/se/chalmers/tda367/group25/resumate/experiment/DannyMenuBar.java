@@ -49,10 +49,11 @@ public class DannyMenuBar extends JMenuBar {
 								"Are you sure you want to create a new document?", null,
 								JOptionPane.YES_NO_OPTION);
 						if (selection == JOptionPane.YES_OPTION) {
-							DannyForm textEditor = new DannyForm();
-							textEditor.setLocationRelativeTo(null);
-							textEditor.setVisible(true);
-							currentFileDirectory = "";			//a new file gets renamed to nothing
+							//DannyForm textEditor = new DannyForm();
+							//textEditor.setLocationRelativeTo(null);
+							//textEditor.setVisible(true);
+							//currentFileDirectory = "";			//a new file gets renamed to nothing
+							JOptionPane.showMessageDialog(null, "implement something that creates a new doc");
 						}
 					}
 				});
@@ -229,7 +230,13 @@ public class DannyMenuBar extends JMenuBar {
 				mnEdit.add(mntmSelectAll);
 				
 				
-
+				//the format
+				JMenu mnFormat = new JMenu("Format");
+				add(mnFormat);
+				
+				JMenuItem mntmSomething = new JMenuItem("Something");
+				mnFormat.add(mntmSomething);
+				
 		
 	}
 	

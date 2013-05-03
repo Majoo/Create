@@ -1,4 +1,5 @@
-package se.chalmers.tda367.group25.resumate.experiment;
+package se.chalmers.tda367.group25.resumate.experiment3;
+
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -27,7 +28,7 @@ import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 
 @SuppressWarnings("serial")
-public class LaszloPDFExperimentation extends JFrame {
+public class PDFExp extends JFrame {
 
 	private JPanel contentPane;
 	private JEditorPane editorPane;
@@ -54,7 +55,7 @@ public class LaszloPDFExperimentation extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LaszloPDFExperimentation() {
+	public PDFExp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 577, 506);
 		contentPane = new JPanel();

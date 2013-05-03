@@ -54,15 +54,17 @@ public class MainController {
 				break;
 			
 			case  Labels.PRINT_DOC:
-				
+//				ioController.handlePdf(mainView.getCurrentDoc(), PRINT_DOC);
+//				Must implement getCurrentDocPanel in MainView
 				break;
 			
 			case  Labels.EXPORT_DOC:
-				
+//				ioController.handlePdf(mainView.getCurrentDoc(), EXPORT_DOC);
+//				Must implement getCurrentDocPanel in MainView				
 				break;
 			
 			case  Labels.OPEN_DOC:
-				
+//				ioController.openFile();
 				break;
 			
 			case  Labels.RENAME_DOC:
@@ -74,7 +76,8 @@ public class MainController {
 				break;
 				
 			case  Labels.SEND_DOC:
-				
+//				ioController.handlePdf(mainView.getCurrentDoc(), SEND_DOC);
+//				Must implement getCurrentDocPanel in MainView
 				break;
 				
 			case  Labels.TEMPLATE_CHANGED:

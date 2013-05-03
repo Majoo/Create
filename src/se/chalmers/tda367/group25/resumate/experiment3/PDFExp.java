@@ -43,7 +43,7 @@ public class PDFExp extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LaszloPDFExperimentation frame = new LaszloPDFExperimentation();
+					PDFExp frame = new PDFExp();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -86,7 +86,7 @@ public class PDFExp extends JFrame {
 		lblNewLabel = new JLabel();
 		lblNewLabel
 				.setIcon(new ImageIcon(
-						LaszloPDFExperimentation.class
+						PDFExp.class
 								.getResource("/javax/swing/plaf/metal/icons/ocean/warning.png")));
 		panel_1.add(lblNewLabel, BorderLayout.CENTER);
 	}

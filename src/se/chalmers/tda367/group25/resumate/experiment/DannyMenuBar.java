@@ -30,11 +30,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class DannyMenuBar extends JFrame {
 	
-	private JTextArea informationTextArea;
 	//private JTextArea aboutmeTextArea;
 	private String clipBoardData = "";
 	private String currentFileDirectory = "";
-	private JPanel contentPane;
+	private JTextArea informationTextArea;
 
 	
 	public DannyMenuBar(){
@@ -234,27 +233,7 @@ public class DannyMenuBar extends JFrame {
 				mnEdit.add(mntmSelectAll);
 				
 				
-				
-				//add content
-				contentPane = new JPanel();
-				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-				setContentPane(contentPane);
-				SpringLayout sl_contentPane = new SpringLayout();
-				contentPane.setLayout(sl_contentPane);
-				
-				informationTextArea = new JTextArea();
-				sl_contentPane.putConstraint(SpringLayout.NORTH, informationTextArea, 16, SpringLayout.NORTH, contentPane);
-				sl_contentPane.putConstraint(SpringLayout.WEST, informationTextArea, 31, SpringLayout.WEST, contentPane);
-				sl_contentPane.putConstraint(SpringLayout.EAST, informationTextArea, 226, SpringLayout.WEST, contentPane);
-				contentPane.add(informationTextArea);
-				
-				JTextArea aboutmeTextArea = new JTextArea();
-				sl_contentPane.putConstraint(SpringLayout.SOUTH, informationTextArea, -134, SpringLayout.NORTH, aboutmeTextArea);
-				sl_contentPane.putConstraint(SpringLayout.WEST, aboutmeTextArea, 17, SpringLayout.WEST, contentPane);
-				sl_contentPane.putConstraint(SpringLayout.EAST, aboutmeTextArea, -15, SpringLayout.EAST, contentPane);
-				sl_contentPane.putConstraint(SpringLayout.NORTH, aboutmeTextArea, 243, SpringLayout.NORTH, contentPane);
-				sl_contentPane.putConstraint(SpringLayout.SOUTH, aboutmeTextArea, -10, SpringLayout.SOUTH, contentPane);
-				contentPane.add(aboutmeTextArea);
+
 		
 	}
 	

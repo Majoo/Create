@@ -4,10 +4,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.JComponent;
+
 import se.chalmers.tda367.group25.resumate.model.IOHandler;
+import se.chalmers.tda367.group25.resumate.model.PDFHandler;
+import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 /*
- * This class handles IO-stuff.
+ * This class forwards IO assignments.
  */
 public class IOController {
 
@@ -24,13 +28,7 @@ public class IOController {
 	 *            the file to save to
 	 */
 	public void saveFile(String fileName) {
-		FileWriter w;
-		try {
-			w = new FileWriter(fileName);
-			// textArea.write(w);
-		} catch (IOException e) {
-		}
-
+		ioHandler.saveFile(fileName);
 	}
 
 	/**
@@ -40,25 +38,25 @@ public class IOController {
 	 *            the file to open
 	 */
 	public void openFile(String fileName) {
-		FileReader r;
-		try {
-			r = new FileReader(fileName);
-			// textArea.read(r, null);
-		} catch (IOException e) {
-		}
+		ioHandler.openFile(fileName);
 	}
 
 	/**
-	 * Send the Document.
+	 * Decide whether to send, print or export PDF.
+	 * 
+	 * @param jc
+	 *            JComponent to print or export
+	 * @param function
+	 *            String deciding how to handle jc
 	 */
-	public void send() {
-
-	}
-
-	/**
-	 * Print the Document.
-	 */
-	public void print() {
-
+	public void handlePdf(JComponent jc, String function) {
+		if (function.equals(Labels.PRINT_DOC))
+			;
+		else if (function.equals(Labels.EXPORT_DOC))
+			PDFHandler.exportPdf(jc);
+		else if (function.equals(Labels.SEND_DOC))
+			;
+		else
+			System.out.println("No such command!");
 	}
 }

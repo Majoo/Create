@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.swing.JComponent;
 
+import se.chalmers.tda367.group25.resumate.utils.Labels;
+
 public class IOHandler {
 
 	/**
@@ -38,45 +40,4 @@ public class IOHandler {
 		} catch (IOException e) {
 		}
 	}
-
-	/**
-	 * Send the Document.
-	 */
-	public void send() {
-
-	}
-
-	/**
-	 * Decide whether to print or export PDF.
-	 * 
-	 * @param jc
-	 *            JComponent to print or export
-	 * @param function
-	 *            String deciding how to handle jc
-	 */
-	public void handlePdf(JComponent jc, String function) {
-		if (function.equals("print"))
-			print(jc);
-		else if (function.equals("export"))
-			exportAsPdf(jc);
-	}
-
-	/**
-	 * Print the Document.
-	 * 
-	 * @param jc
-	 *            JComponent to print
-	 */
-	public void print(JComponent jc) {
-	}
-
-	/**
-	 * Exports JComponent representation of Document as PDF.
-	 * 
-	 * @param jc
-	 *            JComponent to export
-	 */
-	public void exportAsPdf(JComponent jc) {
-	}
-
 }

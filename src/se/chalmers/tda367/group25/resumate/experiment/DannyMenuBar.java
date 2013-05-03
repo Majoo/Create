@@ -28,7 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
-public class DannyMenuBar extends JFrame {
+public class DannyMenuBar extends JMenuBar {
 	
 	//private JTextArea aboutmeTextArea;
 	private String clipBoardData = "";
@@ -37,14 +37,10 @@ public class DannyMenuBar extends JFrame {
 
 	
 	public DannyMenuBar(){
-		
-		//create menubar
-				JMenuBar menuBar = new JMenuBar();
-				setJMenuBar(menuBar);
 				
 				//the file
 				JMenu mnFile = new JMenu("File");
-				menuBar.add(mnFile);
+				add(mnFile);
 				
 				JMenuItem mntmNew = new JMenuItem("New");
 				mntmNew.addActionListener(new ActionListener() {
@@ -190,7 +186,7 @@ public class DannyMenuBar extends JFrame {
 				
 				//the edit
 				JMenu mnEdit = new JMenu("Edit");
-				menuBar.add(mnEdit);
+				add(mnEdit);
 				
 				JMenuItem mntmCut = new JMenuItem("Cut");
 				mntmCut.addActionListener(new ActionListener() {

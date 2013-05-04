@@ -237,6 +237,25 @@ public class DannyMenuBar extends JMenuBar {
 				JMenuItem mntmSomething = new JMenuItem("Something");
 				mnFormat.add(mntmSomething);
 				
+
+				//the insert
+				JMenu mnInsert = new JMenu("Insert");
+				add(mnInsert);
+				
+				//the show
+				JMenu mnShow = new JMenu("Show");
+				add(mnShow);
+				
+				//the help
+				JMenu mnHelp = new JMenu("Help");
+				add(mnHelp);
+				
+				//the about
+				JMenu mnAbout = new JMenu("About");
+				add(mnAbout);
+				
+				
+				
 		
 	}
 	

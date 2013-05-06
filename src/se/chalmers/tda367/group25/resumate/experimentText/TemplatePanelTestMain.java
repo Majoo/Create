@@ -11,8 +11,10 @@ public class TemplatePanelTestMain {
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setBounds(100, 100, 600, 400);
 	frame.setLocationRelativeTo(null);
-	TemplatePanelTest test = new TemplatePanelTest();
-	frame.add(test);
+	TemplatePanelTest tP = new TemplatePanelTest();
+	TextController tc = new TextController();
+	tP.addObserver(tc);
+	frame.add(tP);
 	frame.setResizable(false);
 	frame.setVisible(true);
 	}

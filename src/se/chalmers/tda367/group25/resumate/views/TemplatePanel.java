@@ -33,37 +33,37 @@ public abstract class TemplatePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public TemplatePanel(JEditorPane pIT, JEditorPane wET, JEditorPane oT) {
-		this.personalInfoText = pIT;
-		this.workingExperienceText = wET;
-		this.otherText = oT;
+	public TemplatePanel(){
+		this.personalInfoText = new JEditorPane();
+		this.workingExperienceText = new JEditorPane();
+		this.otherText = new JEditorPane();
 	}
 
 	/**
-	 * Returns the text of the personal information-textarea.
+	 * Returns the personal information-textarea.
 	 * 
-	 * @return String in the JEditorPane for personal information
+	 * @return The JEditorPane for personal information
 	 */
-	public String getPersonalInfo() {
-		return personalInfoText.getText();
+	public JEditorPane getPersonalInfo() {
+		return personalInfoText;
 	}
 
 	/**
-	 * Returns the text of the working experience-textarea.
+	 * Returns the working experience-textarea.
 	 * 
-	 * @return String in the JEditorPane for working experience
+	 * @return The JEditorPane for working experience
 	 */
-	public String getWorkingExperienceText() {
-		return workingExperienceText.getText();
+	public JEditorPane getWorkingExperienceText() {
+		return workingExperienceText;
 	}
 
 	/**
-	 * Returns the text of the (other) textarea.
+	 * Returns the (other) textarea.
 	 * 
-	 * @return String in the JEditorPane for working experience
+	 * @return JEditorPane for other texts
 	 */
-	public String getOtherText() {
-		return otherText.getText();
+	public JEditorPane getOtherText() {
+		return otherText;
 	}
 	
 	/**

@@ -161,6 +161,7 @@ public abstract class TemplatePanel extends JPanel {
 	public void replaceText(String replace, String replaceWith, JEditorPane section){
 		section.setText(section.getText().replaceAll(replace, replaceWith));
 		//Inform to RMtext via pcs
+		System.out.println("Johan was here");
 	}
 	
 	/**

@@ -1,6 +1,5 @@
 package se.chalmers.tda367.group25.resumate.experiment3;
 
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
@@ -96,7 +95,7 @@ public class PDFExp extends JFrame {
 	 * 
 	 * Original taken from
 	 * http://www.javaworld.com/javaworld/jw-12-2006/jw-1209-swing.html
-	 * (2013-4-28)
+	 * (2013-4-29)
 	 * 
 	 * @param jc
 	 *            JComponent representation of Document to save as PDF
@@ -116,14 +115,14 @@ public class PDFExp extends JFrame {
 		Document document = new Document();
 		PdfWriter writer = PdfWriter.getInstance(document,
 				new FileOutputStream(new File(filePathAndName)));
-		document.open();
 		
+		document.open();
 		PdfContentByte cb = writer.getDirectContent();
-		PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
+		PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight );
 		Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
 		jc.print(g2);
 		g2.dispose();
-		cb.addTemplate(tp, 300, 300);
+		cb.addTemplate(tp, 30, 300);
 		document.close();
 	}
 
@@ -141,10 +140,10 @@ public class PDFExp extends JFrame {
 				"pdf");
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showSaveDialog(null);
-		String filePathAndName = chooser.getCurrentDirectory().getPath() + "\\"
-				+ chooser.getSelectedFile().getName();
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			String filePathAndName = chooser.getCurrentDirectory().getPath()
+					+ "\\" + chooser.getSelectedFile().getName() + ".pdf";
 			try {
 				createPdf(jc, filePathAndName);
 			} catch (FileNotFoundException e) {

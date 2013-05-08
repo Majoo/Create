@@ -51,5 +51,9 @@ public class TextController implements PropertyChangeListener  {
 		}
 		
 	}
+	
+	public RMText getRMText(){
+		return tX;
+	}
 
 }

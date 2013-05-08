@@ -7,9 +7,9 @@ import se.chalmers.tda367.group25.resumate.experimentText.*;
 
 
 public class RMTextTester {
-	TemplatePanelTestMain TPT = new TemplatePanelTestMain();
-	RMText t = new RMText();
-	TemplatePanelTest p = new TemplatePanelTest();
+	RMTestStartHelper RTSH = new RMTestStartHelper();
+	RMText t = RTSH.getRMText();
+	TemplatePanelTest p = RTSH.getTP();
 	
 	@Test
 	public void testGetText(){
@@ -33,18 +33,18 @@ public class RMTextTester {
 	
 	@Test
 	public void testChangeFont() {	
-		//testSetText();
+		testSetText();
 		p.getOtherText().setText("this is a test");
 		p.changeFont(p.getOtherText(), "Calibri");
-		testGetFont();
+		//testGetFont();
 	}
 
 	@Test
 	public void testChangeSize() {
-		//testSetText();
+		testSetText();
 		p.getOtherText().setText("this is a test");
 		p.changeSize(p.getOtherText(), 15);
-		testGetSize();
+		//testGetSize();
 	}
 
 	@Test
@@ -58,7 +58,7 @@ public class RMTextTester {
 	@Test
 	public void testReplaceText() {
 		p.replaceText("is", "was", p.getOtherText());
-		testSetText();
+		//testSetText();
 	}
 
 	@Test

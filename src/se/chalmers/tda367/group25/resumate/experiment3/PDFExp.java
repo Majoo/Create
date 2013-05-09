@@ -122,7 +122,7 @@ public class PDFExp extends JFrame {
 		Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
 		jc.print(g2);
 		g2.dispose();
-		cb.addTemplate(tp, 30, 300);
+		cb.addTemplate(tp, (document.left()), (document.top() - jc.getHeight()));
 		document.close();
 	}
 

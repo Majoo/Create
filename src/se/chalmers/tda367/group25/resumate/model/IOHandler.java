@@ -1,12 +1,11 @@
 package se.chalmers.tda367.group25.resumate.model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import javax.swing.JComponent;
-
-import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 public class IOHandler {
 
@@ -31,13 +30,21 @@ public class IOHandler {
 	 * 
 	 * @param fileName
 	 *            the file to open
+	 * @throws IOException 
+	 * 
 	 */
-	public void openFile(String fileName) {
-		FileReader r;
-		try {
-			r = new FileReader(fileName);
-			// textArea.read(r, null);
-		} catch (IOException e) {
+	public void openFile(String fileName) throws IOException, FileNotFoundException {
+
+		File chosenFile = new File(fileName);
+
+		BufferedReader br = new BufferedReader(new FileReader(chosenFile));
+
+		String data;
+		while ((data = br.readLine()) != null) {
+
 		}
+		br.close();
+
 	}
+
 }

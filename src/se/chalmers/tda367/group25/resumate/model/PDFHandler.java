@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -18,7 +16,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class PDFHandler {
 
 	/**
-	 * Creates PDF.
+	 * Creates PDF, using the external iText library.
 	 * 
 	 * Original taken from
 	 * http://www.javaworld.com/javaworld/jw-12-2006/jw-1209-swing.html
@@ -40,8 +38,16 @@ public class PDFHandler {
 		int panelHeight = jc.getHeight();
 
 		Document document = new Document();
+
+		File file = new File(filePathAndName + ".pdf");
+		int i = 1;
+		while (file.exists()) {
+			file = new File(filePathAndName + i + ".pdf");
+			i++;
+		}
+
 		PdfWriter writer = PdfWriter.getInstance(document,
-				new FileOutputStream(new File(filePathAndName)));
+				new FileOutputStream(new File(filePathAndName + ".pdf")));
 
 		document.open();
 		PdfContentByte cb = writer.getDirectContent();
@@ -49,36 +55,7 @@ public class PDFHandler {
 		Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
 		jc.print(g2);
 		g2.dispose();
-		cb.addTemplate(tp, 300, 300);
+		cb.addTemplate(tp, (document.left()), (document.top() - jc.getHeight()));
 		document.close();
 	}
-
-	/**
-	 * Lets the user decide the path and name of the PDF, and then calls
-	 * createPdf() to actually create the document.
-	 * 
-	 * @param jc
-	 *            JComponent representation of Document to save as PDF
-	 */
-	public static void exportPdf(JComponent jc) {
-
-		JFileChooser chooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF",
-				"pdf");
-		chooser.setFileFilter(filter);
-		int returnVal = chooser.showSaveDialog(null);
-		String filePathAndName = chooser.getCurrentDirectory().getPath() + "\\"
-				+ chooser.getSelectedFile().getName();
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			try {
-				createPdf(jc, filePathAndName);
-			} catch (FileNotFoundException e) {
-				System.err.println(e.getMessage());
-			} catch (DocumentException e) {
-				System.err.println(e.getMessage());
-			}
-		}
-	}
-
 }

@@ -47,7 +47,7 @@ public class PDFHandler {
 		}
 
 		PdfWriter writer = PdfWriter.getInstance(document,
-				new FileOutputStream(new File(filePathAndName + ".pdf")));
+				new FileOutputStream(file));
 
 		document.open();
 		PdfContentByte cb = writer.getDirectContent();

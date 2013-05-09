@@ -42,7 +42,7 @@ public class PDFHandler {
 		File file = new File(filePathAndName + ".pdf");
 		int i = 1;
 		while (file.exists()) {
-			file = new File(filePathAndName + i + ".pdf");
+			file = new File(filePathAndName + "_" + i + ".pdf");
 			i++;
 		}
 

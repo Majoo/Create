@@ -113,8 +113,16 @@ public class PDFExp extends JFrame {
 		int panelHeight = jc.getHeight();
 
 		Document document = new Document();
+		
+		File file = new File(filePathAndName + ".pdf");
+		int i = 1;
+		while (file.exists()) {
+			file = new File(filePathAndName + "_" + i + ".pdf");
+			i++;
+		}
+		
 		PdfWriter writer = PdfWriter.getInstance(document,
-				new FileOutputStream(new File(filePathAndName)));
+				new FileOutputStream(file));
 		
 		document.open();
 		PdfContentByte cb = writer.getDirectContent();
@@ -143,7 +151,7 @@ public class PDFExp extends JFrame {
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			String filePathAndName = chooser.getCurrentDirectory().getPath()
-					+ "\\" + chooser.getSelectedFile().getName() + ".pdf";
+					+ "\\" + chooser.getSelectedFile().getName();
 			try {
 				createPdf(jc, filePathAndName);
 			} catch (FileNotFoundException e) {

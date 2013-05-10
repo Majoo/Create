@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.JFrame;
@@ -18,7 +19,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class MainView extends JFrame{
+public class MainView extends JFrame implements MainViewInterface{
 	private DannyMenuBar dannyMenuBar;
 	private JPanel toolbarPanel;
 	private JPanel docView;
@@ -65,5 +66,14 @@ public class MainView extends JFrame{
 
 		//PropertyChangeSupport and other important stuff
 		pcs = new PropertyChangeSupport(this);
+	}
+	
+	//PROPERTY-CHANGED-METHODS
+	public void addPropertyChangeListener(PropertyChangeListener pcl){
+		pcs.addPropertyChangeListener(pcl);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener pcl){
+		pcs.removePropertyChangeListener(pcl);
 	}
 }

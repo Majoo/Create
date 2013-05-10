@@ -1,18 +1,23 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JEditorPane;
 import javax.swing.SpringLayout;
 
 /**
- * What the hell gör den här klassen??? Vi har ju TemplatePanel liksom
- *  eller snälla I don't getIT?
- * @author Patricia
- *
+ * Vad gör denna klassen?
  */
 public class DocumentView extends JPanel{
+	private PropertyChangeSupport pcs;
+	
 	public DocumentView() {
+		pcs = new PropertyChangeSupport(this);
+		
+		
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		
@@ -36,6 +41,15 @@ public class DocumentView extends JPanel{
 		springLayout.putConstraint(SpringLayout.SOUTH, editorPane_2, 120, SpringLayout.SOUTH, editorPane_1);
 		springLayout.putConstraint(SpringLayout.EAST, editorPane_2, 459, SpringLayout.WEST, editorPane);
 		add(editorPane_2);
+	}
+	
+	//PROPERTY-CHANGED-METHODS
+	public void addPropertyChangeListener(PropertyChangeListener pcl){
+		pcs.addPropertyChangeListener(pcl);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener pcl){
+		pcs.removePropertyChangeListener(pcl);
 	}
 
 }

@@ -3,6 +3,7 @@ package se.chalmers.tda367.group25.resumate.views;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.Map;
@@ -219,4 +220,13 @@ public abstract class TemplatePanel extends JPanel {
 		JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
 	}
 
+	
+	//PROPERTY-CHANGED-METHODS
+	public void addPropertyChangeListener(PropertyChangeListener pcl){
+		pcs.addPropertyChangeListener(pcl);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener pcl){
+		pcs.removePropertyChangeListener(pcl);
+	}
 }

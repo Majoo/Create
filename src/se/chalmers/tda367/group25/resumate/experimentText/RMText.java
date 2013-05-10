@@ -21,14 +21,17 @@ public class RMText {
 	private String secType;
 	private String font;
 	private int size;
-	private String style;
-	private boolean isUnderlined = false;
+	Map <String, Boolean> styles;
 
 	/**
 	 * Default constructor of a RMtext Section in a Document.
 	 */
 	public RMText() {
 		this.secType = "EMPTY";
+		styles = new HashMap <String, Boolean>();
+		styles.put("B", Styles.B);
+		styles.put("I", Styles.I);
+		styles.put("U", Styles.U);
 	}
 
 
@@ -74,10 +77,9 @@ public class RMText {
 	public void changeFont(JEditorPane section, String font){
 		Font currentFont = section.getFont();
 		section.setFont(new Font(font, currentFont.getStyle(), currentFont.getSize()));
-		if(isUnderlined){
+		if(Styles.U){
 			changeStyle(section,"U");
 		}
-		//The view is informed since it is repainted.
 		this.font = font;
 	}
 	
@@ -95,7 +97,6 @@ public class RMText {
 		Font currentFont = section.getFont();
 		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
 		this.size = size;
-		//the view is informed since it is repainted
 	}
 	
 	
@@ -118,35 +119,38 @@ public class RMText {
 		
 		switch(style){
 		case "B":
-			if(!currentFont.isBold()){	
+			if(!Styles.B){	
 				font = currentFont.deriveFont(currentFont.getStyle() + Font.BOLD);
 			}else{
 				font = currentFont.deriveFont(currentFont.getStyle() & ~Font.BOLD);
 			}
+			Styles.B = !Styles.B;
+			styles.put("B", Styles.B);
 			break;
 		
 		case "I":	
-			if(!currentFont.isItalic()){	
+			if(!Styles.I ){	
 				font = currentFont.deriveFont(currentFont.getStyle() + Font.ITALIC);
 			}else{
 				font = currentFont.deriveFont(currentFont.getStyle() & ~Font.ITALIC);
 			}
+			Styles.I = !Styles.I ;
+			styles.put("I", Styles.I );
 			break;
 		
 		case "U":
 			Map  <TextAttribute, Integer> attributes = new HashMap  <TextAttribute, Integer>();
-			if(!isUnderlined){
+			if(!Styles.U){
 		        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		       
 			} else {
 				attributes.put(TextAttribute.UNDERLINE, -1);
 			}
-			isUnderlined = !isUnderlined;
+			Styles.U = !Styles.U;
+			styles.put("U", Styles.U);
 	        font = currentFont.deriveFont(attributes);	
 		}
 		section.setFont(font);	
-		this.style = style;
-		//The view is informed since it is repainted.
 	}
 	
 	/**
@@ -164,7 +168,6 @@ public class RMText {
 	public void replaceText(JEditorPane section, String replace, String replaceWith){
 		section.setText(section.getText().replaceAll(replace, replaceWith));
 		this.setText(section.getText());
-		//The view is informed since it is repainted
 	}
 
 	
@@ -183,11 +186,10 @@ public class RMText {
 	}
 	
 	/**
-	 * Returns the style of the RMText
+	 * Returns a map with the styles of the RMText
 	 */
-	public String getStyle(){
-		return this.style;
+	public Map <String, Boolean> getStyles(){
+		return styles;
 	}
-	
 	
 }

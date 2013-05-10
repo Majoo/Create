@@ -254,6 +254,17 @@ public class TemplatePanelTest extends TemplatePanel {
 		txtFont.setText("Font:");
 		add(txtFont);
 		txtFont.setColumns(10);
+		
+		JButton btnSave = new JButton("Save");
+		springLayout.putConstraint(SpringLayout.SOUTH, btnSave, -6, SpringLayout.NORTH, btnFindText);
+		springLayout.putConstraint(SpringLayout.EAST, btnSave, 0, SpringLayout.EAST, btnFindText);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				changeText(getOtherText());
+				
+			}
+		});
+		add(btnSave);
 		this.setVisible(true);
 	}
 
@@ -322,5 +333,9 @@ public class TemplatePanelTest extends TemplatePanel {
 
 	public void changeStyle(JEditorPane section, String style) {
 		getPcs().firePropertyChange(TextController.style, section, style);
+	}
+	
+	public void changeText(JEditorPane section) {
+		getPcs().firePropertyChange(TextController.text, section, getOtherText().getText());
 	}
 }

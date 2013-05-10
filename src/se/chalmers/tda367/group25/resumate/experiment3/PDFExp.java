@@ -56,7 +56,7 @@ public class PDFExp extends JFrame {
 	 */
 	public PDFExp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 495, 449);
+		setBounds(0, 0, 495, 1500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

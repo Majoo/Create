@@ -16,13 +16,18 @@ public class IOHandler {
 	 *            the file to save to
 	 */
 	public void saveFile(String fileName) {
-		FileWriter w;
-		try {
-			w = new FileWriter(fileName);
-			// textArea.write(w);
-		} catch (IOException e) {
-		}
+		File directory = new File(fileName);
+		// Create directory for RSMT files
+		if (directory.mkdirs()) {
+			// Create all files in RSMT "project". i.e., the files corresponding
+			// the instances of RMText in a Document
+			try {
+				FileWriter w = new FileWriter(fileName);
+				// textArea.write(w);
+			} catch (IOException e) {
+			}
 
+		}
 	}
 
 	/**
@@ -30,10 +35,11 @@ public class IOHandler {
 	 * 
 	 * @param fileName
 	 *            the file to open
-	 * @throws IOException 
+	 * @throws IOException
 	 * 
 	 */
-	public void openFile(String fileName) throws IOException, FileNotFoundException {
+	public void openFile(String fileName) throws IOException,
+			FileNotFoundException {
 
 		File chosenFile = new File(fileName);
 

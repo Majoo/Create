@@ -9,29 +9,32 @@ import java.util.Map;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
+import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
 
 public class DocumentController implements PropertyChangeListener{
 
 	// Each value (List) holds a Document object and a DocumentView object
 	private Map<String, List<Object>> docAndDocView;
-
+	
 	/**
-	 * Constructs a new DocumentController with its first Document and first
+	 * Constructs a new DocumentController with the 
 	 * DocumentView to be placed in the docAndDocView Map. Max elements in
 	 * the Map is set to 20.
-	 * 
-	 * @param doc
-	 *            the first Document
-	 * @param v
-	 *            the first DocumentView
 	 */
-	public DocumentController(Document doc, DocumentView v) {
-		v.addPropertyChangeListener(this);
+	public DocumentController() {
+		//instantiate map
 		this.docAndDocView = new HashMap<String, List<Object>>(20);
+		
+		//create first document+view 
+		Document d = new Document();
+		DocumentView v = new DocumentView();
+		v.addPropertyChangeListener(this);
+		
+		//and put it in the map
 		List<Object> first = new ArrayList(2);
-		first.add(doc);
+		first.add(d);
 		first.add(v);
-		this.docAndDocView.put("First", first);
+		this.docAndDocView.put(generateKey(), first);
 
 	}
 
@@ -117,7 +120,30 @@ public class DocumentController implements PropertyChangeListener{
 	 *            the Event to handle
 	 */
 	public void propertyChange(PropertyChangeEvent e) {
-
+		//Get the pair of Doc & DocView that are concerned.
+		List<Object> curDocAndDocView = null;
+		for(List<Object> value: docAndDocView.values()){
+			if(value.contains(e.getSource())){
+				curDocAndDocView = value;
+			}
+		}
+		//Separate the Doc and the DocView.
+		Document d;
+		DocumentView v;
+		for(Object o: curDocAndDocView){
+			if(o instanceof Document){
+				d = (Document)o;
+			}
+			if(o instanceof DocumentView){
+				v = (DocumentView)o;
+			}
+		}
+		//What kind of event is it and what should we do about it?
+		//And is this long way really the best way to do it?
+		switch(e.getPropertyName()){
+		
+		}
+		
 	}
 
 	/**
@@ -126,6 +152,6 @@ public class DocumentController implements PropertyChangeListener{
 	 * @return random key
 	 */
 	private String generateKey() {
-		return null;
+		return "apa";
 	}
 }

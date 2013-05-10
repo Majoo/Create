@@ -207,8 +207,8 @@ public class ToolbarPanel extends JPanel{
 		//Template chooser panel
 		JPanel tempsPan = new JPanel();
 		springLayout.putConstraint(SpringLayout.EAST, toolsPan, -6, SpringLayout.WEST, tempsPan);
+		springLayout.putConstraint(SpringLayout.WEST, tempsPan, 826, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, tempsPan, 0, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, tempsPan, 525, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, tempsPan, 69, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, tempsPan, -10, SpringLayout.EAST, this);
 

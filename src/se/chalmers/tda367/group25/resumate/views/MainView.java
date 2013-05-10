@@ -44,12 +44,9 @@ public class MainView extends JFrame implements MainViewInterface{
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(dannyMenuBar, GroupLayout.PREFERRED_SIZE, 687, GroupLayout.PREFERRED_SIZE)
-						.addComponent(toolbarPanel, GroupLayout.PREFERRED_SIZE, 687, GroupLayout.PREFERRED_SIZE)
-						.addComponent(docView, GroupLayout.PREFERRED_SIZE, 687, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addComponent(dannyMenuBar, GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
+				.addComponent(toolbarPanel, GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
+				.addComponent(docView, GroupLayout.DEFAULT_SIZE, 1307, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

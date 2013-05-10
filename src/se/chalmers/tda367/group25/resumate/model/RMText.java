@@ -1,13 +1,18 @@
 package se.chalmers.tda367.group25.resumate.model;
 
-import java.util.Scanner;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.JEditorPane;
+import se.chalmers.tda367.group25.resumate.utils.Styles;
 
 /**
- * A class which represents a section with text
- * of a template.
+ * A class which represents a section with text of a template.
  * 
  * @author ResuMate
- *
+ * 
  */
 public class RMText {
 
@@ -15,13 +20,17 @@ public class RMText {
 	private SectionType secType;
 	private String font;
 	private int size;
-	private String style;
+	private Map<String, Boolean> styles;
 
 	/**
 	 * Default constructor of a RMtext Section in a Document.
 	 */
 	public RMText() {
 		this.secType = SectionType.EMPTY;
+		styles = new HashMap<String, Boolean>();
+		styles.put("B", Styles.B);
+		styles.put("I", Styles.I);
+		styles.put("U", Styles.U);
 	}
 
 	/**
@@ -35,14 +44,128 @@ public class RMText {
 		this.secType = sectionType;
 	}
 
+	// MUTATORS
+
 	/**
-	 * Returns the String text from this RMText.
+	 * Sets the String text to the parameter input.
 	 * 
-	 * @return the String text from this RMText
+	 * @param input
+	 *            the new String to which to set the String text
 	 */
-	public String getText() {
-		return this.text;
+	public void setText(String input) {
+		this.text = input;
 	}
+
+	/**
+	 * Changes the font of the RMText depending on the parameter font.
+	 * 
+	 * @param section
+	 *            the JEditorPane whose contents is to be customized
+	 * 
+	 * @param font
+	 *            the font by which the section is to be customized with
+	 */
+
+	public void changeFont(JEditorPane section, String font) {
+		Font currentFont = section.getFont();
+		section.setFont(new Font(font, currentFont.getStyle(), currentFont
+				.getSize()));
+		if (Styles.U) {
+			changeStyle(section, "U");
+		}
+		this.font = font;
+	}
+
+	/**
+	 * Changes the size of the RMText depending on the parameter size.
+	 * 
+	 * @param section
+	 *            the JEditorPane whose contents is to be customized
+	 * @param size
+	 *            the size by which the section is to be customized with
+	 */
+	public void changeSize(JEditorPane section, int size) {
+		Font currentFont = section.getFont();
+		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
+		this.size = size;
+	}
+
+	/**
+	 * Changes the style of the specific textarea Checks wether the current
+	 * style is the one which has been chosen. If so then it will remove the
+	 * specified style. Changes the style of the RMText depending on the
+	 * parameter style.
+	 * 
+	 * @param section
+	 *            the JEditorPane whose contents is to be customized
+	 * @param style
+	 *            the style by which the section is to be customized with
+	 */
+
+	public void changeStyle(JEditorPane section, String style) {
+		Font currentFont = section.getFont();
+		Font font = currentFont;
+
+		switch (style) {
+		case "B":
+			if (!Styles.B) {
+				font = currentFont.deriveFont(currentFont.getStyle()
+						+ Font.BOLD);
+			} else {
+				font = currentFont.deriveFont(currentFont.getStyle()
+						& ~Font.BOLD);
+			}
+			Styles.B = !Styles.B;
+			styles.put("B", Styles.B);
+			break;
+
+		case "I":
+			if (!Styles.I) {
+				font = currentFont.deriveFont(currentFont.getStyle()
+						+ Font.ITALIC);
+			} else {
+				font = currentFont.deriveFont(currentFont.getStyle()
+						& ~Font.ITALIC);
+			}
+			Styles.I = !Styles.I;
+			styles.put("I", Styles.I);
+			break;
+
+		case "U":
+			Map<TextAttribute, Integer> attributes = new HashMap<TextAttribute, Integer>();
+			if (!Styles.U) {
+				attributes.put(TextAttribute.UNDERLINE,
+						TextAttribute.UNDERLINE_ON);
+
+			} else {
+				attributes.put(TextAttribute.UNDERLINE, -1);
+			}
+			Styles.U = !Styles.U;
+			styles.put("U", Styles.U);
+			font = currentFont.deriveFont(attributes);
+		}
+		section.setFont(font);
+	}
+
+	/**
+	 * Replaces the a text with another
+	 * 
+	 * @param replace
+	 *            the text to replace
+	 * 
+	 * @param replaceWith
+	 *            the text to be replaced with
+	 * 
+	 * @param section
+	 *            the JEditorPane whose contents is to be customized
+	 */
+	public void replaceText(JEditorPane section, String replace,
+			String replaceWith) {
+		section.setText(section.getText().replaceAll(replace, replaceWith));
+		this.setText(section.getText());
+	}
+
+	// GETTERS
 
 	/**
 	 * Returns SectionType of this RMText.
@@ -54,75 +177,33 @@ public class RMText {
 	}
 
 	/**
-	 * Sets the String text to the parameter input.
+	 * Returns the String text from this RMText.
 	 * 
-	 * @param input
-	 *            the new String to which to set the String text
+	 * @return the String text from this RMText
 	 */
-	public void setText(String input) {
-		this.text = input;
+	public String getText() {
+		return this.text;
 	}
-	
-	
-	/*
-	 * To ResuMate: The idea of having these as instance variables
-	 * and having accessors to them is to know which of these specializations
-	 * has been made on the current RMText and to be able to visualize it
-	 * later when one opens the document again. 
-	 */
-	
-	/**
-	 * Changes the font of the RMText depending  on the 
-	 * parameter font.
-	 * 
-	 * @param font
-	 *           the name of the chosen font 
-	 */
-	public void changeFont(String font){
-		this.font = font;
-	}
-	
-	/**
-	 * Changes the size of the RMText depending on the 
-	 * parameter size.
-	 * 
-	 * @param size
-	 *            the size set for the text
-	 */
-	public void changeSize(int size){
-		this.size = size;
-	}
-	
-	/**
-	 * Changes the style of the RMText depending on the 
-	 * parameter style.
-	 * 
-	 * @param size
-	 *            the name of the chosen style 
-	 */
-	public void changeStyle(String style){
-		this.style = style;
-	}
-	
+
 	/**
 	 * Returns the font of the RMText
 	 */
-	public String getFont(){
+	public String getFont() {
 		return this.font;
 	}
-	
+
 	/**
 	 * Returns the size of the RMText
 	 */
-	public int getSize(){
+	public int getSize() {
 		return this.size;
 	}
-	
+
 	/**
-	 * Returns the style of the RMText
+	 * Returns a map with the styles of the RMText
 	 */
-	public String getStyle(){
-		return this.style;
+	public Map<String, Boolean> getStyles() {
+		return styles;
 	}
-	
+
 }

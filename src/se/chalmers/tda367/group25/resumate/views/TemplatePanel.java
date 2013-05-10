@@ -107,106 +107,6 @@ public abstract class TemplatePanel extends JPanel {
 		this.imageContainer = imageContainer;
 	}
 	
-	//--------------------
-	
-	/**
-	 * Changes the font of the specific textarea
-	 * 
-	 * @param section
-	 * 			the JEditorPane whose contents is to be customized
-	 * 
-	 * @param font
-	 * 			the font by which the section is to be customized with
-	 */
-	
-	public void changeFont(JEditorPane section, String font){
-		Font currentFont = section.getFont();
-		section.setFont(new Font(font, currentFont.getStyle(), currentFont.getSize()));
-		//Inform to RMtext via pcs
-		if(isUnderlined){
-			changeStyle(section,"U");
-		}
-	}
-	
-	/**
-	 * Changes the size of the specific textarea
-	 * 
-	 * @param section
-	 * 			the JEditorPane whose contents is to be customized
-	 * @param size
-	 * 			the size by which the section is to be customized with
-	 */
-	public void changeSize(JEditorPane section, int size){
-		Font currentFont = section.getFont();
-		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
-		//Inform to RMtext via pcs
-	}
-
-	/**
-	 * Changes the style of the specific textarea
-	 * Checks wether the current style is the one which has been chosen.
-	 * If so then it will remove the specified style.
-	 * 
-	 * @param section
-	 * 			the JEditorPane whose contents is to be customized
-	 * @param style
-	 * 			the style by which the section is to be customized with
-	 */
-	
-	public void changeStyle(JEditorPane section, String style){
-		Font currentFont = section.getFont();
-		Font font = currentFont;
-		
-		switch(style){
-		case "B":
-			if(!currentFont.isBold()){	
-				font = currentFont.deriveFont(currentFont.getStyle() + Font.BOLD);
-			}else{
-				font = currentFont.deriveFont(currentFont.getStyle() & ~Font.BOLD);
-			}
-			break;
-		
-		case "I":	
-			if(!currentFont.isItalic()){	
-				font = currentFont.deriveFont(currentFont.getStyle() + Font.ITALIC);
-			}else{
-				font = currentFont.deriveFont(currentFont.getStyle() & ~Font.ITALIC);
-			}
-			break;
-		
-		case "U":
-			Map  <TextAttribute, Integer> attributes = new HashMap  <TextAttribute, Integer>();
-			if(isUnderlined){
-		        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		       
-			} else {
-				attributes.put(TextAttribute.UNDERLINE, -1);
-			}
-			isUnderlined = !isUnderlined;
-	        font = currentFont.deriveFont(attributes);	
-		}
-		section.setFont(font);	
-		//Inform to RMtext via pcs
-	}
-	
-	/**
-	 * Replaces the a text with another
-	 * 
-	 * @param replace
-	 * 			the text to replace
-	 * 
-	 * @param replaceWith
-	 * 			the text to be replaced with
-	 * 
-	 * @param section
-	 * 			the JEditorPane whose contents is to be customized
-	 */
-	public void replaceText(String replace, String replaceWith, JEditorPane section){
-		section.setText(section.getText().replaceAll(replace, replaceWith));
-		//Inform to RMtext via pcs
-		System.out.println("Johan was here");
-	}
-	
 	/**
 	 * Searches after the String input in variable text. 
 	 * If it is found then the current textcontainer will mark this text.
@@ -270,5 +170,10 @@ public abstract class TemplatePanel extends JPanel {
 
 	public void removePropertyChangeListener(PropertyChangeListener pcl){
 		pcs.removePropertyChangeListener(pcl);
+	}
+	
+	//This is here so that the subclasses can use this pcs to send further events.
+	public PropertyChangeSupport getPcs() {
+		return this.pcs;
 	}
 }

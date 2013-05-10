@@ -19,8 +19,17 @@ public class DocumentView extends JPanel{
 	
 	public DocumentView() {
 		pcs = new PropertyChangeSupport(this);
-		
-		
+			
+	}
+	
+	//GETTERS
+	public TemplatePanel getTemplatePanel(){
+		return templatePnl;
+	}
+	
+	//SETTERS
+	public void setTemplate(TemplatePanel tmplPnl){
+		this.templatePnl = tmplPnl;
 	}
 	
 	//PROPERTY-CHANGED-METHODS

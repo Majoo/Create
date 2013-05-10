@@ -13,38 +13,57 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 
+import com.itextpdf.awt.geom.Dimension;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
 public class MainView extends JFrame{
-	private JPanel docView;
-	private JPanel toolbarPanel;
-	
-	private PropertyChangeSupport pcs;
 	private DannyMenuBar dannyMenuBar;
+	private JPanel toolbarPanel;
+	private JPanel docView;
+
+	private PropertyChangeSupport pcs;
 
 	/**
 	 * Creates MainView, the Frame of the GUI.
 	 */
-	
+
 	public MainView() {
-		
-		getContentPane().setLayout(new BorderLayout());
-		
-		toolbarPanel = new ToolbarPanel();
-		SpringLayout springLayout = (SpringLayout) toolbarPanel.getLayout();
-		getContentPane().add(toolbarPanel);
-		
-		docView = new DocumentView();
-		springLayout.putConstraint(SpringLayout.NORTH, docView, 79, SpringLayout.NORTH, toolbarPanel);
-		springLayout.putConstraint(SpringLayout.WEST, docView, 0, SpringLayout.WEST, toolbarPanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, docView, 0, SpringLayout.SOUTH, toolbarPanel);
-		springLayout.putConstraint(SpringLayout.EAST, docView, 720, SpringLayout.WEST, toolbarPanel);
-		toolbarPanel.add(docView);
-		
+		//Creating and setting backgroundpanel
+		JPanel contentPane = new JPanel();
+		Dimension preferredSize = new Dimension(100,100);
+		//contentPane.setPreferredSize(preferredSize);
+
+		//Initializing components
 		dannyMenuBar = new DannyMenuBar();
-		getContentPane().add(dannyMenuBar, BorderLayout.NORTH);
+		toolbarPanel = new ToolbarPanel();
+		docView = new DocumentView();
 		
+		//Placing components
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(dannyMenuBar, GroupLayout.PREFERRED_SIZE, 687, GroupLayout.PREFERRED_SIZE)
+						.addComponent(toolbarPanel, GroupLayout.PREFERRED_SIZE, 687, GroupLayout.PREFERRED_SIZE)
+						.addComponent(docView, GroupLayout.PREFERRED_SIZE, 687, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(1)
+					.addComponent(dannyMenuBar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(toolbarPanel, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(docView, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+		);
+		contentPane.setLayout(gl_contentPane);
+
 		//PropertyChangeSupport and other important stuff
 		pcs = new PropertyChangeSupport(this);
-		
-		
 	}
 }

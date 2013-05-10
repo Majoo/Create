@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.experiment;
+package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;

@@ -8,6 +8,8 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import se.chalmers.tda367.group25.resumate.views.DannyMenuBar;
+
 public class DannyForm extends JFrame {
 
 	

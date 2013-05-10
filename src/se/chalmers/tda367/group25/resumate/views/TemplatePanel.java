@@ -28,18 +28,20 @@ public abstract class TemplatePanel extends JPanel {
 	private JEditorPane workingExperienceText;
 	private JEditorPane otherText;
 	private JEditorPane imageContainer;
+	
 	private PropertyChangeSupport pcs;
+	
 	private Boolean isUnderlined = false;
 	
-	/**
-	 * Create the panel.
-	 */
-	public TemplatePanel(){
-		this.personalInfoText = new JEditorPane();
-		this.workingExperienceText = new JEditorPane();
-		this.otherText = new JEditorPane();
+ 	/**
+ 	 * Create the panel. 
+ 	 * Is invoked in subclasses with the propper JEditorPanes.
+ 	 */
+	public TemplatePanel(){		
+		this.pcs = new PropertyChangeSupport(this);
 	}
 
+	//-----Getters-----
 	/**
 	 * Returns the personal information-textarea.
 	 * 
@@ -66,6 +68,46 @@ public abstract class TemplatePanel extends JPanel {
 	public JEditorPane getOtherText() {
 		return otherText;
 	}
+	
+	//-----Setters-----
+	
+	/**
+	 * Sets the personal information-textarea.
+	 * 
+	 * @param The JEditorPane for personal information
+	 */
+	public void setPersonalInfo(JEditorPane personalInfoText) {
+		this.personalInfoText = personalInfoText;
+	}
+
+	/**
+	 * Sets the working experience-textarea.
+	 * 
+	 * @param The JEditorPane for working experience
+	 */
+	public void setWorkingExperience(JEditorPane workingExperienceText) {
+		this.workingExperienceText = workingExperienceText;
+	}
+
+	/**
+	 * Sets the (other) textarea.
+	 * 
+	 * @param JEditorPane for other texts
+	 */
+	public void setOther(JEditorPane otherText) {
+		this.otherText = otherText;
+	}
+	
+	/**
+	 * Sets the image container
+	 * 
+	 * @return JEditorPane for image
+	 */
+	public void setImageContainer(JEditorPane imageContainer) {
+		this.imageContainer = imageContainer;
+	}
+	
+	//--------------------
 	
 	/**
 	 * Changes the font of the specific textarea

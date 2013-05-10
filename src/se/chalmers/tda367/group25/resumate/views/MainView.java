@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
-import se.chalmers.tda367.group25.resumate.experiment.DannyMenuBar;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

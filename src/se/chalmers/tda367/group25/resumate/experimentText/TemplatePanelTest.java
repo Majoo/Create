@@ -36,7 +36,6 @@ import org.junit.runners.JUnit4;
 
 public class TemplatePanelTest extends TemplatePanel {
 
-	//private JEditorPane editorPane;
 	private JToggleButton tglbtnB;
 	private JToggleButton tglbtnI;
 	private JToggleButton tglbtnU;

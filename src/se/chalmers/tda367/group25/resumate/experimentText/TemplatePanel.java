@@ -15,6 +15,7 @@ import javax.swing.text.DefaultHighlighter;
  * A class which represents the core of a Template. It holds the
  * methods for accesing the text in the different fields, for 
  * styling the text in the textareas and basic functions involving writing.
+ * 
  * @author Sara
  *
  */

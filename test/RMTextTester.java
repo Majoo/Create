@@ -5,8 +5,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import se.chalmers.tda367.group25.resumate.experimentText.*;
+import se.chalmers.tda367.group25.resumate.utils.Styles;
 
-/*
+/**
  * This is a testclass for RMText and its interaction with TemplatePanelTest
  */
 

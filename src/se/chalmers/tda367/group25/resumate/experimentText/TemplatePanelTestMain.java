@@ -17,5 +17,6 @@ public class TemplatePanelTestMain {
 	frame.add(tP);
 	frame.setResizable(false);
 	frame.setVisible(true);
+	
 	}
 }

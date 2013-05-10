@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 
+import se.chalmers.tda367.group25.resumate.utils.Styles;
+
 /**
  * A class which represents a section with text
  * of a template.

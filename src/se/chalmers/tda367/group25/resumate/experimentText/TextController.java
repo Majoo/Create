@@ -23,26 +23,21 @@ public class TextController implements PropertyChangeListener  {
 	public void propertyChange(PropertyChangeEvent arg0) {
 		switch(arg0.getPropertyName()){
 		case font:
-			//JOptionPane.showMessageDialog(null,"In Controller for font");
 			tX.changeFont((JEditorPane)arg0.getOldValue(), arg0.getNewValue().toString());
 		break;
 		case style:
-			//JOptionPane.showMessageDialog(null,"In Controller for style");
 			tX.changeStyle((JEditorPane)arg0.getOldValue(), arg0.getNewValue().toString());
 		
 		break;
 		case size:
-			//JOptionPane.showMessageDialog(null,"In Controller for size");
 			tX.changeSize((JEditorPane)arg0.getOldValue(), (int)arg0.getNewValue());
 			
 		break;
 		case text:
-			//OptionPane.showMessageDialog(null,"In Controller for text");
 			tX.setText(arg0.getNewValue().toString());
 			
 		break;
 		case replace:
-			//JOptionPane.showMessageDialog(null,"In Controller for replace");
 			String [] t = arg0.getNewValue().toString().split("/");
 			tX.replaceText((JEditorPane)arg0.getOldValue(), t[0], t[1]);
 		

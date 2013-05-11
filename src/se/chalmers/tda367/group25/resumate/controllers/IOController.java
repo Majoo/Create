@@ -36,7 +36,7 @@ public class IOController {
 	 *            only necessary when exporting, printing or sending, may be
 	 *            null
 	 */
-	public void chooseFunction(String function, String fileName, JComponent jc) {
+	public void chooseFunction(String function, JComponent jc) {
 		if (function.equals(Labels.PRINT_DOC)) {
 			// A printing method will be called here
 		} else if ((function.equals(Labels.EXPORT_DOC))

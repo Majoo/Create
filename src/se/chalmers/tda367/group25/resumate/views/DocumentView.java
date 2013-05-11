@@ -51,6 +51,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		// TODO Auto-generated method stub
+		//Sending the events from the templatepanel further up.
 		
 	}
 

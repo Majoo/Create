@@ -31,7 +31,6 @@ public abstract class TemplatePanel extends JPanel {
 	
 	private PropertyChangeSupport pcs;
 	
-	private Boolean isUnderlined = false;
 	
  	/**
  	 * Create the panel. 

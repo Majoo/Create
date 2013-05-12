@@ -19,7 +19,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class MainView extends JFrame implements MainViewInterface{
-	private DannyMenuBar dannyMenuBar;
+	private MenuBar dannyMenuBar;
 	private JPanel toolbarPanel;
 	private JPanel docView;
 
@@ -33,10 +33,11 @@ public class MainView extends JFrame implements MainViewInterface{
 		//Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
 		Dimension preferredSize = new Dimension(100,100);
+		//contentPane.setExtendedState(Frame.MAXIMIZED_BOTH);  <-- gör fullscreen?
 		//contentPane.setPreferredSize(preferredSize);
 
 		//Initializing components
-		dannyMenuBar = new DannyMenuBar();
+		dannyMenuBar = new MenuBar();
 		toolbarPanel = new ToolbarPanel();
 		docView = new DocumentView();
 		

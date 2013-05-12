@@ -1,6 +1,8 @@
 package se.chalmers.tda367.group25.resumate.experiment;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,7 +10,7 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
-import se.chalmers.tda367.group25.resumate.views.DannyMenuBar;
+import se.chalmers.tda367.group25.resumate.views.MenuBar;
 
 public class DannyForm extends JFrame {
 
@@ -38,8 +40,8 @@ public class DannyForm extends JFrame {
 	public DannyForm() {
 		setTitle("Text Editor by Lam(m)");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 600, 400);
-		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	    setBounds(0,0,screenSize.width, screenSize.height);
 		
 		
 		
@@ -55,13 +57,13 @@ public class DannyForm extends JFrame {
 		
 		
 		
-		DannyMenuBar dannyMenuBar = new DannyMenuBar();
+		MenuBar dannyMenuBar = new MenuBar();
 		sl_contentPane.putConstraint(SpringLayout.NORTH, dannyMenuBar, 0, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, dannyMenuBar, 0, SpringLayout.WEST, contentPane);
 		getContentPane().add(dannyMenuBar);
 		
 		informationTextArea = new JTextArea();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, informationTextArea, 16, SpringLayout.SOUTH, dannyMenuBar);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, informationTextArea, 41, SpringLayout.SOUTH, dannyMenuBar);
 		sl_contentPane.putConstraint(SpringLayout.WEST, informationTextArea, 10, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, informationTextArea, 222, SpringLayout.WEST, contentPane);
 		contentPane.add(informationTextArea);

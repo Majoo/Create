@@ -180,9 +180,14 @@ public class MenuBar extends JMenuBar {
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selection = JOptionPane.showConfirmDialog(null,
-						"Are you sure you want to exit?", null,
+						"Do you want to save the document first?", null,
 						JOptionPane.YES_NO_OPTION);
 				if (selection == JOptionPane.YES_OPTION) {
+					JOptionPane.showMessageDialog(null, "Open an explorer to save an .rsmt-file HERE"); //implementera Save här
+					System.exit(1);
+				}else if(selection == JOptionPane.CLOSED_OPTION){
+					;
+				}else{
 					System.exit(1);
 				}
 			}

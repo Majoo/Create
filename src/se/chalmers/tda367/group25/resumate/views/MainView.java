@@ -34,10 +34,14 @@ public class MainView extends JFrame implements MainViewInterface{
 
 	public MainView() {
 		//frame
+		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //fullscreen???
-		setBounds(0,0,screenSize.width, screenSize.height - 42);
+		
+//		java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //fullscreen???
+//		setBounds(0,0,screenSize.width, screenSize.height - 42);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+	
 		
 		
 		//Creating and setting backgroundpanel

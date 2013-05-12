@@ -3,6 +3,7 @@ package se.chalmers.tda367.group25.resumate.experiment3;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -56,7 +57,7 @@ public class PDFExp extends JFrame {
 	 */
 	public PDFExp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 495, 1500);
+		setBounds(0, 0, 495, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -72,6 +73,14 @@ public class PDFExp extends JFrame {
 			}
 		});
 		panel.add(btnExportToPdf);
+		
+		JButton btnBeep = new JButton("Beep");
+		btnBeep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Toolkit.getDefaultToolkit().beep();
+			}
+		});
+		panel.add(btnBeep);
 
 		panel_1 = new JPanel();
 		panel_1.setLayout(new BorderLayout(0, 0));
@@ -113,24 +122,43 @@ public class PDFExp extends JFrame {
 		int panelHeight = jc.getHeight();
 
 		Document document = new Document();
-		
+
 		File file = new File(filePathAndName + ".pdf");
 		int i = 1;
 		while (file.exists()) {
 			file = new File(filePathAndName + "_" + i + ".pdf");
 			i++;
 		}
-		
+
 		PdfWriter writer = PdfWriter.getInstance(document,
 				new FileOutputStream(file));
-		
+
 		document.open();
 		PdfContentByte cb = writer.getDirectContent();
-		PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight );
+		PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
 		Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
 		jc.print(g2);
+		cb.addTemplate(tp, document.left(document.leftMargin()), document.top()
+				- panelHeight);
 		g2.dispose();
-		cb.addTemplate(tp, (document.left()), (document.top() - jc.getHeight()));
+
+		// If the incoming JComponent representation of a Document is larger
+		// than a single PDF document, create new pages accordingly
+		int delta = (int) (panelHeight - document.top());
+		System.out.println(delta);
+		System.out.println(panelHeight);
+		System.out.println(document.top());
+		while (delta > 0) {
+			document.newPage();
+			PdfTemplate tp2 = cb.createTemplate(panelWidth, delta);
+			Graphics2D g22 = tp2.createGraphicsShapes(panelWidth, delta);
+			jc.print(g22);
+			cb.addTemplate(tp2, document.left(document.leftMargin()),
+					document.top() - panelHeight);
+			g22.dispose();
+			delta = (int) (delta - document.top());
+		}
+
 		document.close();
 	}
 
@@ -151,7 +179,7 @@ public class PDFExp extends JFrame {
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			String filePathAndName = chooser.getCurrentDirectory().getPath()
-					+ "\\" + chooser.getSelectedFile().getName();
+					+ "//" + chooser.getSelectedFile().getName();
 			try {
 				createPdf(jc, filePathAndName);
 			} catch (FileNotFoundException e) {

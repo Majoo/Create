@@ -41,8 +41,10 @@ public class PDFHandler {
 
 		File file = new File(filePathAndName + ".pdf");
 		int i = 1;
+		// If a file with the same name exists, append a digit
+		// indicating how many there are with the same name
 		while (file.exists()) {
-			file = new File(filePathAndName + "_" + i + ".pdf");
+			file = new File(filePathAndName + "(" + i + ")" + ".pdf");
 			i++;
 		}
 

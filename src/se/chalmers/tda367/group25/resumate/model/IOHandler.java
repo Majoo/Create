@@ -15,18 +15,21 @@ public class IOHandler {
 	 * @param fileName
 	 *            the file to save to
 	 */
-	public void saveFile(String fileName) {
+	public void saveFile(String fileName, Document doc) throws IOException {
 		File directory = new File(fileName);
 		// Create directory for RSMT files
 		if (directory.mkdirs()) {
 			// Create all files in RSMT "project". i.e., the files corresponding
-			// the instances of RMText in a Document
-			try {
-				FileWriter w = new FileWriter(fileName);
-				// textArea.write(w);
-			} catch (IOException e) {
-			}
-
+			// the instances of RMText in a Document.
+			//
+			// Get the map of RMText Sections from the Document to be saved.
+			// Map map = doc.getRMTextMap();
+			// For each existing RMText, save a text document.
+			// for(int i = 0; i < map.size();i++){
+			FileWriter w = new FileWriter(fileName + "//"
+					+ "The label of the current RMText goes here");
+			// }
+			//Create .RSMT file in the folder to make
 		}
 	}
 

@@ -11,6 +11,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.itextpdf.text.DocumentException;
 
+import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.IOHandler;
 import se.chalmers.tda367.group25.resumate.model.PDFHandler;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
@@ -37,11 +38,11 @@ public class IOController {
 	 *            null
 	 */
 	public void chooseFunction(String function, JComponent jc) {
-		if (function.equals(Labels.PRINT_DOC)) {
-			// A printing method will be called here
-		} else if ((function.equals(Labels.EXPORT_DOC))
-				|| (function.equals(Labels.SEND_DOC))
+		if (function.equals(Labels.PRINT_DOC)
 				|| (function.equals(Labels.SAVE_DOC))
+				|| (function.equals(Labels.SEND_DOC))) {
+			// A printing,  method will be called here
+		} else if ((function.equals(Labels.EXPORT_DOC))
 				|| (function.equals(Labels.SAVE_DOC_AS))
 				|| (function.equals(Labels.OPEN_DOC))
 				|| (function.equals(Labels.RENAME_DOC))) {
@@ -53,6 +54,8 @@ public class IOController {
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (NullPointerException e) {
+				// If no file is chosen or operation is aborted, nothing happens
 			}
 		} else {
 			System.out.println("No such command!");
@@ -67,7 +70,8 @@ public class IOController {
 	 *            the context of the function e.g. save, save as, export as PDF
 	 */
 	public void choosePath(JComponent jc, String function)
-			throws FileNotFoundException, DocumentException {
+			throws FileNotFoundException, DocumentException,
+			NullPointerException {
 
 		JFileChooser chooser = new JFileChooser();
 
@@ -82,13 +86,17 @@ public class IOController {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			try {
 				if (function.equals(Labels.EXPORT_DOC)) {
-					PDFHandler.createPdf(jc,filePathAndName);
+					PDFHandler.createPdf(jc, filePathAndName);
 				} else if (function.equals(Labels.SEND_DOC)) {
 					;
 				} else if (function.equals(Labels.SAVE_DOC)) {
-					ioHandler.saveFile(filePathAndName);
+					// Connection to DocumentController needs to be established
+					// so that the correct Document can be fetched
+					ioHandler.saveFile(filePathAndName, new Document());
 				} else if (function.equals(Labels.SAVE_DOC_AS)) {
-					;
+					// Connection to DocumentController needs to be established
+					// so that the correct Document can be fetched
+					ioHandler.saveFile(filePathAndName, new Document());
 				} else if (function.equals(Labels.OPEN_DOC)) {
 					ioHandler.openFile(filePathAndName);
 				}

@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 
@@ -17,9 +19,10 @@ import com.itextpdf.awt.geom.Dimension;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
 
 public class MainView extends JFrame implements MainViewInterface{
-	private DannyMenuBar dannyMenuBar;
+	private MenuBar dannyMenuBar;
 	private JPanel toolbarPanel;
 	private JPanel docView;
 
@@ -30,13 +33,28 @@ public class MainView extends JFrame implements MainViewInterface{
 	 */
 
 	public MainView() {
+		//frame
+		setVisible(true);
+		setTitle("ResuMate" + "- [the name of the file]");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+//		java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //fullscreen???
+//		setBounds(0,0,screenSize.width, screenSize.height - 42);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+	
+		
+		
 		//Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
-		Dimension preferredSize = new Dimension(100,100);
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		setContentPane(contentPane);
+		//SpringLayout sl_contentPane = new SpringLayout();
+		//contentPane.setLayout(sl_contentPane);
+		//Dimension preferredSize = new Dimension(100,100);
 		//contentPane.setPreferredSize(preferredSize);
 
 		//Initializing components
-		dannyMenuBar = new DannyMenuBar();
+		dannyMenuBar = new MenuBar();
 		toolbarPanel = new ToolbarPanel();
 		docView = new DocumentView();
 		
@@ -44,9 +62,11 @@ public class MainView extends JFrame implements MainViewInterface{
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(dannyMenuBar, GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
-				.addComponent(toolbarPanel, GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
-				.addComponent(docView, GroupLayout.DEFAULT_SIZE, 1307, Short.MAX_VALUE)
+				.addComponent(dannyMenuBar, GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
+				.addComponent(docView, GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(10)
+					.addComponent(toolbarPanel, GroupLayout.DEFAULT_SIZE, 1254, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -56,7 +76,7 @@ public class MainView extends JFrame implements MainViewInterface{
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(toolbarPanel, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(docView, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+					.addComponent(docView, GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 

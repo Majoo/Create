@@ -7,6 +7,7 @@ public class DannyMain {
 		textEditor.setLocationRelativeTo(null);
 		textEditor.setVisible(true);
 		
+		// new Fullscreen().setVisible(true);
 		
 	}
 }

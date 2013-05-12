@@ -40,7 +40,7 @@ public class DannyForm extends JFrame {
 	public DannyForm() {
 		setTitle("Text Editor by Lam(m)");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();   //fullscreen
 	    setBounds(0,0,screenSize.width, screenSize.height);
 		
 		

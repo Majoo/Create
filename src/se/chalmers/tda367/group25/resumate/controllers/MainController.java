@@ -61,8 +61,7 @@ public class MainController {
 				break;
 			
 			case  Labels.EXPORT_DOC:
-//				ioController.handlePdf(mainView.getCurrentDoc(), EXPORT_DOC);
-//				Must implement getCurrentDocPanel in MainView				
+//				ioController.handlePdf(get, EXPORT_DOC);				
 				break;
 			
 			case  Labels.OPEN_DOC:

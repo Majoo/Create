@@ -239,13 +239,16 @@ public class MenuBar extends JMenuBar {
 		JMenu mnFormat = new JMenu("Format");
 		add(mnFormat);
 
-		JMenuItem mntmSomething = new JMenuItem("Something");
-		mnFormat.add(mntmSomething);
+		JMenuItem mntmSomething1 = new JMenuItem("Something");
+		mnFormat.add(mntmSomething1);
 
 
 		//the insert
 		JMenu mnInsert = new JMenu("Insert");
 		add(mnInsert);
+		
+		JMenuItem mntmSomething2 = new JMenuItem("Something");
+		mnInsert.add(mntmSomething2);
 
 		//the show
 		JMenu mnShow = new JMenu("Show");

@@ -75,7 +75,7 @@ public class ToolbarPanel extends JPanel{
 		upperToolsPan.add(btnOpen);
 
 		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
+		/*btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				if("".equals(currentFileDirectory)){					//if the current file is a new one (untitled)
@@ -116,7 +116,7 @@ public class ToolbarPanel extends JPanel{
 				}
 			}
 				
-		});
+		});*/
 		upperToolsPan.add(btnSave);
 
 		JButton btnSend = new JButton("Send");

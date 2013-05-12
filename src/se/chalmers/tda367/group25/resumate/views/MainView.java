@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 
@@ -32,8 +34,9 @@ public class MainView extends JFrame implements MainViewInterface{
 	public MainView() {
 		//Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
-		Dimension preferredSize = new Dimension(100,100);
-		//contentPane.setExtendedState(Frame.MAXIMIZED_BOTH);  <-- gör fullscreen?
+		//Dimension preferredSize = new Dimension(100,100);
+		java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //fullscreen???
+	    setBounds(0,0,screenSize.width, screenSize.height);
 		//contentPane.setPreferredSize(preferredSize);
 
 		//Initializing components

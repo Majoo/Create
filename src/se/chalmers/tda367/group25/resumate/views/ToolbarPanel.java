@@ -3,6 +3,8 @@ package se.chalmers.tda367.group25.resumate.views;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
@@ -11,12 +13,18 @@ import java.awt.FlowLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JToggleButton;
 
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
@@ -24,14 +32,17 @@ import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ToolbarPanel extends JPanel{
 	private PropertyChangeSupport pcs;
 
 
-
+	private String currentFileDirectory = "";
 	private JButton temp1But, temp2But, temp3But;
 	private JComboBox otherTemps;
+	private JPanel lowerToolsPan;
 
 	/**
 	 * Create the panel.
@@ -52,13 +63,60 @@ public class ToolbarPanel extends JPanel{
 		upperToolsPan.setLayout(new GridLayout(1,10));
 		toolsPan.add(upperToolsPan);
 
-		JButton btnNewDoc = new JButton("New Doc");
+		JButton btnNewDoc = new JButton("New");
 		upperToolsPan.add(btnNewDoc);
 
-		JButton btnSomething = new JButton("Something");
-		upperToolsPan.add(btnSomething);
+		JButton btnOpen = new JButton("Open");
+		btnOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "this should open a doc");
+			}
+		});
+		upperToolsPan.add(btnOpen);
 
 		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if("".equals(currentFileDirectory)){					//if the current file is a new one (untitled)
+					JFileChooser sdChooser = new JFileChooser();		//file chooser
+					FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
+					sdChooser.setFileFilter(filter);
+					int returnVal = sdChooser.showSaveDialog(null);
+					
+					try{
+						if(returnVal == JFileChooser.APPROVE_OPTION){
+							File directory = sdChooser.getCurrentDirectory();
+							String path = directory.getAbsolutePath();					//the absolute path of the directory, named "path"
+							String fileName = sdChooser.getSelectedFile().getName();	//get the file name
+							if(!fileName.contains("rsmt")){								//if the file name doesn't contain rsmt,
+								fileName = fileName + ".rsmt";							//name it a new name with .rsmt at the end
+							}
+							BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "\\" + fileName), "UTF-8"));
+							currentFileDirectory = path + "\\" + fileName;				//the current file directory is now "theabsolutepath\\filename.rsmt"
+							//bw.write(THE_NAME_OF_THE_EDITORPANE_THAT_SHOULD_BE_OVERWRITTEN.getText());					//get the document text and write it over
+							bw.close();
+						}
+						
+					}catch(IOException err){
+						JOptionPane.showMessageDialog(null,  "ERROR!");
+					}
+				
+				}else{
+					
+					try{
+						//if it is not empty, we'll save it into the current directory
+						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(currentFileDirectory), "UTF-8"));
+						//bw.write(THE_NAME_OF_THE_EDITORPANE_THAT_SHOULD_BE_OVERWRITTEN.getText());
+						bw.close();
+						
+					}catch(IOException err){
+						JOptionPane.showMessageDialog(null,  "ERROR!");
+					}	
+				}
+			}
+				
+		});
 		upperToolsPan.add(btnSave);
 
 		JButton btnSend = new JButton("Send");
@@ -82,7 +140,7 @@ public class ToolbarPanel extends JPanel{
 		JButton btnBackward = new JButton("Backward");
 		upperToolsPan.add(btnBackward);
 		//Lower part tools panel
-		JPanel lowerToolsPan = new JPanel();
+		lowerToolsPan = new JPanel();
 
 		JComboBox fontCB = new JComboBox();
 		fontCB.setModel(new DefaultComboBoxModel(new String[] {"Fonts"}));
@@ -99,6 +157,7 @@ public class ToolbarPanel extends JPanel{
 		tglbtnItalic.setFont(new Font("Tahoma", Font.ITALIC, 11));
 
 		JToggleButton tglbtnUnderline = new JToggleButton("U");
+		//Can't få det underlinat bajs???
 		Map<TextAttribute, Object> map = new HashMap<TextAttribute, Object>();
 		map.put(TextAttribute.UNDERLINE,
 				TextAttribute.UNDERLINE_ON);
@@ -148,8 +207,8 @@ public class ToolbarPanel extends JPanel{
 		//Template chooser panel
 		JPanel tempsPan = new JPanel();
 		springLayout.putConstraint(SpringLayout.EAST, toolsPan, -6, SpringLayout.WEST, tempsPan);
+		springLayout.putConstraint(SpringLayout.WEST, tempsPan, 826, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, tempsPan, 0, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, tempsPan, 525, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, tempsPan, 69, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, tempsPan, -10, SpringLayout.EAST, this);
 

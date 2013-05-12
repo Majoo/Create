@@ -31,9 +31,12 @@ import javax.swing.SpringLayout;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 
-public class TemplatePanelTest extends JPanel {
+import org.junit.runner.JUnitCore;
+import org.junit.runners.JUnit4;
 
-	private JEditorPane editorPane;
+public class TemplatePanelTest extends TemplatePanel {
+
+	//private JEditorPane editorPane;
 	private JToggleButton tglbtnB;
 	private JToggleButton tglbtnI;
 	private JToggleButton tglbtnU;
@@ -41,7 +44,7 @@ public class TemplatePanelTest extends JPanel {
 	private JComboBox sizeComboBox;
 	private JTextField txtFont;
 
-	TemplatePanelTest() {
+	public TemplatePanelTest() {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 
@@ -75,16 +78,15 @@ public class TemplatePanelTest extends JPanel {
 		add(rigidArea_3);
 
 		// Setting properties for the textarea
-		editorPane = new JEditorPane();
-		springLayout.putConstraint(SpringLayout.NORTH, editorPane, 46,
+		springLayout.putConstraint(SpringLayout.NORTH, getOtherText(), 46,
 				SpringLayout.SOUTH, rigidArea_2);
-		springLayout.putConstraint(SpringLayout.WEST, editorPane, 33,
+		springLayout.putConstraint(SpringLayout.WEST, getOtherText(), 33,
 				SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, editorPane, -42,
+		springLayout.putConstraint(SpringLayout.SOUTH, getOtherText(), -42,
 				SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, editorPane, 410,
+		springLayout.putConstraint(SpringLayout.EAST, getOtherText(), 410,
 				SpringLayout.WEST, this);
-		add(editorPane);
+		add(getOtherText());
 
 		// Setting properties for the "Find text"-button
 		JButton btnFindText = new JButton("Find");
@@ -92,29 +94,48 @@ public class TemplatePanelTest extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				String text = JOptionPane.showInputDialog(null, null,
 						"Find text", 2);
-				findText(text, editorPane);
+				findText(text, getOtherText());
 
 			}
 		});
 		springLayout.putConstraint(SpringLayout.SOUTH, btnFindText, -6,
-				SpringLayout.NORTH, editorPane);
+				SpringLayout.NORTH, getOtherText());
 		springLayout.putConstraint(SpringLayout.EAST, btnFindText, 0,
-				SpringLayout.EAST, editorPane);
+				SpringLayout.EAST, getOtherText());
 		add(btnFindText);
 
 		// Setting properties for the "Replace text"-button
 		JButton btnReplaceText = new JButton("Replace");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnReplaceText, -6,
-				SpringLayout.NORTH, editorPane);
+				SpringLayout.NORTH, getOtherText());
 		springLayout.putConstraint(SpringLayout.EAST, btnReplaceText, -6,
 				SpringLayout.WEST, btnFindText);
 		btnReplaceText.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String replaceText = JOptionPane.showInputDialog(null, null,
-						"Replace text", 2);
-				String replaceWith = JOptionPane.showInputDialog(null, null,
-						"Replace " + replaceText + " with:", 2);
-				replaceText(replaceText, replaceWith, editorPane);
+				String replaceText = null;
+				String replaceWith = null;
+				
+				boolean replaceWithNeedsInput = true;
+				boolean replaceNeedsInput = true;
+				while(replaceNeedsInput){
+					replaceText = JOptionPane.showInputDialog(null, null,
+							"Replace text", 2);
+					if(replaceText.isEmpty()){
+						JOptionPane.showMessageDialog(null,"Please enter a word to replace");
+					} else {
+						replaceNeedsInput = false;
+						while(replaceWithNeedsInput){
+							replaceWith = JOptionPane.showInputDialog(null, null,
+							"Replace " + replaceText + " with:", 2);
+							if (replaceWith.isEmpty()){
+								JOptionPane.showMessageDialog(null,"Please enter a word to replace with");
+							} else {
+								replaceWithNeedsInput = false;
+								replaceText(replaceText, replaceWith, getOtherText());
+							}
+						}
+					}
+				}	
 			}
 		});
 		add(btnReplaceText);
@@ -124,10 +145,10 @@ public class TemplatePanelTest extends JPanel {
 		springLayout.putConstraint(SpringLayout.NORTH, tglbtnB, 0,
 				SpringLayout.NORTH, btnFindText);
 		springLayout.putConstraint(SpringLayout.WEST, tglbtnB, 0,
-				SpringLayout.WEST, editorPane);
+				SpringLayout.WEST, getOtherText());
 		tglbtnB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				changeStyle(editorPane, "B");
+				changeStyle(getOtherText(), "B");
 			}
 		});
 		tglbtnB.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -138,10 +159,10 @@ public class TemplatePanelTest extends JPanel {
 		springLayout.putConstraint(SpringLayout.WEST, tglbtnI, 6,
 				SpringLayout.EAST, tglbtnB);
 		springLayout.putConstraint(SpringLayout.SOUTH, tglbtnI, -6,
-				SpringLayout.NORTH, editorPane);
+				SpringLayout.NORTH, getOtherText());
 		tglbtnI.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				changeStyle(editorPane, "I");
+				changeStyle(getOtherText(), "I");
 			}
 		});
 		tglbtnI.setFont(new Font("Tahoma", Font.ITALIC, 11));
@@ -152,10 +173,10 @@ public class TemplatePanelTest extends JPanel {
 		springLayout.putConstraint(SpringLayout.WEST, tglbtnU, 6,
 				SpringLayout.EAST, tglbtnI);
 		springLayout.putConstraint(SpringLayout.SOUTH, tglbtnU, -6,
-				SpringLayout.NORTH, editorPane);
+				SpringLayout.NORTH, getOtherText());
 		tglbtnU.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				changeStyle(editorPane, "U");
+				changeStyle(getOtherText(), "U");
 			}
 		});
 		Map  <TextAttribute, Integer> attributes = new HashMap  <TextAttribute, Integer>();
@@ -173,7 +194,7 @@ public class TemplatePanelTest extends JPanel {
 		fontComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String t = fontComboBox.getSelectedItem().toString();
-				changeFont(editorPane, t);
+				changeFont(getOtherText(), t);
 			}
 		});
 		/*
@@ -204,7 +225,7 @@ public class TemplatePanelTest extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int i = Integer.parseInt((sizeComboBox.getSelectedItem()
 						.toString()));
-				changeSize(editorPane, i);
+				changeSize(getOtherText(), i);
 			}
 		});
 		// Setting the numbers to be included in the combobox
@@ -217,7 +238,7 @@ public class TemplatePanelTest extends JPanel {
 		springLayout.putConstraint(SpringLayout.WEST, sizeComboBox, 6,
 				SpringLayout.EAST, tglbtnU);
 		springLayout.putConstraint(SpringLayout.SOUTH, sizeComboBox, -6,
-				SpringLayout.NORTH, editorPane);
+				SpringLayout.NORTH, getOtherText());
 		add(sizeComboBox);
 
 		// Setting the textfield for the fonts
@@ -233,7 +254,17 @@ public class TemplatePanelTest extends JPanel {
 		txtFont.setText("Font:");
 		add(txtFont);
 		txtFont.setColumns(10);
-
+		
+		JButton btnSave = new JButton("Save");
+		springLayout.putConstraint(SpringLayout.SOUTH, btnSave, -6, SpringLayout.NORTH, btnFindText);
+		springLayout.putConstraint(SpringLayout.EAST, btnSave, 0, SpringLayout.EAST, btnFindText);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				changeText(getOtherText());
+				
+			}
+		});
+		add(btnSave);
 		this.setVisible(true);
 	}
 
@@ -282,73 +313,29 @@ public class TemplatePanelTest extends JPanel {
 				}
 			}
 		}
-		JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
+		//JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
 	}
 	
-	
-	
-
 	public void replaceText(String replaceThis, String replaceWith,
 			JEditorPane section) {
-		section.setText(section.getText().replaceAll(replaceThis, replaceWith));
+		getPcs().firePropertyChange(TextController.replace, section, replaceThis + "/" + replaceWith);
+		getPcs().firePropertyChange(TextController.text, section, getOtherText().getText());
 	}
 
 	public void changeFont(JEditorPane section, String font) {
-		Font f = section.getFont();
-		section.setFont(new Font(font, f.getStyle(), f.getSize()));
-		//Checks if the toggle button to text underline is selected to add that feature again.
-		if(tglbtnU.isSelected()){
-			changeStyle(section,"U");
-		}
+		getPcs().firePropertyChange(TextController.font, section, font);
 	}
 
 	public void changeSize(JEditorPane section, int size) {
-		Font currentFont = section.getFont();
-		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
+		getPcs().firePropertyChange(TextController.size, section, size);
 
 	}
 
 	public void changeStyle(JEditorPane section, String style) {
-
-		Font currentFont = section.getFont();
-		Font font = currentFont;
-		
-		/*
-		 * Switches depending on the style and checks if the button for the
-		 * given style is selected or not to see if the style should be applied.
-		 */
-		switch (style) {
-		case "B":
-			if (tglbtnB.isSelected()) {
-				font = currentFont.deriveFont(currentFont.getStyle()
-						+ Font.BOLD);
-			} else {
-				font = currentFont.deriveFont(currentFont.getStyle()
-						& ~Font.BOLD);
-			}
-			break;
-
-		case "I":
-			if (tglbtnI.isSelected()) {
-				font = currentFont.deriveFont(currentFont.getStyle()
-						+ Font.ITALIC);
-			} else {
-				font = currentFont.deriveFont(currentFont.getStyle()
-						& ~Font.ITALIC);
-			}
-			break;
-
-		case "U":
-			Map  <TextAttribute, Integer> attributes = new HashMap  <TextAttribute, Integer>();
-			if (tglbtnU.isSelected()) {
-				attributes.put(TextAttribute.UNDERLINE,
-						TextAttribute.UNDERLINE_ON);
-
-			} else {
-				attributes.put(TextAttribute.UNDERLINE, -1);
-			}
-			font = currentFont.deriveFont(attributes);
-		}
-		section.setFont(font);
+		getPcs().firePropertyChange(TextController.style, section, style);
+	}
+	
+	public void changeText(JEditorPane section) {
+		getPcs().firePropertyChange(TextController.text, section, getOtherText().getText());
 	}
 }

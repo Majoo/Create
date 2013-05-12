@@ -9,10 +9,12 @@ public class TemplatePanelTestMain {
 	JFrame frame = new JFrame();
 	frame.setTitle("Test findtext in TemplatePanel");
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.setBounds(100, 100, 600, 400);
+	frame.setBounds(100, 100, 450, 400);
 	frame.setLocationRelativeTo(null);
-	TemplatePanelTest test = new TemplatePanelTest();
-	frame.add(test);
+	TemplatePanelTest tP = new TemplatePanelTest();
+	TextController tc = new TextController();
+	tP.addObserver(tc);
+	frame.add(tP);
 	frame.setResizable(false);
 	frame.setVisible(true);
 	}

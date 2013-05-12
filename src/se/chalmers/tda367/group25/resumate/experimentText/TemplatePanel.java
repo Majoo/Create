@@ -1,12 +1,8 @@
-package se.chalmers.tda367.group25.resumate.views;
+package se.chalmers.tda367.group25.resumate.experimentText;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.font.TextAttribute;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
@@ -28,85 +24,49 @@ public abstract class TemplatePanel extends JPanel {
 	private JEditorPane workingExperienceText;
 	private JEditorPane otherText;
 	private JEditorPane imageContainer;
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	
-	private PropertyChangeSupport pcs;
-	
-	private Boolean isUnderlined = false;
-	
- 	/**
- 	 * Create the panel. 
- 	 * Is invoked in subclasses with the propper JEditorPanes.
- 	 */
-	public TemplatePanel(){		
-		this.pcs = new PropertyChangeSupport(this);
-	}
-
-	//-----Getters-----
 	/**
-	 * Returns the personal information-textarea.
-	 * 
-	 * @return The JEditorPane for personal information
+	 * Create the panel.
 	 */
-	public JEditorPane getPersonalInfo() {
-		return personalInfoText;
+	
+	public TemplatePanel(){
+		this.otherText = new JEditorPane();
+	}
+	
+	public TemplatePanel(JEditorPane pIT, JEditorPane wET, JEditorPane oT) {
+		this.personalInfoText = pIT;
+		this.workingExperienceText = wET;
+		this.otherText = oT;
 	}
 
 	/**
-	 * Returns the working experience-textarea.
+	 * Returns the text of the personal information-textarea.
 	 * 
-	 * @return The JEditorPane for working experience
+	 * @return String in the JEditorPane for personal information
 	 */
-	public JEditorPane getWorkingExperienceText() {
-		return workingExperienceText;
+	public String getPersonalInfo() {
+		return personalInfoText.getText();
 	}
 
 	/**
-	 * Returns the (other) textarea.
+	 * Returns the text of the working experience-textarea.
 	 * 
-	 * @return JEditorPane for other texts
+	 * @return String in the JEditorPane for working experience
+	 */
+	public String getWorkingExperienceText() {
+		return workingExperienceText.getText();
+	}
+
+	/**
+	 * Returns the text of the (other) textarea.
+	 * 
+	 * @return String in the JEditorPane for working experience
 	 */
 	public JEditorPane getOtherText() {
 		return otherText;
 	}
-	
-	//-----Setters-----
-	
-	/**
-	 * Sets the personal information-textarea.
-	 * 
-	 * @param The JEditorPane for personal information
-	 */
-	public void setPersonalInfo(JEditorPane personalInfoText) {
-		this.personalInfoText = personalInfoText;
-	}
 
-	/**
-	 * Sets the working experience-textarea.
-	 * 
-	 * @param The JEditorPane for working experience
-	 */
-	public void setWorkingExperience(JEditorPane workingExperienceText) {
-		this.workingExperienceText = workingExperienceText;
-	}
-
-	/**
-	 * Sets the (other) textarea.
-	 * 
-	 * @param JEditorPane for other texts
-	 */
-	public void setOther(JEditorPane otherText) {
-		this.otherText = otherText;
-	}
-	
-	/**
-	 * Sets the image container
-	 * 
-	 * @return JEditorPane for image
-	 */
-	public void setImageContainer(JEditorPane imageContainer) {
-		this.imageContainer = imageContainer;
-	}
-	
 	/**
 	 * Searches after the String input in variable text. 
 	 * If it is found then the current textcontainer will mark this text.
@@ -161,19 +121,33 @@ public abstract class TemplatePanel extends JPanel {
 		}
 		JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
 	}
-
 	
-	//PROPERTY-CHANGED-METHODS
-	public void addPropertyChangeListener(PropertyChangeListener pcl){
-		pcs.addPropertyChangeListener(pcl);
+	/**
+	 * Adds an observer to this class 
+	 * 
+	 * @param PCL
+	 * 			the observer to be added
+	 */
+	public void addObserver(PropertyChangeListener PCL){
+		pcs.addPropertyChangeListener(PCL);
+		
+	}
+	
+	/**
+	 * Removes an observer of this class
+	 * 
+	 * @param PCL
+	 * 			the observer to be removed
+	 */
+	public void removeObserver(PropertyChangeListener PCL){
+		pcs.removePropertyChangeListener(PCL);
 	}
 
-	public void removePropertyChangeListener(PropertyChangeListener pcl){
-		pcs.removePropertyChangeListener(pcl);
-	}
-	
-	//This is here so that the subclasses can use this pcs to send further events.
+	/**
+	 * @return the pcs
+	 */
 	public PropertyChangeSupport getPcs() {
 		return this.pcs;
 	}
+
 }

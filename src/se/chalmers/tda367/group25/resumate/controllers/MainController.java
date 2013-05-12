@@ -13,7 +13,9 @@ public class MainController {
 	private IOController ioController;
 	private MainView mainView;
 
-	/* An application with the default document is created. */
+	/**
+	 *  An application with the default document is created. 
+	 **/
 	public MainController() {
 		documentController = new DocumentController();
 		ioController = new IOController();

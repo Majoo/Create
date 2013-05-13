@@ -1,13 +1,14 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
 
-public class MainController {
+public class MainController implements PropertyChangeListener {
 
 	private DocumentController documentController;
 	private IOController ioController;
@@ -19,6 +20,8 @@ public class MainController {
 	public MainController() {
 		documentController = new DocumentController();
 		ioController = new IOController();
+		mainView = new MainView();
+		mainView.addPropertyChangeListener(this);
 	}
 
 	/**

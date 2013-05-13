@@ -93,7 +93,7 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		// TODO Auto-generated method stub
+		pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(), arg0.getNewValue());
 		
 	}
 }

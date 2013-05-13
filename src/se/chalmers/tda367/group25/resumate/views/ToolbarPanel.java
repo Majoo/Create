@@ -166,7 +166,6 @@ public class ToolbarPanel extends JPanel{
 		tglbtnItalic.setFont(new Font("Tahoma", Font.ITALIC, 11));
 
 		JToggleButton tglbtnUnderline = new JToggleButton("U");
-		//Can't få det underlinat bajs???
 		Map<TextAttribute, Object> map = new HashMap<TextAttribute, Object>();
 		map.put(TextAttribute.UNDERLINE,
 				TextAttribute.UNDERLINE_ON);

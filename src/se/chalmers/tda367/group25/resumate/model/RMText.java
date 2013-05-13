@@ -67,13 +67,16 @@ public class RMText {
 	 */
 
 	public void changeFont(JEditorPane section, String font) {
+		//Store the font in the model
+		this.font = font;
+		
+		//Update the font in the view
 		Font currentFont = section.getFont();
 		section.setFont(new Font(font, currentFont.getStyle(), currentFont
 				.getSize()));
 		if (Styles.U) {
 			changeStyle(section, "U");
 		}
-		this.font = font;
 	}
 
 	/**
@@ -85,9 +88,13 @@ public class RMText {
 	 *            the size by which the section is to be customized with
 	 */
 	public void changeSize(JEditorPane section, int size) {
+		//Store the size in the model
+		this.size = size;
+		
+		//Update the size in the view
 		Font currentFont = section.getFont();
 		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
-		this.size = size;
+		
 	}
 
 	/**
@@ -161,8 +168,11 @@ public class RMText {
 	 */
 	public void replaceText(JEditorPane section, String replace,
 			String replaceWith) {
-		section.setText(section.getText().replaceAll(replace, replaceWith));
+		//Store the text in the model
 		this.setText(section.getText());
+		//Update the text in the view
+		section.setText(section.getText().replaceAll(replace, replaceWith));
+		
 	}
 
 	// GETTERS

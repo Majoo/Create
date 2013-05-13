@@ -4,10 +4,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -23,8 +23,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import se.chalmers.tda367.group25.resumate.utils.Translator;
 
-public class MainView extends JFrame implements MainViewInterface, PropertyChangeListener{
+public class MainView extends JFrame implements MainViewInterface,
+		PropertyChangeListener {
 	private MenuBar dannyMenuBar;
 	private JPanel toolbarPanel;
 	private JPanel docView;
@@ -36,69 +38,91 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 	 */
 
 	public MainView() {
-		//frame
+		// frame
 		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-//		java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //fullscreen???
-//		setBounds(0,0,screenSize.width, screenSize.height - 42);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-	
 
-		//Creating and setting backgroundpanel
+		// java.awt.Dimension screenSize =
+		// Toolkit.getDefaultToolkit().getScreenSize(); //fullscreen???
+		// setBounds(0,0,screenSize.width, screenSize.height - 42);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+		// Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 
-		//Initializing components
+		// Initializing components
 		dannyMenuBar = new MenuBar();
 		dannyMenuBar.addPropertyChangeListener(this);
 		toolbarPanel = new ToolbarPanel();
 		toolbarPanel.addPropertyChangeListener(this);
 		docView = new DocumentView();
-		
-		//Placing components
+
+		// Placing components
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(dannyMenuBar, GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
-				.addComponent(docView, GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(10)
-					.addComponent(toolbarPanel, GroupLayout.DEFAULT_SIZE, 1254, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(1)
-					.addComponent(dannyMenuBar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(toolbarPanel, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(docView, GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE))
-		);
+		gl_contentPane.setHorizontalGroup(gl_contentPane
+				.createParallelGroup(Alignment.LEADING)
+				.addComponent(dannyMenuBar, GroupLayout.DEFAULT_SIZE, 1264,
+						Short.MAX_VALUE)
+				.addComponent(docView, GroupLayout.DEFAULT_SIZE, 1264,
+						Short.MAX_VALUE)
+				.addGroup(
+						gl_contentPane
+								.createSequentialGroup()
+								.addGap(10)
+								.addComponent(toolbarPanel,
+										GroupLayout.DEFAULT_SIZE, 1254,
+										Short.MAX_VALUE)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
+				Alignment.LEADING).addGroup(
+				gl_contentPane
+						.createSequentialGroup()
+						.addGap(1)
+						.addComponent(dannyMenuBar, GroupLayout.PREFERRED_SIZE,
+								30, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(toolbarPanel, GroupLayout.PREFERRED_SIZE,
+								92, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(docView, GroupLayout.DEFAULT_SIZE, 627,
+								Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
 
-		//PropertyChangeSupport and other important stuff
+		// PropertyChangeSupport and other important stuff
 		pcs = new PropertyChangeSupport(this);
 	}
-	
-	//PROPERTY-CHANGED-METHODS
-	public void addPropertyChangeListener(PropertyChangeListener pcl){
+
+	// PROPERTY-CHANGED-METHODS
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.addPropertyChangeListener(pcl);
 	}
 
-	public void removePropertyChangeListener(PropertyChangeListener pcl){
+	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.removePropertyChangeListener(pcl);
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		switch(arg0.getPropertyName()){
+		/*
+		 * By firing the another property change here with the same information
+		 * (nothing will be lost) as the argument. he event handling will be
+		 * sent to the class which is listening to this class, namely, the
+		 * MainController. There the event will switch depending on the label.
+		 */
+		//pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(), arg0.getNewValue());
+
+
+		switch (arg0.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
 			pcs.firePropertyChange(Labels.INSERT_IMAGE, true, false);
+			
+		break;	
+		case Labels.TEXTSIZE_CHANGED:
+			pcs.firePropertyChange(arg0.getPropertyName(), this.docView.getFocusCycleRootAncestor(),
+					arg0.getNewValue());
 		}
-		
+
 	}
 }

@@ -3,8 +3,12 @@ package se.chalmers.tda367.group25.resumate.controllers;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JEditorPane;
+
 import se.chalmers.tda367.group25.resumate.model.Document;
+import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
 
@@ -47,7 +51,11 @@ public class MainController implements PropertyChangeListener {
 			break;	
 
 		case Labels.TEXTSIZE_CHANGED:
-
+			//SectionType s = documentController.getDoc("apa").getCurrentSection();
+			int size = (int)e.getNewValue();
+			JEditorPane section = (JEditorPane)e.getOldValue();
+			SectionType sectionType = Translator.containerToSectionType(section);
+			documentController.getDoc("apa").getTexts().get(sectionType).changeSize(section, size);
 			break;
 
 		case Labels.FIND_TEXT:

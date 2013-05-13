@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
+import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
 
@@ -120,14 +121,15 @@ public class DocumentController implements PropertyChangeListener{
 	 *            the Event to handle
 	 */
 	public void propertyChange(PropertyChangeEvent e) {
-		//Get the pair of Doc & DocView that are concerned.
+		
+		//Get the pair of Doc & DocView that are concerned (Stored in "value").
 		List<Object> curDocAndDocView = null;
 		for(List<Object> value: docAndDocView.values()){
 			if(value.contains(e.getSource())){
 				curDocAndDocView = value;
 			}
 		}
-		//Separate the Doc and the DocView.
+		//Separate the Doc and the DocView into "d" and "v".
 		Document d;
 		DocumentView v;
 		for(Object o: curDocAndDocView){
@@ -138,10 +140,26 @@ public class DocumentController implements PropertyChangeListener{
 				v = (DocumentView)o;
 			}
 		}
-		//What kind of event is it and what should we do about it?
-		//And is this long way really the best way to do it?
-		switch(e.getPropertyName()){
 		
+		//Do what needs to be done according to Label.
+		switch(e.getPropertyName()){
+		//Image handling:
+		case  Labels.INSERT_IMAGE:
+			
+			break;
+			
+		case  Labels.CROP_IMAGE:
+			
+			break;
+			
+		case  Labels.RESIZE_IMAGE:
+			
+			break;
+			
+		case  Labels.REORIENT_IMAGE:
+			
+			break;
+		//Text handling:
 		}
 		
 	}

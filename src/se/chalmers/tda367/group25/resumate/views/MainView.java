@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -21,7 +22,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-public class MainView extends JFrame implements MainViewInterface{
+public class MainView extends JFrame implements MainViewInterface, PropertyChangeListener{
 	private MenuBar dannyMenuBar;
 	private JPanel toolbarPanel;
 	private JPanel docView;
@@ -42,20 +43,17 @@ public class MainView extends JFrame implements MainViewInterface{
 //		setBounds(0,0,screenSize.width, screenSize.height - 42);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 	
-		
-		
+
 		//Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
-		//SpringLayout sl_contentPane = new SpringLayout();
-		//contentPane.setLayout(sl_contentPane);
-		//Dimension preferredSize = new Dimension(100,100);
-		//contentPane.setPreferredSize(preferredSize);
 
 		//Initializing components
 		dannyMenuBar = new MenuBar();
+		dannyMenuBar.addPropertyChangeListener(this);
 		toolbarPanel = new ToolbarPanel();
+		toolbarPanel.addPropertyChangeListener(this);
 		docView = new DocumentView();
 		
 		//Placing components
@@ -91,5 +89,11 @@ public class MainView extends JFrame implements MainViewInterface{
 
 	public void removePropertyChangeListener(PropertyChangeListener pcl){
 		pcs.removePropertyChangeListener(pcl);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

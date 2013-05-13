@@ -4,13 +4,14 @@ import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class CV_Def extends TemplatePanel {
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
 	private JEditorPane otherText;
-	private JEditorPane imageContainer;
+	private JLabel imageLbl;
 	
 	public CV_Def() {
 		super();
@@ -18,8 +19,8 @@ public class CV_Def extends TemplatePanel {
 		//Initialize components
 		this.personalInfoText = new JEditorPane();
 		setPersonalInfo(personalInfoText);
-		this.imageContainer = new JEditorPane();
-		setImageContainer(imageContainer);
+		this.imageLbl = new JLabel();
+		setImageLabel(imageLbl);
 		this.otherText = new JEditorPane();
 		setOther(otherText);
 		this.workingExperienceText = new JEditorPane();
@@ -38,7 +39,7 @@ public class CV_Def extends TemplatePanel {
 								.addComponent(personalInfoText, GroupLayout.PREFERRED_SIZE, 337, GroupLayout.PREFERRED_SIZE)
 								.addComponent(otherText, GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
 							.addGap(18)
-							.addComponent(imageContainer, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(imageLbl, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)))
 					.addGap(57))
 		);
 		groupLayout.setVerticalGroup(
@@ -50,7 +51,7 @@ public class CV_Def extends TemplatePanel {
 							.addComponent(personalInfoText, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
 							.addGap(46)
 							.addComponent(otherText))
-						.addComponent(imageContainer, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+						.addComponent(imageLbl, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
 					.addGap(42)
 					.addComponent(workingExperienceText, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(19, Short.MAX_VALUE))

@@ -3,23 +3,27 @@ package se.chalmers.tda367.group25.resumate.views;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+
+import se.chalmers.tda367.group25.resumate.model.RMImage;
 
 
 /**
  * A class which represents the core of a Template. It holds the
  * methods for accesing the text in the different fields, for 
  * styling the text in the textareas and basic functions involving writing.
- * @author Sara
  *
  */
 public abstract class TemplatePanel extends JPanel {
@@ -27,11 +31,9 @@ public abstract class TemplatePanel extends JPanel {
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
 	private JEditorPane otherText;
-	private JEditorPane imageContainer;
+	private JLabel imageLbl;
 	
 	private PropertyChangeSupport pcs;
-	
-	private Boolean isUnderlined = false;
 	
  	/**
  	 * Create the panel. 
@@ -69,7 +71,7 @@ public abstract class TemplatePanel extends JPanel {
 		return otherText;
 	}
 	
-	//-----Setters-----
+	//-----Setters for components------
 	
 	/**
 	 * Sets the personal information-textarea.
@@ -103,10 +105,24 @@ public abstract class TemplatePanel extends JPanel {
 	 * 
 	 * @return JEditorPane for image
 	 */
-	public void setImageContainer(JEditorPane imageContainer) {
-		this.imageContainer = imageContainer;
+	public void setImageLabel(JLabel imageLabel) {
+		this.imageLbl = imageLabel;
 	}
 	
+	//-----Setters for updating the view with new text/image-----
+	/**
+	 * Shows in view the image given as parameter.
+	 * The idea is to get the image from the model and 
+	 * use this method to show it.
+	 * @param image 
+	 * 				BufferedImage to be shown in view
+	 */
+	public void showImage(BufferedImage image){
+		imageLbl.setIcon(new ImageIcon(image));
+	}
+	
+	
+	//-----Other setters-----
 	/**
 	 * Searches after the String input in variable text. 
 	 * If it is found then the current textcontainer will mark this text.

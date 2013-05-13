@@ -83,22 +83,6 @@ public class MainController {
 				
 				break;
 				
-			case  Labels.INSERT_IMAGE:
-				
-				break;
-				
-			case  Labels.CROP_IMAGE:
-				
-				break;
-				
-			case  Labels.RESIZE_IMAGE:
-				
-				break;
-				
-			case  Labels.REORIENT_IMAGE:
-				
-				break;
-				
 			case  Labels.UNDO_ACTION:
 				
 				break;

@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import java.awt.Toolkit;
 
 import javax.swing.SpringLayout;
 import java.awt.FlowLayout;
@@ -66,11 +65,6 @@ public class ToolbarPanel extends JPanel{
 		toolsPan.add(upperToolsPan);
 
 		JButton btnNewDoc = new JButton("New");
-		btnNewDoc.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Toolkit.getDefaultToolkit().beep();
-			}
-		});
 		upperToolsPan.add(btnNewDoc);
 
 		JButton btnOpen = new JButton("Open");

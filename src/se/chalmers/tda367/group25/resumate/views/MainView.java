@@ -22,6 +22,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import se.chalmers.tda367.group25.resumate.utils.Labels;
+
 public class MainView extends JFrame implements MainViewInterface, PropertyChangeListener{
 	private MenuBar dannyMenuBar;
 	private JPanel toolbarPanel;
@@ -93,7 +95,10 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		// TODO Auto-generated method stub
+		switch(arg0.getPropertyName()){
+		case Labels.INSERT_IMAGE:
+			pcs.firePropertyChange(Labels.INSERT_IMAGE, true, false);
+		}
 		
 	}
 }

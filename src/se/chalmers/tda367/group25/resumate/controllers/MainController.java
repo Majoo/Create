@@ -29,71 +29,75 @@ public class MainController {
 	 *            the Event to handle
 	 */
 	public void propertyChange(PropertyChangeEvent e) {
-		
-		switch(e.getPropertyName()){
-			case Labels.TEXT_ENTERED:
-				
-				break;
-		
-			case Labels.TEXTFONT_CHANGED:
-				
-				break;	
-			
-			case Labels.TEXTSIZE_CHANGED:
-				
-				break;
-			
-			case Labels.FIND_TEXT:
-				
-				break;
-			
-			case Labels.SAVE_DOC:
-				
-				break;
-			
-			case  Labels.SAVE_DOC_AS:
-				
-				break;
-			
-			case  Labels.PRINT_DOC:
-				
-				break;
-			
-			case  Labels.EXPORT_DOC:
-				
-				break;
-			
-			case  Labels.OPEN_DOC:
-				
-				break;
-			
-			case  Labels.RENAME_DOC:
-				
-				break;
-				
-			case  Labels.NEW_DOC:
-				
-				break;
-				
-			case  Labels.SEND_DOC:
-				
-				break;
-				
-			case  Labels.TEMPLATE_CHANGED:
-				
-				break;
-				
-			case  Labels.UNDO_ACTION:
-				
-				break;
-				
-			case  Labels.REDO_ACTION:
-				
-				break;
 
-			default: 
-				//Do nothing, never invoked
-				break;
+		switch(e.getPropertyName()){
+		//Image handling:
+		case Labels.INSERT_IMAGE:
+			//send down.
+		//Text handling:
+		case Labels.TEXT_ENTERED:
+
+			break;
+
+		case Labels.TEXTFONT_CHANGED:
+
+			break;	
+
+		case Labels.TEXTSIZE_CHANGED:
+
+			break;
+
+		case Labels.FIND_TEXT:
+
+			break;
+		//IO handling:
+		case Labels.SAVE_DOC:
+
+			break;
+
+		case  Labels.SAVE_DOC_AS:
+
+			break;
+
+		case  Labels.PRINT_DOC:
+
+			break;
+
+		case  Labels.EXPORT_DOC:
+
+			break;
+
+		case  Labels.OPEN_DOC:
+
+			break;
+
+		case  Labels.RENAME_DOC:
+
+			break;
+
+		case  Labels.NEW_DOC:
+
+			break;
+
+		case  Labels.SEND_DOC:
+
+			break;
+
+		case  Labels.TEMPLATE_CHANGED:
+
+			break;
+		//Undo/redo handling:
+		case  Labels.UNDO_ACTION:
+
+			break;
+
+		case  Labels.REDO_ACTION:
+
+			break;
+
+		default: 
+			//Do nothing, never invoked
+			break;
 		}
 
 	}

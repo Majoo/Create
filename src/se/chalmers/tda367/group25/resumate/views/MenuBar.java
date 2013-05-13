@@ -27,6 +27,8 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import se.chalmers.tda367.group25.resumate.utils.Labels;
+
 public class MenuBar extends JMenuBar {
 
 	//private JTextArea aboutmeTextArea;
@@ -116,13 +118,17 @@ public class MenuBar extends JMenuBar {
 		JMenuItem mntmSomething1 = new JMenuItem("Something");
 		mnFormat.add(mntmSomething1);
 
-//hej
 		//the insert
 		JMenu mnInsert = new JMenu("Insert");
 		add(mnInsert);
 		
-		JMenuItem mntmSomething2 = new JMenuItem("Something");
-		mnInsert.add(mntmSomething2);
+		JMenuItem uploadImage = new JMenuItem("Image");
+		uploadImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pcs.firePropertyChange(Labels.INSERT_IMAGE, true, false);
+			}
+		});
+		mnInsert.add(uploadImage);
 
 		//the show
 		JMenu mnShow = new JMenu("Show");

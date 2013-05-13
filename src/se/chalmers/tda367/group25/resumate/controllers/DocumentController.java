@@ -36,8 +36,8 @@ public class DocumentController implements PropertyChangeListener {
 		List<Object> first = new ArrayList(2);
 		first.add(d);
 		first.add(v);
-		this.docAndDocView.put(generateKey(), first);
-
+		setCurrent(generateKey());
+		this.docAndDocView.put(getCurrent(), first);
 	}
 
 	/**

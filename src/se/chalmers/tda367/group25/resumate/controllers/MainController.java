@@ -22,8 +22,8 @@ public class MainController {
 	}
 
 	/**
-	 * Handles Events from further down in the hiearchy, eg. MainView
-	 * by switching depending on which label the eventname is given.
+	 * Handles Events from further down in the hierarchy, eg. MainView
+	 * by switching depending on which label the event name is given.
 	 * 
 	 * @param e
 	 *            the Event to handle
@@ -61,7 +61,7 @@ public class MainController {
 				break;
 			
 			case  Labels.EXPORT_DOC:
-//				ioController.handlePdf(get, EXPORT_DOC);				
+//				ioController.handlePdf(documentController.getView(getCurrent()), EXPORT_DOC);				
 				break;
 			
 			case  Labels.OPEN_DOC:

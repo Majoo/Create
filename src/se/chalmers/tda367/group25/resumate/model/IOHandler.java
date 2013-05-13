@@ -19,8 +19,8 @@ public class IOHandler {
 		File directory = new File(fileName);
 		// Create directory for RSMT files
 		if (directory.mkdirs()) {
-			// Create all files in RSMT "project". i.e., the files corresponding
-			// the instances of RMText in a Document.
+			// Create all files in RSMT "project", i.e., the files corresponding
+			// the instances of RMText in a Document, by doing the following:
 			//
 			// Get the map of RMText Sections from the Document to be saved.
 			// Map map = doc.getRMTextMap();
@@ -29,7 +29,7 @@ public class IOHandler {
 			FileWriter w = new FileWriter(fileName + "//"
 					+ "The label of the current RMText goes here");
 			// }
-			//Create .RSMT file in the folder to make
+			// Create .RSMT file in the folder to make
 		}
 	}
 

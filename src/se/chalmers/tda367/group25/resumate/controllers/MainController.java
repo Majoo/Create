@@ -59,12 +59,12 @@ public class MainController {
 
 		case Labels.PRINT_DOC:
 			ioCon.chooseFunction(Labels.PRINT_DOC,
-					docCon.getView(docCon.getCurrent()), null);
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(), null);
 			break;
 
 		case Labels.EXPORT_DOC:
 			ioCon.chooseFunction(Labels.EXPORT_DOC,
-					docCon.getView(docCon.getCurrent()), null);
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(), null);
 			break;
 
 		case Labels.OPEN_DOC:
@@ -81,7 +81,7 @@ public class MainController {
 
 		case Labels.SEND_DOC:
 			ioCon.chooseFunction(Labels.SEND_DOC,
-					docCon.getView(docCon.getCurrent()), null);
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(), null);
 			break;
 
 		case Labels.TEMPLATE_CHANGED:

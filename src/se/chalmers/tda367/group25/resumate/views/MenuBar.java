@@ -66,114 +66,13 @@ public class MenuBar extends JMenuBar {
 
 		//open document
 		JMenuItem mntmOpen = new JMenuItem("Open");
-		mntmOpen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser opChooser = new JFileChooser();		//file chooser
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt"); //a filter that only shows rsmt-files
-				opChooser.setFileFilter(filter);					//applying the file chooser with filter
-
-				int returnVal = opChooser.showOpenDialog(null); 	
-				File chosenFile = opChooser.getSelectedFile();
-
-				try{
-					if(returnVal == JFileChooser.APPROVE_OPTION){
-						BufferedReader br = new BufferedReader(new FileReader(chosenFile));
-						currentFileDirectory = ""; //when open new page, set the current file name to nothing
-						informationTextArea.setText(""); //empty the document workspace
-						currentFileDirectory = chosenFile.getAbsolutePath(); //then set it to absolute path of chosen
-
-
-						String data;
-						while((data = br.readLine()) != null){				//whenever the buffered reader isn't null, 
-							informationTextArea.append(data + "\n");		//overwrite the text area with the opened data
-						}
-						br.close();
-					}
-				}catch(IOException err){
-					JOptionPane.showMessageDialog(null,  "ERROR!");			
-
-				}
-			}
-		});
+		
 		mnFile.add(mntmOpen);
 
 		JMenuItem mntmSave = new JMenuItem("Save");
-		mntmSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if("".equals(currentFileDirectory)){					//if the current file is a new one (untitled)
-					JFileChooser sdChooser = new JFileChooser();		//file chooser
-					FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
-					sdChooser.setFileFilter(filter);
-					int returnVal = sdChooser.showSaveDialog(null);
-
-					try{
-						if(returnVal == JFileChooser.APPROVE_OPTION){
-							File directory = sdChooser.getCurrentDirectory();
-							String path = directory.getAbsolutePath();					//the absolute path of the directory, named "path"
-							String fileName = sdChooser.getSelectedFile().getName();	//get the file name
-							if(!fileName.contains("rsmt")){								//if the file name doesn't contain rsmt,
-								fileName = fileName + ".rsmt";							//name it a new name with .rsmt at the end
-							}
-							BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "\\" + fileName), "UTF-8"));
-							currentFileDirectory = path + "\\" + fileName;				//the current file directory is now "theabsolutepath\\filename.rsmt"
-							bw.write(informationTextArea.getText());					//get the document text and write it over
-							bw.close();
-						}
-
-					}catch(IOException err){
-						JOptionPane.showMessageDialog(null,  "ERROR!");
-					}
-
-				}else{
-
-					try{
-						//if it is not empty, we'll save it into the current directory
-						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(currentFileDirectory), "UTF-8"));
-						bw.write(informationTextArea.getText());
-						bw.close();
-
-					}catch(IOException err){
-						JOptionPane.showMessageDialog(null,  "ERROR!");
-					}
-
-				}
-
-
-
-
-
-			}
-		});
 		mnFile.add(mntmSave);
 
 		JMenuItem mntmSaveAs = new JMenuItem("Save As...");
-		mntmSaveAs.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser sdChooser = new JFileChooser();
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
-				sdChooser.setFileFilter(filter);
-				int returnVal = sdChooser.showSaveDialog(null);
-
-				try {
-
-					if(returnVal == JFileChooser.APPROVE_OPTION){
-						File directory = sdChooser.getCurrentDirectory();
-						String path = directory.getAbsolutePath();
-						String fileName = sdChooser.getSelectedFile().getName();
-						if(!fileName.contains("rsmt")){
-							fileName = fileName + ".rsmt";
-						}
-						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "\\" + fileName)));
-						currentFileDirectory = path + "\\" + fileName;
-						bw.write(informationTextArea.getText());
-						bw.close();
-					}
-				}catch(IOException err){
-					JOptionPane.showMessageDialog(null, "ERROR!");
-				}
-
-			}
-		});
 		mnFile.add(mntmSaveAs);
 
 		JMenuItem mntmExit = new JMenuItem("Exit");
@@ -200,43 +99,16 @@ public class MenuBar extends JMenuBar {
 		add(mnEdit);
 
 		JMenuItem mntmCut = new JMenuItem("Cut");
-		mntmCut.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//copy
-				clipBoardData = informationTextArea.getSelectedText();					//save the text in a clipboard
-				StringSelection stringSelection = new StringSelection(clipBoardData);	
-				Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-				clpbrd.setContents(stringSelection, null);
-				informationTextArea.replaceSelection("");								//erase the workplace
-			}
-		});
 		mnEdit.add(mntmCut);
 
 		JMenuItem mntmCopy = new JMenuItem("Copy");
-		mntmCopy.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				clipBoardData = informationTextArea.getSelectedText();					
-				StringSelection stringSelection = new StringSelection(clipBoardData);
-				Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-				clpbrd.setContents(stringSelection, null);								//the selected string copies in the clipboard
-			}
-		});
 		mnEdit.add(mntmCopy);
 
 		JMenuItem mntmPaste = new JMenuItem("Paste");
-		mntmPaste.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				informationTextArea.append(clipBoardData);
-			}
-		});
+
 		mnEdit.add(mntmPaste);
 
 		JMenuItem mntmSelectAll = new JMenuItem("Select All");
-		mntmSelectAll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				informationTextArea.selectAll();
-			}
-		});
 		mnEdit.add(mntmSelectAll);
 
 
@@ -247,7 +119,7 @@ public class MenuBar extends JMenuBar {
 		JMenuItem mntmSomething1 = new JMenuItem("Something");
 		mnFormat.add(mntmSomething1);
 
-
+//hej
 		//the insert
 		JMenu mnInsert = new JMenu("Insert");
 		add(mnInsert);

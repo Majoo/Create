@@ -160,7 +160,7 @@ public class DocumentController implements PropertyChangeListener {
 			}
 		}
 		// What kind of event is it and what should we do about it?
-		// And is this long way really the best way to do it?
+		// And is this long way really the best way to do it? Yes.
 		switch (e.getPropertyName()) {
 
 		}

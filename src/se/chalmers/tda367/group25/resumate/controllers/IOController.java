@@ -36,12 +36,14 @@ public class IOController {
 	 * @param jc
 	 *            only necessary when exporting, printing or sending, may be
 	 *            null
+	 * @param doc
+	 *            only necessary when saving, may be null
 	 */
-	public void chooseFunction(String function, JComponent jc) {
+	public void chooseFunction(String function, JComponent jc, Document doc) {
 		if (function.equals(Labels.PRINT_DOC)
 				|| (function.equals(Labels.SAVE_DOC))
 				|| (function.equals(Labels.SEND_DOC))) {
-			// A printing,  method will be called here
+			// A printing, method will be called here
 		} else if ((function.equals(Labels.EXPORT_DOC))
 				|| (function.equals(Labels.SAVE_DOC_AS))
 				|| (function.equals(Labels.OPEN_DOC))

@@ -7,6 +7,6 @@ public class MeinExperimentum {
 
 	public static void main(String[] args){
 		IOController ioc = new IOController();
-		ioc.chooseFunction(Labels.OPEN_DOC, null);
+		ioc.chooseFunction(Labels.OPEN_DOC, null, null);
 	}
 }

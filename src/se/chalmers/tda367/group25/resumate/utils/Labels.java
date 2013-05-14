@@ -6,6 +6,8 @@ package se.chalmers.tda367.group25.resumate.utils;
 
 public class Labels {
 	
+	public static final String SEND_INITIAL_DOCVIEW = "Send initial DocView";
+	
 	public static final String TEXT_ENTERED = "Enter text";
 	public static final String TEXTFONT_CHANGED = "Font is changed";
 	public static final String TEXTSTYLE_CHANGED = "Style changed";

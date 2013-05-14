@@ -3,11 +3,13 @@ package se.chalmers.tda367.group25.resumate.views;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -25,11 +27,12 @@ import javax.swing.border.EmptyBorder;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 
-public class MainView extends JFrame implements MainViewInterface,
-		PropertyChangeListener {
-	private MenuBar dannyMenuBar;
+
+public class MainView extends JFrame implements MainViewInterface, PropertyChangeListener{
+	private MenuBar menuBar;
 	private JPanel toolbarPanel;
-	private JPanel docView;
+	private JTabbedPane docViews;
+	private List<DocumentView> docViewList;
 
 	private PropertyChangeSupport pcs;
 
@@ -48,46 +51,41 @@ public class MainView extends JFrame implements MainViewInterface,
 		// setBounds(0,0,screenSize.width, screenSize.height - 42);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-		// Creating and setting backgroundpanel
+		//Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 
-		// Initializing components
-		dannyMenuBar = new MenuBar();
-		dannyMenuBar.addPropertyChangeListener(this);
+		//Initializing components
+		menuBar = new MenuBar();
+		menuBar.addPropertyChangeListener(this);
 		toolbarPanel = new ToolbarPanel();
 		toolbarPanel.addPropertyChangeListener(this);
-		docView = new DocumentView();
-
-		// Placing components
+		//The initial docView
+		DocumentView docView = new DocumentView();
+		docViews.add(docView);
+		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, true);
+		
+		//Placing components
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane
-				.createParallelGroup(Alignment.LEADING)
-				.addComponent(dannyMenuBar, GroupLayout.DEFAULT_SIZE, 1264,
-						Short.MAX_VALUE)
-				.addComponent(docView, GroupLayout.DEFAULT_SIZE, 1264,
-						Short.MAX_VALUE)
-				.addGroup(
-						gl_contentPane
-								.createSequentialGroup()
-								.addGap(10)
-								.addComponent(toolbarPanel,
-										GroupLayout.DEFAULT_SIZE, 1254,
-										Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				gl_contentPane
-						.createSequentialGroup()
-						.addGap(1)
-						.addComponent(dannyMenuBar, GroupLayout.PREFERRED_SIZE,
-								30, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(toolbarPanel, GroupLayout.PREFERRED_SIZE,
-								92, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(docView, GroupLayout.DEFAULT_SIZE, 627,
-								Short.MAX_VALUE)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(menuBar, GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
+				.addComponent(docView, GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(10)
+					.addComponent(toolbarPanel, GroupLayout.DEFAULT_SIZE, 1254, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(1)
+					.addComponent(menuBar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(toolbarPanel, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(docView, GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE))
+		);
 		contentPane.setLayout(gl_contentPane);
 
 		// PropertyChangeSupport and other important stuff
@@ -116,13 +114,36 @@ public class MainView extends JFrame implements MainViewInterface,
 
 		switch (arg0.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
-			pcs.firePropertyChange(Labels.INSERT_IMAGE, true, false);
+			pcs.firePropertyChange(Labels.INSERT_IMAGE, getCurDocView(), false);
 			
 		break;	
 		case Labels.TEXTSIZE_CHANGED:
+			/* docView??
 			pcs.firePropertyChange(arg0.getPropertyName(), this.docView.getFocusCycleRootAncestor(),
-					arg0.getNewValue());
+					arg0.getNewValue());*/
 		}
 
+	}
+
+	//-----GETTERS-----
+	/**
+	 * Get the DocView i.e. tab that is currently in focus.
+	 * @return
+	 * 			the DocView that is in the tab that is currently in focus.
+	 */
+	private DocumentView getCurDocView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	//-----SETTERS-----
+	/**
+	 * Add a new DocumentView in a new tab. Needs to know what 
+	 * template the user has chosen and this is given as a parameter.
+	 * @param
+	 * 			the template the new DocumentView will have.
+	 */
+	public void newTab(TemplatePanel templatePnl){
+		
 	}
 }

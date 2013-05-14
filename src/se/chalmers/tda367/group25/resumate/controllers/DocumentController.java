@@ -26,15 +26,14 @@ public class DocumentController implements PropertyChangeListener{
 		//instantiate map
 		this.docAndDocView = new HashMap<String, List<Object>>(20);
 		
-		//create first document+view 
+		//create first document
+		//the view is created in MainView and then sent here
+		//with addDocView
 		Document d = new Document();
-		DocumentView v = new DocumentView();
-		v.addPropertyChangeListener(this);
 		
 		//and put it in the map
 		List<Object> first = new ArrayList(2);
 		first.add(d);
-		first.add(v);
 		this.docAndDocView.put(generateKey(), first);
 
 	}
@@ -49,8 +48,10 @@ public class DocumentController implements PropertyChangeListener{
 	 *            the Document to add
 	 */
 	public void addDoc(String ID, Document d) {
+		List<Object> list;
 		if(!docAndDocView.containsKey(ID)){
-			docAndDocView.put(ID, null);
+			list = new ArrayList<Object>(2);
+			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(d);
 	}
@@ -66,8 +67,10 @@ public class DocumentController implements PropertyChangeListener{
 	 *            the DocumentView to add
 	 */
 	public void addDocView(String ID, DocumentView v) {
+		List<Object> list;
 		if(!docAndDocView.containsKey(ID)){
-			docAndDocView.put(ID, null);
+			list = new ArrayList<Object>(2);
+			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(v);
 

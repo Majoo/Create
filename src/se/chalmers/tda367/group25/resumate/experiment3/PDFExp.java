@@ -57,7 +57,7 @@ public class PDFExp extends JFrame {
 	 */
 	public PDFExp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 495, 500);
+		setBounds(0, 0, 495, 2000);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -73,7 +73,7 @@ public class PDFExp extends JFrame {
 			}
 		});
 		panel.add(btnExportToPdf);
-		
+
 		JButton btnBeep = new JButton("Beep");
 		btnBeep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -145,16 +145,12 @@ public class PDFExp extends JFrame {
 		// If the incoming JComponent representation of a Document is larger
 		// than a single PDF document, create new pages accordingly
 		int delta = (int) (panelHeight - document.top());
-		System.out.println(delta);
-		System.out.println(panelHeight);
-		System.out.println(document.top());
-		while (delta > 0) {
+		while (delta >= 0) {
 			document.newPage();
-			PdfTemplate tp2 = cb.createTemplate(panelWidth, delta);
-			Graphics2D g22 = tp2.createGraphicsShapes(panelWidth, delta);
+			PdfTemplate tp2 = cb.createTemplate(panelWidth, panelHeight);
+			Graphics2D g22 = tp2.createGraphicsShapes(panelWidth, panelHeight);
 			jc.print(g22);
-			cb.addTemplate(tp2, document.left(document.leftMargin()),
-					document.top() - panelHeight);
+			cb.addTemplate(tp2, document.left(document.leftMargin()), document.top()-delta);
 			g22.dispose();
 			delta = (int) (delta - document.top());
 		}

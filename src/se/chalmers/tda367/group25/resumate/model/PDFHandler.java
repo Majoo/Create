@@ -40,9 +40,10 @@ public class PDFHandler {
 		Document document = new Document();
 
 		File file = new File(filePathAndName + ".pdf");
-		int i = 1;
+		
 		// If a file with the same name exists, append a digit
 		// indicating how many there are with the same name
+		int i = 1;
 		while (file.exists()) {
 			file = new File(filePathAndName + "(" + i + ")" + ".pdf");
 			i++;
@@ -58,6 +59,20 @@ public class PDFHandler {
 		jc.print(g2);
 		g2.dispose();
 		cb.addTemplate(tp, (document.left()), (document.top() - jc.getHeight()));
+		
+		// If the incoming JComponent representation of a Document is larger
+				// than a single PDF document, create new pages accordingly
+				int delta = (int) (panelHeight - document.top());
+				while (delta >= 0) {
+					document.newPage();
+					PdfTemplate tp2 = cb.createTemplate(panelWidth, panelHeight);
+					Graphics2D g22 = tp2.createGraphicsShapes(panelWidth, panelHeight);
+					jc.print(g22);
+					cb.addTemplate(tp2, document.left(document.leftMargin()), document.top()-delta);
+					g22.dispose();
+					delta = (int) (delta - document.top());
+				}
+		
 		document.close();
 	}
 }

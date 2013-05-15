@@ -59,28 +59,30 @@ public class MainView extends JFrame implements MainViewInterface{
 		//Initializing components
 		menuBar = new MenuBar();
 		menuBar.addPropertyChangeListener(this);
-		SpringLayout sl_contentPane = new SpringLayout();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, menuBar, 0, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, menuBar, 0, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, menuBar, 26, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, menuBar, 1280, SpringLayout.WEST, contentPane);
-		contentPane.setLayout(sl_contentPane);
+		
+		//Set the layout of the components
+		SpringLayout layout = new SpringLayout();
+		layout.putConstraint(SpringLayout.NORTH, menuBar, 0, SpringLayout.NORTH, contentPane);
+		layout.putConstraint(SpringLayout.WEST, menuBar, 0, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.SOUTH, menuBar, 26, SpringLayout.NORTH, contentPane);
+		layout.putConstraint(SpringLayout.EAST, menuBar, 1280, SpringLayout.WEST, contentPane);
+		contentPane.setLayout(layout);
 		contentPane.add(menuBar);
 		
 		toolbarPanel = new ToolbarPanel();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, toolbarPanel, 6, SpringLayout.SOUTH, menuBar);
-		sl_contentPane.putConstraint(SpringLayout.WEST, toolbarPanel, 0, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, toolbarPanel, 111, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, toolbarPanel, 1280, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, toolbarPanel, 6, SpringLayout.SOUTH, menuBar);
+		layout.putConstraint(SpringLayout.WEST, toolbarPanel, 0, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.SOUTH, toolbarPanel, 111, SpringLayout.NORTH, contentPane);
+		layout.putConstraint(SpringLayout.EAST, toolbarPanel, 1280, SpringLayout.WEST, contentPane);
 		toolbarPanel.addPropertyChangeListener(this);
 		toolbarPanel.setVisible(true);
 		contentPane.add(toolbarPanel);
 		
 		tabbedPane = new JTabbedPane();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, tabbedPane, 6, SpringLayout.SOUTH, toolbarPanel);
-		sl_contentPane.putConstraint(SpringLayout.WEST, tabbedPane, 0, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, tabbedPane, 588, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, tabbedPane, 0, SpringLayout.EAST, menuBar);
+		layout.putConstraint(SpringLayout.NORTH, tabbedPane, 6, SpringLayout.SOUTH, toolbarPanel);
+		layout.putConstraint(SpringLayout.WEST, tabbedPane, 0, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.SOUTH, tabbedPane, 588, SpringLayout.NORTH, contentPane);
+		layout.putConstraint(SpringLayout.EAST, tabbedPane, 0, SpringLayout.EAST, menuBar);
 		DocumentView docView = new DocumentView();
 		//The documentview is created here and then sent to documentcontroller
 		//through maincontroller.

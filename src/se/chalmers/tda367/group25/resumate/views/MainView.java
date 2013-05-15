@@ -104,7 +104,9 @@ public class MainView extends JFrame implements MainViewInterface{
 
 		switch (arg0.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
-			pcs.firePropertyChange(Labels.INSERT_IMAGE, arg0.getOldValue(), true);
+			//arg0.getOldValue() is the string representation of the file 
+			//the user chose to upload.
+			pcs.firePropertyChange(Labels.INSERT_IMAGE, arg0.getOldValue(), getCurDocView());
 
 			break;	
 		case Labels.TEXTSIZE_CHANGED:

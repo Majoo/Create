@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -153,16 +154,8 @@ public class DocumentController implements PropertyChangeListener {
 			}
 		}
 		//Separate the Doc and the DocView into "d" and "v".
-		Document d;
-		DocumentView v;
-		for (Object o : curDocAndDocView) {
-			if (o instanceof Document) {
-				d = (Document) o;
-			}
-			if (o instanceof DocumentView) {
-				v = (DocumentView) o;
-			}
-		}
+		Document d = separateDoc(curDocAndDocView);
+		DocumentView v = separateDocView(curDocAndDocView);
 		
 		//Do what needs to be done according to Label.
 		switch(e.getPropertyName()){
@@ -187,6 +180,58 @@ public class DocumentController implements PropertyChangeListener {
 
 	}
 
+	//GETTERS
+	/**
+	 * Get the Document in the List<Object> given
+	 * @param pair
+	 * 				the pair to be separated
+	 */
+	public Document separateDoc(List<Object> pair){
+		Document d = null;
+		for (Object o : pair) {
+			if (o instanceof Document) {
+				d = (Document) o;
+			}
+		}
+		return d;
+	}
+	
+	/**
+	 * Get the DocumentView in the List<Object> given
+	 * @param pair
+	 * 				the pair to be separated
+	 */
+	public DocumentView separateDocView(List<Object> pair){
+		DocumentView v = null;
+		for (Object o : pair) {
+			if (o instanceof Document) {
+				v = (DocumentView) o;
+			}
+		}
+		return v;
+	}
+	
+	/**
+	 * Get the Document associated with the DocumentView given as parameter.
+	 * @param
+	 * 			docView - the DocumentView to extract the Document from
+	 */
+	public Document separateDocument(DocumentView docView){
+		List<Object> curDocAndDocView = null;
+		for (List<Object> value : docAndDocView.values()) {
+			if (value.contains(docView)) {
+				curDocAndDocView = value;
+			}
+		}
+		Document d = null;
+		for(Object o: curDocAndDocView){
+			if(o instanceof Document){
+				d = (Document)o;
+			}
+		}
+		return d;
+	}
+	
 	/**
 	 * Randomly generates a key for a value in the docAndDocView Map.
 	 * 
@@ -195,4 +240,18 @@ public class DocumentController implements PropertyChangeListener {
 	private String generateKey() {
 		return "apa";
 	}
+	
+	//SETTERS
+	/**
+	 * Update the image of the Document associated with the BufferedImage img.
+	 * 
+	 * @param doc
+	 * 					The Document to put the BufferedImage in
+	 * @param img
+	 * 					The BufferedImage to put in the Document
+	 */
+	public void updateImage(Document doc, BufferedImage img) {
+		doc.setImage(img);
+	}
+		
 }

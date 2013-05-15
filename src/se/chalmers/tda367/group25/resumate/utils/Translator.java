@@ -2,13 +2,18 @@ package se.chalmers.tda367.group25.resumate.utils;
 
 import java.awt.Container;
 import java.awt.Panel;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JEditorPane;
 
 import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.model.Template;
 
 public class Translator {
+	private static ImageIO imIO;
 
 	/**
 	 * Translates a DocumentView Panel to a Template.
@@ -60,6 +65,23 @@ public class Translator {
 		
 		}
 		return section;
+	}
+	
+	/**
+	 * Takes in a String that represents an image in the filesystem
+	 * and converts it to a BufferedImage.
+	 * @param filename 
+	 * 					the filename of the image to make a BufferedImage from
+	 * @return a BufferedImage
+	 */
+	public static BufferedImage stringToImage(String filename) {
+		BufferedImage img = null;
+		try{
+			img = imIO.read(new File(filename));
+		}catch(IOException e){
+			System.out.println("Kunde inte översätta filnamn till BufferedImage i Translator");
+		}
+		return img;
 	}
 	
 }

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
@@ -30,7 +31,7 @@ import se.chalmers.tda367.group25.resumate.utils.Translator;
 import java.awt.CardLayout;
 
 
-public class MainView extends JFrame implements MainViewInterface, PropertyChangeListener{
+public class MainView extends JFrame implements MainViewInterface{
 	private MenuBar menuBar;
 	private JPanel toolbarPanel;
 	private JTabbedPane tabbedPane;
@@ -103,7 +104,7 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 
 		switch (arg0.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
-			pcs.firePropertyChange(Labels.INSERT_IMAGE, getCurDocTab(), false);
+			pcs.firePropertyChange(Labels.INSERT_IMAGE, arg0.getOldValue(), true);
 
 			break;	
 		case Labels.TEXTSIZE_CHANGED:
@@ -120,9 +121,8 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 	 * @return
 	 * 			the DocView that is in the tab that is currently in focus.
 	 */
-	private DocumentView getCurDocTab() {
-		// TODO Auto-generated method stub
-		return null;
+	public DocumentView getCurDocView() {
+		return (DocumentView)tabbedPane.getTabComponentAt(tabbedPane.getSelectedIndex());
 	}
 
 	//-----SETTERS-----
@@ -133,6 +133,23 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 	 * 			the template the new DocumentView will have.
 	 */
 	public void newTab(TemplatePanel templatePnl){
-
+		DocumentView newDocView = new DocumentView(templatePnl);
+		docViewList.add(newDocView);
+		tabbedPane.addTab("unsaved", null, newDocView, "unsaved");
+	}
+	
+	/**
+	 * Update the DocumentView with the Image in filesystem that has the
+	 * filename given as parameter.
+	 * @param
+	 * 			docView - the DocumentView to upload the image in
+	 * @param
+	 * 			filename - the filename of the Image to be uploaded
+	 */
+	public void setImage(DocumentView docView, String filename){
+		//Göra en BufferedImage av filnamnet
+		
+		//get the TemplatePanel of the docView
+		//invoke the setImage-method
 	}
 }

@@ -30,6 +30,12 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		add(templatePnl);
 	}
 	
+	public DocumentView(TemplatePanel templatePanel) {
+		pcs = new PropertyChangeSupport(this);	
+		this.templatePnl = templatePanel;
+		add(templatePnl);
+	}
+
 	//GETTERS
 	public TemplatePanel getTemplatePanel(){
 		return templatePnl;

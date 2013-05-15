@@ -125,7 +125,17 @@ public class MenuBar extends JMenuBar {
 		JMenuItem uploadImage = new JMenuItem("Image");
 		uploadImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pcs.firePropertyChange(Labels.INSERT_IMAGE, true, false);
+				//Let the user choose an image to upload
+				JFileChooser chooser = new JFileChooser();
+			    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+			        "JPG & GIF Images", "jpg", "gif");
+			    chooser.setFileFilter(filter);
+			    int returnVal = chooser.showOpenDialog(getParent());
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			       System.out.println("You chose to open this file: " +
+			            chooser.getSelectedFile().getName());
+			    }
+				pcs.firePropertyChange(Labels.INSERT_IMAGE, chooser.getSelectedFile().getName(), false);
 			}
 		});
 		mnInsert.add(uploadImage);

@@ -1,64 +1,131 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.itextpdf.text.DocumentException;
+
+import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.IOHandler;
+import se.chalmers.tda367.group25.resumate.model.PDFHandler;
+import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 /*
- * This class handles IO-stuff.
+ * This class forwards IO assignments.
  */
 public class IOController {
 
 	private IOHandler ioHandler;
 
 	public IOController() {
-
+		ioHandler = new IOHandler();
 	}
 
 	/**
-	 * Save to file.
+	 * Decides which IO function to perform.
 	 * 
-	 * @param fileName
-	 *            the file to save to
+	 * @param function
+	 *            String deciding which function to perform, must always be
+	 *            non-null
+	 * @param jc
+	 *            only necessary when exporting, printing or sending, may be
+	 *            null
+	 * @param doc
+	 *            only necessary when saving, may be null
 	 */
-	public void saveFile(String fileName) {
-		FileWriter w;
-		try {
-			w = new FileWriter(fileName);
-			// textArea.write(w);
-		} catch (IOException e) {
+	public void chooseFunction(String function, JComponent jc, Document doc) {
+		if (function.equals(Labels.PRINT_DOC)
+				|| (function.equals(Labels.SAVE_DOC))
+				|| (function.equals(Labels.SEND_DOC))) {
+			// A printing, method will be called here
+		} else if ((function.equals(Labels.EXPORT_DOC))
+				|| (function.equals(Labels.SAVE_DOC_AS))
+				|| (function.equals(Labels.OPEN_DOC))
+				|| (function.equals(Labels.RENAME_DOC))) {
+			try {
+				choosePath(jc, function);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NullPointerException e) {
+				// If no file is chosen or operation is aborted, nothing happens
+			}
+		} else {
+			System.out.println("No such command!");
 		}
 
 	}
 
 	/**
-	 * Open file.
+	 * A method for choosing path and file name.
 	 * 
-	 * @param fileName
-	 *            the file to open
+	 * @param function
+	 *            the context of the function e.g. save, save as, export as PDF
 	 */
-	public void openFile(String fileName) {
-		FileReader r;
-		try {
-			r = new FileReader(fileName);
-			// textArea.read(r, null);
-		} catch (IOException e) {
+	public void choosePath(JComponent jc, String function)
+			throws FileNotFoundException, DocumentException,
+			NullPointerException {
+
+		JFileChooser chooser = new JFileChooser();
+
+		// Depending on the desired function, different kinds of Filter are
+		// required, which is why the returnFilter method is called
+		FileNameExtensionFilter filter = returnFilter(function);
+		chooser.setFileFilter(filter);
+		int returnVal = chooser.showSaveDialog(null);
+		String filePathAndName = chooser.getCurrentDirectory().getPath() + "\\"
+				+ chooser.getSelectedFile().getName();
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			try {
+				if (function.equals(Labels.EXPORT_DOC)) {
+					PDFHandler.createPdf(jc, filePathAndName);
+				} else if (function.equals(Labels.SEND_DOC)) {
+					;
+				} else if (function.equals(Labels.SAVE_DOC)) {
+					// Connection to DocumentController needs to be established
+					// so that the correct Document can be fetched
+					ioHandler.saveFile(filePathAndName, new Document());
+				} else if (function.equals(Labels.SAVE_DOC_AS)) {
+					// Connection to DocumentController needs to be established
+					// so that the correct Document can be fetched
+					ioHandler.saveFile(filePathAndName, new Document());
+				} else if (function.equals(Labels.OPEN_DOC)) {
+					ioHandler.openFile(filePathAndName);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	/**
-	 * Send the Document.
+	 * Returns correct Filter for JFileChooser.
+	 * 
+	 * @param function
+	 *            the context of the function e.g. save, save as, export as PDF
+	 * @return Filter with the correct properties
 	 */
-	public void send() {
-
-	}
-
-	/**
-	 * Print the Document.
-	 */
-	public void print() {
-
+	public FileNameExtensionFilter returnFilter(String function) {
+		if (function.equals(Labels.EXPORT_DOC)) {
+			return new FileNameExtensionFilter("PDF", "pdf");
+		} else if (function.equals(Labels.SAVE_DOC)) {
+			// RSMT = temporary file name
+			return new FileNameExtensionFilter("ResuMate file", "rsmt");
+		} else if (function.equals(Labels.SAVE_DOC_AS)) {
+			// RSMT = temporary file name
+			return new FileNameExtensionFilter("ResuMate file", "rsmt");
+		}
+		return null;
 	}
 }

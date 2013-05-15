@@ -7,7 +7,7 @@ import se.chalmers.tda367.group25.resumate.views.MainView;
  */
 public class Main {
 	public static void main(String[] args) {
-		new MainView();
+		new MainController();
 		
 	}
 }

@@ -3,6 +3,7 @@ package se.chalmers.tda367.group25.resumate.views;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JEditorPane;
@@ -26,13 +27,15 @@ import javax.swing.border.EmptyBorder;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
+import java.awt.CardLayout;
 
 
 public class MainView extends JFrame implements MainViewInterface, PropertyChangeListener{
 	private MenuBar menuBar;
 	private JPanel toolbarPanel;
-	private JTabbedPane docViews;
-	private List<DocumentView> docViewList;
+	private JTabbedPane tabbedPane;
+	//A list of DocViews. Each one will be in an own tab.
+	private List<DocumentView> docViewList = new ArrayList<DocumentView>(20);
 
 	private PropertyChangeSupport pcs;
 
@@ -45,48 +48,34 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-		// java.awt.Dimension screenSize =
-		// Toolkit.getDefaultToolkit().getScreenSize(); //fullscreen???
-		// setBounds(0,0,screenSize.width, screenSize.height - 42);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		//Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		//Sorry men kan inte placera ut de vettigt så löser det med gridlayout sålänge
+		contentPane.setLayout(new GridLayout(3,1));
 		setContentPane(contentPane);
 
 		//Initializing components
 		menuBar = new MenuBar();
 		menuBar.addPropertyChangeListener(this);
+		contentPane.add(menuBar);
+		
 		toolbarPanel = new ToolbarPanel();
 		toolbarPanel.addPropertyChangeListener(this);
-		//The initial docView
-		DocumentView docView = new DocumentView();
-		docViews.add(docView);
-		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, true);
+		toolbarPanel.setVisible(true);
+		contentPane.add(toolbarPanel);
 		
-		//Placing components
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(menuBar, GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
-				.addComponent(docView, GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(10)
-					.addComponent(toolbarPanel, GroupLayout.DEFAULT_SIZE, 1254, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(1)
-					.addComponent(menuBar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(toolbarPanel, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(docView, GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE))
-		);
-		contentPane.setLayout(gl_contentPane);
+		tabbedPane = new JTabbedPane();
+		DocumentView docView = new DocumentView();
+		//The documentview is created here and then sent to documentcontroller
+		//through maincontroller.
+		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, "first");
+		docViewList.add(docView);
+		tabbedPane.addTab("unsaved", null, docView, "unsaved");
+		contentPane.add(tabbedPane);
+		
 
 		// PropertyChangeSupport and other important stuff
 		pcs = new PropertyChangeSupport(this);
@@ -115,8 +104,8 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 		switch (arg0.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
 			pcs.firePropertyChange(Labels.INSERT_IMAGE, getCurDocView(), false);
-			
-		break;	
+
+			break;	
 		case Labels.TEXTSIZE_CHANGED:
 			/* docView??
 			pcs.firePropertyChange(arg0.getPropertyName(), this.docView.getFocusCycleRootAncestor(),
@@ -131,11 +120,11 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 	 * @return
 	 * 			the DocView that is in the tab that is currently in focus.
 	 */
-	private DocumentView getCurDocView() {
+	private DocumentView getCurDocTab() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	//-----SETTERS-----
 	/**
 	 * Add a new DocumentView in a new tab. Needs to know what 
@@ -144,6 +133,6 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 	 * 			the template the new DocumentView will have.
 	 */
 	public void newTab(TemplatePanel templatePnl){
-		
+
 	}
 }

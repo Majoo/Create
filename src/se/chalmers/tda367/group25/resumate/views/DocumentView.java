@@ -16,7 +16,7 @@ import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
  * This class contains a TemplatePanel which shows the Document.
  * The TemplatePanel can be changed.
  */
-public class DocumentView extends JTabbedPane implements PropertyChangeListener{
+public class DocumentView extends JPanel implements PropertyChangeListener{
 	private PropertyChangeSupport pcs;
 	
 	private TemplatePanel templatePnl;

@@ -103,7 +103,7 @@ public class MainView extends JFrame implements MainViewInterface, PropertyChang
 
 		switch (arg0.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
-			pcs.firePropertyChange(Labels.INSERT_IMAGE, getCurDocView(), false);
+			pcs.firePropertyChange(Labels.INSERT_IMAGE, getCurDocTab(), false);
 
 			break;	
 		case Labels.TEXTSIZE_CHANGED:

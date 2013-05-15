@@ -26,33 +26,15 @@ public class DocumentController implements PropertyChangeListener {
 	public DocumentController() {
 		// Instantiate Map
 		this.docAndDocView = new HashMap<String, List<Object>>(20);
-<<<<<<< HEAD
 		
 		//create first document
-		//(the first view is created in MainView and then sent here
-		//with addDocView)
-=======
-
-		// Create first document
->>>>>>> de74f125d8ad0bec4e3258fe502fdc8ffbf3058a
 		Document d = new Document();
-
-		// The view is created in MainView and then sent here
-		// and put in the map with addDocView
-
-		DocumentView v = new DocumentView(); // Temporary
-		v.addPropertyChangeListener(this);
-
 		List<Object> first = new ArrayList(2);
 		first.add(d);
-<<<<<<< HEAD
-		this.docAndDocView.put("first", first);
-
-=======
-		first.add(v);
-		setCurrent(generateKey());
+		// The view is created in MainView and then sent here
+		// and put in the map with addDocView
+		setCurrent("first");
 		this.docAndDocView.put(getCurrent(), first);
->>>>>>> de74f125d8ad0bec4e3258fe502fdc8ffbf3058a
 	}
 
 	/**

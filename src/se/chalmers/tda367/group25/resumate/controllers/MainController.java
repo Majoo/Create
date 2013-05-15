@@ -113,26 +113,12 @@ public class MainController implements PropertyChangeListener {
 			break;
 			
 		//Other handling:
-<<<<<<< HEAD
 		case Labels.SEND_INITIAL_DOCVIEW:
-			documentController.addDocView((String)e.getNewValue()
+			docCon.addDocView((String)e.getNewValue()
 					,(DocumentView)e.getOldValue());
 		default: 
 			//Do nothing, never invoked
-=======
-				case Labels.SEND_INITIAL_DOCVIEW:
-					String ID;
-					DocumentView v;
-					if(e.getNewValue() instanceof String){
-						ID = 
-					}
-					docCon.addDocView((String)e.getNewValue()
-							,(DocumentView)e.getOldValue());
-					break;
-						
-		default:
-			// Do nothing, never invoked
->>>>>>> de74f125d8ad0bec4e3258fe502fdc8ffbf3058a
+
 			break;
 		}
 

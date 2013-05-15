@@ -27,14 +27,14 @@ public class DocumentController implements PropertyChangeListener{
 		this.docAndDocView = new HashMap<String, List<Object>>(20);
 		
 		//create first document
-		//the view is created in MainView and then sent here
-		//with addDocView
+		//(the first view is created in MainView and then sent here
+		//with addDocView)
 		Document d = new Document();
 		
 		//and put it in the map
 		List<Object> first = new ArrayList(2);
 		first.add(d);
-		this.docAndDocView.put(generateKey(), first);
+		this.docAndDocView.put("first", first);
 
 	}
 
@@ -54,6 +54,8 @@ public class DocumentController implements PropertyChangeListener{
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(d);
+		//Problem: om listan redan finns och redan innehåller en av varje.
+
 	}
 
 
@@ -73,6 +75,7 @@ public class DocumentController implements PropertyChangeListener{
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(v);
+		//Problem: om listan redan finns och redan innehåller en av varje.
 
 	}
 

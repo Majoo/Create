@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -39,8 +40,13 @@ public class MainController implements PropertyChangeListener {
 
 		switch(e.getPropertyName()){
 		//Image handling:
-		case Labels.INSERT_IMAGE:
-			//send down.
+		case Labels.INSERT_IMAGE:			
+			//e.getOldValue() is the filename chosen, convert this to an image.
+			BufferedImage img = Translator.stringToImage((String)e.getOldValue());
+			//Update the image of the Document associated with the DocumentView e.getNewValue().
+			docCon.updateImage(docCon.separateDocument((DocumentView)e.getNewValue()), img);
+			break;
+			
 		//Text handling:
 		case Labels.TEXT_ENTERED:
 

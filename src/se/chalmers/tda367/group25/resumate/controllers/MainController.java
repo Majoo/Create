@@ -14,23 +14,23 @@ import se.chalmers.tda367.group25.resumate.views.MainView;
 
 public class MainController implements PropertyChangeListener {
 
-	private DocumentController documentController;
-	private IOController ioController;
+	private DocumentController docCon;
+	private IOController ioCon;
 	private MainView mainView;
 
 	/**
-	 *  An application with the default document is created. 
+	 * An application with the default document is created.
 	 **/
 	public MainController() {
-		documentController = new DocumentController();
-		ioController = new IOController();
+		docCon = new DocumentController();
+		ioCon = new IOController();
 		mainView = new MainView();
 		mainView.addPropertyChangeListener(this);
 	}
 
 	/**
-	 * Handles Events from further down in the hiearchy, eg. MainView
-	 * by switching depending on which label the eventname is given.
+	 * Handles Events from further down in the hierarchy, eg. MainView by
+	 * switching depending on which label the event name is given.
 	 * 
 	 * @param e
 	 *            the Event to handle
@@ -55,33 +55,13 @@ public class MainController implements PropertyChangeListener {
 			int size = (int)e.getNewValue();
 			JEditorPane section = (JEditorPane)e.getOldValue();
 			SectionType sectionType = Translator.containerToSectionType(section);
-			documentController.getDoc("apa").getTexts().get(sectionType).changeSize(section, size);
+			docCon.getDoc("apa").getTexts().get(sectionType).changeSize(section, size);
 			break;
 
 		case Labels.FIND_TEXT:
 
 			break;
-		//IO handling:
-		case Labels.SAVE_DOC:
-
-			break;
-
-		case  Labels.SAVE_DOC_AS:
-
-			break;
-
-		case  Labels.PRINT_DOC:
-
-			break;
-
-		case  Labels.EXPORT_DOC:
-
-			break;
-
-		case  Labels.OPEN_DOC:
-
-			break;
-
+		
 		case  Labels.RENAME_DOC:
 
 			break;
@@ -90,13 +70,10 @@ public class MainController implements PropertyChangeListener {
 
 			break;
 
-		case  Labels.SEND_DOC:
-
-			break;
-
 		case  Labels.TEMPLATE_CHANGED:
 
 			break;
+			
 		//Undo/redo handling:
 		case  Labels.UNDO_ACTION:
 
@@ -105,17 +82,49 @@ public class MainController implements PropertyChangeListener {
 		case  Labels.REDO_ACTION:
 
 			break;
+		
+		//IO handling:			
+		case Labels.SAVE_DOC:
+			ioCon.chooseFunction(Labels.SAVE_DOC, null,
+					docCon.getDoc(docCon.getCurrent()));
+			break;
+
+		case Labels.SAVE_DOC_AS:
+
+			break;
+
+		case Labels.PRINT_DOC:
+			ioCon.chooseFunction(Labels.PRINT_DOC,
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(), null);
+			break;
+
+		case Labels.EXPORT_DOC:
+			ioCon.chooseFunction(Labels.EXPORT_DOC,
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(), null);
+			break;
+
+		case Labels.OPEN_DOC:
+			ioCon.chooseFunction(Labels.OPEN_DOC, null, null);
+			break;
+
+		case Labels.SEND_DOC:
+			ioCon.chooseFunction(Labels.SEND_DOC,
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(), null);
+			break;
+			
 		//Other handling:
-		case Labels.SEND_INITIAL_DOCVIEW:
-			String ID;
-			DocumentView v;
-			if(e.getNewValue() instanceof String){
-				ID = 
-			}
-			documentController.addDocView((String)e.getNewValue()
-					,(DocumentView)e.getOldValue());
-		default: 
-			//Do nothing, never invoked
+				case Labels.SEND_INITIAL_DOCVIEW:
+					String ID;
+					DocumentView v;
+					if(e.getNewValue() instanceof String){
+						ID = 
+					}
+					docCon.addDocView((String)e.getNewValue()
+							,(DocumentView)e.getOldValue());
+					break;
+						
+		default:
+			// Do nothing, never invoked
 			break;
 		}
 

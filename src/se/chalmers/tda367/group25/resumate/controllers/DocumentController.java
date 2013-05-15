@@ -10,32 +10,37 @@ import java.util.Map;
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
-import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
 
-public class DocumentController implements PropertyChangeListener{
+public class DocumentController implements PropertyChangeListener {
 
 	// Each value (List) holds a Document object and a DocumentView object
 	private Map<String, List<Object>> docAndDocView;
-	
+
+	// The current used set of Document and DocumentView
+	private String current;
+
 	/**
-	 * Constructs a new DocumentController with the 
-	 * DocumentView to be placed in the docAndDocView Map. Max elements in
-	 * the Map is set to 20.
+	 * Constructs a new DocumentController with the DocumentView to be placed in
+	 * the docAndDocView Map. Max elements in the Map is set to 20.
 	 */
 	public DocumentController() {
-		//instantiate map
+		// Instantiate Map
 		this.docAndDocView = new HashMap<String, List<Object>>(20);
-		
-		//create first document
-		//the view is created in MainView and then sent here
-		//with addDocView
+
+		// Create first document
 		Document d = new Document();
-		
-		//and put it in the map
+
+		// The view is created in MainView and then sent here
+		// and put in the map with addDocView
+
+		DocumentView v = new DocumentView(); // Temporary
+		v.addPropertyChangeListener(this);
+
 		List<Object> first = new ArrayList(2);
 		first.add(d);
-		this.docAndDocView.put(generateKey(), first);
-
+		first.add(v);
+		setCurrent(generateKey());
+		this.docAndDocView.put(getCurrent(), first);
 	}
 
 	/**
@@ -49,13 +54,12 @@ public class DocumentController implements PropertyChangeListener{
 	 */
 	public void addDoc(String ID, Document d) {
 		List<Object> list;
-		if(!docAndDocView.containsKey(ID)){
+		if (!docAndDocView.containsKey(ID)) {
 			list = new ArrayList<Object>(2);
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(d);
 	}
-
 
 	/**
 	 * Adds a new DocumentView to the corresponding value (List) in the
@@ -68,7 +72,7 @@ public class DocumentController implements PropertyChangeListener{
 	 */
 	public void addDocView(String ID, DocumentView v) {
 		List<Object> list;
-		if(!docAndDocView.containsKey(ID)){
+		if (!docAndDocView.containsKey(ID)) {
 			list = new ArrayList<Object>(2);
 			docAndDocView.put(ID, list);
 		}
@@ -77,8 +81,28 @@ public class DocumentController implements PropertyChangeListener{
 	}
 
 	/**
+	 * Sets which DocAndDocView couple is the one currently in use by the user.
+	 * 
+	 * @param current
+	 *            the String Key
+	 */
+	public void setCurrent(String current) {
+		this.current = current;
+	}
+
+	/**
+	 * Returns the Key to the current DocAndDocView couple currently in use by
+	 * the user.
+	 * 
+	 * @return The String Key to the current couple
+	 */
+	public String getCurrent() {
+		return this.current;
+	}
+
+	/**
 	 * Returns the Document from the value (List) in the Map docAndDocView
-	 * specified by the parameter ID. 
+	 * specified by the parameter ID.
 	 * 
 	 * @param ID
 	 *            the ID of the Document to return
@@ -87,8 +111,8 @@ public class DocumentController implements PropertyChangeListener{
 	public Document getDoc(String ID) {
 		List<Object> list = docAndDocView.get(ID);
 		Document doc;
-		for(Object o: list){
-			if(o instanceof Document){
+		for (Object o : list) {
+			if (o instanceof Document) {
 				doc = (Document) o;
 				return doc;
 			}
@@ -108,8 +132,8 @@ public class DocumentController implements PropertyChangeListener{
 	public DocumentView getView(String ID) {
 		List<Object> list = docAndDocView.get(ID);
 		DocumentView v;
-		for(Object o: list){
-			if(o instanceof DocumentView){
+		for (Object o : list) {
+			if (o instanceof DocumentView) {
 				v = (DocumentView) o;
 				return v;
 			}
@@ -124,23 +148,22 @@ public class DocumentController implements PropertyChangeListener{
 	 *            the Event to handle
 	 */
 	public void propertyChange(PropertyChangeEvent e) {
-		
 		//Get the pair of Doc & DocView that are concerned (Stored in "value").
 		List<Object> curDocAndDocView = null;
-		for(List<Object> value: docAndDocView.values()){
-			if(value.contains(e.getSource())){
+		for (List<Object> value : docAndDocView.values()) {
+			if (value.contains(e.getSource())) {
 				curDocAndDocView = value;
 			}
 		}
 		//Separate the Doc and the DocView into "d" and "v".
 		Document d;
 		DocumentView v;
-		for(Object o: curDocAndDocView){
-			if(o instanceof Document){
-				d = (Document)o;
+		for (Object o : curDocAndDocView) {
+			if (o instanceof Document) {
+				d = (Document) o;
 			}
-			if(o instanceof DocumentView){
-				v = (DocumentView)o;
+			if (o instanceof DocumentView) {
+				v = (DocumentView) o;
 			}
 		}
 		
@@ -164,7 +187,7 @@ public class DocumentController implements PropertyChangeListener{
 			break;
 		//Text handling:
 		}
-		
+
 	}
 
 	/**

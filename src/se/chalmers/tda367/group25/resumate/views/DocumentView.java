@@ -28,7 +28,6 @@ public class DocumentView extends JTabbedPane implements PropertyChangeListener{
 		pcs = new PropertyChangeSupport(this);
 		templatePnl = new CV_Def();
 		add(templatePnl);
-			
 	}
 	
 	//GETTERS

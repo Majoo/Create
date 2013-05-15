@@ -54,21 +54,33 @@ public class MainView extends JFrame implements MainViewInterface{
 		//Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-		//Sorry men kan inte placera ut de vettigt så löser det med gridlayout sålänge
-		contentPane.setLayout(new GridLayout(3,1));
 		setContentPane(contentPane);
 
 		//Initializing components
 		menuBar = new MenuBar();
 		menuBar.addPropertyChangeListener(this);
+		SpringLayout sl_contentPane = new SpringLayout();
+		sl_contentPane.putConstraint(SpringLayout.NORTH, menuBar, 0, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, menuBar, 0, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, menuBar, 26, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, menuBar, 1280, SpringLayout.WEST, contentPane);
+		contentPane.setLayout(sl_contentPane);
 		contentPane.add(menuBar);
 		
 		toolbarPanel = new ToolbarPanel();
+		sl_contentPane.putConstraint(SpringLayout.NORTH, toolbarPanel, 6, SpringLayout.SOUTH, menuBar);
+		sl_contentPane.putConstraint(SpringLayout.WEST, toolbarPanel, 0, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, toolbarPanel, 111, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, toolbarPanel, 1280, SpringLayout.WEST, contentPane);
 		toolbarPanel.addPropertyChangeListener(this);
 		toolbarPanel.setVisible(true);
 		contentPane.add(toolbarPanel);
 		
 		tabbedPane = new JTabbedPane();
+		sl_contentPane.putConstraint(SpringLayout.NORTH, tabbedPane, 6, SpringLayout.SOUTH, toolbarPanel);
+		sl_contentPane.putConstraint(SpringLayout.WEST, tabbedPane, 0, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, tabbedPane, 588, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, tabbedPane, 0, SpringLayout.EAST, menuBar);
 		DocumentView docView = new DocumentView();
 		//The documentview is created here and then sent to documentcontroller
 		//through maincontroller.

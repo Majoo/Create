@@ -40,7 +40,7 @@ public class PDFHandler {
 		Document document = new Document();
 
 		File file = new File(filePathAndName + ".pdf");
-		
+
 		// If a file with the same name exists, append a digit
 		// indicating how many there are with the same name
 		int i = 1;
@@ -58,21 +58,22 @@ public class PDFHandler {
 		Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
 		jc.print(g2);
 		g2.dispose();
-		cb.addTemplate(tp, (document.left()), (document.top() - jc.getHeight()));
-		
+		cb.addTemplate(tp, (document.left()), (document.top() - panelHeight));
+
 		// If the incoming JComponent representation of a Document is larger
-				// than a single PDF document, create new pages accordingly
-				int delta = (int) (panelHeight - document.top());
-				while (delta >= 0) {
-					document.newPage();
-					PdfTemplate tp2 = cb.createTemplate(panelWidth, panelHeight);
-					Graphics2D g22 = tp2.createGraphicsShapes(panelWidth, panelHeight);
-					jc.print(g22);
-					cb.addTemplate(tp2, document.left(document.leftMargin()), document.top()-delta);
-					g22.dispose();
-					delta = (int) (delta - document.top());
-				}
-		
+		// than a single PDF document, create new pages accordingly
+		int delta = (int) (panelHeight - document.top());
+		while (delta >= 0) {
+			document.newPage();
+			PdfTemplate tp2 = cb.createTemplate(panelWidth, panelHeight);
+			Graphics2D g22 = tp2.createGraphicsShapes(panelWidth, panelHeight);
+			jc.print(g22);
+			cb.addTemplate(tp2, document.left(document.leftMargin()),
+					document.top() - delta);
+			g22.dispose();
+			delta = (int) (delta - document.top());
+		}
+
 		document.close();
 	}
 }

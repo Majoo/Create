@@ -13,14 +13,14 @@ public class Document {
 	private Map<SectionType, RMText> texts = new HashMap<SectionType, RMText>(3);
 	private RMImage rmI;
 
-	private List <Document> history;
+	private List<Document> history;
 
 	/**
 	 * Create a new Document using the default Template.
 	 */
 	public Document() {
 		new Document(Template.DEF_CV);
-		history = new LinkedList <Document>();
+		history = new LinkedList<Document>();
 	}
 
 	/**
@@ -84,8 +84,19 @@ public class Document {
 	 * @return the image
 	 */
 	public RMImage getImage() {
+		//TODO Make clone safe
 		return rmI;
 	}
+
+	/**
+	 * Get the Map of the RMTexts of the Document.
+	 * 
+	 * @return the Map of the RMTexts
+	 */
+	public Map<SectionType, RMText> getTexts() {
+		//TODO Make clone safe
+		return texts;
+	}	
 
 	// ---Setters---//
 
@@ -108,15 +119,6 @@ public class Document {
 	public void setTemplate(Template tmpl) {
 		this.currentTempl = tmpl;
 		createSections();
-	}
-
-	/**
-	 * Get the Map of the RMTexts of the Document.
-	 * 
-	 * @return the Map of the RMTexts
-	 */
-	public Map<SectionType, RMText> getTexts() {
-		return texts;
 	}
 
 	/**

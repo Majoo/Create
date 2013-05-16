@@ -54,6 +54,7 @@ public class MainView extends JFrame implements MainViewInterface{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+
 		//Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -95,6 +96,9 @@ public class MainView extends JFrame implements MainViewInterface{
 		docViewList.add(docView);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
+		
+		this.invalidate();
+		this.validate();
 		
 	}
 

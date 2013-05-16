@@ -52,7 +52,8 @@ public class MainView extends JFrame implements MainViewInterface{
 		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
 
 		//Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
@@ -93,6 +94,9 @@ public class MainView extends JFrame implements MainViewInterface{
 		docViewList.add(docView);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
+		
+		this.invalidate();
+		this.validate();
 		
 	}
 

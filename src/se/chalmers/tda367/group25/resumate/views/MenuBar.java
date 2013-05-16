@@ -24,6 +24,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -39,8 +41,11 @@ public class MenuBar extends JMenuBar {
 	private PropertyChangeSupport pcs;
 
 	public MenuBar(){
-
-	pcs = new PropertyChangeSupport(this);	
+		//The PropertyChangeSupport
+		pcs = new PropertyChangeSupport(this);		
+		
+		//L&F
+		setLookAndFeel();
 		
 		//the file
 		JMenu mnFile = new JMenu("File");
@@ -154,6 +159,19 @@ public class MenuBar extends JMenuBar {
 
 	}
 	
+	/*
+	 * Set look and feel
+	 */
+	private void setLookAndFeel() {
+		try {
+			// Set System L&F
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} 
+		catch (Exception e) {
+			// handle exception
+		}
+	}
+
 	//PROPERTY-CHANGED-METHODS
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);

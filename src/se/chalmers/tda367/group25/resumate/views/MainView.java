@@ -104,8 +104,11 @@ public class MainView extends JFrame implements MainViewInterface {
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// PropertyChangeSupport and other important stuff
 		pcs = new PropertyChangeSupport(this);
+=======
+>>>>>>> 103b5c472c7c4f746c86463a59d79d3c518cc440
 =======
 >>>>>>> 103b5c472c7c4f746c86463a59d79d3c518cc440
 		

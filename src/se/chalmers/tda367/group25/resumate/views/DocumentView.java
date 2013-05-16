@@ -20,6 +20,8 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	private PropertyChangeSupport pcs;
 	
 	private TemplatePanel templatePnl;
+	//This string is only for debugging:
+	private String id;
 	
 	/**
 	 * A new DocumentView with the default template is created.
@@ -59,6 +61,20 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	public void propertyChange(PropertyChangeEvent evt) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	//METHODS TO DEBUG
+	/*
+	 * Get String-ID
+	 */
+	public String getID(){
+		return this.id;
+	}
+	/*
+	 * Set String-ID
+	 */
+	public void setID(String newID){
+		this.id = newID;
 	}
 
 }

@@ -147,11 +147,18 @@ public class MainView extends JFrame implements MainViewInterface {
 		case Labels.TEXTSTYLE_CHANGED:
 		case Labels.TEXT_REPLACED:
 			
+			JEditorPane currentSection =  getCurDocView().getTemplatePanel().getCurrentSection();
+			getCurDocView().getTemplatePanel().setCurrentSection(currentSection);
+			
 			/* Need to get the focused texteditor and not the focused component
 			 * (since it will be the one which sent the event here).*/
-			 //pcs.firePropertyChange(arg0.getPropertyName(), getCurDocView().getTemplatePanel(), arg0.getNewValue());
+			
+			pcs.firePropertyChange(arg0.getPropertyName(), currentSection, arg0.getNewValue());
 			 
+			break;
 
+		default: //Do nothing
+			break;
 		}
 
 	}

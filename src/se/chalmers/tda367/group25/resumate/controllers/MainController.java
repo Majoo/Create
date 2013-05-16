@@ -39,8 +39,9 @@ public class MainController implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent e) {
 
 		//Är det inte bättre att ha detta här och inte duplicera i varje text-case?
-		/*JEditorPane section = (JEditorPane)e.getOldValue();
-		SectionType sectionType = Translator.containerToSectionType(section);*/
+		//Text handling-involved variables
+		JEditorPane section = (JEditorPane)e.getOldValue();
+		SectionType sectionType = Translator.containerToSectionType(section);
 		
 		switch(e.getPropertyName()){
 		//Image handling:
@@ -54,30 +55,22 @@ public class MainController implements PropertyChangeListener {
 		//Text handling: (Need to get the right section first)
 		case Labels.TEXT_ENTERED:
 			String text = e.getNewValue().toString();
-			JEditorPane sectionE = (JEditorPane)e.getOldValue();
-			SectionType sectionTypeE = Translator.containerToSectionType(sectionE);
-			docCon.getDoc("apa").getTexts().get(sectionTypeE).setText(text);
+			docCon.getDoc("apa").getTexts().get(sectionType).setText(text);
 			break;	
 			
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
-			JEditorPane sectionF = (JEditorPane)e.getOldValue();
-			SectionType sectionTypeF = Translator.containerToSectionType(sectionF);
-			docCon.getDoc("apa").getTexts().get(sectionTypeF).changeFont(sectionF, font);
+			docCon.getDoc("apa").getTexts().get(sectionType).changeFont(section, font);
 			break;	
 
 		case Labels.TEXTSIZE_CHANGED:
 			int size = (int)e.getNewValue();
-			JEditorPane sectionSi = (JEditorPane)e.getOldValue();
-			SectionType sectionTypeSi = Translator.containerToSectionType(sectionSi);
-			docCon.getDoc("apa").getTexts().get(sectionTypeSi).changeSize(sectionSi, size);
+			docCon.getDoc("apa").getTexts().get(sectionType).changeSize(section, size);
 			break;
 			
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
-			JEditorPane sectionSt = (JEditorPane)e.getOldValue();
-			SectionType sectionTypeSt = Translator.containerToSectionType(sectionSt);
-			docCon.getDoc("apa").getTexts().get(sectionTypeSt).changeStyle(sectionSt, style);
+			docCon.getDoc("apa").getTexts().get(sectionType).changeStyle(section, style);
 
 			break;
 			
@@ -85,14 +78,13 @@ public class MainController implements PropertyChangeListener {
 			String [] replaceTexts = e.getNewValue().toString().split("/");
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
-			JEditorPane sectionR = (JEditorPane)e.getOldValue();
-			SectionType sectionTypeR = Translator.containerToSectionType(sectionR);
-			docCon.getDoc("apa").getTexts().get(sectionTypeR).replaceText(sectionR, replace, replaceWith);
+			docCon.getDoc("apa").getTexts().get(sectionType).replaceText(section, replace, replaceWith);
 
 			break;
 
 		case Labels.FIND_TEXT:
-			
+			String txt = e.getNewValue().toString();
+			mainView.getCurDocView().getTemplatePanel().findText(section, txt);
 
 			break;
 		

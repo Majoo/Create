@@ -1,13 +1,11 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.font.TextAttribute;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
@@ -17,8 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 
-import se.chalmers.tda367.group25.resumate.model.RMImage;
-
 
 /**
  * A class which represents the core of a Template. It holds the
@@ -26,12 +22,13 @@ import se.chalmers.tda367.group25.resumate.model.RMImage;
  * styling the text in the textareas and basic functions involving writing.
  *
  */
-public abstract class TemplatePanel extends JPanel {
+public abstract class TemplatePanel extends JPanel implements FocusListener {
 
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
 	private JEditorPane otherText;
 	private JLabel imageLbl;
+	private JEditorPane currentSection;
 	
 	private PropertyChangeSupport pcs;
 	
@@ -41,15 +38,18 @@ public abstract class TemplatePanel extends JPanel {
  	 */
 	public TemplatePanel(){		
 		
-		//Initialize components
+		//Initialize components & adding some settings 
 		this.personalInfoText = new JEditorPane();
 		personalInfoText.setText("[PERSONAL_INFO] \nNamn:  \nAdress: \nPostnummer: \nIgnoreraDetta:");
-		this.imageLbl = new JLabel();
-		setImageLabel(imageLbl);
+		personalInfoText.addFocusListener(this);
+		
 		this.otherText = new JEditorPane();
 		otherText.setText("[HEADLINE]");
+		otherText.addFocusListener(this);
+		
 		this.workingExperienceText = new JEditorPane();
 		workingExperienceText.setText("[INFORMATION]");
+		workingExperienceText.addFocusListener(this);
 
 		this.imageLbl = new JLabel();
 		setImageLabel(imageLbl);
@@ -94,6 +94,15 @@ public abstract class TemplatePanel extends JPanel {
 		return imageLbl;
 	}
 	
+	/**
+	 * Returns the textarea for the current section
+	 * 
+	 * @return JEditorPane for the section
+	 */
+	public JEditorPane getCurrentSection(){
+		return currentSection;
+	}
+	
 	//-----Setters for components------
 	
 	/**
@@ -103,6 +112,15 @@ public abstract class TemplatePanel extends JPanel {
 	 */
 	public void setImageLabel(JLabel imageLabel) {
 		this.imageLbl = imageLabel;
+	}
+	
+	/**
+	 *  Sets the current text area which currently was in focus
+	 *  
+	 * @param currentSection the current JEditorPane in focus
+	 */
+	public void setCurrentSection(JEditorPane currentSection){
+		this.currentSection = currentSection;
 	}
 	
 	//-----Setters for updating the view with new text/image-----
@@ -126,7 +144,7 @@ public abstract class TemplatePanel extends JPanel {
 	 * @param input
 	 *            the String which is to be found
 	 */
-	public void findText(String input, JEditorPane section) {
+	public void findText(JEditorPane section, String input) {
 
 		// Removes the previous highlights if there were any. (Will be placed somewhere else in the GUI later)
 		section.getHighlighter().removeAllHighlights();
@@ -187,5 +205,19 @@ public abstract class TemplatePanel extends JPanel {
 	//This is here so that the subclasses can use this pcs to send further events.
 	public PropertyChangeSupport getPcs() {
 		return this.pcs;
+	}
+	
+	@Override
+	public void focusGained(FocusEvent arg0) {
+		if(arg0.getComponent() instanceof JEditorPane){
+			//updateCurrentSection();
+			currentSection = (JEditorPane)arg0.getComponent();
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
+		//Do nothing, the JEditorPane which is in focus will remain until another one is focused
+		
 	}
 }

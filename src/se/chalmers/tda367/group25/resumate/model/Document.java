@@ -120,14 +120,7 @@ public class Document {
 		this.currentTempl = tmpl;
 		createSections();
 	}
-<<<<<<< HEAD
-	
-=======
 
-<<<<<<< HEAD
->>>>>>> 103b5c472c7c4f746c86463a59d79d3c518cc440
-=======
->>>>>>> 103b5c472c7c4f746c86463a59d79d3c518cc440
 	/**
 	 * Change the content of an RMText in the Map of the RMTexts of the
 	 * Document. If the specified RMText Section doesn't exist, create it

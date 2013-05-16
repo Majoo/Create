@@ -40,11 +40,17 @@ public abstract class TemplatePanel extends JPanel {
  	 * Is invoked in subclasses with the propper JEditorPanes.
  	 */
 	public TemplatePanel(){		
+		
 		//Initialize components
 		this.personalInfoText = new JEditorPane();
+		personalInfoText.setText("[PERSONAL_INFO] \nNamn:  \nAdress: \nPostnummer: \nIgnoreraDetta:");
 		this.imageLbl = new JLabel();
+		setImageLabel(imageLbl);
 		this.otherText = new JEditorPane();
+		otherText.setText("[HEADLINE]");
 		this.workingExperienceText = new JEditorPane();
+		workingExperienceText.setText("[INFORMATION]");
+
 		this.imageLbl = new JLabel();
 		setImageLabel(imageLbl);
 		

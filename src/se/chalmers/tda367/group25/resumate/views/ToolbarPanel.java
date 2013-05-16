@@ -1,12 +1,14 @@
 package se.chalmers.tda367.group25.resumate.views;
 
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.font.TextAttribute;
+
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 
@@ -15,19 +17,19 @@ import java.awt.FlowLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpringLayout;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
@@ -41,6 +43,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 
+
 public class ToolbarPanel extends JPanel{
 	private PropertyChangeSupport pcs;
 
@@ -49,6 +52,10 @@ public class ToolbarPanel extends JPanel{
 	private JButton temp1But, temp2But, temp3But;
 	private JComboBox otherTemps;
 	private JComboBox textSizeCB;
+	private JComboBox fontCB;
+	private JToggleButton tglbtnBold;
+	private JToggleButton tglbtnUnderline;
+	private JToggleButton tglbtnItalic;
 	private JPanel lowerToolsPan;
 
 	/**
@@ -154,13 +161,30 @@ public class ToolbarPanel extends JPanel{
 
 		JButton btnBackward = new JButton("Backward");
 		upperToolsPan.add(btnBackward);
+		
 		//Lower part tools panel
 		lowerToolsPan = new JPanel();
 		lowerToolsPan.setBackground(Color.WHITE);
 
-		JComboBox fontCB = new JComboBox();
-		fontCB.setModel(new DefaultComboBoxModel(new String[] {"Fonts"}));
+		// Setting properties for the combobox in which the fonts are listed
+		fontCB = new JComboBox();
+		fontCB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pcs.firePropertyChange(Labels.TEXTFONT_CHANGED, fontCB, fontCB.getSelectedItem().toString());
+			}
+		});
+		//Lists all the fonts stored in the computer (will be changed).
+		GraphicsEnvironment e = GraphicsEnvironment
+				.getLocalGraphicsEnvironment();
+		Font[] fonts = e.getAllFonts(); // Get the fonts
+		String[] fontName = new String[fonts.length];
+		for (int i = 0; i < fonts.length; i++) {
+			fontName[i] = fonts[i].getFontName();
+		}
+		fontCB.setModel(new DefaultComboBoxModel(fontName));
+			
 
+		// Setting properties for the combobox in which the sizes for the text are listed
 		textSizeCB = new JComboBox();
 		textSizeCB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -171,18 +195,37 @@ public class ToolbarPanel extends JPanel{
 				, "11", "12", "13", "14", "15", "16", "18", "20", "22", "24", "26", "28"
 				, "30", "32", "36", "40", "44", "48", "52", "56", "60"}));
 
-		JToggleButton tglbtnBold = new JToggleButton("B");
+		// Setting properties for the button which makes the text bold
+		tglbtnBold = new JToggleButton("B");
+		tglbtnBold.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, tglbtnBold, "B");
+			}
+		});
 		tglbtnBold.setFont(new Font("Tahoma", Font.BOLD, 11));
 
-		JToggleButton tglbtnItalic = new JToggleButton("I");
+		// Setting properties for the button which make the text italic
+		tglbtnItalic = new JToggleButton("I");
+		tglbtnItalic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, tglbtnItalic, "I");
+			}
+		});
 		tglbtnItalic.setFont(new Font("Tahoma", Font.ITALIC, 11));
 
-		JToggleButton tglbtnUnderline = new JToggleButton("U");
+		// Setting properties for the button which make the text underlined
+		tglbtnUnderline = new JToggleButton("U");
+		tglbtnUnderline.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, tglbtnUnderline, "U");
+			}
+		});
 		Map<TextAttribute, Object> map = new HashMap<TextAttribute, Object>();
 		map.put(TextAttribute.UNDERLINE,
 				TextAttribute.UNDERLINE_ON);
 		tglbtnUnderline.setFont(tglbtnUnderline.getFont().deriveFont(map));
 		
+		// Setting properties for the button which make the text coloured
 		JComboBox textColorCB = new JComboBox();
 		textColorCB.setModel(new DefaultComboBoxModel(new String[] {"color"}));
 		textColorCB.setForeground(Color.RED);

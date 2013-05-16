@@ -12,6 +12,7 @@ public class Labels {
 	public static final String TEXTFONT_CHANGED = "Font is changed";
 	public static final String TEXTSTYLE_CHANGED = "Style changed";
 	public static final String TEXTSIZE_CHANGED = "Size changed";
+	public static final String TEXT_REPLACED = "Text is replaced";
 	public static final String FIND_TEXT = "Find text";
 	
 	public static final String SAVE_DOC = "Save document";

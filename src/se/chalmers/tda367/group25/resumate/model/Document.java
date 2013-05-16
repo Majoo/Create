@@ -146,11 +146,6 @@ public class Document {
 	 *            the Template to change to
 	 */
 	public void changeTemplate(Template temp) {
-		/*
-		 * List <SectionType> secs = TemplateToSections.translate(temp); List
-		 * <String> text = new ArrayList <String>(3); for(int i = 0; i <
-		 * secs.size(); i++) { text.add(texts.get(secs.get(i)).getText()); }
-		 */
 		setTemplate(temp);
 	}
 

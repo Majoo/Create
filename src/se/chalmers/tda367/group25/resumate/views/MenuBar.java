@@ -28,6 +28,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import javax.swing.JSeparator;
 
 public class MenuBar extends JMenuBar {
 
@@ -104,11 +105,54 @@ public class MenuBar extends JMenuBar {
 		mnEdit.add(mntmCopy);
 
 		JMenuItem mntmPaste = new JMenuItem("Paste");
-
 		mnEdit.add(mntmPaste);
 
 		JMenuItem mntmSelectAll = new JMenuItem("Select All");
 		mnEdit.add(mntmSelectAll);
+		
+		JSeparator separator = new JSeparator();
+		mnEdit.add(separator);
+		
+		JMenuItem mntmFind = new JMenuItem("Find");
+		mntmFind.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String text = JOptionPane.showInputDialog(null, null,
+						"Find text", 2);
+				pcs.firePropertyChange(Labels.FIND_TEXT, null, text);
+			}
+		});
+		mnEdit.add(mntmFind);
+		
+		JMenuItem mntmReplace = new JMenuItem("Replace");
+		mntmReplace.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String replaceThis = null;
+				String replaceWith = null;
+				
+				boolean replaceWithNeedsInput = true;
+				boolean replaceNeedsInput = true;
+				while(replaceNeedsInput){
+					replaceThis = JOptionPane.showInputDialog(null, null,
+							"Replace text", 2);
+					if(replaceThis.isEmpty()){
+						JOptionPane.showMessageDialog(null,"Please enter a word to replace");
+					} else {
+						replaceNeedsInput = false;
+						while(replaceWithNeedsInput){
+							replaceWith = JOptionPane.showInputDialog(null, null,
+							"Replace " + replaceThis + " with:", 2);
+							if (replaceWith.isEmpty()){
+								JOptionPane.showMessageDialog(null,"Please enter a word to replace with");
+							} else {
+								replaceWithNeedsInput = false;
+								pcs.firePropertyChange(Labels.TEXT_REPLACED, null, replaceThis + "/" + replaceWith);
+							}
+						}
+					}
+				}
+			}
+		});
+		mnEdit.add(mntmReplace);
 
 
 		//the format

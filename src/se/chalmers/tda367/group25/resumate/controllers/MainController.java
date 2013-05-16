@@ -38,6 +38,10 @@ public class MainController implements PropertyChangeListener {
 	 */
 	public void propertyChange(PropertyChangeEvent e) {
 
+		//Är det inte bättre att ha detta här och inte duplicera i varje text-case?
+		/*JEditorPane section = (JEditorPane)e.getOldValue();
+		SectionType sectionType = Translator.containerToSectionType(section);*/
+		
 		switch(e.getPropertyName()){
 		//Image handling:
 		case Labels.INSERT_IMAGE:			
@@ -47,24 +51,48 @@ public class MainController implements PropertyChangeListener {
 			docCon.updateImage(docCon.separateDocument((DocumentView)e.getNewValue()), img);
 			break;
 			
-		//Text handling:
+		//Text handling: (Need to get the right section first)
 		case Labels.TEXT_ENTERED:
-
-			break;
-
+			String text = e.getNewValue().toString();
+			JEditorPane sectionE = (JEditorPane)e.getOldValue();
+			SectionType sectionTypeE = Translator.containerToSectionType(sectionE);
+			docCon.getDoc("apa").getTexts().get(sectionTypeE).setText(text);
+			break;	
+			
 		case Labels.TEXTFONT_CHANGED:
-
+			String font = e.getNewValue().toString();
+			JEditorPane sectionF = (JEditorPane)e.getOldValue();
+			SectionType sectionTypeF = Translator.containerToSectionType(sectionF);
+			docCon.getDoc("apa").getTexts().get(sectionTypeF).changeFont(sectionF, font);
 			break;	
 
 		case Labels.TEXTSIZE_CHANGED:
-			//SectionType s = documentController.getDoc("apa").getCurrentSection();
 			int size = (int)e.getNewValue();
-			JEditorPane section = (JEditorPane)e.getOldValue();
-			SectionType sectionType = Translator.containerToSectionType(section);
-			docCon.getDoc("apa").getTexts().get(sectionType).changeSize(section, size);
+			JEditorPane sectionSi = (JEditorPane)e.getOldValue();
+			SectionType sectionTypeSi = Translator.containerToSectionType(sectionSi);
+			docCon.getDoc("apa").getTexts().get(sectionTypeSi).changeSize(sectionSi, size);
+			break;
+			
+		case Labels.TEXTSTYLE_CHANGED:
+			String style = e.getNewValue().toString();
+			JEditorPane sectionSt = (JEditorPane)e.getOldValue();
+			SectionType sectionTypeSt = Translator.containerToSectionType(sectionSt);
+			docCon.getDoc("apa").getTexts().get(sectionTypeSt).changeStyle(sectionSt, style);
+
+			break;
+			
+		case Labels.TEXT_REPLACED:
+			String [] replaceTexts = e.getNewValue().toString().split("/");
+			String replace = replaceTexts[0];
+			String replaceWith = replaceTexts[1];
+			JEditorPane sectionR = (JEditorPane)e.getOldValue();
+			SectionType sectionTypeR = Translator.containerToSectionType(sectionR);
+			docCon.getDoc("apa").getTexts().get(sectionTypeR).replaceText(sectionR, replace, replaceWith);
+
 			break;
 
 		case Labels.FIND_TEXT:
+			
 
 			break;
 		

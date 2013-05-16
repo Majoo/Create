@@ -40,6 +40,14 @@ public abstract class TemplatePanel extends JPanel {
  	 * Is invoked in subclasses with the propper JEditorPanes.
  	 */
 	public TemplatePanel(){		
+		//Initialize components
+		this.personalInfoText = new JEditorPane();
+		this.imageLbl = new JLabel();
+		this.otherText = new JEditorPane();
+		this.workingExperienceText = new JEditorPane();
+		this.imageLbl = new JLabel();
+		setImageLabel(imageLbl);
+		
 		this.pcs = new PropertyChangeSupport(this);
 	}
 
@@ -49,7 +57,7 @@ public abstract class TemplatePanel extends JPanel {
 	 * 
 	 * @return The JEditorPane for personal information
 	 */
-	public JEditorPane getPersonalInfo() {
+	public JEditorPane getPersonalInfoText() {
 		return personalInfoText;
 	}
 
@@ -71,34 +79,16 @@ public abstract class TemplatePanel extends JPanel {
 		return otherText;
 	}
 	
-	//-----Setters for components------
+	/**
+	 * Returns the label for the image
+	 * 
+	 * @return JLabel for the image
+	 */
+	public JLabel getImageLabel(){
+		return imageLbl;
+	}
 	
-	/**
-	 * Sets the personal information-textarea.
-	 * 
-	 * @param The JEditorPane for personal information
-	 */
-	public void setPersonalInfo(JEditorPane personalInfoText) {
-		this.personalInfoText = personalInfoText;
-	}
-
-	/**
-	 * Sets the working experience-textarea.
-	 * 
-	 * @param The JEditorPane for working experience
-	 */
-	public void setWorkingExperience(JEditorPane workingExperienceText) {
-		this.workingExperienceText = workingExperienceText;
-	}
-
-	/**
-	 * Sets the (other) textarea.
-	 * 
-	 * @param JEditorPane for other texts
-	 */
-	public void setOther(JEditorPane otherText) {
-		this.otherText = otherText;
-	}
+	//-----Setters for components------
 	
 	/**
 	 * Sets the image container

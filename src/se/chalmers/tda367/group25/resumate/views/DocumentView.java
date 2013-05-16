@@ -11,6 +11,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
 
 import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
+import java.awt.BorderLayout;
 
 /**
  * This class contains a TemplatePanel which shows the Document.
@@ -28,6 +29,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	 */
 	public DocumentView() {
 		pcs = new PropertyChangeSupport(this);
+		setLayout(new BorderLayout(0, 0));
 		templatePnl = new CV_Def();
 		add(templatePnl);
 	}

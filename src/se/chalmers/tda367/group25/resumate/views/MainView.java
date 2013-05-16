@@ -122,14 +122,6 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		/*
-		 * By firing the another property change here with the same information
-		 * (nothing will be lost) as the argument. he event handling will be
-		 * sent to the class which is listening to this class, namely, the
-		 * MainController. There the event will switch depending on the label.
-		 */
-		// pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(),
-		// arg0.getNewValue());
 
 		switch (arg0.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
@@ -147,13 +139,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		case Labels.TEXT_REPLACED:
 			
 			JEditorPane currentSection =  getCurDocView().getTemplatePanel().getCurrentSection();
-			getCurDocView().getTemplatePanel().setCurrentSection(currentSection);
-			
-			/* Need to get the focused texteditor and not the focused component
-			 * (since it will be the one which sent the event here).*/
-			
 			pcs.firePropertyChange(arg0.getPropertyName(), currentSection, arg0.getNewValue());
-			 
 			break;
 
 		default: //Do nothing

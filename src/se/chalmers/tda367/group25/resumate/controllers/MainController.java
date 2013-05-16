@@ -86,7 +86,6 @@ public class MainController implements PropertyChangeListener {
 		case Labels.FIND_TEXT:
 			String txt = e.getNewValue().toString();
 			mainView.getCurDocView().getTemplatePanel().findText(section, txt);
-
 			break;
 		
 		case  Labels.RENAME_DOC:

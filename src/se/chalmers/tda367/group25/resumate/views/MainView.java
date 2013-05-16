@@ -45,6 +45,9 @@ public class MainView extends JFrame implements MainViewInterface{
 	 */
 
 	public MainView() {
+		// PropertyChangeSupport and other important stuff
+		pcs = new PropertyChangeSupport(this);
+		
 		// frame
 		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
@@ -91,9 +94,6 @@ public class MainView extends JFrame implements MainViewInterface{
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
 		
-
-		// PropertyChangeSupport and other important stuff
-		pcs = new PropertyChangeSupport(this);
 	}
 
 	// PROPERTY-CHANGED-METHODS

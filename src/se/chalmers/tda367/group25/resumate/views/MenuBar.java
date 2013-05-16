@@ -181,10 +181,11 @@ public class MenuBar extends JMenuBar {
 			    chooser.setFileFilter(filter);
 			    int returnVal = chooser.showOpenDialog(getParent());
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			       System.out.println("You chose to open this file: " +
-			            chooser.getSelectedFile().getName());
+			    	String path = chooser.getSelectedFile().getPath();
+			    	System.out.println("You chose to open this file: " +
+			    			path);
+			    	pcs.firePropertyChange(Labels.INSERT_IMAGE, path, false);
 			    }
-				pcs.firePropertyChange(Labels.INSERT_IMAGE, chooser.getSelectedFile().getName(), false);
 			}
 		});
 		mnInsert.add(uploadImage);
@@ -212,7 +213,7 @@ public class MenuBar extends JMenuBar {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} 
 		catch (Exception e) {
-			// handle exception
+			System.out.println("Couldn't set look and feel in MenuBar");
 		}
 	}
 

@@ -37,6 +37,7 @@ public class MainController implements PropertyChangeListener {
 	 *            the Event to handle
 	 */
 	public void propertyChange(PropertyChangeEvent e) {
+		System.out.println("Inne i PropertyChangeEvent i MainController");
 
 		//Är det inte bättre att ha detta här och inte duplicera i varje text-case?
 		//Text handling-involved variables
@@ -140,8 +141,10 @@ public class MainController implements PropertyChangeListener {
 			
 		//Other handling:
 		case Labels.SEND_INITIAL_DOCVIEW:
+			DocumentView v = (DocumentView)e.getOldValue();
+			System.out.println(v.getID()+" In MainController");
 			docCon.addDocView((String)e.getNewValue()
-					,(DocumentView)e.getOldValue());
+					,v);
 		default: 
 			//Do nothing, never invoked
 

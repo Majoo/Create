@@ -49,7 +49,7 @@ public class MainView extends JFrame implements MainViewInterface{
 		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		//Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
@@ -81,7 +81,7 @@ public class MainView extends JFrame implements MainViewInterface{
 		tabbedPane = new JTabbedPane();
 		layout.putConstraint(SpringLayout.NORTH, tabbedPane, 6, SpringLayout.SOUTH, toolbarPanel);
 		layout.putConstraint(SpringLayout.WEST, tabbedPane, 0, SpringLayout.WEST, contentPane);
-		layout.putConstraint(SpringLayout.SOUTH, tabbedPane, 588, SpringLayout.NORTH, contentPane);
+		layout.putConstraint(SpringLayout.SOUTH, tabbedPane, 738, SpringLayout.NORTH, contentPane);
 		layout.putConstraint(SpringLayout.EAST, tabbedPane, 0, SpringLayout.EAST, menuBar);
 		DocumentView docView = new DocumentView();
 		//The documentview is created here and then sent to documentcontroller

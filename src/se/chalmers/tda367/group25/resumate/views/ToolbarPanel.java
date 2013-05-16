@@ -4,9 +4,17 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
+
+import java.awt.BorderLayout;
+import java.awt.Toolkit;
+
+import javax.swing.SpringLayout;
+import java.awt.FlowLayout;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
@@ -24,6 +32,17 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpringLayout;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+
+import java.awt.Font;
+import java.awt.font.TextAttribute;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
+import java.awt.SystemColor;
+
 
 public class ToolbarPanel extends JPanel{
 	private PropertyChangeSupport pcs;
@@ -43,6 +62,8 @@ public class ToolbarPanel extends JPanel{
 	 * Create the panel.
 	 */
 	public ToolbarPanel() {
+		setBorder(new LineBorder(SystemColor.activeCaption));
+		setBackground(Color.WHITE);
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 
@@ -55,10 +76,16 @@ public class ToolbarPanel extends JPanel{
 		toolsPan.setLayout(new GridLayout(2,1));
 		//Upper part tools panel
 		JPanel upperToolsPan = new JPanel();
+		upperToolsPan.setBackground(Color.WHITE);
 		upperToolsPan.setLayout(new GridLayout(1,10));
 		toolsPan.add(upperToolsPan);
 
 		JButton btnNewDoc = new JButton("New");
+		btnNewDoc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Toolkit.getDefaultToolkit().beep();
+			}
+		});
 		upperToolsPan.add(btnNewDoc);
 
 		JButton btnOpen = new JButton("Open");
@@ -137,6 +164,7 @@ public class ToolbarPanel extends JPanel{
 		
 		//Lower part tools panel
 		lowerToolsPan = new JPanel();
+		lowerToolsPan.setBackground(Color.WHITE);
 
 		// Setting properties for the combobox in which the fonts are listed
 		fontCB = new JComboBox();
@@ -241,6 +269,7 @@ public class ToolbarPanel extends JPanel{
 
 		//Template chooser panel
 		JPanel tempsPan = new JPanel();
+		tempsPan.setBackground(Color.WHITE);
 		springLayout.putConstraint(SpringLayout.EAST, toolsPan, -6, SpringLayout.WEST, tempsPan);
 		springLayout.putConstraint(SpringLayout.WEST, tempsPan, 826, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, tempsPan, 0, SpringLayout.NORTH, this);

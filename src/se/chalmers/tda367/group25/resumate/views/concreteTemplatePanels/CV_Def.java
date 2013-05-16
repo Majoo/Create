@@ -18,12 +18,15 @@ public class CV_Def extends TemplatePanel {
 		 
 		//Initialize components
 		this.personalInfoText = new JEditorPane();
+		personalInfoText.setText("[PERSONAL_INFO] \nNamn:  \nAdress: \nPostnummer: \nIgnoreraDetta:");
 		setPersonalInfo(personalInfoText);
 		this.imageLbl = new JLabel();
 		setImageLabel(imageLbl);
 		this.otherText = new JEditorPane();
+		otherText.setText("[HEADLINE]");
 		setOther(otherText);
 		this.workingExperienceText = new JEditorPane();
+		workingExperienceText.setText("[INFORMATION]");
 		setWorkingExperience(workingExperienceText);
 		
 		//Place components

@@ -134,6 +134,7 @@ public class PDFExp extends JFrame {
 				new FileOutputStream(file));
 
 		document.open();
+		System.out.print(document.rightMargin()-document.leftMargin());
 		PdfContentByte cb = writer.getDirectContent();
 		PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
 		Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);

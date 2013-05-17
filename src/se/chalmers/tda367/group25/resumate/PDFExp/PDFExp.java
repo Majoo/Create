@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.experiment3;
+package se.chalmers.tda367.group25.resumate.PDFExp;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

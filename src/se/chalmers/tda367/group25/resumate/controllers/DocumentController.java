@@ -217,12 +217,14 @@ public class DocumentController implements PropertyChangeListener {
 	 * 			docView - the DocumentView to extract the Document from
 	 */
 	public Document separateDocument(DocumentView docView){
+		//Get the List that contains the DocView
 		List<Object> curDocAndDocView = null;
-		for (List<Object> value : docAndDocView.values()) {
+		for (List<Object> value : this.docAndDocView.values()) {
 			if (value.contains(docView)) {
 				curDocAndDocView = value;
 			}
 		}
+		//Get the Document from this List
 		Document d = null;
 		for(Object o: curDocAndDocView){
 			if(o instanceof Document){

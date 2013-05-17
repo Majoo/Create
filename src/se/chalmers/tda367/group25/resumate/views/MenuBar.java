@@ -184,6 +184,7 @@ public class MenuBar extends JMenuBar {
 			    	String path = chooser.getSelectedFile().getPath();
 			    	System.out.println("You chose to open this file: " +
 			    			path);
+			    	//send the path of the image to mainView
 			    	pcs.firePropertyChange(Labels.INSERT_IMAGE, path, false);
 			    }
 			}

@@ -65,7 +65,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		
 	}
 	
-	//METHODS TO DEBUG
+	//METHODS USED TO DEBUG
 	/*
 	 * Get String-ID
 	 */

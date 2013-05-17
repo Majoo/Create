@@ -98,16 +98,16 @@ public class MainView extends JFrame implements MainViewInterface {
 
 		DocumentView docView = new DocumentView();
 		docView.setID("First DocumentView");
-		//The documentview is created here and then sent to documentcontroller
-		//through maincontroller.
-		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, "first");
-		System.out.println("Efter SEND_INITIAL_DOCVIEW i MainView");
 		docViewList.add(docView);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
+		tabbedPane.setSelectedComponent(docView);
+		
+		System.out.println(getCurDocView().getID());
 		
 		this.invalidate();
 		this.validate();
+		
 		
 	}
 
@@ -125,8 +125,8 @@ public class MainView extends JFrame implements MainViewInterface {
 
 		switch (arg0.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
-			// arg0.getOldValue() is the string representation of the file
-			// the user chose to upload.
+			// arg0.getOldValue() is the path of the jpg/gif-file
+			// getCurDocView() returns the documentView in the tab that is in focus.
 			pcs.firePropertyChange(Labels.INSERT_IMAGE, arg0.getOldValue(),
 					getCurDocView());
 
@@ -156,13 +156,12 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	// -----GETTERS-----
 	/**
-	 * Get the DocView i.e. tab that is currently in focus.
+	 * Get the DocView in the tab that is currently in focus.
 	 * 
 	 * @return the DocView that is in the tab that is currently in focus.
 	 */
 	public DocumentView getCurDocView() {
-		return (DocumentView) tabbedPane.getTabComponentAt(tabbedPane
-				.getSelectedIndex());
+		return (DocumentView) tabbedPane.getSelectedComponent();
 	}
 
 	// -----SETTERS-----
@@ -173,10 +172,18 @@ public class MainView extends JFrame implements MainViewInterface {
 	 * @param the
 	 *            template the new DocumentView will have.
 	 */
-	public void newTab(TemplatePanel templatePnl) {
-		DocumentView newDocView = new DocumentView(templatePnl);
-		docViewList.add(newDocView);
-		tabbedPane.addTab("unsaved", null, newDocView, "unsaved");
+	public void newTab(DocumentView docView) {
+		docViewList.add(docView);
+		tabbedPane.addTab("unsaved", null, docView, "unsaved");
+	}
+	
+	/**
+	 * Sends the initial DocumentView to DocumentController through MainController.
+	 */
+	public void sendInitialDocView(){
+		DocumentView docView = this.docViewList.get(0);
+		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, "first");
+		System.out.println("Last in sendInitialDocView() i.e. message sent to MC");
 	}
 
 	/**

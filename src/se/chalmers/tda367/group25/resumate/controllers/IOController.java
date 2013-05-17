@@ -21,10 +21,7 @@ import se.chalmers.tda367.group25.resumate.utils.Labels;
  */
 public class IOController {
 
-	private IOHandler ioHandler;
-
 	public IOController() {
-		ioHandler = new IOHandler();
 	}
 
 	/**
@@ -38,27 +35,33 @@ public class IOController {
 	 *            null
 	 * @param doc
 	 *            only necessary when saving, may be null
+	 * @param path
+	 *            only necessary when saving and path already exists, may be
+	 *            null
 	 */
-	public void chooseFunction(String function, JComponent jc, Document doc) {
-		if (function.equals(Labels.PRINT_DOC)
-				|| (function.equals(Labels.SAVE_DOC))
-				|| (function.equals(Labels.SEND_DOC))) {
-			// A printing, method will be called here
+	public void chooseFunction(String function, JComponent jc, Document doc,
+			String path) {
+		if (function.equals(Labels.SAVE_DOC)) {
+			
 		} else if ((function.equals(Labels.EXPORT_DOC))
 				|| (function.equals(Labels.SAVE_DOC_AS))
 				|| (function.equals(Labels.OPEN_DOC))
 				|| (function.equals(Labels.RENAME_DOC))) {
 			try {
-				choosePath(jc, function);
+				choosePath(jc, function, doc);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// Probably means that the user entered the wrong path name.
+				// Thus, let them try again.
+				chooseFunction(function, jc, doc, path);
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NullPointerException e) {
 				// If no file is chosen or operation is aborted, nothing happens
 			}
+		} else if (function.equals(Labels.PRINT_DOC)
+				|| (function.equals(Labels.SEND_DOC))) {
+
 		} else {
 			System.out.println("No such command!");
 		}
@@ -70,8 +73,10 @@ public class IOController {
 	 * 
 	 * @param function
 	 *            the context of the function e.g. save, save as, export as PDF
+	 * @param doc
+	 *            TODO
 	 */
-	public void choosePath(JComponent jc, String function)
+	public void choosePath(JComponent jc, String function, Document doc)
 			throws FileNotFoundException, DocumentException,
 			NullPointerException {
 
@@ -79,8 +84,7 @@ public class IOController {
 
 		// Depending on the desired function, different kinds of Filter are
 		// required, which is why the returnFilter method is called
-		FileNameExtensionFilter filter = returnFilter(function);
-		chooser.setFileFilter(filter);
+		chooser.setFileFilter(returnFilter(function));
 		int returnVal = chooser.showSaveDialog(null);
 		String filePathAndName = chooser.getCurrentDirectory().getPath() + "\\"
 				+ chooser.getSelectedFile().getName();
@@ -91,16 +95,10 @@ public class IOController {
 					PDFHandler.createPdf(jc, filePathAndName);
 				} else if (function.equals(Labels.SEND_DOC)) {
 					;
-				} else if (function.equals(Labels.SAVE_DOC)) {
-					// Connection to DocumentController needs to be established
-					// so that the correct Document can be fetched
-					ioHandler.saveFile(filePathAndName, new Document());
 				} else if (function.equals(Labels.SAVE_DOC_AS)) {
-					// Connection to DocumentController needs to be established
-					// so that the correct Document can be fetched
-					ioHandler.saveFile(filePathAndName, new Document());
+					IOHandler.saveFile(filePathAndName, doc);
 				} else if (function.equals(Labels.OPEN_DOC)) {
-					ioHandler.openFile(filePathAndName);
+					IOHandler.openFile(filePathAndName);
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

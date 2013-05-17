@@ -15,7 +15,8 @@ public class IOHandler {
 	 * @param fileName
 	 *            the file to save to
 	 */
-	public void saveFile(String fileName, Document doc) throws IOException {
+	public static void saveFile(String fileName, Document doc)
+			throws IOException {
 		File directory = new File(fileName);
 		// Create directory for RSMT files
 		if (directory.mkdirs()) {
@@ -41,7 +42,7 @@ public class IOHandler {
 	 * @throws IOException
 	 * 
 	 */
-	public void openFile(String fileName) throws IOException,
+	public static void openFile(String fileName) throws IOException,
 			FileNotFoundException {
 
 		File chosenFile = new File(fileName);

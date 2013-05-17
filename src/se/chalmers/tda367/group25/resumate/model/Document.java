@@ -15,6 +15,12 @@ public class Document {
 
 	private List<Document> history;
 
+	// Unsurprisingly, the path to the file representation of this Document is
+	// stored here. This variable is used for "quick save" functionality.
+	private String filePath;
+	
+	
+
 	/**
 	 * Create a new Document using the default Template.
 	 */
@@ -84,7 +90,7 @@ public class Document {
 	 * @return the image
 	 */
 	public RMImage getImage() {
-		//TODO Make clone safe
+		// TODO Make clone safe
 		return rmI;
 	}
 
@@ -93,10 +99,24 @@ public class Document {
 	 * 
 	 * @return the Map of the RMTexts
 	 */
-	public Map<SectionType, RMText> getTexts() {
-		//TODO Make clone safe
+	public Map<SectionType, RMText> getTextsMap() {
+		// TODO Make clone safe
 		return texts;
-	}	
+	}
+	
+	public List<String> getStringsFromMap(){
+		List<String> strings;
+		return null;
+	}
+
+	/**
+	 * Get the String representation of the file path of this Document.
+	 * 
+	 * @return file path of the Document
+	 */
+	public String getFilePath() {
+		return filePath;
+	}
 
 	// ---Setters---//
 
@@ -147,6 +167,14 @@ public class Document {
 	 */
 	public void changeTemplate(Template temp) {
 		setTemplate(temp);
+	}
+	
+	/**
+	 * Set the file path of the Document.
+	 * @param newPath
+	 */
+	public void setFilePath(String path){
+		
 	}
 
 }

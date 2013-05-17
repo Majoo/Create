@@ -39,15 +39,7 @@ public class PDFHandler {
 
 		Document document = new Document();
 
-		File file = new File(filePathAndName + ".pdf");
-
-		// If a file with the same name exists, append a digit
-		// indicating how many there are with the same name
-		int i = 1;
-		while (file.exists()) {
-			file = new File(filePathAndName + "(" + i + ")" + ".pdf");
-			i++;
-		}
+		File file = getUniqueFile(filePathAndName);
 
 		PdfWriter writer = PdfWriter.getInstance(document,
 				new FileOutputStream(file));
@@ -75,5 +67,23 @@ public class PDFHandler {
 		}
 
 		document.close();
+	}
+	
+	/**
+	 * Returns a File with a unique path and file name by concatenating an
+	 * integer in parenthesis to the file name.
+	 * 
+	 * @param fileName
+	 *            the original path and file name
+	 * @return a File with a unique path and file name
+	 */
+	private static File getUniqueFile(String fileName) {
+		File file = new File(fileName + ".pdf");
+		int i = 1;
+		while (file.exists()) {
+			file = new File(fileName + "(" + i + ")" + ".pdf");
+			i++;
+		}
+		return file;
 	}
 }

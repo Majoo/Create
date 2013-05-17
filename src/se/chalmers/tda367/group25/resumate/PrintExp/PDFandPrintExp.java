@@ -6,10 +6,17 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import javax.print.DocFlavor;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Sides;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -28,7 +35,7 @@ import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 
 @SuppressWarnings("serial")
-public class PDFExp extends JFrame {
+public class PDFandPrintExp extends JFrame {
 
 	private JPanel contentPane;
 	private JEditorPane editorPane;
@@ -43,7 +50,7 @@ public class PDFExp extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PDFExp frame = new PDFExp();
+					PDFandPrintExp frame = new PDFandPrintExp();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +62,7 @@ public class PDFExp extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PDFExp() {
+	public PDFandPrintExp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 495, 2000);
 		contentPane = new JPanel();
@@ -82,6 +89,14 @@ public class PDFExp extends JFrame {
 		});
 		panel.add(btnBeep);
 
+		JButton btnPrint = new JButton("Print");
+		btnBeep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Toolkit.getDefaultToolkit().beep();
+			}
+		});
+		panel.add(btnPrint);
+
 		panel_1 = new JPanel();
 		panel_1.setLayout(new BorderLayout(0, 0));
 		contentPane.add(panel_1, BorderLayout.CENTER);
@@ -94,7 +109,7 @@ public class PDFExp extends JFrame {
 		lblNewLabel = new JLabel();
 		lblNewLabel
 				.setIcon(new ImageIcon(
-						PDFExp.class
+						PDFandPrintExp.class
 								.getResource("/javax/swing/plaf/metal/icons/ocean/warning.png")));
 		panel_1.add(lblNewLabel, BorderLayout.CENTER);
 	}
@@ -123,18 +138,13 @@ public class PDFExp extends JFrame {
 
 		Document document = new Document();
 
-		File file = new File(filePathAndName + ".pdf");
-		int i = 1;
-		while (file.exists()) {
-			file = new File(filePathAndName + "_" + i + ".pdf");
-			i++;
-		}
+		File file = getUniqueFile(filePathAndName);
 
 		PdfWriter writer = PdfWriter.getInstance(document,
 				new FileOutputStream(file));
 
 		document.open();
-		System.out.print(document.rightMargin()-document.leftMargin());
+		System.out.print(document.rightMargin() - document.leftMargin());
 		PdfContentByte cb = writer.getDirectContent();
 		PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
 		Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
@@ -151,12 +161,31 @@ public class PDFExp extends JFrame {
 			PdfTemplate tp2 = cb.createTemplate(panelWidth, panelHeight);
 			Graphics2D g22 = tp2.createGraphicsShapes(panelWidth, panelHeight);
 			jc.print(g22);
-			cb.addTemplate(tp2, document.left(document.leftMargin()), document.top()-delta);
+			cb.addTemplate(tp2, document.left(document.leftMargin()),
+					document.top() - delta);
 			g22.dispose();
 			delta = (int) (delta - document.top());
 		}
 
 		document.close();
+	}
+
+	/**
+	 * Returns a File with a unique path and file name by concatenating an
+	 * integer in parenthesis to the file name.
+	 * 
+	 * @param fileName
+	 *            the original path and file name
+	 * @return a File with a unique path and file name
+	 */
+	public File getUniqueFile(String fileName) {
+		File file = new File(fileName + ".pdf");
+		int i = 1;
+		while (file.exists()) {
+			file = new File(fileName + "(" + i + ")" + ".pdf");
+			i++;
+		}
+		return file;
 	}
 
 	/**
@@ -185,5 +214,24 @@ public class PDFExp extends JFrame {
 				System.err.println(e.getMessage());
 			}
 		}
+	}
+
+	/**
+	 * Print a Document.
+	 * 
+	 * @param jc
+	 *            JComponent upon which the printing will be based
+	 */
+	public void print(JComponent jc) {
+
+		DocFlavor flavor = DocFlavor.SERVICE_FORMATTED.PAGEABLE;
+		PrintRequestAttributeSet patts = new HashPrintRequestAttributeSet();
+		patts.add(Sides.DUPLEX);
+		PrintService[] ps = PrintServiceLookup.lookupPrintServices(flavor, patts);
+		if (ps.length == 0) {
+		    throw new IllegalStateException("No Printer found");
+		}
+		PrinterJob job = PrinterJob.getPrinterJob();
+		job.setPrintService(ps[0]);
 	}
 }

@@ -6,17 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.print.PrinterJob;
+import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import javax.print.DocFlavor;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Sides;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -221,17 +215,9 @@ public class PDFandPrintExp extends JFrame {
 	 * 
 	 * @param jc
 	 *            JComponent upon which the printing will be based
+	 * @throws PrinterException 
 	 */
-	public void print(JComponent jc) {
-
-		DocFlavor flavor = DocFlavor.SERVICE_FORMATTED.PAGEABLE;
-		PrintRequestAttributeSet patts = new HashPrintRequestAttributeSet();
-		patts.add(Sides.DUPLEX);
-		PrintService[] ps = PrintServiceLookup.lookupPrintServices(flavor, patts);
-		if (ps.length == 0) {
-		    throw new IllegalStateException("No Printer found");
-		}
-		PrinterJob job = PrinterJob.getPrinterJob();
-		job.setPrintService(ps[0]);
+	public void print(JComponent jc) throws PrinterException {
+		
 	}
 }

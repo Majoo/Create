@@ -1,12 +1,15 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Transparency;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -52,8 +55,10 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		workingExperienceText.addFocusListener(this);
 
 		this.imageLbl = new JLabel();
+		this.imageLbl.setBackground(Color.cyan);
 		setImageLabel(imageLbl);
 		
+		currentSection = getPersonalInfoText();
 		this.pcs = new PropertyChangeSupport(this);
 	}
 
@@ -211,7 +216,10 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public void focusGained(FocusEvent arg0) {
 		if(arg0.getComponent() instanceof JEditorPane){
 			//updateCurrentSection();
+			currentSection.setBorder(null);
 			currentSection = (JEditorPane)arg0.getComponent();
+			Paint p = Color.black;
+			currentSection.setBorder(BorderFactory.createDashedBorder(p));
 		}
 	}
 

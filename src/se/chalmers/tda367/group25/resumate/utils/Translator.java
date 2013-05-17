@@ -11,6 +11,8 @@ import javax.swing.JEditorPane;
 
 import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.model.Template;
+import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
+import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
 
 public class Translator {
 	private static ImageIO imIO;
@@ -37,6 +39,40 @@ public class Translator {
 		return template;
 		
 	}
+	
+	/**
+	 * Translates a an Object which is an instance of Template into its
+	 * corresponding TemplatePanel.
+	 * 
+	 * @param o
+	 * 		the object to be translated
+	 * @return
+	 * 		the TemplatePanel which the template corresponds to.
+	 */
+	public static TemplatePanel templateToPanel(Object o){
+		
+		TemplatePanel panel = null;
+		Template template = null;
+		if(o instanceof Template){
+			template = (Template)o;
+		}
+		switch(template){
+		
+		case DEF_CV:
+			panel = new CV_Def(); //It should get all the information stored from its parent.
+			break;
+		
+		case DEF_PL:
+		
+			break;
+		
+		default: //Do nothing, never invoke
+			
+		}
+		
+		return panel;
+	}
+	
 
 	/**
 	 * Translates a Container, typically a JEditorPane, to a SectionType.
@@ -46,10 +82,14 @@ public class Translator {
 	 * @return the corresponding SectionType
 	 */
 
-	public static SectionType containerToSectionType(JEditorPane container) {
+	public static SectionType containerToSectionType(Object container) {
 		
-		String name = container.getName();
+		String name = null;
 		SectionType section = null;
+		if(container instanceof JEditorPane){
+			JEditorPane p = (JEditorPane)container;
+			name = p.getName();
+		}
 		
 		switch(name){
 		case "personalInfoText":
@@ -66,6 +106,26 @@ public class Translator {
 		}
 		return section;
 	}
+	
+	/**
+	 * Typcasts an Object which is an instance of JEditorPane, which is the
+	 * current one, into a JEditorPane.
+	 * 
+	 * @param o 
+	 * 		the object to be typecasted.
+	 * @return
+	 * 		the textarea.
+	 */
+	
+	public static JEditorPane getCurrentSection(Object o){
+		JEditorPane section = null;
+		if(o instanceof JEditorPane){
+			section = (JEditorPane)o;
+		}
+		return section;
+	}
+	
+
 	
 	/**
 	 * Takes in a String that represents an image in the filesystem

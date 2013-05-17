@@ -138,10 +138,16 @@ public class MainView extends JFrame implements MainViewInterface {
 		case Labels.TEXTSTYLE_CHANGED:
 		case Labels.TEXT_REPLACED:
 			
+			System.out.println("Switch in MainView 1");
 			JEditorPane currentSection =  getCurDocView().getTemplatePanel().getCurrentSection();
 			pcs.firePropertyChange(arg0.getPropertyName(), currentSection, arg0.getNewValue());
+			System.out.println("Switch in MainView 2");
 			break;
-
+			
+		case Labels.TEMPLATE_CHANGED:
+			
+			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(), arg0.getNewValue());
+			
 		default: //Do nothing
 			break;
 		}

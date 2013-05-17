@@ -1,12 +1,13 @@
 package se.chalmers.tda367.group25.resumate.experimentText;
 
 import java.awt.Color;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import java.awt.Dimension;
 
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
+import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 
@@ -18,20 +19,33 @@ import javax.swing.text.DefaultHighlighter;
  * @author Sara
  *
  */
-public abstract class TemplatePanel extends JPanel {
+public class TemplatePanel extends JPanel {
 
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
-	private JEditorPane otherText;
 	private JEditorPane imageContainer;
-	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	private JEditorPane current;
+	private JEditorPane otherText;
 	
 	/**
 	 * Create the panel.
 	 */
 	
 	public TemplatePanel(){
-		this.otherText = new JEditorPane();
+		SpringLayout springLayout = new SpringLayout();
+		setLayout(springLayout);
+		
+		otherText = new JEditorPane();
+		otherText.setBorder(UIManager.getBorder("List.focusCellHighlightBorder"));
+		otherText.setFocusTraversalPolicyProvider(true);
+		springLayout.putConstraint(SpringLayout.NORTH, otherText, 25, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, otherText, 97, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, otherText, -23, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, otherText, 334, SpringLayout.WEST, this);
+		add(otherText);
+		this.otherText.requestFocus();
+		this.setSize(new Dimension(100, 80));
+		this.setVisible(true);
 	}
 	
 	public TemplatePanel(JEditorPane pIT, JEditorPane wET, JEditorPane oT) {
@@ -74,6 +88,16 @@ public abstract class TemplatePanel extends JPanel {
 	 * @param input
 	 *            the String which is to be found
 	 */
+	
+	public void setCurrentSection(JEditorPane currentSection){
+		this.current = currentSection;
+	}
+	
+	public JEditorPane getCurrent(){
+		return current;
+	}
+	
+	
 	public void findText(String input, JEditorPane section) {
 
 		// Removes the previous highlights if there were any. (Will be placed somewhere else in the GUI later)
@@ -120,34 +144,6 @@ public abstract class TemplatePanel extends JPanel {
 			}
 		}
 		JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
-	}
-	
-	/**
-	 * Adds an observer to this class 
-	 * 
-	 * @param PCL
-	 * 			the observer to be added
-	 */
-	public void addObserver(PropertyChangeListener PCL){
-		pcs.addPropertyChangeListener(PCL);
-		
-	}
-	
-	/**
-	 * Removes an observer of this class
-	 * 
-	 * @param PCL
-	 * 			the observer to be removed
-	 */
-	public void removeObserver(PropertyChangeListener PCL){
-		pcs.removePropertyChangeListener(PCL);
-	}
-
-	/**
-	 * @return the pcs
-	 */
-	public PropertyChangeSupport getPcs() {
-		return this.pcs;
 	}
 
 }

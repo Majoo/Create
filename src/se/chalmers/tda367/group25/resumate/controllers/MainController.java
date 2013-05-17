@@ -4,14 +4,12 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.JEditorPane;
-
-import se.chalmers.tda367.group25.resumate.model.Document;
-import se.chalmers.tda367.group25.resumate.model.SectionType;
+import se.chalmers.tda367.group25.resumate.model.RMText;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
+import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 public class MainController implements PropertyChangeListener {
 
@@ -39,77 +37,101 @@ public class MainController implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent e) {
 		System.out.println("Inne i PropertyChangeEvent i MainController");
 
-		//Är det inte bättre att ha detta här och inte duplicera i varje text-case?
-		//Text handling-involved variables
-		JEditorPane section = (JEditorPane)e.getOldValue();
-		SectionType sectionType = Translator.containerToSectionType(section);
-		
-		switch(e.getPropertyName()){
-		//Image handling:
-		case Labels.INSERT_IMAGE:			
-			//e.getOldValue() is the filename chosen, convert this to an image.
-			BufferedImage img = Translator.stringToImage((String)e.getOldValue());
-			//Update the image of the Document associated with the DocumentView e.getNewValue().
-			docCon.updateImage(docCon.separateDocument((DocumentView)e.getNewValue()), img);
+		switch (e.getPropertyName()) {
+		// Image handling:
+		case Labels.INSERT_IMAGE:
+			// e.getOldValue() is the filename chosen, convert this to an image.
+			BufferedImage img = Translator.stringToImage((String) e
+					.getOldValue());
+			// Update the image of the Document associated with the DocumentView
+			// e.getNewValue().
+			docCon.updateImage(
+					docCon.separateDocument((DocumentView) e.getNewValue()),
+					img);
 			break;
-			
-		//Text handling: (Need to get the right section first)
+
+		/*
+		 * Text handling: (Need to get the right section first) e.getOldValue()
+		 * will contain the current JEditorPane. e.getNewValue() will contain
+		 * information neccesary for the specific task. By the usage of the
+		 * translator we will know which kind of section type it is so that the
+		 * RMText can be informed which one to be updated.
+		 */
 		case Labels.TEXT_ENTERED:
 			String text = e.getNewValue().toString();
-			docCon.getDoc("apa").getTexts().get(sectionType).setText(text);
-			break;	
-			
+			RMText tEnter = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(e.getOldValue()));
+			tEnter.setText(text);
+			break;
+
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
-			docCon.getDoc("apa").getTexts().get(sectionType).changeFont(section, font);
-			break;	
+			RMText tFont = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(e.getOldValue()));
+			tFont.changeFont(Translator.getCurrentSection(e.getOldValue()),
+					font);
+			System.out.println("Switch in MainC, TextFont");
+			break;
 
 		case Labels.TEXTSIZE_CHANGED:
-			int size = (int)e.getNewValue();
-			docCon.getDoc("apa").getTexts().get(sectionType).changeSize(section, size);
+			int size = (int) e.getNewValue();
+			RMText tSize = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(e.getOldValue()));
+			tSize.changeSize(Translator.getCurrentSection(e.getOldValue()),
+					size);
 			break;
-			
+
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
-			docCon.getDoc("apa").getTexts().get(sectionType).changeStyle(section, style);
+			RMText tStyle = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(e.getOldValue()));
+			tStyle.changeStyle(Translator.getCurrentSection(e.getOldValue()),
+					style);
 
 			break;
-			
+
 		case Labels.TEXT_REPLACED:
-			String [] replaceTexts = e.getNewValue().toString().split("/");
+			String[] replaceTexts = e.getNewValue().toString().split("/");
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
-			docCon.getDoc("apa").getTexts().get(sectionType).replaceText(section, replace, replaceWith);
+			RMText tReplace = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(e.getOldValue()));
+			tReplace.replaceText(Translator.getCurrentSection(e.getOldValue()),
+					replace, replaceWith);
 
 			break;
 
 		case Labels.FIND_TEXT:
 			String txt = e.getNewValue().toString();
-			mainView.getCurDocView().getTemplatePanel().findText(section, txt);
-			break;
-		
-		case  Labels.RENAME_DOC:
-
-			break;
-
-		case  Labels.NEW_DOC:
-
+			mainView.getCurDocView()
+					.getTemplatePanel()
+					.findText(Translator.getCurrentSection(e.getOldValue()),
+							txt);
 			break;
 
-		case  Labels.TEMPLATE_CHANGED:
-
-			break;
-			
-		//Undo/redo handling:
-		case  Labels.UNDO_ACTION:
+		case Labels.RENAME_DOC:
 
 			break;
 
-		case  Labels.REDO_ACTION:
+		case Labels.NEW_DOC:
 
 			break;
-		
-		//IO handling:			
+
+		case Labels.TEMPLATE_CHANGED:
+			TemplatePanel t = Translator.templateToPanel(e.getNewValue());
+			mainView.getCurDocView().setTemplate(t);
+			break;
+
+		// Undo/redo handling:
+		case Labels.UNDO_ACTION:
+
+			break;
+
+		case Labels.REDO_ACTION:
+
+			break;
+
+		// IO handling:
 		case Labels.SAVE_DOC:
 			ioCon.chooseFunction(Labels.SAVE_DOC, null,
 					docCon.getDoc(docCon.getCurrent()));
@@ -121,12 +143,14 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.PRINT_DOC:
 			ioCon.chooseFunction(Labels.PRINT_DOC,
-					docCon.getView(docCon.getCurrent()).getTemplatePanel(), null);
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
+					null);
 			break;
 
 		case Labels.EXPORT_DOC:
 			ioCon.chooseFunction(Labels.EXPORT_DOC,
-					docCon.getView(docCon.getCurrent()).getTemplatePanel(), null);
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
+					null);
 			break;
 
 		case Labels.OPEN_DOC:
@@ -135,17 +159,17 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.SEND_DOC:
 			ioCon.chooseFunction(Labels.SEND_DOC,
-					docCon.getView(docCon.getCurrent()).getTemplatePanel(), null);
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
+					null);
 			break;
-			
-		//Other handling:
+
+		// Other handling:
 		case Labels.SEND_INITIAL_DOCVIEW:
-			DocumentView v = (DocumentView)e.getOldValue();
-			System.out.println(v.getID()+" In MainController");
-			docCon.addDocView((String)e.getNewValue()
-					,v);
-		default: 
-			//Do nothing, never invoked
+			DocumentView v = (DocumentView) e.getOldValue();
+			System.out.println(v.getID() + " In MainController");
+			docCon.addDocView((String) e.getNewValue(), v);
+		default:
+			// Do nothing, never invoked
 
 			break;
 		}

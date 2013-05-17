@@ -7,15 +7,13 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.font.TextAttribute;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
@@ -25,16 +23,12 @@ import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
 import javax.swing.SpringLayout;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 
-import org.junit.runner.JUnitCore;
-import org.junit.runners.JUnit4;
-
-public class TemplatePanelTest extends TemplatePanel {
+public class TemplatePanelTest extends JPanel implements FocusListener {
 
 	//private JEditorPane editorPane;
 	private JToggleButton tglbtnB;
@@ -43,8 +37,13 @@ public class TemplatePanelTest extends TemplatePanel {
 	private JComboBox fontComboBox;
 	private JComboBox sizeComboBox;
 	private JTextField txtFont;
+	private TemplatePanel p;
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	private JEditorPane section;
 
 	public TemplatePanelTest() {
+		p = new TemplatePanel();
+		p.addFocusListener(this);
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 
@@ -78,15 +77,16 @@ public class TemplatePanelTest extends TemplatePanel {
 		add(rigidArea_3);
 
 		// Setting properties for the textarea
-		springLayout.putConstraint(SpringLayout.NORTH, getOtherText(), 46,
+		springLayout.putConstraint(SpringLayout.NORTH, p.getOtherText(), 46,
 				SpringLayout.SOUTH, rigidArea_2);
-		springLayout.putConstraint(SpringLayout.WEST, getOtherText(), 33,
+		springLayout.putConstraint(SpringLayout.WEST, p.getOtherText(), 33,
 				SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, getOtherText(), -42,
+		springLayout.putConstraint(SpringLayout.SOUTH, p.getOtherText(), -42,
 				SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, getOtherText(), 410,
+		springLayout.putConstraint(SpringLayout.EAST, p.getOtherText(), 410,
 				SpringLayout.WEST, this);
-		add(getOtherText());
+		p.getOtherText().addFocusListener(this);
+		add(p.getOtherText());
 
 		// Setting properties for the "Find text"-button
 		JButton btnFindText = new JButton("Find");
@@ -94,27 +94,27 @@ public class TemplatePanelTest extends TemplatePanel {
 			public void actionPerformed(ActionEvent arg0) {
 				String text = JOptionPane.showInputDialog(null, null,
 						"Find text", 2);
-				findText(text, getOtherText());
+				findText(text);
 
 			}
 		});
 		springLayout.putConstraint(SpringLayout.SOUTH, btnFindText, -6,
-				SpringLayout.NORTH, getOtherText());
+				SpringLayout.NORTH, p.getOtherText());
 		springLayout.putConstraint(SpringLayout.EAST, btnFindText, 0,
-				SpringLayout.EAST, getOtherText());
+				SpringLayout.EAST, p.getOtherText());
 		add(btnFindText);
 
 		// Setting properties for the "Replace text"-button
 		JButton btnReplaceText = new JButton("Replace");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnReplaceText, -6,
-				SpringLayout.NORTH, getOtherText());
+				SpringLayout.NORTH, p.getOtherText());
 		springLayout.putConstraint(SpringLayout.EAST, btnReplaceText, -6,
 				SpringLayout.WEST, btnFindText);
 		btnReplaceText.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String replaceText = null;
 				String replaceWith = null;
-				
+
 				boolean replaceWithNeedsInput = true;
 				boolean replaceNeedsInput = true;
 				while(replaceNeedsInput){
@@ -131,7 +131,7 @@ public class TemplatePanelTest extends TemplatePanel {
 								JOptionPane.showMessageDialog(null,"Please enter a word to replace with");
 							} else {
 								replaceWithNeedsInput = false;
-								replaceText(replaceText, replaceWith, getOtherText());
+								replaceText(replaceText, replaceWith);
 							}
 						}
 					}
@@ -145,10 +145,10 @@ public class TemplatePanelTest extends TemplatePanel {
 		springLayout.putConstraint(SpringLayout.NORTH, tglbtnB, 0,
 				SpringLayout.NORTH, btnFindText);
 		springLayout.putConstraint(SpringLayout.WEST, tglbtnB, 0,
-				SpringLayout.WEST, getOtherText());
+				SpringLayout.WEST, p.getOtherText());
 		tglbtnB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				changeStyle(getOtherText(), "B");
+				changeStyle("B");
 			}
 		});
 		tglbtnB.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -159,10 +159,10 @@ public class TemplatePanelTest extends TemplatePanel {
 		springLayout.putConstraint(SpringLayout.WEST, tglbtnI, 6,
 				SpringLayout.EAST, tglbtnB);
 		springLayout.putConstraint(SpringLayout.SOUTH, tglbtnI, -6,
-				SpringLayout.NORTH, getOtherText());
+				SpringLayout.NORTH, p.getOtherText());
 		tglbtnI.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				changeStyle(getOtherText(), "I");
+				changeStyle("I");
 			}
 		});
 		tglbtnI.setFont(new Font("Tahoma", Font.ITALIC, 11));
@@ -173,10 +173,10 @@ public class TemplatePanelTest extends TemplatePanel {
 		springLayout.putConstraint(SpringLayout.WEST, tglbtnU, 6,
 				SpringLayout.EAST, tglbtnI);
 		springLayout.putConstraint(SpringLayout.SOUTH, tglbtnU, -6,
-				SpringLayout.NORTH, getOtherText());
+				SpringLayout.NORTH, p.getOtherText());
 		tglbtnU.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				changeStyle(getOtherText(), "U");
+				changeStyle("U");
 			}
 		});
 		Map  <TextAttribute, Integer> attributes = new HashMap  <TextAttribute, Integer>();
@@ -194,7 +194,7 @@ public class TemplatePanelTest extends TemplatePanel {
 		fontComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String t = fontComboBox.getSelectedItem().toString();
-				changeFont(getOtherText(), t);
+				changeFont(t);
 			}
 		});
 		/*
@@ -225,7 +225,7 @@ public class TemplatePanelTest extends TemplatePanel {
 			public void actionPerformed(ActionEvent e) {
 				int i = Integer.parseInt((sizeComboBox.getSelectedItem()
 						.toString()));
-				changeSize(getOtherText(), i);
+				changeSize(i);
 			}
 		});
 		// Setting the numbers to be included in the combobox
@@ -238,7 +238,7 @@ public class TemplatePanelTest extends TemplatePanel {
 		springLayout.putConstraint(SpringLayout.WEST, sizeComboBox, 6,
 				SpringLayout.EAST, tglbtnU);
 		springLayout.putConstraint(SpringLayout.SOUTH, sizeComboBox, -6,
-				SpringLayout.NORTH, getOtherText());
+				SpringLayout.NORTH, p.getOtherText());
 		add(sizeComboBox);
 
 		// Setting the textfield for the fonts
@@ -254,22 +254,22 @@ public class TemplatePanelTest extends TemplatePanel {
 		txtFont.setText("Font:");
 		add(txtFont);
 		txtFont.setColumns(10);
-		
+
 		JButton btnSave = new JButton("Save");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnSave, -6, SpringLayout.NORTH, btnFindText);
 		springLayout.putConstraint(SpringLayout.EAST, btnSave, 0, SpringLayout.EAST, btnFindText);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				changeText(getOtherText());
-				
+				changeText();
+
 			}
 		});
 		add(btnSave);
 		this.setVisible(true);
 	}
 
-	public void findText(String input, JEditorPane section) {
-
+	public void findText(String input) {
+		//updateCurrentSection();
 		// Removes the previous highlights if there were any. (Will be placed somewhere else in the GUI later)
 		section.getHighlighter().removeAllHighlights();
 
@@ -316,26 +316,75 @@ public class TemplatePanelTest extends TemplatePanel {
 		//JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
 	}
 	
-	public void replaceText(String replaceThis, String replaceWith,
-			JEditorPane section) {
-		getPcs().firePropertyChange(TextController.replace, section, replaceThis + "/" + replaceWith);
-		getPcs().firePropertyChange(TextController.text, section, getOtherText().getText());
-	}
-
-	public void changeFont(JEditorPane section, String font) {
-		getPcs().firePropertyChange(TextController.font, section, font);
-	}
-
-	public void changeSize(JEditorPane section, int size) {
-		getPcs().firePropertyChange(TextController.size, section, size);
-
-	}
-
-	public void changeStyle(JEditorPane section, String style) {
-		getPcs().firePropertyChange(TextController.style, section, style);
+	
+	public void updateCurrentSection(){
+		p.setCurrentSection((JEditorPane)p.getFocusCycleRootAncestor());
+		section = p.getCurrent();
 	}
 	
-	public void changeText(JEditorPane section) {
-		getPcs().firePropertyChange(TextController.text, section, getOtherText().getText());
+	
+	public void replaceText(String replaceThis, String replaceWith) {
+		//updateCurrentSection();
+		pcs.firePropertyChange(TextController.replace, section, replaceThis + "/" + replaceWith);
+		pcs.firePropertyChange(TextController.text, section, section.getText());
+	}
+
+	public void changeFont(String font) {
+		//updateCurrentSection();
+		pcs.firePropertyChange(TextController.font, section, font);
+	}
+
+	public void changeSize(int size) {
+		//updateCurrentSection();
+		pcs.firePropertyChange(TextController.size, section, size);
+
+	}
+
+	public void changeStyle(String style) {
+		//updateCurrentSection();
+		pcs.firePropertyChange(TextController.style, section, style);
+	}
+	
+	public void changeText() {
+		//updateCurrentSection();
+		pcs.firePropertyChange(TextController.text, section, p.getOtherText().getText());
+	}
+	
+	/**
+	 * Adds an observer to this class 
+	 * 
+	 * @param PCL
+	 * 			the observer to be added
+	 */
+	public void addObserver(PropertyChangeListener PCL){
+		pcs.addPropertyChangeListener(PCL);
+		
+	}
+	
+	/**
+	 * Removes an observer of this class
+	 * 
+	 * @param PCL
+	 * 			the observer to be removed
+	 */
+	public void removeObserver(PropertyChangeListener PCL){
+		pcs.removePropertyChangeListener(PCL);
+	}
+
+	@Override
+	public void focusGained(FocusEvent arg0) {
+		System.out.print("focus");
+		if(arg0.getComponent() instanceof JEditorPane){
+			//updateCurrentSection();
+			section = (JEditorPane)arg0.getComponent();
+			System.out.print("swag");
+		}
+		
+	}
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

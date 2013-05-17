@@ -31,6 +31,7 @@ import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpringLayout;
 
+import se.chalmers.tda367.group25.resumate.model.Template;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
@@ -277,7 +278,12 @@ public class ToolbarPanel extends JPanel{
 		springLayout.putConstraint(SpringLayout.EAST, tempsPan, -10, SpringLayout.EAST, this);
 
 		tempsPan.setLayout(new GridLayout(1, 4));
-		temp1But = new JButton("temp1");
+		temp1But = new JButton("Default CL");
+		temp1But.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.DEF_PL);
+			}
+		});
 		tempsPan.add(temp1But);
 		temp2But = new JButton("temp2");
 		tempsPan.add(temp2But);

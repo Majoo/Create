@@ -7,7 +7,7 @@ public class TemplatePanelTestMain {
 	public static void main(String [] args){
 	
 	JFrame frame = new JFrame();
-	frame.setTitle("Test findtext in TemplatePanel");
+	frame.setTitle("Test TemplatePanel & RMText");
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setBounds(100, 100, 450, 400);
 	frame.setLocationRelativeTo(null);

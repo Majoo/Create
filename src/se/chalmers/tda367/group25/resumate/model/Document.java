@@ -108,7 +108,10 @@ public class Document {
 	 * @return
 	 */
 	public List<String> getStringsFromMap() {
-		List<String> strings = new ArrayList();
+		List<String> strings = new ArrayList<String>(texts.size());
+		if (texts.containsKey(SectionType.PERSONAL_INFO)) {
+			// strings.add();
+		}
 		return null;
 	}
 

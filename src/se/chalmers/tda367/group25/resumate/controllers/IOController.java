@@ -42,7 +42,12 @@ public class IOController {
 	public void chooseFunction(String function, JComponent jc, Document doc,
 			String path) {
 		if (function.equals(Labels.SAVE_DOC)) {
-			
+			try {
+				IOHandler.saveFile(path, doc);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else if ((function.equals(Labels.EXPORT_DOC))
 				|| (function.equals(Labels.SAVE_DOC_AS))
 				|| (function.equals(Labels.OPEN_DOC))
@@ -97,6 +102,7 @@ public class IOController {
 					;
 				} else if (function.equals(Labels.SAVE_DOC_AS)) {
 					IOHandler.saveFile(filePathAndName, doc);
+					doc.setFilePath(filePathAndName);
 				} else if (function.equals(Labels.OPEN_DOC)) {
 					IOHandler.openFile(filePathAndName);
 				}

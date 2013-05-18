@@ -1,6 +1,7 @@
 package se.chalmers.tda367.group25.resumate.model;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,9 +18,7 @@ public class Document {
 
 	// Unsurprisingly, the path to the file representation of this Document is
 	// stored here. This variable is used for "quick save" functionality.
-	private String filePath;
-	
-	
+	private String filePath = "";
 
 	/**
 	 * Create a new Document using the default Template.
@@ -103,9 +102,13 @@ public class Document {
 		// TODO Make clone safe
 		return texts;
 	}
-	
-	public List<String> getStringsFromMap(){
-		List<String> strings;
+
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getStringsFromMap() {
+		List<String> strings = new ArrayList();
 		return null;
 	}
 
@@ -160,21 +163,13 @@ public class Document {
 	}
 
 	/**
-	 * Change the Template of the Document.
-	 * 
-	 * @param temp
-	 *            the Template to change to
-	 */
-	public void changeTemplate(Template temp) {
-		setTemplate(temp);
-	}
-	
-	/**
 	 * Set the file path of the Document.
-	 * @param newPath
+	 * 
+	 * @param path
+	 *            the new file path
 	 */
-	public void setFilePath(String path){
-		
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 }

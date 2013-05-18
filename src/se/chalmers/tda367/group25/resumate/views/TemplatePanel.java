@@ -219,7 +219,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 			currentSection.setBorder(null);
 			currentSection = (JEditorPane)arg0.getComponent();
 			Paint p = Color.black;
-			currentSection.setBorder(BorderFactory.createDashedBorder(p));
+			//currentSection.setBorder(BorderFactory.createDashedBorder(p));
 		}
 	}
 

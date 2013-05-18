@@ -136,23 +136,18 @@ public class PDFExp extends JFrame {
 		document.open();
 		System.out.print(document.rightMargin()-document.leftMargin());
 		PdfContentByte cb = writer.getDirectContent();
-		PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
-		Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
-		jc.print(g2);
-		cb.addTemplate(tp, document.left(document.leftMargin()), document.top()
-				- panelHeight);
-		g2.dispose();
 
 		// If the incoming JComponent representation of a Document is larger
 		// than a single PDF document, create new pages accordingly
-		int delta = (int) (panelHeight - document.top());
+		int delta = panelHeight;
 		while (delta >= 0) {
 			document.newPage();
-			PdfTemplate tp2 = cb.createTemplate(panelWidth, panelHeight);
-			Graphics2D g22 = tp2.createGraphicsShapes(panelWidth, panelHeight);
-			jc.print(g22);
-			cb.addTemplate(tp2, document.left(document.leftMargin()), document.top()-delta);
-			g22.dispose();
+			PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
+			Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
+			jc.print(g2);
+			cb.addTemplate(tp, document.left(document.leftMargin()),
+					document.top() - delta);
+			g2.dispose();
 			delta = (int) (delta - document.top());
 		}
 

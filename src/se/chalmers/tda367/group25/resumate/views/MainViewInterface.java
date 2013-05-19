@@ -33,5 +33,5 @@ public interface MainViewInterface extends PropertyChangeListener{
 	 * @param
 	 * 			the template the new DocumentView will have.
 	 */
-	public void newTab(TemplatePanel templatePnl);
+	public void newTab(DocumentView docView);
 }

@@ -28,7 +28,8 @@ public class MainController implements PropertyChangeListener {
 		ioCon = new IOController();
 		mainView = new MainView();
 		mainView.addPropertyChangeListener(this);
-	}
+		mainView.sendInitialDocView();
+		}
 
 	/**
 	 * Handles Events from further down in the hierarchy, eg. MainView by
@@ -42,15 +43,13 @@ public class MainController implements PropertyChangeListener {
 
 		switch (e.getPropertyName()) {
 		// Image handling:
-		case Labels.INSERT_IMAGE:
-			// e.getOldValue() is the filename chosen, convert this to an image.
-			BufferedImage img = Translator.stringToImage((String) e
-					.getOldValue());
-			// Update the image of the Document associated with the DocumentView
-			// e.getNewValue().
-			docCon.updateImage(
-					docCon.separateDocument((DocumentView) e.getNewValue()),
-					img);
+		case Labels.INSERT_IMAGE:			
+			//e.getOldValue() is the filename chosen, convert this to an image.
+			BufferedImage img = Translator.stringToImage((String)e.getOldValue());
+			//Update the image of the Document associated with the DocumentView e.getNewValue().
+			DocumentView v = (DocumentView)e.getNewValue();
+			System.out.println(v.getID()); //v är nog null här:/
+			docCon.updateImage(docCon.separateDocument(v), img);
 			break;
 
 		/*
@@ -113,6 +112,7 @@ public class MainController implements PropertyChangeListener {
 					.getTemplatePanel()
 					.findText(Translator.getCurrentSection(e.getOldValue()),
 							txt);
+
 			break;
 
 		case Labels.RENAME_DOC:
@@ -171,11 +171,12 @@ public class MainController implements PropertyChangeListener {
 
 		// Other handling:
 		case Labels.SEND_INITIAL_DOCVIEW:
-			DocumentView v = (DocumentView) e.getOldValue();
-			System.out.println(v.getID() + " In MainController");
-			docCon.addDocView((String) e.getNewValue(), v);
-		default:
-			// Do nothing, never invoked
+			DocumentView dv = (DocumentView)e.getOldValue();
+			System.out.println(dv.getID()+" In MainController");
+			docCon.addDocView((String)e.getNewValue()
+					,dv);
+		default: 
+			//Do nothing, never invoked
 
 			break;
 		}

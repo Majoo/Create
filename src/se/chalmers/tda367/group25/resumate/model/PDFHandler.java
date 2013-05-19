@@ -39,41 +39,46 @@ public class PDFHandler {
 
 		Document document = new Document();
 
-		File file = new File(filePathAndName + ".pdf");
-
-		// If a file with the same name exists, append a digit
-		// indicating how many there are with the same name
-		int i = 1;
-		while (file.exists()) {
-			file = new File(filePathAndName + "(" + i + ")" + ".pdf");
-			i++;
-		}
+		File file = getUniqueFile(filePathAndName);
 
 		PdfWriter writer = PdfWriter.getInstance(document,
 				new FileOutputStream(file));
 
 		document.open();
 		PdfContentByte cb = writer.getDirectContent();
-		PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
-		Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
-		jc.print(g2);
-		g2.dispose();
-		cb.addTemplate(tp, (document.left()), (document.top() - panelHeight));
 
 		// If the incoming JComponent representation of a Document is larger
 		// than a single PDF document, create new pages accordingly
-		int delta = (int) (panelHeight - document.top());
+		int delta = panelHeight;
 		while (delta >= 0) {
 			document.newPage();
-			PdfTemplate tp2 = cb.createTemplate(panelWidth, panelHeight);
-			Graphics2D g22 = tp2.createGraphicsShapes(panelWidth, panelHeight);
-			jc.print(g22);
-			cb.addTemplate(tp2, document.left(document.leftMargin()),
+			PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
+			Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
+			jc.print(g2);
+			cb.addTemplate(tp, document.left(document.leftMargin()),
 					document.top() - delta);
-			g22.dispose();
+			g2.dispose();
 			delta = (int) (delta - document.top());
 		}
 
 		document.close();
+	}
+	
+	/**
+	 * Returns a File with a unique path and file name by concatenating an
+	 * integer in parenthesis to the file name.
+	 * 
+	 * @param fileName
+	 *            the original path and file name
+	 * @return a File with a unique path and file name
+	 */
+	private static File getUniqueFile(String fileName) {
+		File file = new File(fileName + ".pdf");
+		int i = 1;
+		while (file.exists()) {
+			file = new File(fileName + "(" + i + ")" + ".pdf");
+			i++;
+		}
+		return file;
 	}
 }

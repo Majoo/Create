@@ -98,8 +98,8 @@ public class Translator {
 		case "workingExperienceText":
 			section = SectionType.WORK_EXPERIENCE;
 			break;
-		case "otherText":
-			section = SectionType.EMPTY;
+		case "headerTitle":
+			section = SectionType.HEADER;
 			break;
 		default: //Do nothing, never invoked.
 		

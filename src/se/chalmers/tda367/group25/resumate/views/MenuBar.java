@@ -1,36 +1,24 @@
 package se.chalmers.tda367.group25.resumate.views;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
-import javax.swing.SpringLayout;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
-import javax.swing.JSeparator;
+import javax.swing.KeyStroke;
+import java.awt.event.InputEvent;
 
 public class MenuBar extends JMenuBar {
 
@@ -53,6 +41,8 @@ public class MenuBar extends JMenuBar {
 		add(mnFile);
 
 		JMenuItem mntmNew = new JMenuItem("New");
+		mntmNew.setMnemonic('n');
+		mntmNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int selection = JOptionPane.showConfirmDialog(null,
@@ -71,16 +61,23 @@ public class MenuBar extends JMenuBar {
 
 		//open document
 		JMenuItem mntmOpen = new JMenuItem("Open");
+		mntmOpen.setMnemonic('o');
+		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		
 		mnFile.add(mntmOpen);
 
 		JMenuItem mntmSave = new JMenuItem("Save");
+		mntmSave.setMnemonic('s');
+		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		mnFile.add(mntmSave);
 
 		JMenuItem mntmSaveAs = new JMenuItem("Save As...");
+		mntmSaveAs.setMnemonic('a');
 		mnFile.add(mntmSaveAs);
 
 		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.setMnemonic('e');
+		mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selection = JOptionPane.showConfirmDialog(null,
@@ -104,21 +101,31 @@ public class MenuBar extends JMenuBar {
 		add(mnEdit);
 
 		JMenuItem mntmCut = new JMenuItem("Cut");
+		mntmCut.setMnemonic('U');
+		mntmCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));
 		mnEdit.add(mntmCut);
 
 		JMenuItem mntmCopy = new JMenuItem("Copy");
+		mntmCopy.setMnemonic('o');
+		mntmCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
 		mnEdit.add(mntmCopy);
 
 		JMenuItem mntmPaste = new JMenuItem("Paste");
+		mntmPaste.setMnemonic('p');
+		mntmPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK));
 		mnEdit.add(mntmPaste);
 
 		JMenuItem mntmSelectAll = new JMenuItem("Select All");
+		mntmSelectAll.setMnemonic('S');
+		mntmSelectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
 		mnEdit.add(mntmSelectAll);
 		
 		JSeparator separator = new JSeparator();
 		mnEdit.add(separator);
 		
 		JMenuItem mntmFind = new JMenuItem("Find");
+		mntmFind.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK));
+		mntmFind.setMnemonic('F');
 		mntmFind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String text = JOptionPane.showInputDialog(null, null,
@@ -129,6 +136,8 @@ public class MenuBar extends JMenuBar {
 		mnEdit.add(mntmFind);
 		
 		JMenuItem mntmReplace = new JMenuItem("Replace");
+		mntmReplace.setMnemonic('R');
+		mntmReplace.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
 		mntmReplace.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String replaceThis = null;
@@ -202,7 +211,6 @@ public class MenuBar extends JMenuBar {
 		//the about
 		JMenu mnAbout = new JMenu("About");
 		add(mnAbout);
-
 	}
 	
 	/*

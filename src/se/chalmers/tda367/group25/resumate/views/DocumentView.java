@@ -1,17 +1,15 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JEditorPane;
-import javax.swing.JTabbedPane;
-import javax.swing.SpringLayout;
+import javax.swing.JScrollPane;
 
 import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
-import java.awt.BorderLayout;
+import javax.swing.ScrollPaneConstants;
 
 /**
  * This class contains a TemplatePanel which shows the Document.
@@ -32,6 +30,11 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		setLayout(new BorderLayout(0, 0));
 		templatePnl = new CV_Def();
 		add(templatePnl);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		add(scrollPane, BorderLayout.EAST);
 	}
 	
 	public DocumentView(TemplatePanel templatePanel) {

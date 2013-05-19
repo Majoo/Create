@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.event.FocusEvent;
@@ -8,16 +9,15 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
-
-import se.chalmers.tda367.group25.resumate.model.SectionType;
-import se.chalmers.tda367.group25.resumate.utils.Translator;
 
 
 /**
@@ -30,7 +30,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
-	private JEditorPane otherText;
+	private JEditorPane headerTitle;
 	private JLabel imageLbl;
 	private JEditorPane currentSection;
 	
@@ -40,26 +40,33 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
  	 * Create the panel. 
  	 * Is invoked in subclasses with the propper JEditorPanes.
  	 */
-	public TemplatePanel(){		
+	public TemplatePanel(){
+		this.setBackground(Color.white);
 		
 		//Initialize components & adding some settings 
 		this.personalInfoText = new JEditorPane();
+		personalInfoText.setName("personalInfoText");
 		personalInfoText.setText("[PERSONAL_INFO] \nNamn:  \nAdress: \nPostnummer: \nIgnoreraDetta:");
 		personalInfoText.addFocusListener(this);
-		personalInfoText.setName("personalInfoText");
+		Paint p = Color.black;
+		personalInfoText.setBorder(BorderFactory.createDashedBorder(p));
+
 		
-		this.otherText = new JEditorPane();
-		otherText.setText("[HEADLINE]");
-		otherText.addFocusListener(this);
-		otherText.setName("otherText");
+		this.headerTitle = new JEditorPane();
+		headerTitle.setName("headerTitle");
+		headerTitle.setText("[HEADLINE]");
+		headerTitle.addFocusListener(this);
+		headerTitle.setBorder(BorderFactory.createDashedBorder(p));
 		
 		this.workingExperienceText = new JEditorPane();
+		workingExperienceText.setName("workingExperienceText");
 		workingExperienceText.setText("[INFORMATION]");
 		workingExperienceText.addFocusListener(this);
-		workingExperienceText.setName("workingExperienceText");
+		workingExperienceText.setBorder(BorderFactory.createDashedBorder(p));
 
 		this.imageLbl = new JLabel();
 		this.imageLbl.setBackground(Color.cyan);
+		this.imageLbl.setVisible(true);
 		setImageLabel(imageLbl);
 		
 		currentSection = personalInfoText;
@@ -90,8 +97,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	 * 
 	 * @return JEditorPane for other texts
 	 */
-	public JEditorPane getOtherText() {
-		return otherText;
+	public JEditorPane getHeaderTitle() {
+		return headerTitle;
 	}
 	
 	/**
@@ -156,8 +163,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	 */
 	public void findText(JEditorPane section, String input) {
 
-		// Removes the previous highlights if there were any. (Will be placed somewhere else in the GUI later)
-		section.getHighlighter().removeAllHighlights();
+		// Removes the previous highlights if there were any. 
+			section.getHighlighter().removeAllHighlights();
 
 		if (input.length() <= 0) {
 			JOptionPane.showMessageDialog(null, "Nothing to search");
@@ -224,8 +231,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 			System.out.println("Focus JEDitorPane");
 			//currentSection.setBorder(null);
 			currentSection = (JEditorPane)arg0.getComponent();
-			//Paint p = Color.black;
-//			currentSection.setBorder(BorderFactory.createDashedBorder(p));
 		}
 	}
 

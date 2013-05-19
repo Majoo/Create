@@ -54,9 +54,9 @@ public class Document {
 				texts.put(SectionType.WORK_EXPERIENCE, new RMText(
 						SectionType.WORK_EXPERIENCE));
 			}
-			if (!texts.containsKey(SectionType.EMPTY)) {
-				texts.put(SectionType.EMPTY, new RMText(
-						SectionType.EMPTY));
+			if (!texts.containsKey(SectionType.HEADER)) {
+				texts.put(SectionType.HEADER, new RMText(
+						SectionType.HEADER));
 			}
 			
 			break;

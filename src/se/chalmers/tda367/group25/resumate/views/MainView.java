@@ -26,6 +26,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import java.awt.CardLayout;
@@ -148,6 +149,13 @@ public class MainView extends JFrame implements MainViewInterface {
 				pcs.firePropertyChange(arg0.getPropertyName(), currentSection, arg0.getNewValue());
 				System.out.println("Text fired");
 			}
+			break;
+			
+		case Labels.FIND_TEXT:
+			String txt = arg0.getNewValue().toString();
+			JEditorPane currentSectionS =  getCurDocView().getTemplatePanel().getCurrentSection();
+			getCurDocView().getTemplatePanel().findText(currentSectionS,txt);
+			
 			break;
 			
 		case Labels.TEMPLATE_CHANGED:

@@ -58,7 +58,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.imageLbl.setBackground(Color.cyan);
 		setImageLabel(imageLbl);
 		
-		currentSection = getPersonalInfoText();
+		currentSection = personalInfoText;
 		this.pcs = new PropertyChangeSupport(this);
 	}
 
@@ -214,8 +214,9 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	
 	@Override
 	public void focusGained(FocusEvent arg0) {
-		if(arg0.getComponent() instanceof JEditorPane){
+		if(arg0.getComponent().getClass().equals(JEditorPane.class)){
 			//updateCurrentSection();
+			System.out.println("Focus JEDitorPane");
 			currentSection.setBorder(null);
 			currentSection = (JEditorPane)arg0.getComponent();
 			Paint p = Color.black;

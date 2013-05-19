@@ -141,7 +141,6 @@ public class MainView extends JFrame implements MainViewInterface {
 			System.out.println("Switch in MainView 1");
 			JEditorPane currentSection =  getCurDocView().getTemplatePanel().getCurrentSection();
 			pcs.firePropertyChange(arg0.getPropertyName(), currentSection, arg0.getNewValue());
-			System.out.println("Switch in MainView 2");
 			break;
 			
 		case Labels.TEMPLATE_CHANGED:
@@ -161,8 +160,9 @@ public class MainView extends JFrame implements MainViewInterface {
 	 * @return the DocView that is in the tab that is currently in focus.
 	 */
 	public DocumentView getCurDocView() {
-		return (DocumentView) tabbedPane.getTabComponentAt(tabbedPane
-				.getSelectedIndex());
+		return docViewList.get(0);
+				/*(DocumentView) tabbedPane.getTabComponentAt(tabbedPane
+				.getSelectedIndex());*/
 	}
 
 	// -----SETTERS-----

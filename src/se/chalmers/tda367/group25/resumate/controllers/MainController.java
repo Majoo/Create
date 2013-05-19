@@ -4,7 +4,10 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JEditorPane;
+
 import se.chalmers.tda367.group25.resumate.model.RMText;
+import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
@@ -83,10 +86,13 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
+			//JEditorPane current = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			JEditorPane current = mainView.getCurDocView().getTemplatePanel().getPersonalInfoText();
+			
 			RMText tStyle = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(e.getOldValue()));
-			tStyle.changeStyle(Translator.getCurrentSection(e.getOldValue()),
-					style);
+					.get(SectionType.PERSONAL_INFO);
+			
+			tStyle.changeStyle(current,e.getNewValue().toString());
 
 			break;
 

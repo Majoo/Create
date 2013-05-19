@@ -10,6 +10,7 @@ import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.html.HTMLEditorKit;
 
 
 /**
@@ -36,6 +37,9 @@ public class TemplatePanel extends JPanel {
 		setLayout(springLayout);
 		
 		otherText = new JEditorPane();
+		otherText.setContentType("html/text");
+		HTMLEditorKit kit = new HTMLEditorKit();
+		otherText.setEditorKit(kit);
 		otherText.setBorder(UIManager.getBorder("List.focusCellHighlightBorder"));
 		otherText.setFocusTraversalPolicyProvider(true);
 		springLayout.putConstraint(SpringLayout.NORTH, otherText, 25, SpringLayout.NORTH, this);
@@ -44,6 +48,7 @@ public class TemplatePanel extends JPanel {
 		springLayout.putConstraint(SpringLayout.EAST, otherText, 334, SpringLayout.WEST, this);
 		add(otherText);
 		this.otherText.requestFocus();
+
 		this.setSize(new Dimension(100, 80));
 		this.setVisible(true);
 	}

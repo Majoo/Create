@@ -122,7 +122,7 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-
+		System.out.println("Inne i PropertyChangeEvent i MainView");
 		switch (arg0.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
 			// arg0.getOldValue() is the path of the jpg/gif-file
@@ -138,9 +138,16 @@ public class MainView extends JFrame implements MainViewInterface {
 		case Labels.TEXTSTYLE_CHANGED:
 		case Labels.TEXT_REPLACED:
 			
-			System.out.println("Switch in MainView 1");
+			System.out.println("Switch in MainView text");
+			
+			//The current section is given from the template which listens to its components
 			JEditorPane currentSection =  getCurDocView().getTemplatePanel().getCurrentSection();
-			pcs.firePropertyChange(arg0.getPropertyName(), currentSection, arg0.getNewValue());
+			
+			if(!currentSection.equals(null) && !arg0.getNewValue().equals(null)){
+				System.out.println("Fire text");
+				pcs.firePropertyChange(arg0.getPropertyName(), currentSection, arg0.getNewValue());
+				System.out.println("Text fired");
+			}
 			break;
 			
 		case Labels.TEMPLATE_CHANGED:

@@ -6,6 +6,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JEditorPane;
 
+import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.RMText;
 import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
@@ -61,57 +62,66 @@ public class MainController implements PropertyChangeListener {
 		 */
 		case Labels.TEXT_ENTERED:
 			String text = e.getNewValue().toString();
-			RMText tEnter = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(e.getOldValue()));
-			tEnter.setText(text);
+			JEditorPane textAreaE = Translator.objectToJEditorPane(e.getOldValue());
+			SectionType sectionTypeE = Translator.containerToSectionType(textAreaE);
+			RMText textE = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(sectionTypeE);
+	
+			textE.setText(text);
+			
 			break;
 
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
-			RMText tFont = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(e.getOldValue()));
-			tFont.changeFont(Translator.getCurrentSection(e.getOldValue()),
-					font);
-			System.out.println("Switch in MainC, TextFont");
+			JEditorPane textAreaF = Translator.objectToJEditorPane(e.getOldValue());
+			SectionType sectionTypeF = Translator.containerToSectionType(textAreaF);
+			RMText textF = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(sectionTypeF);
+			textF.changeFont(textAreaF, font);
+
 			break;
 
 		case Labels.TEXTSIZE_CHANGED:
-			int size = (int) e.getNewValue();
-			RMText tSize = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(e.getOldValue()));
-			tSize.changeSize(Translator.getCurrentSection(e.getOldValue()),
+			int size = Integer.parseInt(e.getNewValue().toString());
+			JEditorPane textAreaSi = Translator.objectToJEditorPane(e.getOldValue());
+			SectionType sectionTypeSi = Translator.containerToSectionType(textAreaSi);
+			RMText textSi = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(sectionTypeSi);
+
+			textSi.changeSize(Translator.objectToJEditorPane(e.getOldValue()),
 					size);
 			break;
 
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
-			//JEditorPane current = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			JEditorPane current = mainView.getCurDocView().getTemplatePanel().getPersonalInfoText();
+			JEditorPane textAreaSt = Translator.objectToJEditorPane(e.getOldValue());
+			SectionType sectionTypeSt = Translator.containerToSectionType(textAreaSt);
+			RMText textSt = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(sectionTypeSt);
 			
-			RMText tStyle = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(SectionType.PERSONAL_INFO);
-			
-			tStyle.changeStyle(current,e.getNewValue().toString());
-
+			textSt.changeStyle(textAreaSt,style);
+	
 			break;
 
 		case Labels.TEXT_REPLACED:
 			String[] replaceTexts = e.getNewValue().toString().split("/");
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
-			RMText tReplace = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(e.getOldValue()));
-			tReplace.replaceText(Translator.getCurrentSection(e.getOldValue()),
+			JEditorPane textAreaR = Translator.objectToJEditorPane(e.getOldValue());
+			SectionType sectionTypeR = Translator.containerToSectionType(textAreaR);
+			RMText textR = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(sectionTypeR);
+	
+			textR.replaceText(Translator.objectToJEditorPane(e.getOldValue()),
 					replace, replaceWith);
 
 			break;
 
 		case Labels.FIND_TEXT:
 			String txt = e.getNewValue().toString();
-			mainView.getCurDocView()
-					.getTemplatePanel()
-					.findText(Translator.getCurrentSection(e.getOldValue()),
-							txt);
+			JEditorPane textAreaFi = Translator.objectToJEditorPane(e.getOldValue());
+			SectionType sectionTypeFi = Translator.containerToSectionType(textAreaFi);
+			mainView.getCurDocView().getTemplatePanel().findText(Translator.objectToJEditorPane(sectionTypeFi),txt);
 
 			break;
 

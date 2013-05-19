@@ -1,6 +1,5 @@
 package se.chalmers.tda367.group25.resumate.utils;
 
-import java.awt.Container;
 import java.awt.Panel;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -75,20 +74,21 @@ public class Translator {
 	
 
 	/**
-	 * Translates a Container, typically a JEditorPane, to a SectionType.
+	 * Translates a JEditorPane to a SectionType.
 	 * 
 	 * @param c
-	 *            the Container to translate
-	 * @return the corresponding SectionType
+	 *          the Container to translate
+	 * @return 
+	 * 			the corresponding SectionType
 	 */
 
-	public static SectionType containerToSectionType(Object container) {
+	public static SectionType containerToSectionType(JEditorPane container) {
 		
-		String name = null;
+		String name = container.getName();
 		SectionType section = null;
-		if(container instanceof JEditorPane){
-			JEditorPane p = (JEditorPane)container;
-			name = p.getName();
+		
+		if(name.equals(null)){
+			System.out.println("name is null");
 		}
 		
 		switch(name){
@@ -104,9 +104,14 @@ public class Translator {
 		default: //Do nothing, never invoked.
 		
 		}
+		
+		if(section.equals(null)){
+			System.out.println("Sectiontype is null");
+		}
+		
 		return section;
 	}
-	
+
 	/**
 	 * Typcasts an Object which is an instance of JEditorPane, which is the
 	 * current one, into a JEditorPane.
@@ -117,9 +122,9 @@ public class Translator {
 	 * 		the textarea.
 	 */
 	
-	public static JEditorPane getCurrentSection(Object o){
+	public static JEditorPane objectToJEditorPane(Object o){
 		JEditorPane section = null;
-		if(o instanceof JEditorPane){
+		if(o != null && o instanceof JEditorPane){
 			section = (JEditorPane)o;
 		}
 		return section;

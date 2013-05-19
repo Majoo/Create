@@ -2,14 +2,12 @@ package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.Color;
 import java.awt.Paint;
-import java.awt.Transparency;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -17,6 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+
+import se.chalmers.tda367.group25.resumate.model.SectionType;
+import se.chalmers.tda367.group25.resumate.utils.Translator;
 
 
 /**
@@ -45,14 +46,17 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.personalInfoText = new JEditorPane();
 		personalInfoText.setText("[PERSONAL_INFO] \nNamn:  \nAdress: \nPostnummer: \nIgnoreraDetta:");
 		personalInfoText.addFocusListener(this);
+		personalInfoText.setName("personalInfoText");
 		
 		this.otherText = new JEditorPane();
 		otherText.setText("[HEADLINE]");
 		otherText.addFocusListener(this);
+		otherText.setName("otherText");
 		
 		this.workingExperienceText = new JEditorPane();
 		workingExperienceText.setText("[INFORMATION]");
 		workingExperienceText.addFocusListener(this);
+		workingExperienceText.setName("workingExperienceText");
 
 		this.imageLbl = new JLabel();
 		this.imageLbl.setBackground(Color.cyan);
@@ -107,6 +111,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public JEditorPane getCurrentSection(){
 		return currentSection;
 	}
+	
 	
 	//-----Setters for components------
 	
@@ -217,9 +222,9 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		if(arg0.getComponent().getClass().equals(JEditorPane.class)){
 			//updateCurrentSection();
 			System.out.println("Focus JEDitorPane");
-			currentSection.setBorder(null);
+			//currentSection.setBorder(null);
 			currentSection = (JEditorPane)arg0.getComponent();
-			Paint p = Color.black;
+			//Paint p = Color.black;
 //			currentSection.setBorder(BorderFactory.createDashedBorder(p));
 		}
 	}

@@ -27,7 +27,7 @@ public class RMText {
 	 * Default constructor of a RMtext Section in a Document.
 	 */
 	public RMText() {
-		this.secType = "EMPTY";
+		this.secType = "";
 		styles = new HashMap <String, Boolean>();
 		styles.put("B", Styles.B);
 		styles.put("I", Styles.I);
@@ -116,11 +116,13 @@ public class RMText {
 	public void changeStyle(JEditorPane section, String style){
 		Font currentFont = section.getFont();
 		Font font = currentFont;
+		String f = null;
 		
 		switch(style){
 		case "B":
 			if(!Styles.B){	
 				font = currentFont.deriveFont(currentFont.getStyle() + Font.BOLD);
+				f = "<SPAN CLASS=" + "<b>" + section.getText() + "</b>";
 			}else{
 				font = currentFont.deriveFont(currentFont.getStyle() & ~Font.BOLD);
 			}
@@ -150,7 +152,10 @@ public class RMText {
 			styles.put("U", Styles.U);
 	        font = currentFont.deriveFont(attributes);	
 		}
-		section.setFont(font);	
+		//section.setFont(font);
+		String msgBuffer =new String("");
+		String m = msgBuffer.concat(f);
+		section.setText(m);
 	}
 	
 	/**

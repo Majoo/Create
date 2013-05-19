@@ -19,8 +19,7 @@ public class Document {
 	 * Create a new Document using the default Template.
 	 */
 	public Document() {
-		new Document(Template.DEF_CV);
-		history = new LinkedList<Document>();
+		this(Template.DEF_CV);
 	}
 
 	/**
@@ -31,6 +30,7 @@ public class Document {
 	 */
 	public Document(Template templ) {
 		// Set variables
+		history = new LinkedList<Document>();
 		this.currentTempl = templ;
 		rmI = new RMImage(null);
 		// create Sections according to Template.
@@ -54,7 +54,11 @@ public class Document {
 				texts.put(SectionType.WORK_EXPERIENCE, new RMText(
 						SectionType.WORK_EXPERIENCE));
 			}
-			// texts.add(new RMText(SectionType.EMPTY));
+			if (!texts.containsKey(SectionType.EMPTY)) {
+				texts.put(SectionType.EMPTY, new RMText(
+						SectionType.EMPTY));
+			}
+			
 			break;
 		case DEF_PL:
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {

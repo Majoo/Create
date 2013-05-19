@@ -26,11 +26,7 @@ public class RMText {
 	 * Default constructor of a RMtext Section in a Document.
 	 */
 	public RMText() {
-		this.secType = SectionType.EMPTY;
-		styles = new HashMap<String, Boolean>();
-		styles.put("B", Styles.B);
-		styles.put("I", Styles.I);
-		styles.put("U", Styles.U);
+		this(SectionType.EMPTY);
 	}
 
 	/**
@@ -42,6 +38,10 @@ public class RMText {
 	 */
 	public RMText(SectionType sectionType) {
 		this.secType = sectionType;
+		styles = new HashMap<String, Boolean>();
+		styles.put("B", Styles.B);
+		styles.put("I", Styles.I);
+		styles.put("U", Styles.U);
 	}
 
 	// MUTATORS

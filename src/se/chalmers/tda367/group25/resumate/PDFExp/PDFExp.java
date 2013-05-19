@@ -134,7 +134,15 @@ public class PDFExp extends JFrame {
 				new FileOutputStream(file));
 
 		document.open();
-		System.out.print(document.rightMargin()-document.leftMargin());
+//		float a = document.right(-document.rightMargin());
+		// System.out.println("R:" + document.right());
+		// System.out.println("R(Rm):" +
+		// document.right(-document.rightMargin()));
+		// System.out.println("Rm:" + document.rightMargin());
+		// System.out.println("L:" + document.left());
+		// System.out.println("L(Lm):" + document.left(document.leftMargin()));
+		// System.out.println("Lm:" + document.leftMargin());
+		
 		PdfContentByte cb = writer.getDirectContent();
 
 		// If the incoming JComponent representation of a Document is larger
@@ -146,7 +154,7 @@ public class PDFExp extends JFrame {
 			Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
 			jc.print(g2);
 			cb.addTemplate(tp, document.left(document.leftMargin()),
-					document.top() - delta);
+					document.topMargin());
 			g2.dispose();
 			delta = (int) (delta - document.top());
 		}

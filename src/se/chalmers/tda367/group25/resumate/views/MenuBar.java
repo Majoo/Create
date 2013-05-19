@@ -37,13 +37,13 @@ public class MenuBar extends JMenuBar {
 		setLookAndFeel();
 		
 		//the file
-		JMenu mnFile = new JMenu("File");
-		add(mnFile);
+		JMenu menuFile = new JMenu("File");
+		add(menuFile);
 
-		JMenuItem mntmNew = new JMenuItem("New");
-		mntmNew.setMnemonic('n');
-		mntmNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
-		mntmNew.addActionListener(new ActionListener() {
+		JMenuItem menuItemNew = new JMenuItem("New");
+		menuItemNew.setMnemonic('n');
+		menuItemNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+		menuItemNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int selection = JOptionPane.showConfirmDialog(null,
 						"Are you sure you want to create a new document?", null,
@@ -57,23 +57,23 @@ public class MenuBar extends JMenuBar {
 				}
 			}
 		});
-		mnFile.add(mntmNew);
+		menuFile.add(menuItemNew);
 
 		//open document
 		JMenuItem mntmOpen = new JMenuItem("Open");
 		mntmOpen.setMnemonic('o');
 		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		
-		mnFile.add(mntmOpen);
+		menuFile.add(mntmOpen);
 
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.setMnemonic('s');
 		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
-		mnFile.add(mntmSave);
+		menuFile.add(mntmSave);
 
 		JMenuItem mntmSaveAs = new JMenuItem("Save As...");
 		mntmSaveAs.setMnemonic('a');
-		mnFile.add(mntmSaveAs);
+		menuFile.add(mntmSaveAs);
 
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mntmExit.setMnemonic('e');
@@ -93,7 +93,7 @@ public class MenuBar extends JMenuBar {
 				}
 			}
 		});
-		mnFile.add(mntmExit);
+		menuFile.add(mntmExit);
 
 
 		//the edit

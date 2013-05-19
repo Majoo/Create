@@ -102,6 +102,19 @@ public class MainController implements PropertyChangeListener {
 			textSt.changeStyle(textAreaSt,style);
 	
 			break;
+			
+//		case Labels.TEXT_SELECTALL:
+//			String select = e.getNewValue().toString();
+//			JEditorPane textAreaS = Translator.objectToJEditorPane(e.getOldValue());
+//			SectionType sectionTypeS = Translator.containerToSectionType(textAreaS);
+//			RMText textS = docCon.getDoc(docCon.getCurrent()).getTexts()
+//					.get(sectionTypeS);
+//	
+//			textS.setText(select);
+//			
+//			break;
+			
+			
 
 		case Labels.TEXT_REPLACED:
 			String[] replaceTexts = e.getNewValue().toString().split("/");

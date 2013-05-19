@@ -34,5 +34,9 @@ public class Labels {
 	public static final String UNDO_ACTION = "Undo action";
 	public static final String REDO_ACTION = "Redo action";
 	
+	public static final String TEXT_SELECTALL = "Select all text";
+	public static final String TEXT_COPY = "Text is copied";
+	public static final String TEXT_CUT = "Text is cut";
+	public static final String TEXT_PASTE = "Text is pasted";
 }
 	

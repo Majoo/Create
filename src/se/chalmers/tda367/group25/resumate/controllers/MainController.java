@@ -154,7 +154,7 @@ public class MainController implements PropertyChangeListener {
 
 		// Undo/redo handling:
 		case Labels.UNDO_ACTION:
-
+				
 			break;
 
 		case Labels.REDO_ACTION:

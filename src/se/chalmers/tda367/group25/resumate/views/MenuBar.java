@@ -105,6 +105,37 @@ public class MenuBar extends JMenuBar {
 		JMenu mnEdit = new JMenu("Edit");
 		add(mnEdit);
 
+		
+		JMenuItem mntmUndo = new JMenuItem("Undo");
+		mntmUndo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
+			 
+			}
+		});
+		mntmUndo.setMnemonic('Z');
+		mntmUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
+		mnEdit.add(mntmUndo);
+		
+		
+		JMenuItem mntmRedo = new JMenuItem("Redo");
+		mntmRedo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				pcs.firePropertyChange(Labels.REDO_ACTION, false, true);
+			 
+			}
+		});
+		mntmRedo.setMnemonic('Y');
+		mntmRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_MASK));
+		mnEdit.add(mntmRedo);
+		
+		JSeparator separator1 = new JSeparator();
+		mnEdit.add(separator1);
+		
+		
+		
 		JMenuItem mntmCut = new JMenuItem("Cut");
 		mntmCut.setMnemonic('U');
 		mntmCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));

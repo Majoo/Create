@@ -8,12 +8,13 @@ import javax.swing.JEditorPane;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.RMText;
-import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
+import se.chalmers.tda367.group25.resumate.views.ViewHandler;
 
 public class MainController implements PropertyChangeListener {
 
@@ -132,8 +133,8 @@ public class MainController implements PropertyChangeListener {
 		case Labels.FIND_TEXT:
 			String txt = e.getNewValue().toString();
 			JEditorPane textAreaFi =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			mainView.getCurDocView().getTemplatePanel().findText(textAreaFi,txt);
-
+			//mainView.getCurDocView().getTemplatePanel().findText(textAreaFi,txt);
+			ViewHandler.findText(textAreaFi, txt);
 			break;
 
 		case Labels.RENAME_DOC:
@@ -151,15 +152,14 @@ public class MainController implements PropertyChangeListener {
 
 		// Undo/redo handling:
 		case Labels.UNDO_ACTION:
-			JEditorPane textAreaUA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			mainView.getCurDocView().getTemplatePanel().undoAction(textAreaUA);
+			TemplatePanel pU = mainView.getCurDocView().getTemplatePanel();
+			ViewHandler.undoAction(pU.getCurrentSection(), pU.getManager());
 			
 			break;
 
 		case Labels.REDO_ACTION:
-			JEditorPane textAreaRA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			mainView.getCurDocView().getTemplatePanel().redoAction(textAreaRA);
-
+			TemplatePanel pR = mainView.getCurDocView().getTemplatePanel();
+			ViewHandler.redoAction(pR.getCurrentSection(), pR.getManager());
 			break;
 
 		// IO handling:

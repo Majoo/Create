@@ -225,6 +225,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 	public void removePropertyChangeListener(PropertyChangeListener pcl){
 		pcs.removePropertyChangeListener(pcl);
 	}
+	
 	/**
 	 * Settles the actions to be performed depeding on 
 	 * which component which was the source.

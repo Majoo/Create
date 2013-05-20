@@ -8,8 +8,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JEditorPane;
 
-import se.chalmers.tda367.group25.resumate.model.SectionType;
-import se.chalmers.tda367.group25.resumate.model.Template;
 import se.chalmers.tda367.group25.resumate.views.CV_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
@@ -19,13 +17,11 @@ public class Translator {
 	/**
 	 * Translates a DocumentView Panel to a Template.
 	 * 
-	 * @param p
-	 *            the Panel to translate
+	 * @param name
+	 *            the name of Panel to translate
 	 * @return the corresponding Template
 	 */
-	public static Template panelToTemplate(Panel p) {
-		
-		String name  = p.getName();
+	public static Template panelToTemplate(String name) {
 		Template template = null;
 		switch(name){
 		case "CV_Def":

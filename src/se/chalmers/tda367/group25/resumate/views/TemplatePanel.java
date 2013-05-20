@@ -35,12 +35,10 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
 	private JEditorPane headerTitle;
-	private JLabel imageLbl;
 	private JEditorPane currentSection;
-	private UndoManager manager = new UndoManager();
-	
-	
+	private JLabel imageLbl;
 	private PropertyChangeSupport pcs;
+	private UndoManager manager = new UndoManager();
 	
  	/**
  	 * Create the panel. 
@@ -128,6 +126,14 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		return currentSection;
 	}
 	
+	/**
+	 * Returns the manager handling undo & redo
+	 * @return UndoManager for the sections
+	 */
+	public UndoManager getManager(){
+		return manager;
+	}
+	
 	
 	//-----Setters for components------
 	
@@ -140,11 +146,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.imageLbl = imageLabel;
 	}
 	
-	
-//	public void copyText(JEditorPane section){
-//		section.getText();
-//		
-//	}
 	
 	/**
 	 *  Sets the current text area which currently was in focus
@@ -165,79 +166,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	 */
 	public void showImage(BufferedImage image){
 		imageLbl.setIcon(new ImageIcon(image));
-	}
-	
-	
-	//-----Other setters-----
-	/**
-	 * Searches after the String input in variable text. 
-	 * If it is found then the current textcontainer will mark this text.
-	 * 
-	 * @param input
-	 *            the String which is to be found
-	 */
-	public void findText(JEditorPane section, String input) {
-
-		// Removes the previous highlights if there were any. 
-			section.getHighlighter().removeAllHighlights();
-
-		if (input.length() <= 0) {
-			JOptionPane.showMessageDialog(null, "Nothing to search");
-			return;
-		}
-		/*
-		 * Gets the text from the chosen editorpane and searches after the input from the beginning of the text.
-		 */
-		String content = section.getText();
-		int start = content.indexOf(input, 0);
-		int end;
-		DefaultHighlighter.DefaultHighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(
-				Color.YELLOW);
-		int matchesFound = 0;
-		boolean isSearching = true;
-		
-		/*
-		 * Searches for the specific word.
-		 * The text is found if the index of start is larger or equal to zero. The indexes of start and end it will change 
-		 * so that it will be after the found word. The found word is marked by a highlighter.
-		 */
-		while (isSearching) {
-			if (start >= 0) {
-				++matchesFound;
-				try {
-					end = start + input.length();
-					section.getHighlighter().addHighlight(start, end, painter);
-					start = content.indexOf(input, end);
-
-				} catch (BadLocationException e) {
-					JOptionPane.showMessageDialog(null,
-							"Error: " + e.getMessage());
-				}
-			} else {
-				isSearching = false;
-				if (matchesFound == 0) {
-					JOptionPane.showMessageDialog(null, "'" + input
-							+ "' not found.");
-				}
-			}
-		}
-		JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
-	}
-
-	public void undoAction(JEditorPane section){
-		try {
-			manager.undo();
-		} catch (CannotUndoException e) {
-			Toolkit.getDefaultToolkit().beep();
-		}
-	}
-	
-	public void redoAction(JEditorPane section){
-		try {
-			manager.redo();
-		} catch (CannotRedoException e) {
-			Toolkit.getDefaultToolkit().beep();
-		}
 	}
 	
 	

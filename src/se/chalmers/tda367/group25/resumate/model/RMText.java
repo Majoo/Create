@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JEditorPane;
+
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Styles;
 
 /**

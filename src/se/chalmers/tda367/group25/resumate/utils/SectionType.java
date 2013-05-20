@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.model;
+package se.chalmers.tda367.group25.resumate.utils;
 
 /**
  * A SectionName decides what kind of information

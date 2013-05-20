@@ -151,10 +151,14 @@ public class MainController implements PropertyChangeListener {
 
 		// Undo/redo handling:
 		case Labels.UNDO_ACTION:
-				
+			JEditorPane textAreaUA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			mainView.getCurDocView().getTemplatePanel().undoAction(textAreaUA);
+			
 			break;
 
 		case Labels.REDO_ACTION:
+			JEditorPane textAreaRA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			mainView.getCurDocView().getTemplatePanel().redoAction(textAreaRA);
 
 			break;
 
@@ -162,6 +166,7 @@ public class MainController implements PropertyChangeListener {
 		case Labels.SAVE_DOC:
 			ioCon.chooseFunction(Labels.SAVE_DOC, null,
 					docCon.getDoc(docCon.getCurrent()));
+			
 			break;
 
 		case Labels.SAVE_DOC_AS:
@@ -194,7 +199,7 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXT_COPY:
 			JEditorPane textAreaC = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
 			
-
+			break;
 		// Other handling:
 		case Labels.SEND_INITIAL_DOCVIEW:
 			DocumentView dv = (DocumentView)e.getOldValue();
@@ -202,6 +207,7 @@ public class MainController implements PropertyChangeListener {
 					", trying to add it in "+"\""+(String)e.getNewValue()+"\"");
 			docCon.addDocView((String)e.getNewValue()
 					,dv);
+			break;
 		default: 
 			//Do nothing, never invoked
 

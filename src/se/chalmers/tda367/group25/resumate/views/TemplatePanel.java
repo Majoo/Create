@@ -3,6 +3,7 @@ package se.chalmers.tda367.group25.resumate.views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Paint;
+import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 
@@ -34,6 +37,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	private JEditorPane headerTitle;
 	private JLabel imageLbl;
 	private JEditorPane currentSection;
+	private UndoManager manager = new UndoManager();
+	
 	
 	private PropertyChangeSupport pcs;
 	
@@ -49,6 +54,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		personalInfoText.setName("personalInfoText");
 		personalInfoText.setText("[PERSONAL_INFO] \nNamn:  \nAdress: \nPostnummer: \nIgnoreraDetta:");
 		personalInfoText.addFocusListener(this);
+		personalInfoText.getDocument().addUndoableEditListener(manager);
 		Paint p = Color.black;
 		personalInfoText.setBorder(BorderFactory.createDashedBorder(p));
 
@@ -57,12 +63,14 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		headerTitle.setName("headerTitle");
 		headerTitle.setText("[HEADLINE]");
 		headerTitle.addFocusListener(this);
+		headerTitle.getDocument().addUndoableEditListener(manager);
 		headerTitle.setBorder(BorderFactory.createDashedBorder(p));
 		
 		this.workingExperienceText = new JEditorPane();
 		workingExperienceText.setName("workingExperienceText");
 		workingExperienceText.setText("[INFORMATION]");
 		workingExperienceText.addFocusListener(this);
+		workingExperienceText.getDocument().addUndoableEditListener(manager);
 		workingExperienceText.setBorder(BorderFactory.createDashedBorder(p));
 
 		this.imageLbl = new JLabel();
@@ -217,17 +225,19 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	}
 
 	public void undoAction(JEditorPane section){
-
-		UndoManager manager = new UndoManager();
-		section.getDocument().addUndoableEditListener(manager);
-		manager.undo();
+		try {
+			manager.undo();
+		} catch (CannotUndoException e) {
+			Toolkit.getDefaultToolkit().beep();
+		}
 	}
 	
 	public void redoAction(JEditorPane section){
-		
-		UndoManager manager = new UndoManager();
-		section.getDocument().addUndoableEditListener(manager);
-		manager.redo();
+		try {
+			manager.redo();
+		} catch (CannotRedoException e) {
+			Toolkit.getDefaultToolkit().beep();
+		}
 	}
 	
 	

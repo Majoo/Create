@@ -10,8 +10,8 @@ import javax.swing.JEditorPane;
 
 import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.model.Template;
+import se.chalmers.tda367.group25.resumate.views.CV_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
-import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
 
 public class Translator {
 	private static ImageIO imIO;

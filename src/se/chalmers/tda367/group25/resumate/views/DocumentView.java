@@ -8,7 +8,6 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
 import javax.swing.ScrollPaneConstants;
 
 /**

@@ -6,30 +6,13 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
-
-import javax.swing.JLabel;
 import javax.swing.SpringLayout;
-
-import com.itextpdf.awt.geom.Dimension;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import se.chalmers.tda367.group25.resumate.model.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
-import se.chalmers.tda367.group25.resumate.utils.Translator;
-import java.awt.CardLayout;
 
 public class MainView extends JFrame implements MainViewInterface {
 	private MenuBar menuBar;

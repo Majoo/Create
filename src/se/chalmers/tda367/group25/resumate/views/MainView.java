@@ -163,6 +163,13 @@ public class MainView extends JFrame implements MainViewInterface {
 			
 			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(), arg0.getNewValue());
 			
+			
+			
+			
+		case Labels.TEXT_COPY:
+			JEditorPane currentSectionC =  getCurDocView().getTemplatePanel().getCurrentSection();
+			pcs.firePropertyChange(arg0.getPropertyName(), null, currentSectionC);
+			
 		default: //Do nothing
 			break;
 		}

@@ -45,12 +45,13 @@ public class MainController implements PropertyChangeListener {
 		switch (e.getPropertyName()) {
 		// Image handling:
 		case Labels.INSERT_IMAGE:			
-			//e.getOldValue() is the filename chosen, convert this to an image.
+			//e.getOldValue() is the path chosen, convert this to an image.
 			BufferedImage img = Translator.stringToImage((String)e.getOldValue());
 			//Update the image of the Document associated with the DocumentView e.getNewValue().
 			DocumentView v = (DocumentView)e.getNewValue();
-			System.out.println(v.getID()); //v är nog null här:/
+			System.out.println(v.getID());
 			docCon.updateImage(docCon.separateDocument(v), img);
+			System.out.println("har kört updateImage(separateDoc(docview), img) i MainController");
 			break;
 
 		/*
@@ -195,7 +196,8 @@ public class MainController implements PropertyChangeListener {
 		// Other handling:
 		case Labels.SEND_INITIAL_DOCVIEW:
 			DocumentView dv = (DocumentView)e.getOldValue();
-			System.out.println(dv.getID()+" In MainController");
+			System.out.println(dv.getID()+" In MainController" +
+					", trying to add it in "+"\""+(String)e.getNewValue()+"\"");
 			docCon.addDocView((String)e.getNewValue()
 					,dv);
 		default: 

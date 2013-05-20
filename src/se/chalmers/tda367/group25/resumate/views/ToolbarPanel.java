@@ -94,13 +94,11 @@ public class ToolbarPanel extends JPanel{
 					JOptionPane.showMessageDialog(null, "Open an explorer to save an .rsmt-file HERE"); //implementera Save här
 					//Toolkit.getDefaultToolkit().beep();
 					//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
-					new MainController();
 				}else if(selection == JOptionPane.CLOSED_OPTION){
 					;
 				}else{
 					 
 					//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
-					new MainController();
 					
 				}
 			}
@@ -172,10 +170,7 @@ public class ToolbarPanel extends JPanel{
 		JButton btnCopy = new JButton("Copy");
 		btnCopy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
 				pcs.firePropertyChange(Labels.TEXT_COPY, false, true);
-				
-				
 			}
 		});
 		upperToolsPan.add(btnCopy);

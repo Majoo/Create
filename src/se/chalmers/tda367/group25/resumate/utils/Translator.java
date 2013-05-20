@@ -1,6 +1,6 @@
 package se.chalmers.tda367.group25.resumate.utils;
 
-import java.awt.Panel;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -107,6 +107,56 @@ public class Translator {
 		
 		return section;
 	}
+	
+	public static Color stringToColor(String name){
+		Color col = null;
+		
+		switch(name){
+			case "Black":
+				col = Color.BLACK;
+			break;
+			case "Blue":
+				col = Color.BLUE;
+			break;
+			case "Cyan":
+				col = Color.CYAN;
+				break;
+			case "Dark Gray":
+				col = Color.DARK_GRAY;
+				break;
+			case "Gray":
+				col = Color.GRAY;
+				break;
+			case "Green":
+				col = Color.GREEN;
+				break;
+			case "Light Gray":
+				col = Color.LIGHT_GRAY;
+				break;
+			case "Magenta":
+				col = Color.MAGENTA;
+				break;
+			case "Orange":
+				col = Color.ORANGE;
+				break;
+			case "Pink":
+				col = Color.PINK;
+				break;
+			case "Red":
+				col = Color.RED;
+				break;
+			case "White":
+				col = Color.WHITE;
+				break;
+			case "Yellow":
+				col = Color.YELLOW;
+				break;
+			
+		default: //Do nothing, never invoked	
+		}
+		return col;
+	}
+	
 	
 	/**
 	 * Takes in a String that represents an image in the filesystem

@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.model;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class RMText {
 	private String text;
 	private SectionType secType;
 	private String font;
+	private Color color;
 	private int size;
 	private Map<String, Boolean> styles;
 
@@ -216,6 +218,12 @@ public class RMText {
 	 */
 	public Map<String, Boolean> getStyles() {
 		return styles;
+	}
+
+	public void changeColour(JEditorPane section, Color col) {
+		this.color = col;
+		section.setForeground(col);
+		
 	}
 
 }

@@ -18,6 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import javax.swing.JCheckBoxMenuItem;
 
 public class MenuBar extends JMenuBar implements ActionListener {
 	private PropertyChangeSupport pcs;
@@ -133,25 +134,25 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		JMenu mnFormat = new JMenu("Format");
 		add(mnFormat);
 
-		JMenuItem mntmBold = new JMenuItem("Bold");
+		JCheckBoxMenuItem mntmBold = new JCheckBoxMenuItem("Bold");
 		mntmBold.setMnemonic('B');
 		mntmBold.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_MASK));
 		mntmBold.addActionListener(this);
 		mntmBold.setActionCommand("Bold");
 		mnFormat.add(mntmBold);
 		
-		JMenuItem mntmItalic = new JMenuItem("Italic");
+		JCheckBoxMenuItem mntmItalic = new JCheckBoxMenuItem("Italic");
 		mntmItalic.setMnemonic('I');
 		mntmItalic.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
 		mntmItalic.addActionListener(this);
 		mntmItalic.setActionCommand("Italic");
 		mnFormat.add(mntmItalic);
 		
-		JMenuItem mntmUnderline = new JMenuItem("Underline");
+		JCheckBoxMenuItem mntmUnderline = new JCheckBoxMenuItem("Underline");
 		mntmUnderline.setMnemonic('U');
 		mntmUnderline.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_MASK));
-		mntmUnderline.addActionListener(this);
 		mntmUnderline.setActionCommand("Underline");
+		mntmUnderline.addActionListener(this);
 		mnFormat.add(mntmUnderline);
 
 		//Setting menu items and their properties located in the Insert Menu

@@ -75,9 +75,8 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
 			JEditorPane textAreaF =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			SectionType sectionTypeF = Translator.containerToSectionType(textAreaF);
 			RMText textF = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(sectionTypeF);
+					.get(Translator.containerToSectionType(textAreaF));
 			textF.changeFont(textAreaF, font);
 
 			break;
@@ -85,9 +84,8 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXTSIZE_CHANGED:
 			int size = Integer.parseInt(e.getNewValue().toString());
 			JEditorPane textAreaSi =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			SectionType sectionTypeSi = Translator.containerToSectionType(textAreaSi);
 			RMText textSi = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(sectionTypeSi);
+					.get(Translator.containerToSectionType(textAreaSi));
 
 			textSi.changeSize(textAreaSi,size);
 			break;
@@ -95,35 +93,28 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
 			JEditorPane textAreaSt =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			SectionType sectionTypeSt = Translator.containerToSectionType(textAreaSt);
 			RMText textSt = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(sectionTypeSt);
+					.get(Translator.containerToSectionType(textAreaSt));
 			
 			textSt.changeStyle(textAreaSt,style);
 	
 			break;
 			
-//		case Labels.TEXT_SELECTALL:
-//			String select = e.getNewValue().toString();
-//			JEditorPane textAreaS = Translator.objectToJEditorPane(e.getOldValue());
-//			SectionType sectionTypeS = Translator.containerToSectionType(textAreaS);
-//			RMText textS = docCon.getDoc(docCon.getCurrent()).getTexts()
-//					.get(sectionTypeS);
-//	
-//			textS.setText(select);
-//			
-//			break;
-			
-			
+		case Labels.TEXTCOLOUR_CHANGED:
+			String colour = e.getNewValue().toString();
+			JEditorPane textAreaCC =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			RMText textCC = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(textAreaCC));
+			textCC.changeColour(textAreaCC,Translator.stringToColor(colour));
+			break;
 
 		case Labels.TEXT_REPLACED:
 			String[] replaceTexts = e.getNewValue().toString().split("/");
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
 			JEditorPane textAreaR =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			SectionType sectionTypeR = Translator.containerToSectionType(textAreaR);
 			RMText textR = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(sectionTypeR);
+					.get(Translator.containerToSectionType(textAreaR));
 	
 			textR.replaceText(textAreaR,
 					replace, replaceWith);
@@ -133,7 +124,6 @@ public class MainController implements PropertyChangeListener {
 		case Labels.FIND_TEXT:
 			String txt = e.getNewValue().toString();
 			JEditorPane textAreaFi =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//mainView.getCurDocView().getTemplatePanel().findText(textAreaFi,txt);
 			ViewHandler.findText(textAreaFi, txt);
 			break;
 
@@ -198,8 +188,24 @@ public class MainController implements PropertyChangeListener {
 			
 		case Labels.TEXT_COPY:
 			JEditorPane textAreaC = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			
+			//Add your stuff in ViewHandler Lamm
 			break;
+			
+		case Labels.TEXT_CUT:
+			JEditorPane textAreaCU = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			//Add your stuff in ViewHandler Lamm
+			break;	
+		
+		case Labels.TEXT_PASTE:
+			JEditorPane textAreaP = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			//Add your stuff in ViewHandler Lamm
+			break;
+			
+		case Labels.TEXT_SELECTALL:
+			JEditorPane textAreaSA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			//Add your stuff in ViewHandler Lamm
+			break;	
+			
 		// Other handling:
 		case Labels.SEND_INITIAL_DOCVIEW:
 			DocumentView dv = (DocumentView)e.getOldValue();

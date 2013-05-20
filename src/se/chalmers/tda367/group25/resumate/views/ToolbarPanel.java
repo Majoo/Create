@@ -30,7 +30,8 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 	private PropertyChangeSupport pcs;
 	private JComboBox textSizeCB;
 	private JComboBox fontCB;
-
+	private JComboBox textColorCB;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -145,9 +146,11 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		tglbtnUnderline.setFont(tglbtnUnderline.getFont().deriveFont(map));
 		
 		// Setting properties for the button which make the text coloured
-		JComboBox textColorCB = new JComboBox();
-		textColorCB.setModel(new DefaultComboBoxModel(new String[] {"color"}));
-		textColorCB.setForeground(Color.RED);
+		textColorCB = new JComboBox();
+		textColorCB.setModel(new DefaultComboBoxModel(new String[] {"Black", "Blue", "Cyan", "Dark Gray", "Gray", "Green",
+				"Light Gray", "Magenta", "Orange", "Pink", "Red", "White", "Yellow"}));
+		textColorCB.addActionListener(this);
+		textColorCB.setActionCommand("Color");
 
 		//Setting placement of the GUI
 		GroupLayout gl_lowerToolsPan = new GroupLayout(lowerToolsPan);
@@ -259,6 +262,9 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 			break;
 		case "Underline":
 			pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, null, "U");
+			break;
+		case "Color":
+			pcs.firePropertyChange(Labels.TEXTCOLOUR_CHANGED, null, textColorCB.getSelectedItem().toString());
 			break;
 		case "Open":
 			JOptionPane.showMessageDialog(null, "this should open a doc");

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import se.chalmers.tda367.group25.resumate.controllers.MainController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,12 +28,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpringLayout;
 
 import se.chalmers.tda367.group25.resumate.model.Template;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import se.chalmers.tda367.group25.resumate.views.MainView;
 
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 
@@ -65,14 +68,14 @@ public class ToolbarPanel extends JPanel{
 	public ToolbarPanel() {
 		setBorder(new LineBorder(SystemColor.activeCaption));
 		setBackground(Color.WHITE);
-		SpringLayout springLayout = new SpringLayout();
-		setLayout(springLayout);
+		SpringLayout spLayout = new SpringLayout();
+		setLayout(spLayout);
 
 		//Tools panel
 		JPanel toolsPan = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, toolsPan, 0, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, toolsPan, 0, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, toolsPan, 69, SpringLayout.NORTH, this);
+		spLayout.putConstraint(SpringLayout.NORTH, toolsPan, 0, SpringLayout.NORTH, this);
+		spLayout.putConstraint(SpringLayout.WEST, toolsPan, 0, SpringLayout.WEST, this);
+		spLayout.putConstraint(SpringLayout.SOUTH, toolsPan, 69, SpringLayout.NORTH, this);
 
 		toolsPan.setLayout(new GridLayout(2,1));
 		//Upper part tools panel
@@ -84,7 +87,22 @@ public class ToolbarPanel extends JPanel{
 		JButton btnNewDoc = new JButton("New");
 		btnNewDoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Toolkit.getDefaultToolkit().beep();
+				int selection = JOptionPane.showConfirmDialog(null,
+						"Do you want to save the document first?", null,
+						JOptionPane.YES_NO_OPTION);
+				if (selection == JOptionPane.YES_OPTION) {
+					JOptionPane.showMessageDialog(null, "Open an explorer to save an .rsmt-file HERE"); //implementera Save här
+					//Toolkit.getDefaultToolkit().beep();
+					//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
+					new MainController();
+				}else if(selection == JOptionPane.CLOSED_OPTION){
+					;
+				}else{
+					 
+					//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
+					new MainController();
+					
+				}
 			}
 		});
 		upperToolsPan.add(btnNewDoc);
@@ -152,6 +170,14 @@ public class ToolbarPanel extends JPanel{
 		upperToolsPan.add(btnCut);
 
 		JButton btnCopy = new JButton("Copy");
+		btnCopy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				pcs.firePropertyChange(Labels.TEXT_COPY, false, true);
+				
+				
+			}
+		});
 		upperToolsPan.add(btnCopy);
 
 		JButton btnPaste = new JButton("Paste");
@@ -266,11 +292,11 @@ public class ToolbarPanel extends JPanel{
 		//Template chooser panel
 		JPanel tempsPan = new JPanel();
 		tempsPan.setBackground(Color.WHITE);
-		springLayout.putConstraint(SpringLayout.EAST, toolsPan, -6, SpringLayout.WEST, tempsPan);
-		springLayout.putConstraint(SpringLayout.WEST, tempsPan, 826, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.NORTH, tempsPan, 0, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, tempsPan, 69, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, tempsPan, -10, SpringLayout.EAST, this);
+		spLayout.putConstraint(SpringLayout.EAST, toolsPan, -6, SpringLayout.WEST, tempsPan);
+		spLayout.putConstraint(SpringLayout.WEST, tempsPan, 826, SpringLayout.WEST, this);
+		spLayout.putConstraint(SpringLayout.NORTH, tempsPan, 0, SpringLayout.NORTH, this);
+		spLayout.putConstraint(SpringLayout.SOUTH, tempsPan, 69, SpringLayout.NORTH, this);
+		spLayout.putConstraint(SpringLayout.EAST, tempsPan, -10, SpringLayout.EAST, this);
 
 		tempsPan.setLayout(new GridLayout(1, 4));
 		temp1But = new JButton("Default CL");

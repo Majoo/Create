@@ -45,13 +45,13 @@ public class MainController implements PropertyChangeListener {
 		switch (e.getPropertyName()) {
 		// Image handling:
 		case Labels.INSERT_IMAGE:			
-			// getCurDocView() returns the documentView in the tab that is in focus.
-			//e.getOldValue() is the filename chosen, convert this to an image. (is the path of the jpg/gif-file)
+			//e.getOldValue() is the path chosen, convert this to an image.
 			BufferedImage img = Translator.stringToImage((String)e.getOldValue());
 			//Update the image of the Document associated with the DocumentView e.getNewValue().
 			DocumentView v = mainView.getCurDocView();
-			System.out.println(v.getID()); //v är nog null här:/
+			System.out.println(v.getID());
 			docCon.updateImage(docCon.separateDocument(v), img);
+			System.out.println("har kört updateImage(separateDoc(docview), img) i MainController");
 			break;
 
 		/*
@@ -101,6 +101,19 @@ public class MainController implements PropertyChangeListener {
 			textSt.changeStyle(textAreaSt,style);
 	
 			break;
+			
+//		case Labels.TEXT_SELECTALL:
+//			String select = e.getNewValue().toString();
+//			JEditorPane textAreaS = Translator.objectToJEditorPane(e.getOldValue());
+//			SectionType sectionTypeS = Translator.containerToSectionType(textAreaS);
+//			RMText textS = docCon.getDoc(docCon.getCurrent()).getTexts()
+//					.get(sectionTypeS);
+//	
+//			textS.setText(select);
+//			
+//			break;
+			
+			
 
 		case Labels.TEXT_REPLACED:
 			String[] replaceTexts = e.getNewValue().toString().split("/");
@@ -138,7 +151,7 @@ public class MainController implements PropertyChangeListener {
 
 		// Undo/redo handling:
 		case Labels.UNDO_ACTION:
-
+				
 			break;
 
 		case Labels.REDO_ACTION:
@@ -176,11 +189,17 @@ public class MainController implements PropertyChangeListener {
 					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
 					null);
 			break;
+			
+			
+		case Labels.TEXT_COPY:
+			JEditorPane textAreaC = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			
 
 		// Other handling:
 		case Labels.SEND_INITIAL_DOCVIEW:
 			DocumentView dv = (DocumentView)e.getOldValue();
-			System.out.println(dv.getID()+" In MainController");
+			System.out.println(dv.getID()+" In MainController" +
+					", trying to add it in "+"\""+(String)e.getNewValue()+"\"");
 			docCon.addDocView((String)e.getNewValue()
 					,dv);
 		default: 

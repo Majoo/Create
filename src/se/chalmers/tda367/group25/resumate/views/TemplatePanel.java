@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+import javax.swing.undo.UndoManager;
 
 
 /**
@@ -131,6 +132,12 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.imageLbl = imageLabel;
 	}
 	
+	
+//	public void copyText(JEditorPane section){
+//		section.getText();
+//		
+//	}
+	
 	/**
 	 *  Sets the current text area which currently was in focus
 	 *  
@@ -209,6 +216,20 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
 	}
 
+	public void undoAction(JEditorPane section){
+
+		UndoManager manager = new UndoManager();
+		section.getDocument().addUndoableEditListener(manager);
+		manager.undo();
+	}
+	
+	public void redoAction(JEditorPane section){
+		
+		UndoManager manager = new UndoManager();
+		section.getDocument().addUndoableEditListener(manager);
+		manager.redo();
+	}
+	
 	
 	//PROPERTY-CHANGED-METHODS
 	public void addPropertyChangeListener(PropertyChangeListener pcl){

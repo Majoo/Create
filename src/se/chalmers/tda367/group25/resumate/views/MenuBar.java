@@ -17,6 +17,7 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import se.chalmers.tda367.group25.resumate.controllers.*;
 import javax.swing.KeyStroke;
 import java.awt.event.InputEvent;
 
@@ -46,14 +47,18 @@ public class MenuBar extends JMenuBar {
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int selection = JOptionPane.showConfirmDialog(null,
-						"Are you sure you want to create a new document?", null,
+						"Do you want to save the document first?", null,
 						JOptionPane.YES_NO_OPTION);
 				if (selection == JOptionPane.YES_OPTION) {
 					//DannyForm textEditor = new DannyForm();
 					//textEditor.setLocationRelativeTo(null);
 					//textEditor.setVisible(true);
 					//currentFileDirectory = "";			//a new file gets renamed to nothing
-					JOptionPane.showMessageDialog(null, "implement something that creates a new doc");
+					JOptionPane.showMessageDialog(null, "Explorer/SAVE");
+				}else if(selection == JOptionPane.NO_OPTION){
+					new MainController();				//should create a new tab, not a new program
+				}else{
+					;
 				}
 			}
 		});
@@ -84,7 +89,7 @@ public class MenuBar extends JMenuBar {
 						"Do you want to save the document first?", null,
 						JOptionPane.YES_NO_OPTION);
 				if (selection == JOptionPane.YES_OPTION) {
-					JOptionPane.showMessageDialog(null, "Open an explorer to save an .rsmt-file HERE"); //implementera Save här
+					JOptionPane.showMessageDialog(null, "Expolorer/SAVE"); //Implement Save here
 					System.exit(1);
 				}else if(selection == JOptionPane.CLOSED_OPTION){
 					;
@@ -100,6 +105,37 @@ public class MenuBar extends JMenuBar {
 		JMenu mnEdit = new JMenu("Edit");
 		add(mnEdit);
 
+		
+		JMenuItem mntmUndo = new JMenuItem("Undo");
+		mntmUndo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
+			 
+			}
+		});
+		mntmUndo.setMnemonic('Z');
+		mntmUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
+		mnEdit.add(mntmUndo);
+		
+		
+		JMenuItem mntmRedo = new JMenuItem("Redo");
+		mntmRedo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				pcs.firePropertyChange(Labels.REDO_ACTION, false, true);
+			 
+			}
+		});
+		mntmRedo.setMnemonic('Y');
+		mntmRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_MASK));
+		mnEdit.add(mntmRedo);
+		
+		JSeparator separator1 = new JSeparator();
+		mnEdit.add(separator1);
+		
+		
+		
 		JMenuItem mntmCut = new JMenuItem("Cut");
 		mntmCut.setMnemonic('U');
 		mntmCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));

@@ -51,8 +51,9 @@ public class MainView extends JFrame implements MainViewInterface {
 		// frame
 		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setSize(840,500);										//The default size when you minimize the frame
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
+		setExtendedState(JFrame.MAXIMIZED_BOTH);				//fullscreen
 
 		// Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();

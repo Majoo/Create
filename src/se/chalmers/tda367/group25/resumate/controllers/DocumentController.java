@@ -59,11 +59,10 @@ public class DocumentController implements PropertyChangeListener {
 	}
 
 	/**
-	 * Adds a new DocumentView to the corresponding value (List) in the
-	 * docAndDocView Map.
+	 * Adds the DocumentView to the list put as a value of the key ID.
 	 * 
 	 * @param ID
-	 *            the ID to give to the DocumentView
+	 *            the ID to put the DocumentView under
 	 * @param v
 	 *            the DocumentView to add
 	 */
@@ -74,6 +73,7 @@ public class DocumentController implements PropertyChangeListener {
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(v);
+		System.out.println("I addDocView(), ID: "+v.getID());
 		//Problem: om listan redan finns och redan innehåller en av varje.
 
 	}
@@ -231,6 +231,7 @@ public class DocumentController implements PropertyChangeListener {
 				d = (Document)o;
 			}
 		}
+		System.out.println(d+" in docCon.separateDocument(docview)");
 		return d;
 	}
 	

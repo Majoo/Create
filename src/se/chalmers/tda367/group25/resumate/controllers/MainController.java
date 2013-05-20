@@ -120,11 +120,39 @@ public class MainController implements PropertyChangeListener {
 					replace, replaceWith);
 
 			break;
+			
+		case Labels.REPLACE_ALL:	
+			String[] replaceTextsA = e.getNewValue().toString().split("/");
+			String replaceA = replaceTextsA[0];
+			String replaceWithA = replaceTextsA[1];
+			JEditorPane textAreaPersonal =  mainView.getCurDocView().getTemplatePanel().getPersonalInfoText();
+			JEditorPane textAreaHeader =  mainView.getCurDocView().getTemplatePanel().getHeaderTitle();
+			JEditorPane textAreaWork =  mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText();
+			
+			RMText textPersonal = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(textAreaPersonal));
+			RMText textHeader = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(textAreaHeader));
+			RMText textWork = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(textAreaWork));
+	
+			textPersonal.replaceText(textAreaPersonal , replaceA, replaceWithA);
+			textHeader.replaceText(textAreaHeader , replaceA, replaceWithA);
+			textWork.replaceText(textAreaWork , replaceA, replaceWithA);
+			
+			break;
 
 		case Labels.FIND_TEXT:
+<<<<<<< HEAD
 			String findText = e.getNewValue().toString();
 			JEditorPane textAreaFind =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
 			ViewHandler.findText(textAreaFind, findText);
+=======
+			String txt = e.getNewValue().toString();
+			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getPersonalInfoText(), txt);
+			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getHeaderTitle(), txt);
+			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText(), txt);
+>>>>>>> Updated findtext & replacetext (see desc)
 			break;
 
 		case Labels.RENAME_DOC:

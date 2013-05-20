@@ -65,7 +65,7 @@ public class ViewHandler {
 				}
 			}
 		}
-		JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
+	//	JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
 	}
 
 	/**

@@ -13,6 +13,7 @@ public class Labels {
 	public static final String TEXTSTYLE_CHANGED = "Style changed";
 	public static final String TEXTSIZE_CHANGED = "Size changed";
 	public static final String TEXT_REPLACED = "Text is replaced";
+	public static final String REPLACE_ALL = "Replaces all text";
 	public static final String FIND_TEXT = "Find text";
 	public static final String TEXTCOLOUR_CHANGED = "Text colour is changed";
 	
@@ -39,6 +40,8 @@ public class Labels {
 	public static final String TEXT_COPY = "Text is copied";
 	public static final String TEXT_CUT = "Text is cut";
 	public static final String TEXT_PASTE = "Text is pasted";
+
+	
 
 	
 }

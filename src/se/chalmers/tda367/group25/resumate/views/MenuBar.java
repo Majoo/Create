@@ -128,6 +128,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmReplace.addActionListener(this);
 		mntmReplace.setActionCommand("Replace");
 		mnEdit.add(mntmReplace);
+		
+		JMenuItem mntmReplaceAll = new JMenuItem("Replace All");
+		mntmReplaceAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK));
+		mntmReplaceAll.setMnemonic('A');
+		mntmReplaceAll.addActionListener(this);
+		mntmReplaceAll.setActionCommand("ReplaceAll");
+		mnEdit.add(mntmReplaceAll);
 
 
 		//Setting menu items and their properties located in the Format Menu
@@ -281,6 +288,32 @@ public class MenuBar extends JMenuBar implements ActionListener {
 						} else {
 							replaceWithNeedsInput = false;
 							pcs.firePropertyChange(Labels.TEXT_REPLACED, null, replaceThis + "/" + replaceWith);
+						}
+					}
+				}
+			}
+			break;
+		case "ReplaceAll":	
+			String replaceThiis = null;
+			String replaceWiith = null;
+			
+			boolean replaceWithNeedsInputA = true;
+			boolean replaceeNeedsInputA = true;
+			while(replaceeNeedsInputA){
+				replaceThiis = JOptionPane.showInputDialog(null, null,
+						"Replace all text", 2);
+				if(replaceThiis.isEmpty()){
+					JOptionPane.showMessageDialog(null,"Please enter a word to replace");
+				} else {
+					replaceeNeedsInputA = false;
+					while(replaceWithNeedsInputA){
+						replaceWiith = JOptionPane.showInputDialog(null, null,
+						"Replace all " + replaceThiis + " with:", 2);
+						if (replaceWiith.isEmpty()){
+							JOptionPane.showMessageDialog(null,"Please enter a word to replace with");
+						} else {
+							replaceWithNeedsInputA = false;
+							pcs.firePropertyChange(Labels.REPLACE_ALL, null, replaceThiis + "/" + replaceWiith);
 						}
 					}
 				}

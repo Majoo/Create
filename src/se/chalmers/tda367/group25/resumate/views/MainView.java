@@ -47,13 +47,12 @@ public class MainView extends JFrame implements MainViewInterface {
 	public MainView() {
 		// PropertyChangeSupport and other important stuff
 		pcs = new PropertyChangeSupport(this);
-		
+
 		// frame
 		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-
 
 		// Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
@@ -92,10 +91,14 @@ public class MainView extends JFrame implements MainViewInterface {
 
 		tabbedPane = new JTabbedPane();
 
-		layout.putConstraint(SpringLayout.NORTH, tabbedPane, 6, SpringLayout.SOUTH, toolbarPanel);
-		layout.putConstraint(SpringLayout.WEST, tabbedPane, 0, SpringLayout.WEST, contentPane);
-		layout.putConstraint(SpringLayout.SOUTH, tabbedPane, 738, SpringLayout.NORTH, contentPane);
-		layout.putConstraint(SpringLayout.EAST, tabbedPane, 0, SpringLayout.EAST, menuBar);
+		layout.putConstraint(SpringLayout.NORTH, tabbedPane, 6,
+				SpringLayout.SOUTH, toolbarPanel);
+		layout.putConstraint(SpringLayout.WEST, tabbedPane, 0,
+				SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.SOUTH, tabbedPane, 738,
+				SpringLayout.NORTH, contentPane);
+		layout.putConstraint(SpringLayout.EAST, tabbedPane, 0,
+				SpringLayout.EAST, menuBar);
 
 		DocumentView docView = new DocumentView();
 		docView.setID("First DocumentView");
@@ -103,13 +106,11 @@ public class MainView extends JFrame implements MainViewInterface {
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
 		tabbedPane.setSelectedComponent(docView);
-		
+
 		System.out.println(getCurDocView().getID());
-		
+
 		this.invalidate();
 		this.validate();
-		
-		
 	}
 
 	// PROPERTY-CHANGED-METHODS
@@ -123,49 +124,10 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		System.out.println("Inne i PropertyChangeEvent i MainView");
-		switch (arg0.getPropertyName()) {
-		case Labels.INSERT_IMAGE:
-			// arg0.getOldValue() is the path of the jpg/gif-file
-			// getCurDocView() returns the documentView in the tab that is in focus.
-			pcs.firePropertyChange(Labels.INSERT_IMAGE, arg0.getOldValue(),
-					getCurDocView());
-
-			break;
-		// Text handling:
-		case Labels.TEXT_ENTERED:
-		case Labels.TEXTFONT_CHANGED:
-		case Labels.TEXTSIZE_CHANGED:
-		case Labels.TEXTSTYLE_CHANGED:
-		case Labels.TEXT_REPLACED:
-			
-			System.out.println("Switch in MainView text");
-			
-			//The current section is given from the template which listens to its components
-			JEditorPane currentSection =  getCurDocView().getTemplatePanel().getCurrentSection();
-			
-			if(!currentSection.equals(null) && !arg0.getNewValue().equals(null)){
-				System.out.println("Fire text");
-				pcs.firePropertyChange(arg0.getPropertyName(), currentSection, arg0.getNewValue());
-				System.out.println("Text fired");
-			}
-			break;
-			
-		case Labels.FIND_TEXT:
-			String txt = arg0.getNewValue().toString();
-			JEditorPane currentSectionS =  getCurDocView().getTemplatePanel().getCurrentSection();
-			getCurDocView().getTemplatePanel().findText(currentSectionS,txt);
-			
-			break;
-			
-		case Labels.TEMPLATE_CHANGED:
-			
-			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(), arg0.getNewValue());
-			
-		default: //Do nothing
-			break;
+		if (!arg0.getNewValue().equals(null)) {
+			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(),
+					arg0.getNewValue());
 		}
-
 	}
 
 	// -----GETTERS-----
@@ -190,14 +152,16 @@ public class MainView extends JFrame implements MainViewInterface {
 		docViewList.add(docView);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 	}
-	
+
 	/**
-	 * Sends the initial DocumentView to DocumentController through MainController.
+	 * Sends the initial DocumentView to DocumentController through
+	 * MainController.
 	 */
-	public void sendInitialDocView(){
+	public void sendInitialDocView() {
 		DocumentView docView = this.docViewList.get(0);
 		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, "first");
-		System.out.println("Last in sendInitialDocView() i.e. message sent to MC");
+		System.out
+				.println("Last in sendInitialDocView() i.e. message sent to MC");
 	}
 
 	/**

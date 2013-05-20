@@ -111,26 +111,6 @@ public class Translator {
 		
 		return section;
 	}
-
-	/**
-	 * Typcasts an Object which is an instance of JEditorPane, which is the
-	 * current one, into a JEditorPane.
-	 * 
-	 * @param o 
-	 * 		the object to be typecasted.
-	 * @return
-	 * 		the textarea.
-	 */
-	
-	public static JEditorPane objectToJEditorPane(Object o){
-		JEditorPane section = null;
-		if(o != null && o instanceof JEditorPane){
-			section = (JEditorPane)o;
-		}
-		return section;
-	}
-	
-
 	
 	/**
 	 * Takes in a String that represents an image in the filesystem

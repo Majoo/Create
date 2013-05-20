@@ -174,16 +174,11 @@ public class ToolbarPanel extends JPanel{
 				pcs.firePropertyChange(Labels.TEXTFONT_CHANGED, fontCB, fontCB.getSelectedItem().toString());
 			}
 		});
-		//Lists all the fonts stored in the computer (will be changed).
+
 		GraphicsEnvironment e = GraphicsEnvironment
 				.getLocalGraphicsEnvironment();
-		Font[] fonts = e.getAllFonts(); // Get the fonts
-		String[] fontName = new String[fonts.length];
-		for (int i = 0; i < fonts.length; i++) {
-			fontName[i] = fonts[i].getFontName();
-		}
-		fontCB.setModel(new DefaultComboBoxModel(fontName));
-			
+		String [] fontes = e.getAvailableFontFamilyNames();
+		fontCB.setModel(new DefaultComboBoxModel(fontes));
 
 		// Setting properties for the combobox in which the sizes for the text are listed
 		textSizeCB = new JComboBox();

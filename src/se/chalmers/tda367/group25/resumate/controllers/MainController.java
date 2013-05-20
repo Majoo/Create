@@ -63,40 +63,40 @@ public class MainController implements PropertyChangeListener {
 		 */
 		case Labels.TEXT_ENTERED:
 			String text = e.getNewValue().toString();
-			JEditorPane textAreaE =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			SectionType sectionTypeE = Translator.containerToSectionType(textAreaE);
-			RMText textE = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(sectionTypeE);
+			JEditorPane textAreaEnter =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			SectionType sectionTypeEnter = Translator.containerToSectionType(textAreaEnter);
+			RMText textEnter = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(sectionTypeEnter);
 	
-			textE.setText(text);
+			textEnter.setText(text);
 			
 			break;
 
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
-			JEditorPane textAreaF =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			RMText textF = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(textAreaF));
-			textF.changeFont(textAreaF, font);
+			JEditorPane textAreaFont =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			RMText textFont = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(textAreaFont));
+			textFont.changeFont(textAreaFont, font);
 
 			break;
 
 		case Labels.TEXTSIZE_CHANGED:
 			int size = Integer.parseInt(e.getNewValue().toString());
-			JEditorPane textAreaSi =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			RMText textSi = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(textAreaSi));
+			JEditorPane textAreaSize =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			RMText textSize = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(textAreaSize));
 
-			textSi.changeSize(textAreaSi,size);
+			textSize.changeSize(textAreaSize,size);
 			break;
 
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
-			JEditorPane textAreaSt =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			RMText textSt = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(textAreaSt));
+			JEditorPane textAreaStyle =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			RMText textStyle = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(textAreaStyle));
 			
-			textSt.changeStyle(textAreaSt,style);
+			textStyle.changeStyle(textAreaStyle,style);
 	
 			break;
 			
@@ -113,18 +113,18 @@ public class MainController implements PropertyChangeListener {
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
 			JEditorPane textAreaR =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			RMText textR = docCon.getDoc(docCon.getCurrent()).getTexts()
+			RMText textReplace = docCon.getDoc(docCon.getCurrent()).getTexts()
 					.get(Translator.containerToSectionType(textAreaR));
 	
-			textR.replaceText(textAreaR,
+			textReplace.replaceText(textAreaR,
 					replace, replaceWith);
 
 			break;
 
 		case Labels.FIND_TEXT:
-			String txt = e.getNewValue().toString();
-			JEditorPane textAreaFi =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			ViewHandler.findText(textAreaFi, txt);
+			String findText = e.getNewValue().toString();
+			JEditorPane textAreaFind =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			ViewHandler.findText(textAreaFind, findText);
 			break;
 
 		case Labels.RENAME_DOC:
@@ -136,23 +136,44 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.TEMPLATE_CHANGED:
-			TemplatePanel t = Translator.templateToPanel(e.getNewValue());
-			mainView.getCurDocView().setTemplate(t);
+			TemplatePanel tempPChange = Translator.templateToPanel(e.getNewValue());
+			mainView.getCurDocView().setTemplate(tempPChange);
 			break;
 
 		// Undo/redo handling:
 		case Labels.UNDO_ACTION:
-			TemplatePanel pU = mainView.getCurDocView().getTemplatePanel();
-			ViewHandler.undoAction(pU.getCurrentSection(), pU.getManager());
+			TemplatePanel undoPAction = mainView.getCurDocView().getTemplatePanel();
+			ViewHandler.undoAction(undoPAction.getCurrentSection(), undoPAction.getManager());
 			
 			break;
 
 		case Labels.REDO_ACTION:
-			TemplatePanel pR = mainView.getCurDocView().getTemplatePanel();
-			ViewHandler.redoAction(pR.getCurrentSection(), pR.getManager());
+			TemplatePanel redoPAction = mainView.getCurDocView().getTemplatePanel();
+			ViewHandler.redoAction(redoPAction.getCurrentSection(), redoPAction.getManager());
 			break;
 
 		// IO handling:
+		case Labels.TEXT_COPY:
+			JEditorPane textAreaCopy = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			//Add your stuff in ViewHandler Lamm
+			break;
+			
+		case Labels.TEXT_CUT:
+			JEditorPane textAreaCut = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			//Add your stuff in ViewHandler Lamm
+			break;	
+		
+		case Labels.TEXT_PASTE:
+			JEditorPane textAreaPaste = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			//Add your stuff in ViewHandler Lamm
+			break;
+			
+		case Labels.TEXT_SELECTALL:
+			JEditorPane textAreaSA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+			//Add your stuff in ViewHandler Lamm
+			break;	
+			
+			
 		case Labels.SAVE_DOC:
 			ioCon.chooseFunction(Labels.SAVE_DOC, null,
 					docCon.getDoc(docCon.getCurrent()));
@@ -186,33 +207,13 @@ public class MainController implements PropertyChangeListener {
 			break;
 			
 			
-		case Labels.TEXT_COPY:
-			JEditorPane textAreaC = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
-			break;
-			
-		case Labels.TEXT_CUT:
-			JEditorPane textAreaCU = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
-			break;	
-		
-		case Labels.TEXT_PASTE:
-			JEditorPane textAreaP = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
-			break;
-			
-		case Labels.TEXT_SELECTALL:
-			JEditorPane textAreaSA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
-			break;	
-			
 		// Other handling:
 		case Labels.SEND_INITIAL_DOCVIEW:
-			DocumentView dv = (DocumentView)e.getOldValue();
-			System.out.println(dv.getID()+" In MainController" +
+			DocumentView docView = (DocumentView)e.getOldValue();
+			System.out.println(docView.getID()+" In MainController" +
 					", trying to add it in "+"\""+(String)e.getNewValue()+"\"");
 			docCon.addDocView((String)e.getNewValue()
-					,dv);
+					,docView);
 			break;
 		default: 
 			//Do nothing, never invoked

@@ -192,6 +192,11 @@ public class MainController implements PropertyChangeListener {
 					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
 					null);
 			break;
+			
+			
+		case Labels.TEXT_COPY:
+			JEditorPane textAreaC = Translator.objectToJEditorPane(e.getOldValue());
+			
 
 		// Other handling:
 		case Labels.SEND_INITIAL_DOCVIEW:

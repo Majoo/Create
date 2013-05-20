@@ -17,6 +17,7 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import se.chalmers.tda367.group25.resumate.controllers.*;
 import javax.swing.KeyStroke;
 import java.awt.event.InputEvent;
 
@@ -37,54 +38,58 @@ public class MenuBar extends JMenuBar {
 		setLookAndFeel();
 		
 		//the file
-		JMenu menuFile = new JMenu("File");
-		add(menuFile);
+		JMenu mnFile = new JMenu("File");
+		add(mnFile);
 
-		JMenuItem menuItemNew = new JMenuItem("New");
-		menuItemNew.setMnemonic('n');
-		menuItemNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
-		menuItemNew.addActionListener(new ActionListener() {
+		JMenuItem mntmNew = new JMenuItem("New");
+		mntmNew.setMnemonic('n');
+		mntmNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int selection = JOptionPane.showConfirmDialog(null,
-						"Are you sure you want to create a new document?", null,
+						"Do you want to save the document first?", null,
 						JOptionPane.YES_NO_OPTION);
 				if (selection == JOptionPane.YES_OPTION) {
 					//DannyForm textEditor = new DannyForm();
 					//textEditor.setLocationRelativeTo(null);
 					//textEditor.setVisible(true);
 					//currentFileDirectory = "";			//a new file gets renamed to nothing
-					JOptionPane.showMessageDialog(null, "implement something that creates a new doc");
+					JOptionPane.showMessageDialog(null, "Explorer/SAVE");
+				}else if(selection == JOptionPane.NO_OPTION){
+					new MainController();				//should create a new tab, not a new program
+				}else{
+					;
 				}
 			}
 		});
-		menuFile.add(menuItemNew);
+		mnFile.add(mntmNew);
 
 		//open document
-		JMenuItem menuItemOpen = new JMenuItem("Open");
-		menuItemOpen.setMnemonic('o');
-		menuItemOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+		JMenuItem mntmOpen = new JMenuItem("Open");
+		mntmOpen.setMnemonic('o');
+		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		
-		menuFile.add(menuItemOpen);
+		mnFile.add(mntmOpen);
 
-		JMenuItem menuItemSave = new JMenuItem("Save");
-		menuItemSave.setMnemonic('s');
-		menuItemSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
-		menuFile.add(menuItemSave);
+		JMenuItem mntmSave = new JMenuItem("Save");
+		mntmSave.setMnemonic('s');
+		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+		mnFile.add(mntmSave);
 
-		JMenuItem menuItemSaveAs = new JMenuItem("Save As...");
-		menuItemSaveAs.setMnemonic('a');
-		menuFile.add(menuItemSaveAs);
+		JMenuItem mntmSaveAs = new JMenuItem("Save As...");
+		mntmSaveAs.setMnemonic('a');
+		mnFile.add(mntmSaveAs);
 
-		JMenuItem menuItemExit = new JMenuItem("Exit");
-		menuItemExit.setMnemonic('e');
-		menuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
-		menuItemExit.addActionListener(new ActionListener() {
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.setMnemonic('e');
+		mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
+		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selection = JOptionPane.showConfirmDialog(null,
 						"Do you want to save the document first?", null,
 						JOptionPane.YES_NO_OPTION);
 				if (selection == JOptionPane.YES_OPTION) {
-					JOptionPane.showMessageDialog(null, "Open an explorer to save an .rsmt-file HERE"); //implementera Save här
+					JOptionPane.showMessageDialog(null, "Expolorer/SAVE"); //Implement Save here
 					System.exit(1);
 				}else if(selection == JOptionPane.CLOSED_OPTION){
 					;
@@ -93,7 +98,7 @@ public class MenuBar extends JMenuBar {
 				}
 			}
 		});
-		menuFile.add(menuItemExit);
+		mnFile.add(mntmExit);
 
 
 		//the edit

@@ -131,6 +131,12 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.imageLbl = imageLabel;
 	}
 	
+	
+//	public void copyText(JEditorPane section){
+//		section.getText();
+//		
+//	}
+	
 	/**
 	 *  Sets the current text area which currently was in focus
 	 *  

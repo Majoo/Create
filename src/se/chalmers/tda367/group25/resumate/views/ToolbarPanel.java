@@ -170,6 +170,14 @@ public class ToolbarPanel extends JPanel{
 		upperToolsPan.add(btnCut);
 
 		JButton btnCopy = new JButton("Copy");
+		btnCopy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				pcs.firePropertyChange(Labels.TEXT_COPY, false, true);
+				
+				
+			}
+		});
 		upperToolsPan.add(btnCopy);
 
 		JButton btnPaste = new JButton("Paste");

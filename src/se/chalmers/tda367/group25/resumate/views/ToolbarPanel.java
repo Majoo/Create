@@ -10,6 +10,11 @@ import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,12 +23,15 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 public class ToolbarPanel extends JPanel implements ActionListener{
@@ -95,6 +103,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		JButton btnRedo = new JButton("Redo");
 		btnRedo.addActionListener(this);
 		btnRedo.setActionCommand("Redo");
+		
 		upperToolsPan.add(btnRedo);
 
 		JButton btnUndo = new JButton("Undo");
@@ -203,10 +212,15 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		temp1But.setActionCommand("DefPL");
 		tempPanel.add(temp1But);
 		
-		JButton temp2But = new JButton("Classic PL");
+		JButton temp2But = new JButton("Default CV");
+		temp2But.addActionListener(this);
+		temp2But.setActionCommand("DefPL");
 		tempPanel.add(temp2But);
 		JButton temp3But = new JButton("Classic CV");
+		temp3But.addActionListener(this);
+		temp3But.setActionCommand("DefPL");
 		tempPanel.add(temp3But);
+		
 		JComboBox otherTemps = new JComboBox();
 		tempPanel.add(otherTemps);
 		add(tempPanel);
@@ -242,6 +256,12 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		case "Paste":
 			pcs.firePropertyChange(Labels.TEXT_PASTE, false, true);
 			break;
+		case "Cut":
+			pcs.firePropertyChange(Labels.TEXT_CUT, false, true);
+			break;
+		case "Select All":
+			pcs.firePropertyChange(Labels.TEXT_SELECTALL, false, true);
+			break;	
 		case "Undo":
 			pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
 			break;
@@ -283,7 +303,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 			}
 		break;
 		case "Save":
-			/* String currentFileDirectory = "";
+			 String currentFileDirectory = "";
 			if("".equals(currentFileDirectory)){					//if the current file is a new one (untitled)
 				JFileChooser sdChooser = new JFileChooser();		//file chooser
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
@@ -319,7 +339,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 				}catch(IOException err){
 					JOptionPane.showMessageDialog(null,  "ERROR!");
 				}	
-			}*/
+			}
 			break;
 		case "DefPL":
 			//pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.DEF_PL);

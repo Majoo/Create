@@ -29,12 +29,13 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		pcs = new PropertyChangeSupport(this);
 		setLayout(new BorderLayout(0, 0));
 		templatePnl = new CV_Def();
-		templatePnl.getWorkingExperienceText().setText("[ABOUT YOURSELF]");
+		templatePnl.getHeaderTitle().setText(" [HEADLINE]");
+		templatePnl.getWorkingExperienceText().setText(" [ABOUT YOURSELF]");
 		templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 20));
 		templatePnl.getWorkingExperienceText().setToolTipText("Write about yourself, what you do in your spare time and why you are suitable for this job.");
 		templatePnl.getHeaderTitle().setToolTipText("The headline of your r\u00E9sum\u00E9.");
 		templatePnl.getCurrentSection().setToolTipText("This is your personal information that needs to be filled. ");
-		templatePnl.getCurrentSection().setText("Namn:  \r\nAdress: \r\nPostnr:\r\nPersonnr: \r\nMobilnr: \r\nE-postadress: ");
+		templatePnl.getCurrentSection().setText("Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
 		add(templatePnl);
 		
 		JScrollPane scrollPane = new JScrollPane();

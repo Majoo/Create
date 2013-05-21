@@ -1,6 +1,7 @@
 package se.chalmers.tda367.group25.resumate.model;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,10 +59,9 @@ public class Document {
 						SectionType.WORK_EXPERIENCE));
 			}
 			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new RMText(
-						SectionType.HEADER));
+				texts.put(SectionType.HEADER, new RMText(SectionType.HEADER));
 			}
-			
+
 			break;
 		case DEF_PL:
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
@@ -91,19 +91,46 @@ public class Document {
 	 * @return the image
 	 */
 	public RMImage getImage() {
-		//TODO Make clone safe
+		// TODO Make clone safe
 		return rmI;
 	}
 
 	/**
-	 * Get the Map of the RMTexts of the Document.
+	 * Get the Map of the RMTexts of the Document. Used for IO purposes.
 	 * 
 	 * @return the Map of the RMTexts
 	 */
 	public Map<SectionType, RMText> getTexts() {
-		//TODO Make clone safe
+		// TODO Make clone safe
 		return texts;
-	}	
+	}
+
+	/**
+	 * Gets the Strings from the Map of RMTexts. Used
+	 * 
+	 * @return List of Strings
+	 */
+	public Map<SectionType, String> getStrings() {
+		Map<SectionType, String> strings = new HashMap<SectionType, String>(
+				texts.size());
+		if (texts.containsKey(SectionType.HEADER)) {
+			strings.put(SectionType.HEADER, texts.get(SectionType.HEADER)
+					.getText());
+		}
+		if (texts.containsKey(SectionType.PERSONAL_INFO)) {
+			strings.put(SectionType.PERSONAL_INFO,
+					texts.get(SectionType.PERSONAL_INFO).getText());
+		}
+		if (texts.containsKey(SectionType.WORK_EXPERIENCE)) {
+			strings.put(SectionType.WORK_EXPERIENCE,
+					texts.get(SectionType.WORK_EXPERIENCE).getText());
+		}
+		if (texts.containsKey(SectionType.EMPTY)) {
+			strings.put(SectionType.EMPTY, texts.get(SectionType.EMPTY)
+					.getText());
+		}
+		return strings;
+	}
 
 	// ---Setters---//
 
@@ -115,7 +142,7 @@ public class Document {
 	 */
 	public void setImage(BufferedImage image) {
 		this.rmI.setImage(image);
-		
+
 	}
 
 	/**
@@ -138,7 +165,7 @@ public class Document {
 	 * @param text
 	 *            the text to change to
 	 */
-	public void changeText(SectionType st, String text) {
+	public void setText(SectionType st, String text) {
 		if (!texts.containsKey(SectionType.WORK_EXPERIENCE)
 				|| !texts.containsKey(SectionType.PERSONAL_INFO)) {
 			createSections();
@@ -146,15 +173,4 @@ public class Document {
 
 		texts.get(st).setText(text);
 	}
-
-	/**
-	 * Change the Template of the Document.
-	 * 
-	 * @param temp
-	 *            the Template to change to
-	 */
-	public void changeTemplate(Template temp) {
-		setTemplate(temp);
-	}
-
 }

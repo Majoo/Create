@@ -209,7 +209,7 @@ public class MainController implements PropertyChangeListener {
 			
 		case Labels.SAVE_DOC:
 			ioCon.chooseFunction(Labels.SAVE_DOC, null,
-					docCon.getDoc(docCon.getCurrent()));
+					docCon.getDoc(docCon.getCurrent()).getStrings());
 			
 			break;
 

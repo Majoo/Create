@@ -122,28 +122,28 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		
 		textSizeCB.setModel(new DefaultComboBoxModel(new String[] {"7", "8", "9", "10"
 				, "11", "12", "13", "14", "15", "16", "18", "20", "22", "24", "26", "28"
-				, "30", "32", "36", "40", "44", "48", "52", "56", "60"}));
+				, "30", "32", "36", "40", "44", "48"}));
 
 		// Setting properties for the button which makes the text bold
-		JToggleButton tglbtnBold = new JToggleButton("B");
-		tglbtnBold.addActionListener(this);
-		tglbtnBold.setActionCommand("Bold");
-		tglbtnBold.setFont(new Font("Tahoma", Font.BOLD, 11));
+		JToggleButton btnBold = new JToggleButton("B");
+		btnBold.addActionListener(this);
+		btnBold.setActionCommand("Bold");
+		btnBold.setFont(new Font("Tahoma", Font.BOLD, 11));
 
 		// Setting properties for the button which make the text italic
-		JToggleButton tglbtnItalic = new JToggleButton("I");
-		tglbtnItalic.addActionListener(this);
-		tglbtnItalic.setActionCommand("Italic");	
-		tglbtnItalic.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		JToggleButton btnItalic = new JToggleButton("I");
+		btnItalic.addActionListener(this);
+		btnItalic.setActionCommand("Italic");	
+		btnItalic.setFont(new Font("Tahoma", Font.ITALIC, 11));
 
 		// Setting properties for the button which make the text underlined
-		JToggleButton tglbtnUnderline = new JToggleButton("U");
-		tglbtnUnderline.addActionListener(this);
-		tglbtnUnderline.setActionCommand("Underline");	
+		JToggleButton btnUnderline = new JToggleButton("U");
+		btnUnderline.addActionListener(this);
+		btnUnderline.setActionCommand("Underline");	
 		Map<TextAttribute, Object> map = new HashMap<TextAttribute, Object>();
 		map.put(TextAttribute.UNDERLINE,
 				TextAttribute.UNDERLINE_ON);
-		tglbtnUnderline.setFont(tglbtnUnderline.getFont().deriveFont(map));
+		btnUnderline.setFont(btnUnderline.getFont().deriveFont(map));
 		
 		// Setting properties for the button which make the text coloured
 		textColorCB = new JComboBox();
@@ -153,63 +153,63 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		textColorCB.setActionCommand("Color");
 
 		//Setting placement of the GUI
-		GroupLayout gl_lowerToolsPan = new GroupLayout(lowerToolsPan);
-		gl_lowerToolsPan.setHorizontalGroup(
-			gl_lowerToolsPan.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_lowerToolsPan.createSequentialGroup()
+		GroupLayout layoutToolsPan = new GroupLayout(lowerToolsPan);
+		layoutToolsPan.setHorizontalGroup(
+			layoutToolsPan.createParallelGroup(Alignment.LEADING)
+				.addGroup(layoutToolsPan.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(fontCB, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(textSizeCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(32)
-					.addComponent(tglbtnBold)
+					.addComponent(btnBold)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tglbtnItalic)
+					.addComponent(btnItalic)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tglbtnUnderline)
+					.addComponent(btnUnderline)
 					.addGap(46)
-					.addComponent(textColorCB, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(52, Short.MAX_VALUE))
+					.addComponent(textColorCB, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(363, Short.MAX_VALUE))
 		);
-		gl_lowerToolsPan.setVerticalGroup(
-			gl_lowerToolsPan.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_lowerToolsPan.createSequentialGroup()
+		layoutToolsPan.setVerticalGroup(
+			layoutToolsPan.createParallelGroup(Alignment.LEADING)
+				.addGroup(layoutToolsPan.createSequentialGroup()
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(gl_lowerToolsPan.createParallelGroup(Alignment.BASELINE)
+					.addGroup(layoutToolsPan.createParallelGroup(Alignment.BASELINE)
 						.addComponent(fontCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textColorCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tglbtnBold)
-						.addComponent(tglbtnItalic)
-						.addComponent(tglbtnUnderline)
+						.addComponent(btnBold)
+						.addComponent(btnItalic)
+						.addComponent(btnUnderline)
 						.addComponent(textSizeCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 		);
-		lowerToolsPan.setLayout(gl_lowerToolsPan);
+		lowerToolsPan.setLayout(layoutToolsPan);
 		toolsPan.add(lowerToolsPan);
 		add(toolsPan);
 
 		//Template chooser panel
-		JPanel tempsPan = new JPanel();
-		tempsPan.setBackground(Color.WHITE);
-		spLayout.putConstraint(SpringLayout.EAST, toolsPan, -6, SpringLayout.WEST, tempsPan);
-		spLayout.putConstraint(SpringLayout.WEST, tempsPan, 826, SpringLayout.WEST, this);
-		spLayout.putConstraint(SpringLayout.NORTH, tempsPan, 0, SpringLayout.NORTH, this);
-		spLayout.putConstraint(SpringLayout.SOUTH, tempsPan, 69, SpringLayout.NORTH, this);
-		spLayout.putConstraint(SpringLayout.EAST, tempsPan, -10, SpringLayout.EAST, this);
+		JPanel tempPanel = new JPanel();
+		tempPanel.setBackground(Color.WHITE);
+		spLayout.putConstraint(SpringLayout.EAST, toolsPan, -6, SpringLayout.WEST, tempPanel);
+		spLayout.putConstraint(SpringLayout.WEST, tempPanel, 826, SpringLayout.WEST, this);
+		spLayout.putConstraint(SpringLayout.NORTH, tempPanel, 0, SpringLayout.NORTH, this);
+		spLayout.putConstraint(SpringLayout.SOUTH, tempPanel, 69, SpringLayout.NORTH, this);
+		spLayout.putConstraint(SpringLayout.EAST, tempPanel, -10, SpringLayout.EAST, this);
 
 		//Setting template buttons
-		tempsPan.setLayout(new GridLayout(1, 4));
+		tempPanel.setLayout(new GridLayout(1, 4));
 		JButton temp1But = new JButton("Default PL");
 		temp1But.addActionListener(this);
 		temp1But.setActionCommand("DefPL");
-		tempsPan.add(temp1But);
+		tempPanel.add(temp1But);
 		
-		JButton temp2But = new JButton("temp2");
-		tempsPan.add(temp2But);
-		JButton temp3But = new JButton("temp3");
-		tempsPan.add(temp3But);
+		JButton temp2But = new JButton("Classic PL");
+		tempPanel.add(temp2But);
+		JButton temp3But = new JButton("Classic CV");
+		tempPanel.add(temp3But);
 		JComboBox otherTemps = new JComboBox();
-		tempsPan.add(otherTemps);
-		add(tempsPan);
+		tempPanel.add(otherTemps);
+		add(tempPanel);
 
 		//PropertyChangeSupport, Listeners and other important stuff.
 		pcs = new PropertyChangeSupport(this);
@@ -270,18 +270,17 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 			JOptionPane.showMessageDialog(null, "this should open a doc");
 			break;
 		case "New":
-		/*	int selection = JOptionPane.showConfirmDialog(null,
+		int selection = JOptionPane.showConfirmDialog(null,
 					"Do you want to save the document first?", null,
 					JOptionPane.YES_NO_OPTION);
 			if (selection == JOptionPane.YES_OPTION) {
-				JOptionPane.showMessageDialog(null, "Open an explorer to save an .rsmt-file HERE"); //implementera Save här
-				//Toolkit.getDefaultToolkit().beep();
+				 //Call SAVE here
 				//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
 			}else if(selection == JOptionPane.CLOSED_OPTION){
 				//Do nothing
 			}else{
 				//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
-			}*/
+			}
 		break;
 		case "Save":
 			/* String currentFileDirectory = "";

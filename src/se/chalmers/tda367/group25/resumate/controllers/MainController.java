@@ -143,10 +143,22 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.FIND_TEXT:
+<<<<<<< HEAD
+=======
+//<<<<<<< HEAD
+//			String findText = e.getNewValue().toString();
+//			JEditorPane textAreaFind =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+//			ViewHandler.findText(textAreaFind, findText);
+//=======
+>>>>>>> 044c9e7fce627d2b67812aaaacec4e06e4a403bc
 			String txt = e.getNewValue().toString();
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getPersonalInfoText(), txt);
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getHeaderTitle(), txt);
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText(), txt);
+<<<<<<< HEAD
+=======
+//>>>>>>> Updated findtext & replacetext (see desc)
+>>>>>>> 044c9e7fce627d2b67812aaaacec4e06e4a403bc
 			break;
 
 		case Labels.RENAME_DOC:
@@ -177,22 +189,23 @@ public class MainController implements PropertyChangeListener {
 		// IO handling:
 		case Labels.TEXT_COPY:
 			JEditorPane textAreaCopy = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
+			ViewHandler.textCopy(textAreaCopy.getSelectedText());
 			break;
 			
 		case Labels.TEXT_CUT:
 			JEditorPane textAreaCut = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
+			ViewHandler.textCut(textAreaCut.getSelectedText()); 
+			//replaceCurrent("");
 			break;	
 		
 		case Labels.TEXT_PASTE:
 			JEditorPane textAreaPaste = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
+			//ViewHandler.textPaste(textAreaPaste.getSelectedText());
 			break;
 			
 		case Labels.TEXT_SELECTALL:
 			JEditorPane textAreaSA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
+			//ViewHandler.selectAll(textAreaSA, selection);
 			break;	
 			
 			

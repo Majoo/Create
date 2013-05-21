@@ -38,10 +38,11 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		templatePnl.getCurrentSection().setText("Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
 		add(templatePnl);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		add(scrollPane, BorderLayout.EAST);
+		JScrollPane scroller = new JScrollPane(templatePnl);
+		 
+		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		add(scroller);
 	}
 	
 	public DocumentView(TemplatePanel templatePanel) {

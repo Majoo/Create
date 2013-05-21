@@ -50,7 +50,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		//Initialize components & adding some settings 
 		this.personalInfoText = new JEditorPane();
 		personalInfoText.setName("personalInfoText");
-		personalInfoText.setText("[PERSONAL_INFO] \nNamn:  \nAdress: \nPostnummer: \nIgnoreraDetta:");
+		personalInfoText.setText("Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
 		personalInfoText.addFocusListener(this);
 		personalInfoText.getDocument().addUndoableEditListener(manager);
 		Paint p = Color.black;
@@ -66,7 +66,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		
 		this.workingExperienceText = new JEditorPane();
 		workingExperienceText.setName("workingExperienceText");
-		workingExperienceText.setText("[INFORMATION]");
+		workingExperienceText.setText("[ABOUT YOURSELF]");
 		workingExperienceText.addFocusListener(this);
 		workingExperienceText.getDocument().addUndoableEditListener(manager);
 		workingExperienceText.setBorder(BorderFactory.createDashedBorder(p));

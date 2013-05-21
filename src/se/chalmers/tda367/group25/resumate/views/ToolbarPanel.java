@@ -250,60 +250,25 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		
 		switch(arg0.getActionCommand()){
-		case "Copy":
-			pcs.firePropertyChange(Labels.TEXT_COPY, false, true);
-			break;
-		case "Paste":
-			pcs.firePropertyChange(Labels.TEXT_PASTE, false, true);
-			break;
-		case "Cut":
-			pcs.firePropertyChange(Labels.TEXT_CUT, false, true);
-			break;
-		case "Select All":
-			pcs.firePropertyChange(Labels.TEXT_SELECTALL, false, true);
-			break;	
-		case "Undo":
-			pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
-			break;
-		case "Redo":	
-			pcs.firePropertyChange(Labels.REDO_ACTION, false, true);
-			break;
-		case "Font":
-			pcs.firePropertyChange(Labels.TEXTFONT_CHANGED, null, fontCB.getSelectedItem().toString());
-			break;
-		case "Size":	
-			pcs.firePropertyChange(Labels.TEXTSIZE_CHANGED, null, textSizeCB.getSelectedItem().toString());
-			break;
-		case "Bold":
-			pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, null, "B");
-			break;
-		case "Italic":	
-			pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, null, "I");
-			break;
-		case "Underline":
-			pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, null, "U");
-			break;
-		case "Color":
-			pcs.firePropertyChange(Labels.TEXTCOLOUR_CHANGED, null, textColorCB.getSelectedItem().toString());
-			break;
-		case "Open":
-			JOptionPane.showMessageDialog(null, "this should open a doc");
-			break;
 		case "New":
-		int selection = JOptionPane.showConfirmDialog(null,
+			int selection = JOptionPane.showConfirmDialog(null,
 					"Do you want to save the document first?", null,
 					JOptionPane.YES_NO_OPTION);
 			if (selection == JOptionPane.YES_OPTION) {
-				 //Call SAVE here
-				//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
+				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);	//Save Doc
+				pcs.firePropertyChange(Labels.NEW_DOC, false, true);	//New Doc
 			}else if(selection == JOptionPane.CLOSED_OPTION){
 				//Do nothing
 			}else{
+				pcs.firePropertyChange(Labels.NEW_DOC, false, true); 
 				//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
 			}
 		break;
 		case "Save":
-			 String currentFileDirectory = "";
+			
+			pcs.firePropertyChange(Labels.SAVE_DOC, false, true);
+			
+			/* String currentFileDirectory = "";
 			if("".equals(currentFileDirectory)){					//if the current file is a new one (untitled)
 				JFileChooser sdChooser = new JFileChooser();		//file chooser
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
@@ -339,7 +304,52 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 				}catch(IOException err){
 					JOptionPane.showMessageDialog(null,  "ERROR!");
 				}	
-			}
+			}*/
+			break;
+		case "Open":
+			pcs.firePropertyChange(Labels.OPEN_DOC, false, true);
+			break;
+		case "Save As":
+			pcs.firePropertyChange(Labels.SAVE_DOC_AS, false, true);
+			break;
+		case "Send":
+			pcs.firePropertyChange(Labels.SEND_DOC, false, true);
+			break;	
+		case "Undo":
+			pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
+			break;
+		case "Redo":	
+			pcs.firePropertyChange(Labels.REDO_ACTION, false, true);
+			break;
+		case "Select All":
+			pcs.firePropertyChange(Labels.TEXT_SELECTALL, false, true);
+			break;	
+		case "Copy":
+			pcs.firePropertyChange(Labels.TEXT_COPY, false, true);
+			break;
+		case "Paste":
+			pcs.firePropertyChange(Labels.TEXT_PASTE, false, true);
+			break;
+		case "Cut":
+			pcs.firePropertyChange(Labels.TEXT_CUT, false, true);
+			break;
+		case "Font":
+			pcs.firePropertyChange(Labels.TEXTFONT_CHANGED, null, fontCB.getSelectedItem().toString());
+			break;
+		case "Size":	
+			pcs.firePropertyChange(Labels.TEXTSIZE_CHANGED, null, textSizeCB.getSelectedItem().toString());
+			break;
+		case "Bold":
+			pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, null, "B");
+			break;
+		case "Italic":	
+			pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, null, "I");
+			break;
+		case "Underline":
+			pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, null, "U");
+			break;
+		case "Color":
+			pcs.firePropertyChange(Labels.TEXTCOLOUR_CHANGED, null, textColorCB.getSelectedItem().toString());
 			break;
 		case "DefPL":
 			//pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.DEF_PL);

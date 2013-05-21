@@ -67,7 +67,41 @@ public class ViewHandler {
 		}
 	//	JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
 	}
-
+	/**
+	 * Copy the text made in the current textarea.
+	 * @param copy
+	 * 			the current textarea.
+	 */
+	public static void textCopy(String copy){
+		;
+	}
+	/**
+	 * Cut the text made in the current textarea.
+	 * @param cut
+	 * 			the current textarea.
+	 */
+	public static void textCut(String cut){
+		;
+	}
+	/**
+	 * Paste the text made in the current textarea.
+	 * @param paste
+	 * 			the current textarea.
+	 */
+	
+	public static void textPaste(String paste){
+		;
+	}
+	
+	/**
+	 * Select all the text in the current textarea.
+	 * @param select
+	 * 			the current textarea.
+	 */
+	public static void selectAll(String select){
+		;
+	}
+	
 	/**
 	 * Undo's the change made in the current textarea.
 	 * @param section
@@ -97,5 +131,4 @@ public class ViewHandler {
 			Toolkit.getDefaultToolkit().beep();
 		}
 	}
-	
 }

@@ -183,22 +183,22 @@ public class MainController implements PropertyChangeListener {
 		// IO handling:
 		case Labels.TEXT_COPY:
 			JEditorPane textAreaCopy = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
+			//ViewHandler.textCopy(textAreaCopy.getSelectedText());
 			break;
 			
 		case Labels.TEXT_CUT:
 			JEditorPane textAreaCut = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
+			//ViewHandler.textCopy(textAreaCut.getSelectedText());
 			break;	
 		
 		case Labels.TEXT_PASTE:
 			JEditorPane textAreaPaste = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
+			//ViewHandler.textCopy(textAreaPaste.getSelectedText());
 			break;
 			
 		case Labels.TEXT_SELECTALL:
 			JEditorPane textAreaSA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//Add your stuff in ViewHandler Lamm
+			ViewHandler.selectAll(textAreaSA.getSelectedText());
 			break;	
 			
 			

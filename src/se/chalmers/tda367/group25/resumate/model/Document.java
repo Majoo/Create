@@ -115,6 +115,7 @@ public class Document {
 	 */
 	public void setImage(BufferedImage image) {
 		this.rmI.setImage(image);
+		
 	}
 
 	/**

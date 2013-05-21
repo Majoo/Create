@@ -255,6 +255,7 @@ public class DocumentController implements PropertyChangeListener {
 	 */
 	public void updateImage(Document doc, BufferedImage img) {
 		doc.setImage(img);
+		
 	}
 		
 }

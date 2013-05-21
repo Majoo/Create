@@ -51,8 +51,11 @@ public class MainController implements PropertyChangeListener {
 			//Update the image of the Document associated with the DocumentView e.getNewValue().
 			DocumentView v = mainView.getCurDocView();
 			System.out.println(v.getID());
-			docCon.updateImage(docCon.separateDocument(v), img);
+			Document d = docCon.separateDocument(v);
+			docCon.updateImage(d, img);
 			System.out.println("har kört updateImage(separateDoc(docview), img) i MainController");
+			//Then update the view with the image of the Document.
+			mainView.getCurDocView().getTemplatePanel().showImage(d.getImage().getOrigImage());
 			break;
 
 		/*
@@ -143,22 +146,10 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.FIND_TEXT:
-<<<<<<< HEAD
-=======
-//<<<<<<< HEAD
-//			String findText = e.getNewValue().toString();
-//			JEditorPane textAreaFind =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-//			ViewHandler.findText(textAreaFind, findText);
-//=======
->>>>>>> 044c9e7fce627d2b67812aaaacec4e06e4a403bc
 			String txt = e.getNewValue().toString();
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getPersonalInfoText(), txt);
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getHeaderTitle(), txt);
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText(), txt);
-<<<<<<< HEAD
-=======
-//>>>>>>> Updated findtext & replacetext (see desc)
->>>>>>> 044c9e7fce627d2b67812aaaacec4e06e4a403bc
 			break;
 
 		case Labels.RENAME_DOC:
@@ -205,7 +196,7 @@ public class MainController implements PropertyChangeListener {
 			
 		case Labels.TEXT_SELECTALL:
 			JEditorPane textAreaSA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//ViewHandler.selectAll(textAreaSA, selection);
+			//ViewHandler.selectAll(textAreaSA.getSelectedText());
 			break;	
 			
 			

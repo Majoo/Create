@@ -66,6 +66,7 @@ public class RMImage {
 	 */
 	public void setImage(BufferedImage image) {
 		this.origImg = image;
+		System.out.println("OrigImage i RMImage = "+image);
 	}
 	
 	/**

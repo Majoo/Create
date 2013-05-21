@@ -9,22 +9,19 @@ import se.chalmers.tda367.group25.resumate.views.DocumentView;
 
 
 public class DocConTest {
+	DocumentController docCon = new DocumentController();
+	DocumentView dv = new DocumentView();
 
 	@Test
 	public void addDocViewTest() {
-		DocumentController docCon = new DocumentController();
-		DocumentView dv = new DocumentView();
 		String ID = "ID";
-		
 		docCon.addDocView(ID, dv);
 
 		assert(docCon.getView(ID)== dv);
 	}
 	
 	@Test
-	public void getDocTest() {
-		DocumentController docCon = new DocumentController();
-		
+	public void getDocTest() {		
 		Document doc = docCon.getDoc(docCon.getCurrent());
 		
 		assert(docCon.getDoc(docCon.getCurrent()) != null);
@@ -33,11 +30,7 @@ public class DocConTest {
 	
 	@Test
 	public void separateDocTest() {
-		DocumentController docCon = new DocumentController();
-		DocumentView dv = new DocumentView();
-		
 		docCon.addDocView("first", dv);
-		
 		Document doc = docCon.separateDocument(dv);
 		
 		assert(doc == docCon.getDoc("first"));

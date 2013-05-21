@@ -43,21 +43,29 @@ public class MainController implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent e) {
 
 		switch (e.getPropertyName()) {
+		
 		/*Image handling*/
 		case Labels.INSERT_IMAGE:			
 			BufferedImage img = Translator.stringToImage((String)e.getOldValue());
 			//Update the image of the Document associated with the DocumentView in focus.
 			Document d = docCon.separateDocument(mainView.getCurDocView());
 			docCon.updateImage(d, img);
+			//Scaling
+			int width = mainView.getCurDocView().getTemplatePanel().getImageLabel().getWidth();
+			int height = mainView.getCurDocView().getTemplatePanel().getImageLabel().getHeight();
+			d.getImage().scaleImage(width, height);
+			d.getImage().setImage(d.getImage().getCurImage());
 			//Then update the view with the image of the Document.
 			mainView.getCurDocView().getTemplatePanel().showImage(d.getImage().getCurImage());
 			break;
+		
 		case Labels.GRAYSCALE_IMAGE:
 			Document doc = docCon.separateDocument(mainView.getCurDocView());
 			doc.getImage().makeGray();
 			//Then update the view with the image of the Document.
 			mainView.getCurDocView().getTemplatePanel().showImage(doc.getImage().getCurImage());
 			break;
+		
 		case Labels.RESET_IMAGE:
 			Document document = docCon.separateDocument(mainView.getCurDocView());
 			document.getImage().resetImage();

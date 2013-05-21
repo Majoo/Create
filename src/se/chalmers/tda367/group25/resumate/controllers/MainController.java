@@ -143,16 +143,10 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.FIND_TEXT:
-<<<<<<< HEAD
-			String findText = e.getNewValue().toString();
-			JEditorPane textAreaFind =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			ViewHandler.findText(textAreaFind, findText);
-=======
 			String txt = e.getNewValue().toString();
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getPersonalInfoText(), txt);
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getHeaderTitle(), txt);
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText(), txt);
->>>>>>> Updated findtext & replacetext (see desc)
 			break;
 
 		case Labels.RENAME_DOC:

@@ -98,10 +98,8 @@ public class IOController {
 					ioHandler.saveFile(filePathAndName, new Document());
 					// Connection to DocumentController needs to be established
 					// so that the correct Document can be fetched
-<<<<<<< HEAD
 					ioHandler.saveFile(filePathAndName, strings);
-=======
->>>>>>> Scrollbar, yay.
+
 				} else if (function.equals(Labels.SAVE_DOC_AS)) {
 					// Connection to DocumentController needs to be established
 					// so that the correct Document can be fetched

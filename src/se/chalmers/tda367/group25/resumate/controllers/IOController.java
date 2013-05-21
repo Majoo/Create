@@ -1,8 +1,6 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 
@@ -10,13 +8,12 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.itextpdf.text.DocumentException;
-
 import se.chalmers.tda367.group25.resumate.io.IOHandler;
 import se.chalmers.tda367.group25.resumate.io.PDFHandler;
-import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
+
+import com.itextpdf.text.DocumentException;
 
 /**
  * This class delegates IO functions, such as saving, opening and exporting

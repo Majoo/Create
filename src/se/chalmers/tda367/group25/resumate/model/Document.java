@@ -1,7 +1,6 @@
 package se.chalmers.tda367.group25.resumate.model;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;

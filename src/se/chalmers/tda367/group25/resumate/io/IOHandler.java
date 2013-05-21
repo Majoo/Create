@@ -18,6 +18,7 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
  * content of the corresponding text documents.
  * 
  * @author Laszlo Sall Vesselenyi
+ * @author Danny Lam
  */
 public class IOHandler {
 

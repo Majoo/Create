@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -71,6 +72,14 @@ public class MainController implements PropertyChangeListener {
 			document.getImage().resetImage();
 			//Then update the view with the image of the Document.
 			mainView.getCurDocView().getTemplatePanel().showImage(document.getImage().getCurImage());
+			break;
+			
+		case Labels.CROP_IMAGE:
+			Document dcmnt = docCon.separateDocument(mainView.getCurDocView());
+			Rectangle rect = (Rectangle) e.getOldValue();
+			dcmnt.getImage().crop(rect);
+			//Then update the view with the image of the Document.
+			mainView.getCurDocView().getTemplatePanel().showImage(dcmnt.getImage().getCurImage());
 			break;
 
 		/*

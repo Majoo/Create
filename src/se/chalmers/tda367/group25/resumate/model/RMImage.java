@@ -86,35 +86,32 @@ public class RMImage {
 	}
 
 	/**
-	 * Scale the image.
+	 * Scale the image to the width and height given as parameter.
 	 * 
 	 * @param width
 	 * 				the width of the product
 	 * @param height
 	 * 				the height of the product
-	 * @throws IOException
 	 */
 	public void scaleImage(int width, int height) {
-	    int imageWidth  = curImg.getWidth();
-	    int imageHeight = curImg.getHeight();
+	    int preWidth  = curImg.getWidth();
+	    int preHeight = curImg.getHeight();
 
-	    double scaleX = (double)width/imageWidth;
-	    double scaleY = (double)height/imageHeight;
-	    AffineTransform scaleTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
-	    AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
+	    double scaleX = (double)width/preWidth;
+	    double scaleY = (double)height/preHeight;
+	    AffineTransform affineTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
+	    AffineTransformOp affineTransformOp = new AffineTransformOp(affineTransform,
+	    		AffineTransformOp.TYPE_BILINEAR);
 
-	    this.curImg = bilinearScaleOp.filter(
-	        curImg,
-	        new BufferedImage(width, height, curImg.getType()));
+	    this.curImg = affineTransformOp.filter(
+	        curImg,new BufferedImage(width, height, curImg.getType()));
 	    
 	}
 
 	/**
 	 * Grayscale the Image of this RMImage.
 	 */
-	public void makeGray(){
-		System.out.println("Inne i makeGray");
-		
+	public void makeGray(){		
 		ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
 		ColorConvertOp op = new ColorConvertOp(cs, null);
 		this.curImg = op.filter(this.origImg, null); 

@@ -35,8 +35,10 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
 	private JEditorPane headerTitle;
-	private JEditorPane currentSection;
+	private JEditorPane educationText;
 	private JLabel imageLbl;
+	
+	private JEditorPane currentSection;
 	private PropertyChangeSupport pcs;
 	private UndoManager manager = new UndoManager();
 	
@@ -53,8 +55,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		personalInfoText.setText("Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
 		personalInfoText.addFocusListener(this);
 		personalInfoText.getDocument().addUndoableEditListener(manager);
-		Paint p = Color.black;
-		personalInfoText.setBorder(BorderFactory.createDashedBorder(p));
+		Paint blackPaint = Color.black;
+		personalInfoText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 
 		
 		this.headerTitle = new JEditorPane();
@@ -62,14 +64,21 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		headerTitle.setText("[HEADLINE]");
 		headerTitle.addFocusListener(this);
 		headerTitle.getDocument().addUndoableEditListener(manager);
-		headerTitle.setBorder(BorderFactory.createDashedBorder(p));
+		headerTitle.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		
 		this.workingExperienceText = new JEditorPane();
 		workingExperienceText.setName("workingExperienceText");
 		workingExperienceText.setText("[ABOUT YOURSELF]");
 		workingExperienceText.addFocusListener(this);
 		workingExperienceText.getDocument().addUndoableEditListener(manager);
-		workingExperienceText.setBorder(BorderFactory.createDashedBorder(p));
+		workingExperienceText.setBorder(BorderFactory.createDashedBorder(blackPaint));
+		
+		this.educationText = new JEditorPane();
+		this.educationText.setName("educationText");
+		this.educationText.setText("[EDUCATION]");
+		this.educationText.addFocusListener(this);
+		this.educationText.getDocument().addUndoableEditListener(manager);
+		this.educationText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 
 		this.imageLbl = new JLabel();
 		this.imageLbl.setBackground(Color.cyan);
@@ -115,6 +124,16 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	 */
 	public JLabel getImageLabel(){
 		return imageLbl;
+	}
+	
+	/**
+	 * Returns the textarea for educational information.
+	 * 
+	 * @return
+	 * 			The JEditorPane for information about education
+	 */
+	public JEditorPane educationText() {
+		return this.educationText;
 	}
 	
 	/**

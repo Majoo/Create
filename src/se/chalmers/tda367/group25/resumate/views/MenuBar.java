@@ -1,9 +1,13 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -20,8 +24,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import javax.swing.JCheckBoxMenuItem;
 
-public class MenuBar extends JMenuBar implements ActionListener {
+public class MenuBar extends JMenuBar implements ActionListener, MouseListener, MouseMotionListener {
 	private PropertyChangeSupport pcs;
+	private int x1, y1, x2, y2;
+	
 	/**
 	 * Create the menubar with items.
 	 */
@@ -373,6 +379,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		    }
 		    break;
 		case "Crop":
+			String message = "Drag the mouse over the image in a" +
+					" rectangle and it will be cropped that way";
+			JOptionPane.showMessageDialog(null, message);
 			break;
 		case "Grayscale":
 			pcs.firePropertyChange(Labels.GRAYSCALE_IMAGE, true, false);
@@ -384,7 +393,51 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		default:	//Do nothing, never invoked
 			break;
 		}
+		
+		
 	
+	}
+	//MOUSE-EVENT-METHODS
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		this.x1 = arg0.getX();
+		this.y1 = arg0.getY();		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		this.x2 = arg0.getX();
+		this.y2 = arg0.getY();
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		Rectangle rect = new Rectangle(Math.min(x1, x2), Math.min(y1, y2), Math.max(x1, x2), Math.max(y1, y2));
+		System.out.println(rect);
+		pcs.firePropertyChange(Labels.CROP_IMAGE, rect, null);
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// Don't want anything to happen
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// Don't want anything to happen		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// Don't want anything to happen		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// Don't want anything to happen		
 	}
 
 }

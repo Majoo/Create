@@ -22,7 +22,9 @@ import javax.swing.JCheckBoxMenuItem;
 
 public class MenuBar extends JMenuBar implements ActionListener {
 	private PropertyChangeSupport pcs;
-
+	/**
+	 * Create the menubar with items.
+	 */
 	public MenuBar(){
 		pcs = new PropertyChangeSupport(this);		
 		setLookAndFeel();
@@ -53,6 +55,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mnFile.add(mntmSave);
 
 		JMenuItem mntmSaveAs = new JMenuItem("Save As...");
+		mntmSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmSaveAs.setMnemonic('a');
 		mntmSaveAs.addActionListener(this);
 		mntmSaveAs.setActionCommand("SaveAs");
@@ -105,12 +108,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmPaste.setActionCommand("Paste");
 		mnEdit.add(mntmPaste);
 
-		JMenuItem mntmSelectAll = new JMenuItem("Select All");
-		mntmSelectAll.setMnemonic('S');
-		mntmSelectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
-		mntmSelectAll.addActionListener(this);
-		mntmSelectAll.setActionCommand("Select All");
-		mnEdit.add(mntmSelectAll);
+		JMenuItem mntmSA = new JMenuItem("Select All");
+		mntmSA.setMnemonic('S');
+		mntmSA.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
+		mntmSA.addActionListener(this);
+		mntmSA.setActionCommand("Select All");
+		mnEdit.add(mntmSA);
 		
 		JSeparator separator = new JSeparator();
 		mnEdit.add(separator);
@@ -167,6 +170,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		add(mnInsert);
 		
 		JMenuItem uploadImage = new JMenuItem("Image");
+		uploadImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		uploadImage.addActionListener(this);
 		uploadImage.setActionCommand("Upload");
 		mnInsert.add(uploadImage);
@@ -250,17 +254,23 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				System.exit(1);
 			}
 			break;
+		case "Undo":
+			pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
+			break;
+		case "Redo":	
+			pcs.firePropertyChange(Labels.REDO_ACTION, false, true);
+			break;
 		case "Copy":
 			pcs.firePropertyChange(Labels.TEXT_COPY, false, true);
 			break;
 		case "Paste":
 			pcs.firePropertyChange(Labels.TEXT_PASTE, false, true);
 			break;
-		case "Undo":
-			pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
+		case "Cut":
+			pcs.firePropertyChange(Labels.TEXT_CUT, false, true);
 			break;
-		case "Redo":	
-			pcs.firePropertyChange(Labels.REDO_ACTION, false, true);
+		case "SelectAll":
+			pcs.firePropertyChange(Labels.TEXT_SELECTALL, false, true);
 			break;
 		case "Find":
 			String text = JOptionPane.showInputDialog(null, null,

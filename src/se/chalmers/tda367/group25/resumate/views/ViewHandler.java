@@ -3,6 +3,7 @@ package se.chalmers.tda367.group25.resumate.views;
 import java.awt.Color;
 import java.awt.Toolkit;
 
+import javax.naming.CannotProceedException;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
@@ -73,7 +74,12 @@ public class ViewHandler {
 	 * 			the current textarea.
 	 */
 	public static void textCopy(String copy){
-		;
+		
+		
+		
+		
+		
+		
 	}
 	/**
 	 * Cut the text made in the current textarea.
@@ -95,11 +101,11 @@ public class ViewHandler {
 	
 	/**
 	 * Select all the text in the current textarea.
-	 * @param select
+	 * @param section
 	 * 			the current textarea.
 	 */
-	public static void selectAll(String select){
-		;
+	public static void selectAll(JEditorPane section){
+			section.selectAll();
 	}
 	
 	/**

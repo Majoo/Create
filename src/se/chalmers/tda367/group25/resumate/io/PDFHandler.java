@@ -37,7 +37,7 @@ public class PDFHandler {
 	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("deprecation")
-	public static void createPdf(JComponent jc, String filePathAndName)
+	public static synchronized void createPdf(JComponent jc, String filePathAndName)
 			throws FileNotFoundException, DocumentException {
 
 		int panelWidth = jc.getWidth();
@@ -82,7 +82,7 @@ public class PDFHandler {
 	 *            the original path and file name
 	 * @return a File with a unique path and file name
 	 */
-	private static File getUniqueFile(String fileName) {
+	private static synchronized File getUniqueFile(String fileName) {
 		File file = new File(fileName + ".pdf");
 		int i = 1;
 		while (file.exists()) {

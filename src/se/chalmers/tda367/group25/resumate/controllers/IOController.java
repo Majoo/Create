@@ -41,7 +41,6 @@ public class IOController {
 	 *            only necessary when saving and path already exists, may be
 	 *            null
 	 */
-
 	public void chooseFunction(String function, JComponent jc, Map<SectionType, String> strings,
 			String path) {
 		if (function.equals(Labels.SAVE_DOC)) {

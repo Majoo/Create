@@ -104,7 +104,7 @@ public class ViewHandler {
 	 * @param section
 	 * 			the current textarea.
 	 */
-	public static void selectAll(JEditorPane section){
+	public static void selectAll(JEditorPane section, String selection){
 			section.selectAll();
 	}
 	

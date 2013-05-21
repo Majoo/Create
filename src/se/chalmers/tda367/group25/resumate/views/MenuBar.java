@@ -188,6 +188,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		grayscaleImage.addActionListener(this);
 		grayscaleImage.setActionCommand("Grayscale");
 		mnImage.add(grayscaleImage);
+		
+		JMenuItem resetImage = new JMenuItem("Reset");
+		resetImage.addActionListener(this);
+		resetImage.setActionCommand("Reset image");
+		mnImage.add(resetImage);
 
 		//Setting menu items and their properties located in the Show Menu
 		JMenu mnShow = new JMenu("Show");
@@ -352,8 +357,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		case "Underline":
 			pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, null, "U");
 			break;
+			
+		/*Image related: */
 		case "Upload":
-			//Let the user choose an image to upload
 			JFileChooser chooser = new JFileChooser();
 		    FileNameExtensionFilter filter = new FileNameExtensionFilter(
 		        "JPG, PNG & GIF Images", "jpg", "gif", "png", "jpeg");
@@ -371,8 +377,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		case "Grayscale":
 			pcs.firePropertyChange(Labels.GRAYSCALE_IMAGE, true, false);
 			break;
+		case "Reset image":
+			pcs.firePropertyChange(Labels.RESET_IMAGE, true, false);
+			break;
 				
 		default:	//Do nothing, never invoked
+			break;
 		}
 	
 	}

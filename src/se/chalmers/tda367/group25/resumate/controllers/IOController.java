@@ -1,23 +1,25 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import se.chalmers.tda367.group25.resumate.io.IOHandler;
+import se.chalmers.tda367.group25.resumate.io.PDFHandler;
+import se.chalmers.tda367.group25.resumate.utils.Labels;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
+
 import com.itextpdf.text.DocumentException;
 
-import se.chalmers.tda367.group25.resumate.model.Document;
-import se.chalmers.tda367.group25.resumate.model.IOHandler;
-import se.chalmers.tda367.group25.resumate.model.PDFHandler;
-import se.chalmers.tda367.group25.resumate.utils.Labels;
-
-/*
- * This class forwards IO assignments.
+/**
+ * This class delegates IO functions, such as saving, opening and exporting
+ * Documents to the corresponding IO classes, IOHandler and PDFHandler.
+ * 
+ * @author Laszlo Sall Vesselenyi
  */
 public class IOController {
 
@@ -33,17 +35,18 @@ public class IOController {
 	 * @param jc
 	 *            only necessary when exporting, printing or sending, may be
 	 *            null
-	 * @param doc
+	 * @param strings
 	 *            only necessary when saving, may be null
 	 * @param path
 	 *            only necessary when saving and path already exists, may be
 	 *            null
 	 */
-	public void chooseFunction(String function, JComponent jc, Document doc,
+
+	public void chooseFunction(String function, JComponent jc, Map<SectionType, String> strings,
 			String path) {
 		if (function.equals(Labels.SAVE_DOC)) {
 			try {
-				IOHandler.saveFile(path, doc);
+				IOHandler.saveFile(path, strings);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -53,11 +56,11 @@ public class IOController {
 				|| (function.equals(Labels.OPEN_DOC))
 				|| (function.equals(Labels.RENAME_DOC))) {
 			try {
-				choosePath(jc, function, doc);
+				choosePath(jc, function, strings);
 			} catch (FileNotFoundException e) {
 				// Probably means that the user entered the wrong path name.
 				// Thus, let them try again.
-				chooseFunction(function, jc, doc, path);
+				chooseFunction(function, jc, strings, path);
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -81,9 +84,10 @@ public class IOController {
 	 * @param doc
 	 *            TODO
 	 */
-	public void choosePath(JComponent jc, String function, Document doc)
-			throws FileNotFoundException, DocumentException,
-			NullPointerException {
+	public void choosePath(JComponent jc, String function,
+			Map<SectionType, String> strings) throws FileNotFoundException,
+			DocumentException, NullPointerException {
+
 
 		JFileChooser chooser = new JFileChooser();
 
@@ -100,9 +104,14 @@ public class IOController {
 					PDFHandler.createPdf(jc, filePathAndName);
 				} else if (function.equals(Labels.SEND_DOC)) {
 					;
+
+				} else if (function.equals(Labels.SAVE_DOC)) {
+					// Connection to DocumentController needs to be established
+					// so that the correct Document can be fetched
+					IOHandler.saveFile(filePathAndName, strings);
 				} else if (function.equals(Labels.SAVE_DOC_AS)) {
-					IOHandler.saveFile(filePathAndName, doc);
-					doc.setFilePath(filePathAndName);
+					// Connection to DocumentController needs to be established
+					// so that the correct Document can be fetched
 				} else if (function.equals(Labels.OPEN_DOC)) {
 					IOHandler.openFile(filePathAndName);
 				}

@@ -1,8 +1,9 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Paint;
-import java.awt.Transparency;
+import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
@@ -15,8 +16,12 @@ import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 
 
 /**
@@ -29,36 +34,49 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 
 	private JEditorPane personalInfoText;
 	private JEditorPane workingExperienceText;
-	private JEditorPane otherText;
-	private JLabel imageLbl;
+	private JEditorPane headerTitle;
 	private JEditorPane currentSection;
-	
+	private JLabel imageLbl;
 	private PropertyChangeSupport pcs;
+	private UndoManager manager = new UndoManager();
 	
  	/**
  	 * Create the panel. 
  	 * Is invoked in subclasses with the propper JEditorPanes.
  	 */
-	public TemplatePanel(){		
+	public TemplatePanel(){
+		this.setBackground(Color.white);
 		
 		//Initialize components & adding some settings 
 		this.personalInfoText = new JEditorPane();
+		personalInfoText.setName("personalInfoText");
 		personalInfoText.setText("[PERSONAL_INFO] \nNamn:  \nAdress: \nPostnummer: \nIgnoreraDetta:");
 		personalInfoText.addFocusListener(this);
+		personalInfoText.getDocument().addUndoableEditListener(manager);
+		Paint p = Color.black;
+		personalInfoText.setBorder(BorderFactory.createDashedBorder(p));
+
 		
-		this.otherText = new JEditorPane();
-		otherText.setText("[HEADLINE]");
-		otherText.addFocusListener(this);
+		this.headerTitle = new JEditorPane();
+		headerTitle.setName("headerTitle");
+		headerTitle.setText("[HEADLINE]");
+		headerTitle.addFocusListener(this);
+		headerTitle.getDocument().addUndoableEditListener(manager);
+		headerTitle.setBorder(BorderFactory.createDashedBorder(p));
 		
 		this.workingExperienceText = new JEditorPane();
+		workingExperienceText.setName("workingExperienceText");
 		workingExperienceText.setText("[INFORMATION]");
 		workingExperienceText.addFocusListener(this);
+		workingExperienceText.getDocument().addUndoableEditListener(manager);
+		workingExperienceText.setBorder(BorderFactory.createDashedBorder(p));
 
 		this.imageLbl = new JLabel();
 		this.imageLbl.setBackground(Color.cyan);
+		this.imageLbl.setVisible(true);
 		setImageLabel(imageLbl);
 		
-		currentSection = getPersonalInfoText();
+		currentSection = personalInfoText;
 		this.pcs = new PropertyChangeSupport(this);
 	}
 
@@ -86,8 +104,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	 * 
 	 * @return JEditorPane for other texts
 	 */
-	public JEditorPane getOtherText() {
-		return otherText;
+	public JEditorPane getHeaderTitle() {
+		return headerTitle;
 	}
 	
 	/**
@@ -108,6 +126,15 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		return currentSection;
 	}
 	
+	/**
+	 * Returns the manager handling undo & redo
+	 * @return UndoManager for the sections
+	 */
+	public UndoManager getManager(){
+		return manager;
+	}
+	
+	
 	//-----Setters for components------
 	
 	/**
@@ -118,6 +145,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public void setImageLabel(JLabel imageLabel) {
 		this.imageLbl = imageLabel;
 	}
+	
 	
 	/**
 	 *  Sets the current text area which currently was in focus
@@ -141,63 +169,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	}
 	
 	
-	//-----Other setters-----
-	/**
-	 * Searches after the String input in variable text. 
-	 * If it is found then the current textcontainer will mark this text.
-	 * 
-	 * @param input
-	 *            the String which is to be found
-	 */
-	public void findText(JEditorPane section, String input) {
-
-		// Removes the previous highlights if there were any. (Will be placed somewhere else in the GUI later)
-		section.getHighlighter().removeAllHighlights();
-
-		if (input.length() <= 0) {
-			JOptionPane.showMessageDialog(null, "Nothing to search");
-			return;
-		}
-		/*
-		 * Gets the text from the chosen editorpane and searches after the input from the beginning of the text.
-		 */
-		String content = section.getText();
-		int start = content.indexOf(input, 0);
-		int end;
-		DefaultHighlighter.DefaultHighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(
-				Color.YELLOW);
-		int matchesFound = 0;
-		boolean isSearching = true;
-		
-		/*
-		 * Searches for the specific word.
-		 * The text is found if the index of start is larger or equal to zero. The indexes of start and end it will change 
-		 * so that it will be after the found word. The found word is marked by a highlighter.
-		 */
-		while (isSearching) {
-			if (start >= 0) {
-				++matchesFound;
-				try {
-					end = start + input.length();
-					section.getHighlighter().addHighlight(start, end, painter);
-					start = content.indexOf(input, end);
-
-				} catch (BadLocationException e) {
-					JOptionPane.showMessageDialog(null,
-							"Error: " + e.getMessage());
-				}
-			} else {
-				isSearching = false;
-				if (matchesFound == 0) {
-					JOptionPane.showMessageDialog(null, "'" + input
-							+ "' not found.");
-				}
-			}
-		}
-		JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
-	}
-
-	
 	//PROPERTY-CHANGED-METHODS
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
@@ -214,12 +185,11 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	
 	@Override
 	public void focusGained(FocusEvent arg0) {
-		if(arg0.getComponent() instanceof JEditorPane){
+		if(arg0.getComponent().getClass().equals(JEditorPane.class)){
 			//updateCurrentSection();
-			currentSection.setBorder(null);
+			System.out.println("Focus JEDitorPane");
+			//currentSection.setBorder(null);
 			currentSection = (JEditorPane)arg0.getComponent();
-			Paint p = Color.black;
-			//currentSection.setBorder(BorderFactory.createDashedBorder(p));
 		}
 	}
 

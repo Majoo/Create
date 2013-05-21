@@ -6,29 +6,13 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
-
-import javax.swing.JLabel;
 import javax.swing.SpringLayout;
-
-import com.itextpdf.awt.geom.Dimension;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
-import se.chalmers.tda367.group25.resumate.utils.Translator;
-import java.awt.CardLayout;
 
 public class MainView extends JFrame implements MainViewInterface {
 	private MenuBar menuBar;
@@ -46,13 +30,13 @@ public class MainView extends JFrame implements MainViewInterface {
 	public MainView() {
 		// PropertyChangeSupport and other important stuff
 		pcs = new PropertyChangeSupport(this);
-		
+
 		// frame
 		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+		setSize(840,500);										//The default size when you minimize the frame
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
+		setExtendedState(JFrame.MAXIMIZED_BOTH);				//fullscreen
 
 		// Creating and setting backgroundpanel
 		JPanel contentPane = new JPanel();
@@ -91,24 +75,26 @@ public class MainView extends JFrame implements MainViewInterface {
 
 		tabbedPane = new JTabbedPane();
 
-		layout.putConstraint(SpringLayout.NORTH, tabbedPane, 6, SpringLayout.SOUTH, toolbarPanel);
-		layout.putConstraint(SpringLayout.WEST, tabbedPane, 0, SpringLayout.WEST, contentPane);
-		layout.putConstraint(SpringLayout.SOUTH, tabbedPane, 738, SpringLayout.NORTH, contentPane);
-		layout.putConstraint(SpringLayout.EAST, tabbedPane, 0, SpringLayout.EAST, menuBar);
+		layout.putConstraint(SpringLayout.NORTH, tabbedPane, 6,
+				SpringLayout.SOUTH, toolbarPanel);
+		layout.putConstraint(SpringLayout.WEST, tabbedPane, 0,
+				SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.SOUTH, tabbedPane, 738,
+				SpringLayout.NORTH, contentPane);
+		layout.putConstraint(SpringLayout.EAST, tabbedPane, 0,
+				SpringLayout.EAST, menuBar);
 
 		DocumentView docView = new DocumentView();
 		docView.setID("First DocumentView");
-		//The documentview is created here and then sent to documentcontroller
-		//through maincontroller.
-		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, "first");
-		System.out.println("Efter SEND_INITIAL_DOCVIEW i MainView");
 		docViewList.add(docView);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
-		
+		tabbedPane.setSelectedComponent(docView);
+
+		System.out.println(getCurDocView().getID());
+
 		this.invalidate();
 		this.validate();
-		
 	}
 
 	// PROPERTY-CHANGED-METHODS
@@ -122,76 +108,40 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-
-		switch (arg0.getPropertyName()) {
-		case Labels.INSERT_IMAGE:
-			// arg0.getOldValue() is the string representation of the file
-			// the user chose to upload.
-			pcs.firePropertyChange(Labels.INSERT_IMAGE, arg0.getOldValue(),
-					getCurDocView());
-
-			break;
-		// Text handling:
-		case Labels.TEXT_ENTERED:
-		case Labels.TEXTFONT_CHANGED:
-		case Labels.TEXTSIZE_CHANGED:
-		case Labels.TEXTSTYLE_CHANGED:
-		case Labels.TEXT_REPLACED:
-			
-			System.out.println("Switch in MainView 1");
-			JEditorPane currentSection =  getCurDocView().getTemplatePanel().getCurrentSection();
-			pcs.firePropertyChange(arg0.getPropertyName(), currentSection, arg0.getNewValue());
-			System.out.println("Switch in MainView 2");
-			break;
-			
-		case Labels.TEMPLATE_CHANGED:
-			
-			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(), arg0.getNewValue());
-			
-		default: //Do nothing
-			break;
+		if (!arg0.getNewValue().equals(null)) {
+			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(),
+					arg0.getNewValue());
 		}
-
 	}
 
 	// -----GETTERS-----
 	/**
-	 * Get the DocView i.e. tab that is currently in focus.
+	 * Get the DocView in the tab that is currently in focus.
 	 * 
 	 * @return the DocView that is in the tab that is currently in focus.
 	 */
 	public DocumentView getCurDocView() {
-		return (DocumentView) tabbedPane.getTabComponentAt(tabbedPane
-				.getSelectedIndex());
+		return (DocumentView) tabbedPane.getSelectedComponent();
 	}
 
 	// -----SETTERS-----
 	/**
-	 * Add a new DocumentView in a new tab. Needs to know what template the user
-	 * has chosen and this is given as a parameter.
+	 * Creates a new tab and puts a DocumentView in it. 
 	 * 
-	 * @param the
-	 *            template the new DocumentView will have.
+	 * @param docView
+	 *            the template the new DocumentView will have.
 	 */
-	public void newTab(TemplatePanel templatePnl) {
-		DocumentView newDocView = new DocumentView(templatePnl);
-		docViewList.add(newDocView);
-		tabbedPane.addTab("unsaved", null, newDocView, "unsaved");
+	public void newTab(DocumentView docView) {
+		docViewList.add(docView);
+		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 	}
 
 	/**
-	 * Update the DocumentView with the Image in filesystem that has the
-	 * filename given as parameter.
-	 * 
-	 * @param docView
-	 *            - the DocumentView to upload the image in
-	 * @param filename
-	 *            - the filename of the Image to be uploaded
+	 * Sends the initial DocumentView to its listener(s).
 	 */
-	public void setImage(DocumentView docView, String filename) {
-		// Göra en BufferedImage av filnamnet
-
-		// get the TemplatePanel of the docView
-		// invoke the setImage-method
+	public void sendInitialDocView() {
+		DocumentView docView = this.docViewList.get(0);
+		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, "first");
 	}
+
 }

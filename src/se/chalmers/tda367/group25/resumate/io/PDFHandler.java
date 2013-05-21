@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.model;
+package se.chalmers.tda367.group25.resumate.io;
 
 import java.awt.Graphics2D;
 import java.io.File;
@@ -13,10 +13,16 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 
+/**
+ * This class handles exporting a document as a PDF.
+ * 
+ * @author Laszlo Sall Vesselenyi
+ */
 public class PDFHandler {
 
 	/**
-	 * Creates PDF, using the external iText library.
+	 * Creates PDF, using the external iText library. If a document is longer
+	 * than a single page, the PDF is extended.
 	 * 
 	 * Original taken from
 	 * http://www.javaworld.com/javaworld/jw-12-2006/jw-1209-swing.html
@@ -38,6 +44,8 @@ public class PDFHandler {
 		int panelHeight = jc.getHeight();
 
 		Document document = new Document();
+		
+		int a = (int)(document.leftMargin() + document.rightMargin() - panelWidth);
 
 		File file = getUniqueFile(filePathAndName);
 
@@ -46,32 +54,29 @@ public class PDFHandler {
 
 		document.open();
 		PdfContentByte cb = writer.getDirectContent();
-		PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
-		Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
-		jc.print(g2);
-		g2.dispose();
-		cb.addTemplate(tp, (document.left()), (document.top() - panelHeight));
 
 		// If the incoming JComponent representation of a Document is larger
 		// than a single PDF document, create new pages accordingly
-		int delta = (int) (panelHeight - document.top());
+		int delta = panelHeight;
 		while (delta >= 0) {
 			document.newPage();
-			PdfTemplate tp2 = cb.createTemplate(panelWidth, panelHeight);
-			Graphics2D g22 = tp2.createGraphicsShapes(panelWidth, panelHeight);
-			jc.print(g22);
-			cb.addTemplate(tp2, document.left(document.leftMargin()),
+			PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
+			Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
+			jc.print(g2);
+			cb.addTemplate(tp, document.left(document.leftMargin()),
 					document.top() - delta);
-			g22.dispose();
+			g2.dispose();
 			delta = (int) (delta - document.top());
 		}
-
+		
 		document.close();
 	}
-	
+
+
 	/**
 	 * Returns a File with a unique path and file name by concatenating an
-	 * integer in parenthesis to the file name.
+	 * integer in parenthesis to the file name. The integer corresponds to how
+	 * many files of the same name already exist.
 	 * 
 	 * @param fileName
 	 *            the original path and file name

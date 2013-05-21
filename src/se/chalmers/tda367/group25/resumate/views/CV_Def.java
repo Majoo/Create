@@ -1,6 +1,5 @@
-package se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels;
+package se.chalmers.tda367.group25.resumate.views;
 
-import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JEditorPane;
@@ -11,7 +10,7 @@ public class CV_Def extends TemplatePanel {
 	
 	public CV_Def() {
 		super();
-
+		
 		//Place components
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -20,16 +19,16 @@ public class CV_Def extends TemplatePanel {
 					.addGap(56)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(getWorkingExperienceText(), GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+							.addComponent(getWorkingExperienceText(), GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
 							.addContainerGap())
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(getPersonalInfoText(), GroupLayout.PREFERRED_SIZE, 337, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-							.addComponent(getImageLabel(), GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-							.addGap(57))
+							.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+							.addComponent(getImageLabel(), GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+							.addGap(52))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(getOtherText(), GroupLayout.PREFERRED_SIZE, 437, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getWorkingExperienceText(), GroupLayout.DEFAULT_SIZE, 463, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getHeaderTitle(), GroupLayout.PREFERRED_SIZE, 437, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getWorkingExperienceText(), GroupLayout.PREFERRED_SIZE, 403, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap()).addGap(57))));
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -39,10 +38,10 @@ public class CV_Def extends TemplatePanel {
 						.addComponent(getImageLabel(), GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
 						.addComponent(getPersonalInfoText(), GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(getOtherText(), GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+					.addComponent(getHeaderTitle(), GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(getWorkingExperienceText(), GroupLayout.PREFERRED_SIZE, 386, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(97, Short.MAX_VALUE))
+					.addComponent(getWorkingExperienceText(), GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(97, GroupLayout.PREFERRED_SIZE))
 		);
 		setLayout(groupLayout);
 	}

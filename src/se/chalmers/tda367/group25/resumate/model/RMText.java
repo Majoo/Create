@@ -1,11 +1,14 @@
 package se.chalmers.tda367.group25.resumate.model;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JEditorPane;
+
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Styles;
 
 /**
@@ -19,6 +22,7 @@ public class RMText {
 	private String text;
 	private SectionType secType;
 	private String font;
+	private Color color;
 	private int size;
 	private Map<String, Boolean> styles;
 
@@ -26,11 +30,7 @@ public class RMText {
 	 * Default constructor of a RMtext Section in a Document.
 	 */
 	public RMText() {
-		this.secType = SectionType.EMPTY;
-		styles = new HashMap<String, Boolean>();
-		styles.put("B", Styles.B);
-		styles.put("I", Styles.I);
-		styles.put("U", Styles.U);
+		this(SectionType.EMPTY);
 	}
 
 	/**
@@ -42,6 +42,10 @@ public class RMText {
 	 */
 	public RMText(SectionType sectionType) {
 		this.secType = sectionType;
+		styles = new HashMap<String, Boolean>();
+		styles.put("B", Styles.B);
+		styles.put("I", Styles.I);
+		styles.put("U", Styles.U);
 	}
 
 	// MUTATORS
@@ -214,6 +218,12 @@ public class RMText {
 	 */
 	public Map<String, Boolean> getStyles() {
 		return styles;
+	}
+
+	public void changeColour(JEditorPane section, Color col) {
+		this.color = col;
+		section.setForeground(col);
+		
 	}
 
 }

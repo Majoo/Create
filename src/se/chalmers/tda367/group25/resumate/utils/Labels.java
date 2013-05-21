@@ -13,7 +13,9 @@ public class Labels {
 	public static final String TEXTSTYLE_CHANGED = "Style changed";
 	public static final String TEXTSIZE_CHANGED = "Size changed";
 	public static final String TEXT_REPLACED = "Text is replaced";
+	public static final String REPLACE_ALL = "Replaces all text";
 	public static final String FIND_TEXT = "Find text";
+	public static final String TEXTCOLOUR_CHANGED = "Text colour is changed";
 	
 	public static final String SAVE_DOC = "Save document";
 	public static final String SAVE_DOC_AS = "Save document as";
@@ -30,9 +32,19 @@ public class Labels {
 	public static final String CROP_IMAGE = "Crop image";
 	public static final String RESIZE_IMAGE = "Resize image";
 	public static final String REORIENT_IMAGE = "Reorient image";
+	public static final String GRAYSCALE_IMAGE = "Grayscale image";
+	public static final String RESET_IMAGE = "Reset Image";
 	
 	public static final String UNDO_ACTION = "Undo action";
 	public static final String REDO_ACTION = "Redo action";
+	
+	public static final String TEXT_SELECTALL = "Select all text";
+	public static final String TEXT_COPY = "Text is copied";
+	public static final String TEXT_CUT = "Text is cut";
+	public static final String TEXT_PASTE = "Text is pasted";
+
+	
+
 	
 }
 	

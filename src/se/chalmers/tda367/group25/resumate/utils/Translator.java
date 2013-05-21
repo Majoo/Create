@@ -1,7 +1,6 @@
 package se.chalmers.tda367.group25.resumate.utils;
 
-import java.awt.Container;
-import java.awt.Panel;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,10 +8,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JEditorPane;
 
-import se.chalmers.tda367.group25.resumate.model.SectionType;
-import se.chalmers.tda367.group25.resumate.model.Template;
+import se.chalmers.tda367.group25.resumate.views.CV_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
-import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
 
 public class Translator {
 	private static ImageIO imIO;
@@ -20,13 +17,11 @@ public class Translator {
 	/**
 	 * Translates a DocumentView Panel to a Template.
 	 * 
-	 * @param p
-	 *            the Panel to translate
+	 * @param name
+	 *            the name of Panel to translate
 	 * @return the corresponding Template
 	 */
-	public static Template panelToTemplate(Panel p) {
-		
-		String name  = p.getName();
+	public static Template panelToTemplate(String name) {
 		Template template = null;
 		switch(name){
 		case "CV_Def":
@@ -75,20 +70,21 @@ public class Translator {
 	
 
 	/**
-	 * Translates a Container, typically a JEditorPane, to a SectionType.
+	 * Translates a JEditorPane to a SectionType.
 	 * 
 	 * @param c
-	 *            the Container to translate
-	 * @return the corresponding SectionType
+	 *          the Container to translate
+	 * @return 
+	 * 			the corresponding SectionType
 	 */
 
-	public static SectionType containerToSectionType(Object container) {
+	public static SectionType containerToSectionType(JEditorPane container) {
 		
-		String name = null;
+		String name = container.getName();
 		SectionType section = null;
-		if(container instanceof JEditorPane){
-			JEditorPane p = (JEditorPane)container;
-			name = p.getName();
+		
+		if(name.equals(null)){
+			System.out.println("name is null");
 		}
 		
 		switch(name){
@@ -98,34 +94,69 @@ public class Translator {
 		case "workingExperienceText":
 			section = SectionType.WORK_EXPERIENCE;
 			break;
-		case "otherText":
-			section = SectionType.EMPTY;
+		case "headerTitle":
+			section = SectionType.HEADER;
 			break;
 		default: //Do nothing, never invoked.
 		
 		}
-		return section;
-	}
-	
-	/**
-	 * Typcasts an Object which is an instance of JEditorPane, which is the
-	 * current one, into a JEditorPane.
-	 * 
-	 * @param o 
-	 * 		the object to be typecasted.
-	 * @return
-	 * 		the textarea.
-	 */
-	
-	public static JEditorPane getCurrentSection(Object o){
-		JEditorPane section = null;
-		if(o instanceof JEditorPane){
-			section = (JEditorPane)o;
+		
+		if(section.equals(null)){
+			System.out.println("Sectiontype is null");
 		}
+		
 		return section;
 	}
 	
-
+	public static Color stringToColor(String name){
+		Color col = null;
+		
+		switch(name){
+			case "Black":
+				col = Color.BLACK;
+			break;
+			case "Blue":
+				col = Color.BLUE;
+			break;
+			case "Cyan":
+				col = Color.CYAN;
+				break;
+			case "Dark Gray":
+				col = Color.DARK_GRAY;
+				break;
+			case "Gray":
+				col = Color.GRAY;
+				break;
+			case "Green":
+				col = Color.GREEN;
+				break;
+			case "Light Gray":
+				col = Color.LIGHT_GRAY;
+				break;
+			case "Magenta":
+				col = Color.MAGENTA;
+				break;
+			case "Orange":
+				col = Color.ORANGE;
+				break;
+			case "Pink":
+				col = Color.PINK;
+				break;
+			case "Red":
+				col = Color.RED;
+				break;
+			case "White":
+				col = Color.WHITE;
+				break;
+			case "Yellow":
+				col = Color.YELLOW;
+				break;
+			
+		default: //Do nothing, never invoked	
+		}
+		return col;
+	}
+	
 	
 	/**
 	 * Takes in a String that represents an image in the filesystem

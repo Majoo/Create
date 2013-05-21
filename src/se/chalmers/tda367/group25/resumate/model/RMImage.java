@@ -2,6 +2,8 @@ package se.chalmers.tda367.group25.resumate.model;
 
 import java.awt.Rectangle;
 import java.awt.color.ColorSpace;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 import java.io.File;
@@ -39,16 +41,7 @@ public class RMImage {
 		this.curImg = image;
 	}
 
-	// -----Queries-----//
-	/**
-	 * Get the original BufferedImage.
-	 * 
-	 * @return the original BufferedImage
-	 */
-	public BufferedImage getOrigImage() {
-		return origImg;
-	}
-	
+	// -----Queries-----//	
 	/**
 	 * Get the current BufferedImage.
 	 * 
@@ -59,6 +52,7 @@ public class RMImage {
 	}
 
 	// -----Commands-----//
+	
 	/**
 	 * Set a new image.
 	 * 
@@ -67,7 +61,6 @@ public class RMImage {
 	public void setImage(BufferedImage image) {
 		this.origImg = image;
 		this.curImg = image;
-		System.out.println("BufferedImage i RMImage = "+image);
 	}
 	
 	/**
@@ -93,14 +86,27 @@ public class RMImage {
 	}
 
 	/**
-	 * Reorient the Image of this RMImage. A positive parameter rotates the
-	 * image clockwise, and vice versa. NOT FINISHED
+	 * Scale the image.
 	 * 
-	 * @param v
-	 *            degrees to rotate
+	 * @param width
+	 * 				the width of the product
+	 * @param height
+	 * 				the height of the product
+	 * @throws IOException
 	 */
-	public void reorient(int v) {
+	public void scaleImage(int width, int height) {
+	    int imageWidth  = curImg.getWidth();
+	    int imageHeight = curImg.getHeight();
 
+	    double scaleX = (double)width/imageWidth;
+	    double scaleY = (double)height/imageHeight;
+	    AffineTransform scaleTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
+	    AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
+
+	    this.curImg = bilinearScaleOp.filter(
+	        curImg,
+	        new BufferedImage(width, height, curImg.getType()));
+	    
 	}
 
 	/**

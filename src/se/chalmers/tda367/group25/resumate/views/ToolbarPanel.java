@@ -33,6 +33,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import java.awt.Component;
 
 public class ToolbarPanel extends JPanel implements ActionListener{
 	private PropertyChangeSupport pcs;
@@ -64,49 +65,59 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		//Setting all the buttons and giving them actions
 		JButton btnNewDoc = new JButton("New");
+		btnNewDoc.setToolTipText("New document.");
 		btnNewDoc.addActionListener(this);
 		btnNewDoc.setActionCommand("New");
 		upperToolsPan.add(btnNewDoc);
 
 		JButton btnOpen = new JButton("Open");
+		btnOpen.setToolTipText("Open document.");
 		btnOpen.addActionListener(this);
 		btnOpen.setActionCommand("Open");
 		upperToolsPan.add(btnOpen);
 
 		JButton btnSave = new JButton("Save");
+		btnSave.setToolTipText("Save the document.");
 		btnSave.addActionListener(this);
 		btnSave.setActionCommand("Save");
 		upperToolsPan.add(btnSave);
 
 		JButton btnSend = new JButton("Send");
+		btnSend.setToolTipText("Send the document.");
 		btnSend.setActionCommand("Send");
 		upperToolsPan.add(btnSend);
 
 		JButton btnPrint = new JButton("Print");
+		btnPrint.setToolTipText("Print the document.");
 		btnPrint.setActionCommand("Print");
 		upperToolsPan.add(btnPrint);
 
 		JButton btnCut = new JButton("Cut");
+		btnCut.setToolTipText("Cut the selected text.");
 		btnPrint.setActionCommand("Cut");
 		upperToolsPan.add(btnCut);
 
 		JButton btnCopy = new JButton("Copy");
+		btnCopy.setToolTipText("Copy the selected text.");
 		btnCopy.addActionListener(this);
 		btnCopy.setActionCommand("Copy");
 		upperToolsPan.add(btnCopy);
 
 		JButton btnPaste = new JButton("Paste");
+		btnPaste.setToolTipText("Paste the copied text.");
 		btnPaste.addActionListener(this);
 		btnPaste.setActionCommand("Paste");
 		upperToolsPan.add(btnPaste);
 
 		JButton btnRedo = new JButton("Redo");
+		btnRedo.setToolTipText("Redo an action.");
 		btnRedo.addActionListener(this);
 		btnRedo.setActionCommand("Redo");
 		
 		upperToolsPan.add(btnRedo);
 
 		JButton btnUndo = new JButton("Undo");
+		btnUndo.setToolTipText("Undo an action.");
 		btnUndo.addActionListener(this);
 		btnUndo.setActionCommand("Undo");
 		upperToolsPan.add(btnUndo);
@@ -117,6 +128,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the combobox in which the fonts are listed
 		fontCB = new JComboBox();
+		fontCB.setToolTipText("Change font.");
 		fontCB.addActionListener(this);
 		fontCB.setActionCommand("Font");
 		GraphicsEnvironment e = GraphicsEnvironment
@@ -126,6 +138,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the combobox in which the sizes for the text are listed
 		textSizeCB = new JComboBox();
+		textSizeCB.setToolTipText("Change text size.");
 		textSizeCB.addActionListener(this);
 		textSizeCB.setActionCommand("Size");
 		
@@ -135,12 +148,14 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the button which makes the text bold
 		JToggleButton btnBold = new JToggleButton("B");
+		btnBold.setToolTipText("Make the selected text bold.");
 		btnBold.addActionListener(this);
 		btnBold.setActionCommand("Bold");
 		btnBold.setFont(new Font("Tahoma", Font.BOLD, 11));
 
 		// Setting properties for the button which make the text italic
 		JToggleButton btnItalic = new JToggleButton("I");
+		btnItalic.setToolTipText("Make the selected text italics.");
 		btnItalic.addActionListener(this);
 		btnItalic.setActionCommand("Italic");	
 		btnItalic.setFont(new Font("Tahoma", Font.ITALIC, 11));
@@ -208,20 +223,38 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		//Setting template buttons
 		tempPanel.setLayout(new GridLayout(1, 4));
 		JButton temp1But = new JButton("Default PL");
+		temp1But.setToolTipText("View in a default Personal Letter format.");
 		temp1But.addActionListener(this);
 		temp1But.setActionCommand("DefPL");
 		tempPanel.add(temp1But);
 		
 		JButton temp2But = new JButton("Default CV");
+		temp2But.setToolTipText("View in a default CV format.");
 		temp2But.addActionListener(this);
 		temp2But.setActionCommand("DefPL");
 		tempPanel.add(temp2But);
-		JButton temp3But = new JButton("Classic CV");
+		JButton temp3But = new JButton("Classy CV");
+		temp3But.setToolTipText("View in a classy CV format.");
 		temp3But.addActionListener(this);
 		temp3But.setActionCommand("DefPL");
 		tempPanel.add(temp3But);
 		
-		JComboBox otherTemps = new JComboBox();
+		
+		String[] templateChange = {
+				"Advanced Personal letter",
+		         "Advanced Curriculum vitae",
+		         "Classy Personal letter",
+		         "Classy Curriculum vitae",
+		         "Default Personal letter",
+		         "Default Curriculum vitae",
+		         "Quick Personal letter",
+		         "Quick Curriculum vitae",
+		          };
+		
+		JComboBox otherTemps = new JComboBox(templateChange);
+		otherTemps.setAlignmentX(Component.LEFT_ALIGNMENT);
+		otherTemps.setToolTipText("Select other templates.");
+		otherTemps.setMaximumRowCount(4);
 		tempPanel.add(otherTemps);
 		add(tempPanel);
 

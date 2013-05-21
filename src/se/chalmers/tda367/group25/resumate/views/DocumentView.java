@@ -28,7 +28,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	public DocumentView() {
 		pcs = new PropertyChangeSupport(this);
 		setLayout(new BorderLayout(0, 0));
-		templatePnl = new CV_Def();
+		templatePnl = new CV_Classy();
 		templatePnl.getHeaderTitle().setText(" [HEADLINE]");
 		templatePnl.getWorkingExperienceText().setText(" [ABOUT YOURSELF]");
 		templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 20));

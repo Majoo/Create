@@ -16,21 +16,13 @@ public class RMImage {
 	private BufferedImage origImg;
 	private BufferedImage curImg;
 	private SectionType secType;
-	private ImageIO imIO;
 
 	//-----Constructors-----//
 
-	/*
-	 * Creates an RMImage with default BufferedImage. Will be deleted/changed
-	 * in real version.
-	 */
+	/**
+	 * Creates an empty RMImage. 
+	 **/
 	public RMImage(){
-		try{
-			this.origImg = imIO.read(new File("C:\\Users\\Patricia\\workspace\\Images\\resources\\RMImageTestbild.jpg"));
-			this.curImg = imIO.read(new File("C:\\Users\\Patricia\\workspace\\Images\\resources\\RMImageTestbild.jpg"));
-		}catch(IOException e){
-			System.out.println("Kunde inte ladda in bilden från fil till rmimage");
-		}
 		this.secType = SectionType.IMAGE;
 	}
 
@@ -87,7 +79,7 @@ public class RMImage {
 	/**
 	 * Crop the Image of this RMImage.
 	 * (DOESN'T WORK QUITE AS IT SHOULD
-	 * somtimes rasterFormatException is thrown)
+	 * somtimes RasterFormatException is thrown)
 	 * 
 	 * @param rect 
 	 * 				a rectangle with the coordinates

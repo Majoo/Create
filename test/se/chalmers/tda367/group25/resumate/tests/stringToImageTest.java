@@ -1,3 +1,4 @@
+package se.chalmers.tda367.group25.resumate.tests;
 import static org.junit.Assert.*;
 
 import java.awt.image.BufferedImage;

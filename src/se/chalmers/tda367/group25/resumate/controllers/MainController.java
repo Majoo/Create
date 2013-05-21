@@ -41,21 +41,24 @@ public class MainController implements PropertyChangeListener {
 	 *            the Event to handle
 	 */
 	public void propertyChange(PropertyChangeEvent e) {
-		System.out.println("Inne i PropertyChangeEvent i MainController");
 
 		switch (e.getPropertyName()) {
-		// Image handling:
+		/*Image handling*/
 		case Labels.INSERT_IMAGE:			
 			//e.getOldValue() is the path chosen, convert this to an image.
 			BufferedImage img = Translator.stringToImage((String)e.getOldValue());
-			//Update the image of the Document associated with the DocumentView e.getNewValue().
-			DocumentView v = mainView.getCurDocView();
-			System.out.println(v.getID());
-			Document d = docCon.separateDocument(v);
+			//Update the image of the Document associated with the DocumentView in focus.
+			Document d = docCon.separateDocument(mainView.getCurDocView());
 			docCon.updateImage(d, img);
-			System.out.println("har kört updateImage(separateDoc(docview), img) i MainController");
 			//Then update the view with the image of the Document.
-			mainView.getCurDocView().getTemplatePanel().showImage(d.getImage().getOrigImage());
+			mainView.getCurDocView().getTemplatePanel().showImage(d.getImage().getCurImage());
+			break;
+		case Labels.GRAYSCALE_IMAGE:
+			//Grayscale the image of the Document associated with the DocumentView in focus.
+			Document doc = docCon.separateDocument(mainView.getCurDocView());
+			doc.getImage().makeGray();
+			//Then update the view with the image of the Document.
+			mainView.getCurDocView().getTemplatePanel().showImage(doc.getImage().getCurImage());
 			break;
 
 		/*
@@ -165,7 +168,7 @@ public class MainController implements PropertyChangeListener {
 			mainView.getCurDocView().setTemplate(tempPChange);
 			break;
 
-		// Undo/redo handling:
+		/*Undo/redo handling*/
 		case Labels.UNDO_ACTION:
 			TemplatePanel undoPAction = mainView.getCurDocView().getTemplatePanel();
 			ViewHandler.undoAction(undoPAction.getCurrentSection(), undoPAction.getManager());
@@ -177,7 +180,7 @@ public class MainController implements PropertyChangeListener {
 			ViewHandler.redoAction(redoPAction.getCurrentSection(), redoPAction.getManager());
 			break;
 
-		// IO handling:
+		/*IO handling*/
 		case Labels.TEXT_COPY:
 			JEditorPane textAreaCopy = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
 			ViewHandler.textCopy(textAreaCopy.getSelectedText());
@@ -233,11 +236,9 @@ public class MainController implements PropertyChangeListener {
 			break;
 			
 			
-		// Other handling:
+		/*Other handling:*/
 		case Labels.SEND_INITIAL_DOCVIEW:
 			DocumentView docView = (DocumentView)e.getOldValue();
-			System.out.println(docView.getID()+" In MainController" +
-					", trying to add it in "+"\""+(String)e.getNewValue()+"\"");
 			docCon.addDocView((String)e.getNewValue()
 					,docView);
 			break;

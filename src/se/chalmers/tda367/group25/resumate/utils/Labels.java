@@ -32,6 +32,7 @@ public class Labels {
 	public static final String CROP_IMAGE = "Crop image";
 	public static final String RESIZE_IMAGE = "Resize image";
 	public static final String REORIENT_IMAGE = "Reorient image";
+	public static final String GRAYSCALE_IMAGE = "Grayscale image";
 	
 	public static final String UNDO_ACTION = "Undo action";
 	public static final String REDO_ACTION = "Redo action";

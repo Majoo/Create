@@ -126,11 +126,10 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	// -----SETTERS-----
 	/**
-	 * Add a new DocumentView in a new tab. Needs to know what template the user
-	 * has chosen and this is given as a parameter.
+	 * Creates a new tab and puts a DocumentView in it. 
 	 * 
-	 * @param the
-	 *            template the new DocumentView will have.
+	 * @param docView
+	 *            the template the new DocumentView will have.
 	 */
 	public void newTab(DocumentView docView) {
 		docViewList.add(docView);
@@ -138,29 +137,11 @@ public class MainView extends JFrame implements MainViewInterface {
 	}
 
 	/**
-	 * Sends the initial DocumentView to DocumentController through
-	 * MainController.
+	 * Sends the initial DocumentView to its listener(s).
 	 */
 	public void sendInitialDocView() {
 		DocumentView docView = this.docViewList.get(0);
 		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, "first");
-		System.out
-				.println("Last in sendInitialDocView() i.e. message sent to MC");
 	}
 
-	/**
-	 * Update the DocumentView with the Image in filesystem that has the
-	 * filename given as parameter.
-	 * 
-	 * @param docView
-	 *            - the DocumentView to upload the image in
-	 * @param filename
-	 *            - the filename of the Image to be uploaded
-	 */
-	public void setImage(DocumentView docView, String filename) {
-		// Göra en BufferedImage av filnamnet
-
-		// get the TemplatePanel of the docView
-		// invoke the setImage-method
-	}
 }

@@ -165,15 +165,29 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmUnderline.addActionListener(this);
 		mnFormat.add(mntmUnderline);
 
-		//Setting menu items and their properties located in the Insert Menu
+		//Setting menu items and their properties located in the Image Menu
 		JMenu mnInsert = new JMenu("Insert");
-		add(mnInsert);
+		add(mnInsert);		
 		
-		JMenuItem uploadImage = new JMenuItem("Image");
+		//Setting menu items and their properties located in the Image Menu
+		JMenu mnImage = new JMenu("Image");
+		add(mnImage);
+		
+		JMenuItem uploadImage = new JMenuItem("Upload");
 		uploadImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		uploadImage.addActionListener(this);
 		uploadImage.setActionCommand("Upload");
-		mnInsert.add(uploadImage);
+		mnImage.add(uploadImage);
+		
+		JMenuItem cropImage = new JMenuItem("Crop");
+		cropImage.addActionListener(this);
+		cropImage.setActionCommand("Crop");
+		mnImage.add(cropImage);
+		
+		JMenuItem grayscaleImage = new JMenuItem("Grayscale");
+		grayscaleImage.addActionListener(this);
+		grayscaleImage.setActionCommand("Grayscale");
+		mnImage.add(grayscaleImage);
 
 		//Setting menu items and their properties located in the Show Menu
 		JMenu mnShow = new JMenu("Show");
@@ -342,17 +356,21 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			//Let the user choose an image to upload
 			JFileChooser chooser = new JFileChooser();
 		    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-		        "JPG & GIF Images", "jpg", "gif");
+		        "JPG, PNG & GIF Images", "jpg", "gif", "png", "jpeg");
 		    chooser.setFileFilter(filter);
 		    int returnVal = chooser.showOpenDialog(getParent());
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
 		    	String path = chooser.getSelectedFile().getPath();
 		    	System.out.println("You chose to open this file: " +
 		    			path);
-		    	//send the path of the image to mainView
 		    	pcs.firePropertyChange(Labels.INSERT_IMAGE, path, false);
 		    }
 		    break;
+		case "Crop":
+			break;
+		case "Grayscale":
+			pcs.firePropertyChange(Labels.GRAYSCALE_IMAGE, true, false);
+			break;
 				
 		default:	//Do nothing, never invoked
 		}

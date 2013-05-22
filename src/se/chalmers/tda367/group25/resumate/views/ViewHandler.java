@@ -2,6 +2,9 @@ package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionEvent;
 
 import javax.naming.CannotProceedException;
 import javax.swing.JEditorPane;
@@ -73,12 +76,11 @@ public class ViewHandler {
 	 * @param copy
 	 * 			the current textarea.
 	 */
-	public static void textCopy(String copy){
-		
-		
-		
-		
-		
+	public static void textCopy(JEditorPane section){
+		String clipBoardData = section.getSelectedText();
+		StringSelection stringSelection = new StringSelection(clipBoardData);
+		Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clpbrd.setContents(stringSelection, null);
 		
 	}
 	/**
@@ -86,8 +88,14 @@ public class ViewHandler {
 	 * @param cut
 	 * 			the current textarea.
 	 */
-	public static void textCut(String cut){
-		;
+	public static void textCut(JEditorPane section){
+		String clipBoardData = section.getSelectedText();
+		StringSelection stringSelection = new StringSelection(clipBoardData);
+		Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clpbrd.setContents(stringSelection, null);
+		//delete
+	//	section.replaceSelection("");
+		
 	}
 	/**
 	 * Paste the text made in the current textarea.
@@ -95,8 +103,9 @@ public class ViewHandler {
 	 * 			the current textarea.
 	 */
 	
-	public static void textPaste(String paste){
-		;
+	public static void textPaste(JEditorPane section){
+			String clipBoardData;
+			//section.append(clipBoardData);
 	}
 	
 	/**

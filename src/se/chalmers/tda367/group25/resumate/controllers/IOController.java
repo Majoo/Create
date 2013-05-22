@@ -95,7 +95,7 @@ public class IOController {
 				} else if (function.equals(Labels.SEND_DOC)) {
 					;
 				} else if (function.equals(Labels.SAVE_DOC)) {
-					ioHandler.saveFile(filePathAndName, new Document());
+			//		ioHandler.saveFile(filePathAndName, new Document());
 					// Connection to DocumentController needs to be established
 					// so that the correct Document can be fetched
 					ioHandler.saveFile(filePathAndName, strings);

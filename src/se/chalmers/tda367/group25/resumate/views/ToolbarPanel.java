@@ -84,17 +84,20 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		JButton btnSend = new JButton("Send");
 		btnSend.setToolTipText("Send the document.");
+		btnSend.addActionListener(this);
 		btnSend.setActionCommand("Send");
 		upperToolsPan.add(btnSend);
 
 		JButton btnPrint = new JButton("Print");
 		btnPrint.setToolTipText("Print the document.");
+		btnPrint.addActionListener(this);
 		btnPrint.setActionCommand("Print");
 		upperToolsPan.add(btnPrint);
 
 		JButton btnCut = new JButton("Cut");
 		btnCut.setToolTipText("Cut the selected text.");
-		btnPrint.setActionCommand("Cut");
+		btnCut.addActionListener(this);
+		btnCut.setActionCommand("Cut");
 		upperToolsPan.add(btnCut);
 
 		JButton btnCopy = new JButton("Copy");
@@ -113,7 +116,6 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		btnRedo.setToolTipText("Redo an action.");
 		btnRedo.addActionListener(this);
 		btnRedo.setActionCommand("Redo");
-		
 		upperToolsPan.add(btnRedo);
 
 		JButton btnUndo = new JButton("Undo");

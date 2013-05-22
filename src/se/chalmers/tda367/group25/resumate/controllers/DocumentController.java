@@ -12,7 +12,7 @@ import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 
-public class DocumentController implements PropertyChangeListener {
+public class DocumentController {
 
 	// Each value (List) holds a Document object and a DocumentView object
 	private Map<String, List<Object>> docAndDocView;
@@ -215,48 +215,6 @@ public class DocumentController implements PropertyChangeListener {
 	 */
 	public void setCurrent(String current) {
 		this.current = current;
-	}
-	
-	//PROPERTCHANGE
-	/**
-	 * Handles Events from the DocumentView objects in the docAndDocView Map.
-	 * 
-	 * @param e
-	 *            the Event to handle
-	 */
-	public void propertyChange(PropertyChangeEvent e) {
-		//Get the pair of Doc & DocView that are concerned (Stored in "value").
-		List<Object> curDocAndDocView = null;
-		for (List<Object> value : docAndDocView.values()) {
-			if (value.contains(e.getSource())) {
-				curDocAndDocView = value;
-			}
-		}
-		//Separate the Doc and the DocView into "d" and "v".
-		Document d = separateDoc(curDocAndDocView);
-		DocumentView v = separateDocView(curDocAndDocView);
-		
-		//Do what needs to be done according to Label.
-		switch(e.getPropertyName()){
-		//Image handling:
-		case  Labels.INSERT_IMAGE:
-			
-			break;
-			
-		case  Labels.CROP_IMAGE:
-			
-			break;
-			
-		case  Labels.RESIZE_IMAGE:
-			
-			break;
-			
-		case  Labels.REORIENT_IMAGE:
-			
-			break;
-		//Text handling:
-		}
-
 	}
 		
 }

@@ -32,7 +32,7 @@ public class MainController implements PropertyChangeListener {
 		mainView = new MainView();
 		mainView.addPropertyChangeListener(this);
 		mainView.sendInitialDocView();
-		}
+	}
 
 	/**
 	 * Handles Events from further down in the hierarchy, eg. MainView by
@@ -43,130 +43,200 @@ public class MainController implements PropertyChangeListener {
 	 */
 	public void propertyChange(PropertyChangeEvent e) {
 
+		if(e.getPropertyName().contains("INITIAL")){
+			initialPropertyChange(e);
+		}else if(e.getPropertyName().contains("IMAGE")){
+			imagePropertyChange(e);
+		}else if(e.getPropertyName().contains("TEXT")){
+			textPropertyChange(e);
+		}else if(e.getPropertyName().contains("DOC")){
+			ioPropertyChange(e);
+		}
+		
+		/*Other handling*/
 		switch (e.getPropertyName()) {
 		
-		/*Image handling*/
-		case Labels.INSERT_IMAGE:			
-			BufferedImage img = Translator.stringToImage((String)e.getOldValue());
-			//Update the image of the Document associated with the DocumentView in focus.
-			Document d = docCon.separateDocument(mainView.getCurDocView());
-			docCon.updateImage(d, img);
-			//Scaling
-			int width = mainView.getCurDocView().getTemplatePanel().getImageLabel().getWidth();
-			int height = mainView.getCurDocView().getTemplatePanel().getImageLabel().getHeight();
-			d.getImage().scaleImage(width, height);
-			d.getImage().setImage(d.getImage().getCurImage());
-			//Then update the view with the image of the Document.
-			mainView.getCurDocView().getTemplatePanel().showImage(d.getImage().getCurImage());
-			break;
-		
-		case Labels.GRAYSCALE_IMAGE:
-			Document doc = docCon.separateDocument(mainView.getCurDocView());
-			doc.getImage().makeGray();
-			//Then update the view with the image of the Document.
-			mainView.getCurDocView().getTemplatePanel().showImage(doc.getImage().getCurImage());
-			break;
-		
-		case Labels.RESET_IMAGE:
-			Document document = docCon.separateDocument(mainView.getCurDocView());
-			document.getImage().resetImage();
-			//Then update the view with the image of the Document.
-			mainView.getCurDocView().getTemplatePanel().showImage(document.getImage().getCurImage());
+		case Labels.TEMPLATE_CHANGED:
+			TemplatePanel tempPChange = Translator.templateToPanel(e.getNewValue());
+			mainView.getCurDocView().setTemplate(tempPChange);
 			break;
 			
-		case Labels.CROP_IMAGE:
-			Document dcmnt = docCon.separateDocument(mainView.getCurDocView());
-			Rectangle rect = (Rectangle) e.getOldValue();
-			dcmnt.getImage().crop(rect);
-			//Then update the view with the image of the Document.
-			mainView.getCurDocView().getTemplatePanel().showImage(dcmnt.getImage().getCurImage());
+		default: 
+			//Do nothing, never invoked
+			break;
+		}
+
+	}
+
+	/**
+	 * Handles events that have to do with IO
+	 * 
+	 * @param e
+	 *       the event to be handled
+	 */
+	private void ioPropertyChange(PropertyChangeEvent e) {
+		switch(e.getPropertyName()){
+		case Labels.RENAME_DOC:
+			//Not yet implemented
+			break;
+			
+		case Labels.SAVE_DOC_AS:
+			//Not yet implemented
+			break;
+			
+		case Labels.NEW_DOC:
+			//Not yet implemented
+			break;
+		case Labels.SAVE_DOC:
+			ioCon.chooseFunction(Labels.SAVE_DOC, null,
+					docCon.getDoc(docCon.getCurrent()).getStrings());
+
 			break;
 
+		case Labels.PRINT_DOC:
+			ioCon.chooseFunction(Labels.PRINT_DOC,
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
+					null);
+			break;
+
+		case Labels.EXPORT_DOC:
+			ioCon.chooseFunction(Labels.EXPORT_DOC,
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
+					null);
+			break;
+
+		case Labels.OPEN_DOC:
+			ioCon.chooseFunction(Labels.OPEN_DOC, null, null);
+			break;
+
+		case Labels.SEND_DOC:
+			ioCon.chooseFunction(Labels.SEND_DOC,
+					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
+					null);
+			break;
+		default: 
+			//Do nothing, never invoked
+			break;
+		}
+
+	}
+
+	/**
+	 * Handles events that have to do with the text of the Document
+	 * 
+	 * @param e
+	 *       the event to be handled
+	 */
+	private void textPropertyChange(PropertyChangeEvent e) {
 		/*
 		 * Text handling: 
 		 * e.getNewValue() contains the information neccesary for the specific task. By the usage of the
 		 * translator we will know which kind of section type it is so that the
 		 * RMText can be informed which one to be updated.
 		 */
+		JEditorPane curTextSection = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+		
+		switch(e.getPropertyName()){
+		case Labels.UNDO_TEXT:
+			TemplatePanel undoPAction = mainView.getCurDocView().getTemplatePanel();
+			ViewHandler.undoAction(undoPAction.getCurrentSection(), undoPAction.getManager());
+
+			break;
+
+		case Labels.REDO_TEXT:
+			TemplatePanel redoPAction = mainView.getCurDocView().getTemplatePanel();
+			ViewHandler.redoAction(redoPAction.getCurrentSection(), redoPAction.getManager());
+			break;
+
+		case Labels.TEXT_COPY:
+			ViewHandler.textCopy(curTextSection);
+			break;
+
+		case Labels.TEXT_CUT:
+			ViewHandler.textCut(curTextSection); 
+			//replaceCurrent("");
+			break;	
+
+		case Labels.TEXT_PASTE:
+			ViewHandler.textPaste(curTextSection);
+			break;
+
+		case Labels.TEXT_SELECTALL:
+			ViewHandler.selectAll(curTextSection);
+			break;
 		case Labels.TEXT_ENTERED:
 			String text = e.getNewValue().toString();
-			JEditorPane textAreaEnter =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			SectionType sectionTypeEnter = Translator.containerToSectionType(textAreaEnter);
+			SectionType sectionTypeEnter = Translator.containerToSectionType(curTextSection);
 			RMText textEnter = docCon.getDoc(docCon.getCurrent()).getTexts()
 					.get(sectionTypeEnter);
-	
+
 			textEnter.setText(text);
-			
+
 			break;
 
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
-			JEditorPane textAreaFont =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
 			RMText textFont = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(textAreaFont));
-			textFont.changeFont(textAreaFont, font);
+					.get(Translator.containerToSectionType(curTextSection));
+			textFont.changeFont(curTextSection, font);
 
 			break;
 
 		case Labels.TEXTSIZE_CHANGED:
 			int size = Integer.parseInt(e.getNewValue().toString());
-			JEditorPane textAreaSize =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
 			RMText textSize = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(textAreaSize));
+					.get(Translator.containerToSectionType(curTextSection));
 
-			textSize.changeSize(textAreaSize,size);
+			textSize.changeSize(curTextSection,size);
 			break;
 
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
-			JEditorPane textAreaStyle =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
 			RMText textStyle = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(textAreaStyle));
-			
-			textStyle.changeStyle(textAreaStyle,style);
-	
+					.get(Translator.containerToSectionType(curTextSection));
+
+			textStyle.changeStyle(curTextSection,style);
+
 			break;
-			
+
 		case Labels.TEXTCOLOUR_CHANGED:
 			String colour = e.getNewValue().toString();
-			JEditorPane textAreaCC =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
 			RMText textCC = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(textAreaCC));
-			textCC.changeColour(textAreaCC,Translator.stringToColor(colour));
+					.get(Translator.containerToSectionType(curTextSection));
+			textCC.changeColour(curTextSection,Translator.stringToColor(colour));
 			break;
 
 		case Labels.TEXT_REPLACED:
 			String[] replaceTexts = e.getNewValue().toString().split("/");
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
-			JEditorPane textAreaR =  mainView.getCurDocView().getTemplatePanel().getCurrentSection();
 			RMText textReplace = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(textAreaR));
-	
-			textReplace.replaceText(textAreaR,
+					.get(Translator.containerToSectionType(curTextSection));
+
+			textReplace.replaceText(curTextSection,
 					replace, replaceWith);
 
 			break;
-			
-		case Labels.REPLACE_ALL:	
+
+		case Labels.REPLACE_ALL_TEXT:	
 			String[] replaceTextsA = e.getNewValue().toString().split("/");
 			String replaceA = replaceTextsA[0];
 			String replaceWithA = replaceTextsA[1];
 			JEditorPane textAreaPersonal =  mainView.getCurDocView().getTemplatePanel().getPersonalInfoText();
 			JEditorPane textAreaHeader =  mainView.getCurDocView().getTemplatePanel().getHeaderTitle();
 			JEditorPane textAreaWork =  mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText();
-			
+
 			RMText textPersonal = docCon.getDoc(docCon.getCurrent()).getTexts()
 					.get(Translator.containerToSectionType(textAreaPersonal));
 			RMText textHeader = docCon.getDoc(docCon.getCurrent()).getTexts()
 					.get(Translator.containerToSectionType(textAreaHeader));
 			RMText textWork = docCon.getDoc(docCon.getCurrent()).getTexts()
 					.get(Translator.containerToSectionType(textAreaWork));
-	
+
 			textPersonal.replaceText(textAreaPersonal , replaceA, replaceWithA);
 			textHeader.replaceText(textAreaHeader , replaceA, replaceWithA);
 			textWork.replaceText(textAreaWork , replaceA, replaceWithA);
-			
+
 			break;
 
 		case Labels.FIND_TEXT:
@@ -175,6 +245,7 @@ public class MainController implements PropertyChangeListener {
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getHeaderTitle(), txt);
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText(), txt);
 			break;
+<<<<<<< HEAD
 
 		case Labels.RENAME_DOC:
 
@@ -182,37 +253,45 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.NEW_DOC:
 			
+=======
+		default: 
+			//Do nothing, never invoked
+>>>>>>> 0997a2c5de8dd6c1a4b7d387d8f8bd748949bcc1
 			break;
+		}
 
-		case Labels.TEMPLATE_CHANGED:
-			TemplatePanel tempPChange = Translator.templateToPanel(e.getNewValue());
-			mainView.getCurDocView().setTemplate(tempPChange);
-			break;
+	}
 
-		/*Undo/redo handling*/
-		case Labels.UNDO_ACTION:
-			TemplatePanel undoPAction = mainView.getCurDocView().getTemplatePanel();
-			ViewHandler.undoAction(undoPAction.getCurrentSection(), undoPAction.getManager());
-			
+	/**
+	 * Handles events that are fired during startup of the program.
+	 * 
+	 * @param e
+	 *       the event to be handled
+	 */
+	private void initialPropertyChange(PropertyChangeEvent e) {
+		switch(e.getPropertyName()){
+		case Labels.SEND_INITIAL_DVIEW:
+			DocumentView docView = (DocumentView)e.getOldValue();
+			docCon.addDocView((String)e.getNewValue()
+					,docView);
 			break;
+		default: 
+			//Do nothing, never invoked
+			break;
+		}
+	}
 
-		case Labels.REDO_ACTION:
-			TemplatePanel redoPAction = mainView.getCurDocView().getTemplatePanel();
-			ViewHandler.redoAction(redoPAction.getCurrentSection(), redoPAction.getManager());
-			break;
-
-		/*IO handling*/
-		case Labels.TEXT_COPY:
-			JEditorPane textAreaCopy = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			ViewHandler.textCopy(textAreaCopy);
-			break;
-			
-		case Labels.TEXT_CUT:
-			JEditorPane textAreaCut = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			ViewHandler.textCut(textAreaCut); 
-			//replaceCurrent("");
-			break;	
+	/**
+	 * Handles events that have to do with the image of the Document
+	 * 
+	 * @param e
+	 *       the event to be handled
+	 */
+	private void imagePropertyChange(PropertyChangeEvent e) {
+		DocumentView docView = 	mainView.getCurDocView();
+		Document doc = docCon.separateDocument(docView);
 		
+<<<<<<< HEAD
 		case Labels.TEXT_PASTE:
 			JEditorPane textAreaPaste = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
 			ViewHandler.textPaste(textAreaPaste);
@@ -278,37 +357,44 @@ public class MainController implements PropertyChangeListener {
 			ioCon.chooseFunction(Labels.PRINT_DOC,
 					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
 					null);
+=======
+		switch(e.getPropertyName()){
+		case Labels.INSERT_IMAGE:			
+			BufferedImage img = Translator.stringToImage((String)e.getOldValue());
+			//Update the image of the Document associated with the DocumentView in focus.
+			docCon.updateImage(doc, img);
+			//Scaling
+			int width = docView.getTemplatePanel().getImageLabel().getWidth();
+			int height = docView.getTemplatePanel().getImageLabel().getHeight();
+			doc.getImage().scaleImage(width, height);
+			doc.getImage().setImage(doc.getImage().getCurImage());
+			//Then update the view with the image of the Document.
+			docView.getTemplatePanel().showImage(doc.getImage().getCurImage());
+>>>>>>> 0997a2c5de8dd6c1a4b7d387d8f8bd748949bcc1
 			break;
 
-		case Labels.EXPORT_DOC:
-			ioCon.chooseFunction(Labels.EXPORT_DOC,
-					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
-					null);
+		case Labels.GRAYSCALE_IMAGE:
+			doc.getImage().makeGray();
+			//Then update the view with the image of the Document.
+			docView.getTemplatePanel().showImage(doc.getImage().getCurImage());
 			break;
 
-		case Labels.OPEN_DOC:
-			ioCon.chooseFunction(Labels.OPEN_DOC, null, null);
+		case Labels.RESET_IMAGE:
+			doc.getImage().resetImage();
+			//Then update the view with the image of the Document.
+			docView.getTemplatePanel().showImage(doc.getImage().getCurImage());
 			break;
 
-		case Labels.SEND_DOC:
-			ioCon.chooseFunction(Labels.SEND_DOC,
-					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
-					null);
-			break;
-			
-			
-		/*Other handling:*/
-		case Labels.SEND_INITIAL_DOCVIEW:
-			DocumentView docView = (DocumentView)e.getOldValue();
-			docCon.addDocView((String)e.getNewValue()
-					,docView);
+		case Labels.CROP_IMAGE:
+			Rectangle rect = (Rectangle) e.getOldValue();
+			doc.getImage().crop(rect);
+			//Then update the view with the image of the Document.
+			docView.getTemplatePanel().showImage(doc.getImage().getCurImage());
 			break;
 		default: 
 			//Do nothing, never invoked
-
 			break;
 		}
-
 	}
 
 	/**

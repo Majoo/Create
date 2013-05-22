@@ -6,42 +6,41 @@ package se.chalmers.tda367.group25.resumate.utils;
 
 public class Labels {
 	
-	public static final String SEND_INITIAL_DOCVIEW = "Send initial DocView";
+	public static final String SEND_INITIAL_DVIEW = "SEND_INITIAL_DVIEW";
 	
-	public static final String TEXT_ENTERED = "Enter text";
-	public static final String TEXTFONT_CHANGED = "Font is changed";
-	public static final String TEXTSTYLE_CHANGED = "Style changed";
-	public static final String TEXTSIZE_CHANGED = "Size changed";
-	public static final String TEXT_REPLACED = "Text is replaced";
-	public static final String REPLACE_ALL = "Replaces all text";
-	public static final String FIND_TEXT = "Find text";
-	public static final String TEXTCOLOUR_CHANGED = "Text colour is changed";
+	public static final String TEXT_ENTERED = "TEXT_ENTERED";
+	public static final String TEXTFONT_CHANGED = "TEXTFONT_CHANGED";
+	public static final String TEXTSTYLE_CHANGED = "TEXTSTYLE_CHANGED";
+	public static final String TEXTSIZE_CHANGED = "TEXTSIZE_CHANGED";
+	public static final String TEXT_REPLACED = "TEXT_REPLACED";
+	public static final String REPLACE_ALL_TEXT = "REPLACE_ALL_TEXT";
+	public static final String FIND_TEXT = "FIND_TEXT";
+	public static final String TEXTCOLOUR_CHANGED = "TEXTCOLOUR_CHANGED";
 	
-	public static final String SAVE_DOC = "Save document";
-	public static final String SAVE_DOC_AS = "Save document as";
-	public static final String PRINT_DOC = "Print document";
-	public static final String EXPORT_DOC = "Export document";
-	public static final String OPEN_DOC = "Open document";
-	public static final String NEW_DOC = "New document";
-	public static final String RENAME_DOC = "Rename document";
-	public static final String SEND_DOC = "Send document";
+	public static final String SAVE_DOC = "SAVE_DOC";
+	public static final String SAVE_DOC_AS = "SAVE_DOC_AS";
+	public static final String PRINT_DOC = "PRINT_DOC";
+	public static final String EXPORT_DOC = "EXPORT_DOC";
+	public static final String OPEN_DOC = "OPEN_DOC";
+	public static final String NEW_DOC = "NEW_DOC";
+	public static final String RENAME_DOC = "RENAME_DOC";
+	public static final String SEND_DOC = "SEND_DOC";
 	
-	public static final String TEMPLATE_CHANGED = "Template changed";
+	public static final String TEMPLATE_CHANGED = "TEMPLATE_CHANGED";
 	
-	public static final String INSERT_IMAGE = "Insert image";
-	public static final String CROP_IMAGE = "Crop image";
-	public static final String RESIZE_IMAGE = "Resize image";
-	public static final String REORIENT_IMAGE = "Reorient image";
-	public static final String GRAYSCALE_IMAGE = "Grayscale image";
-	public static final String RESET_IMAGE = "Reset Image";
+	public static final String INSERT_IMAGE = "INSERT_IMAGE";
+	public static final String CROP_IMAGE = "CROP_IMAGE";
+	public static final String SCALE_IMAGE = "SCALE_IMAGE";
+	public static final String GRAYSCALE_IMAGE = "GRAYSCALE_IMAGE";
+	public static final String RESET_IMAGE = "RESET_IMAGE";
 	
-	public static final String UNDO_ACTION = "Undo action";
-	public static final String REDO_ACTION = "Redo action";
+	public static final String UNDO_TEXT = "UNDO_TEXT";
+	public static final String REDO_TEXT = "REDO_TEXT";
 	
-	public static final String TEXT_SELECTALL = "Select all text";
-	public static final String TEXT_COPY = "Text is copied";
-	public static final String TEXT_CUT = "Text is cut";
-	public static final String TEXT_PASTE = "Text is pasted";
+	public static final String TEXT_SELECTALL = "TEXT_SELECTALL";
+	public static final String TEXT_COPY = "TEXT_COPY";
+	public static final String TEXT_CUT = "TEXT_CUT";
+	public static final String TEXT_PASTE = "TEXT_PASTE";
 
 	
 

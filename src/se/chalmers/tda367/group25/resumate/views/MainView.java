@@ -61,6 +61,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		contentPane.add(menuBar);
 
 		toolbarPanel = new ToolbarPanel();
+		toolbarPanel.setToolTipText("Protip! Don't change too much of the document!");
 		layout.putConstraint(SpringLayout.NORTH, toolbarPanel, 6,
 				SpringLayout.SOUTH, menuBar);
 		layout.putConstraint(SpringLayout.WEST, toolbarPanel, 0,
@@ -85,6 +86,7 @@ public class MainView extends JFrame implements MainViewInterface {
 				SpringLayout.EAST, menuBar);
 
 		DocumentView docView = new DocumentView();
+		docView.getTemplatePanel().setToolTipText("Protip!\r\n The best way of writing a Curriculum Vitae or Personal Letter is to make it interesting. \r\n");
 		docView.setID("First DocumentView");
 		docViewList.add(docView);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");

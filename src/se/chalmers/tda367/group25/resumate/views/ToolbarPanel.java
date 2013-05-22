@@ -130,7 +130,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the combobox in which the fonts are listed
 		fontCB = new JComboBox();
-		fontCB.setToolTipText("Change font.");
+		fontCB.setToolTipText("Protip! Don't have too many different fonts! It will look unprofessional.");
 		fontCB.addActionListener(this);
 		fontCB.setActionCommand("Font");
 		GraphicsEnvironment e = GraphicsEnvironment
@@ -140,31 +140,29 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the combobox in which the sizes for the text are listed
 		textSizeCB = new JComboBox();
-		textSizeCB.setToolTipText("Change text size.");
+		textSizeCB.setToolTipText("Protip! Size 20 is perfect for headlines. Otherwise, use size 11 as default.");
 		textSizeCB.addActionListener(this);
 		textSizeCB.setActionCommand("Size");
 		
-		textSizeCB.setModel(new DefaultComboBoxModel(new String[] {"7", "8", "9", "10"
-				, "11", "12", "13", "14", "15", "16", "18", "20", "22", "24", "26", "28"
-				, "30", "32", "36", "40", "44", "48"}));
+		textSizeCB.setModel(new DefaultComboBoxModel(new String[] {"9", "10", "11", "12", "13", "14", "15", "16", "18", "20", "22", "24", "26", "28", "30", "32"}));
 
 		// Setting properties for the button which makes the text bold
 		JToggleButton btnBold = new JToggleButton("B");
-		btnBold.setToolTipText("Make the selected text bold.");
+		btnBold.setToolTipText("Protip! You can make the headline bolded and all the subheadlines!");
 		btnBold.addActionListener(this);
 		btnBold.setActionCommand("Bold");
 		btnBold.setFont(new Font("Tahoma", Font.BOLD, 11));
 
 		// Setting properties for the button which make the text italic
 		JToggleButton btnItalic = new JToggleButton("I");
-		btnItalic.setToolTipText("Make the selected text italics.");
+		btnItalic.setToolTipText("Protip! Use this for names of schools, programs etc.");
 		btnItalic.addActionListener(this);
 		btnItalic.setActionCommand("Italic");	
 		btnItalic.setFont(new Font("Tahoma", Font.ITALIC, 11));
 
 		// Setting properties for the button which make the text underlined
 		JToggleButton btnUnderline = new JToggleButton("U");
-		btnUnderline.setToolTipText("Make the selected text underlined.");
+		btnUnderline.setToolTipText("Protip! Use this to emphasize.");
 		btnUnderline.addActionListener(this);
 		btnUnderline.setActionCommand("Underline");	
 		Map<TextAttribute, Object> map = new HashMap<TextAttribute, Object>();
@@ -306,46 +304,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 			}
 		break;
 		case "Save":
-			
 			pcs.firePropertyChange(Labels.SAVE_DOC, false, true);
-			
-			/* String currentFileDirectory = "";
-			if("".equals(currentFileDirectory)){					//if the current file is a new one (untitled)
-				JFileChooser sdChooser = new JFileChooser();		//file chooser
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
-				sdChooser.setFileFilter(filter);
-				int returnVal = sdChooser.showSaveDialog(null);
-				
-				try{
-					if(returnVal == JFileChooser.APPROVE_OPTION){
-						File directory = sdChooser.getCurrentDirectory();
-						String path = directory.getAbsolutePath();					//the absolute path of the directory, named "path"
-						String fileName = sdChooser.getSelectedFile().getName();	//get the file name
-						if(!fileName.contains("rsmt")){								//if the file name doesn't contain rsmt,
-							fileName = fileName + ".rsmt";							//name it a new name with .rsmt at the end
-						}
-						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "\\" + fileName), "UTF-8"));
-						currentFileDirectory = path + "\\" + fileName;				//the current file directory is now "theabsolutepath\\filename.rsmt"
-						//bw.write(THE_NAME_OF_THE_EDITORPANE_THAT_SHOULD_BE_OVERWRITTEN.getText());					//get the document text and write it over
-						bw.close();
-					}
-					
-				}catch(IOException err){
-					JOptionPane.showMessageDialog(null,  "ERROR!");
-				}
-			
-			}else{
-				
-				try{
-					//if it is not empty, we'll save it into the current directory
-					BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(currentFileDirectory), "UTF-8"));
-					//bw.write(THE_NAME_OF_THE_EDITORPANE_THAT_SHOULD_BE_OVERWRITTEN.getText());
-					bw.close();
-					
-				}catch(IOException err){
-					JOptionPane.showMessageDialog(null,  "ERROR!");
-				}	
-			}*/
 			break;
 		case "Open":
 			pcs.firePropertyChange(Labels.OPEN_DOC, false, true);

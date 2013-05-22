@@ -181,7 +181,7 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.NEW_DOC:
-
+			
 			break;
 
 		case Labels.TEMPLATE_CHANGED:
@@ -227,6 +227,46 @@ public class MainController implements PropertyChangeListener {
 		case Labels.SAVE_DOC:
 			ioCon.chooseFunction(Labels.SAVE_DOC, null,
 					docCon.getDoc(docCon.getCurrent()).getStrings());
+			
+			/* String currentFileDirectory = "";
+			if("".equals(currentFileDirectory)){					//if the current file is a new one (untitled)
+				JFileChooser sdChooser = new JFileChooser();		//file chooser
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
+				sdChooser.setFileFilter(filter);
+				int returnVal = sdChooser.showSaveDialog(null);
+				
+				try{
+					if(returnVal == JFileChooser.APPROVE_OPTION){
+						File directory = sdChooser.getCurrentDirectory();
+						String path = directory.getAbsolutePath();					//the absolute path of the directory, named "path"
+						String fileName = sdChooser.getSelectedFile().getName();	//get the file name
+						if(!fileName.contains("rsmt")){								//if the file name doesn't contain rsmt,
+							fileName = fileName + ".rsmt";							//name it a new name with .rsmt at the end
+						}
+						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "\\" + fileName), "UTF-8"));
+						currentFileDirectory = path + "\\" + fileName;				//the current file directory is now "theabsolutepath\\filename.rsmt"
+						//bw.write(THE_NAME_OF_THE_EDITORPANE_THAT_SHOULD_BE_OVERWRITTEN.getText());					//get the document text and write it over
+						bw.close();
+					}
+					
+				}catch(IOException err){
+					JOptionPane.showMessageDialog(null,  "ERROR!");
+				}
+			
+			}else{
+				
+				try{
+					//if it is not empty, we'll save it into the current directory
+					BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(currentFileDirectory), "UTF-8"));
+					//bw.write(THE_NAME_OF_THE_EDITORPANE_THAT_SHOULD_BE_OVERWRITTEN.getText());
+					bw.close();
+					
+				}catch(IOException err){
+					JOptionPane.showMessageDialog(null,  "ERROR!");
+				}	
+			}*/
+			
+			
 			
 			break;
 

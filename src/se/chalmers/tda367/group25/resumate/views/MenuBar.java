@@ -251,36 +251,31 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 		
 		switch (arg0.getActionCommand()){
 		case "New":
-			/*String clipBoardData = "";
-			String currentFileDirectory = "";
 			int selection = JOptionPane.showConfirmDialog(null,
 					"Do you want to save the document first?", null,
 					JOptionPane.YES_NO_OPTION);
 			if (selection == JOptionPane.YES_OPTION) {
-				//DannyForm textEditor = new DannyForm();
-				//textEditor.setLocationRelativeTo(null);
-				//textEditor.setVisible(true);
-				//currentFileDirectory = "";			//a new file gets renamed to nothing
-				JOptionPane.showMessageDialog(null, "Explorer/SAVE");
-			}else if(selection == JOptionPane.NO_OPTION){
-				//should create a new tab, not a new program
-			}else{
-				;
-			}*/
-			break;
-		case "Exit":
-			int selection = JOptionPane.showConfirmDialog(null,
-					"Do you want to save the document first?", null,
-					JOptionPane.YES_NO_OPTION);
-			if (selection == JOptionPane.YES_OPTION) {
-				JOptionPane.showMessageDialog(null, "Expolorer/SAVE"); //Implement Save here
-				System.exit(1);
+				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);	//Save Doc
+				pcs.firePropertyChange(Labels.NEW_DOC, false, true);	//New Doc
 			}else if(selection == JOptionPane.CLOSED_OPTION){
-				;
+				//Do nothing
 			}else{
-				System.exit(1);
+				pcs.firePropertyChange(Labels.NEW_DOC, false, true); 
+				//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
 			}
 			break;
+		case "Exit":
+			selection = JOptionPane.showConfirmDialog(null,
+					"Do you want to save the document first?", null,
+					JOptionPane.YES_NO_OPTION);
+			if (selection == JOptionPane.YES_OPTION) {
+				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);	//Save Doc
+				System.exit(0);
+			}else if(selection == JOptionPane.CLOSED_OPTION){
+				//Do nothing
+			}else{
+				System.exit(1337);
+			}
 		case "Undo":
 			pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
 			break;

@@ -9,6 +9,7 @@ public enum SectionType {
 	IMAGE,
 	PERSONAL_INFO,
 	WORK_EXPERIENCE,
+	EDUCATION,
 	HEADER,
 	EMPTY
 }

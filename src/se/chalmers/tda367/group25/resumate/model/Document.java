@@ -78,6 +78,14 @@ public class Document {
 				texts.put(SectionType.WORK_EXPERIENCE, new RMText(
 						SectionType.WORK_EXPERIENCE));
 			}
+			if (!texts.containsKey(SectionType.HEADER)) {
+				texts.put(SectionType.HEADER, new RMText(
+						SectionType.HEADER));
+			}
+			if (!texts.containsKey(SectionType.EDUCATION)) {
+				texts.put(SectionType.EDUCATION, new RMText(
+						SectionType.EDUCATION));
+			}
 			break;
 		}
 	}
@@ -123,6 +131,10 @@ public class Document {
 		if (texts.containsKey(SectionType.WORK_EXPERIENCE)) {
 			strings.put(SectionType.WORK_EXPERIENCE,
 					texts.get(SectionType.WORK_EXPERIENCE).getText());
+		}
+		if (texts.containsKey(SectionType.EDUCATION)) {
+			strings.put(SectionType.EDUCATION,
+					texts.get(SectionType.EDUCATION).getText());
 		}
 		if (texts.containsKey(SectionType.EMPTY)) {
 			strings.put(SectionType.EMPTY, texts.get(SectionType.EMPTY)

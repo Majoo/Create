@@ -8,7 +8,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JEditorPane;
 
+import se.chalmers.tda367.group25.resumate.views.CV_Classy;
 import se.chalmers.tda367.group25.resumate.views.CV_Def;
+import se.chalmers.tda367.group25.resumate.views.PL_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 public class Translator {
@@ -26,6 +28,14 @@ public class Translator {
 		switch(name){
 		case "CV_Def":
 			template = Template.DEF_CV;
+			break;
+			
+		case "CV_Classy":
+			template = Template.CLASSY_CV;
+			break;
+			
+		case "PL_Def":
+			template = Template.DEF_PL;
 			break;
 		
 		default: //Do nothing, never invoked.
@@ -58,7 +68,11 @@ public class Translator {
 			break;
 		
 		case DEF_PL:
-		
+			panel = new PL_Def();
+			break;
+			
+		case CLASSY_CV:
+			panel = new CV_Classy();
 			break;
 		
 		default: //Do nothing, never invoke
@@ -96,6 +110,9 @@ public class Translator {
 			break;
 		case "headerTitle":
 			section = SectionType.HEADER;
+			break;
+		case "educationText":
+			section = SectionType.EDUCATION;
 			break;
 		default: //Do nothing, never invoked.
 		

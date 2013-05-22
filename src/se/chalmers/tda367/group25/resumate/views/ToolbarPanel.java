@@ -162,6 +162,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the button which make the text underlined
 		JToggleButton btnUnderline = new JToggleButton("U");
+		btnUnderline.setToolTipText("Make the selected text underlined.");
 		btnUnderline.addActionListener(this);
 		btnUnderline.setActionCommand("Underline");	
 		Map<TextAttribute, Object> map = new HashMap<TextAttribute, Object>();
@@ -171,6 +172,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		
 		// Setting properties for the button which make the text coloured
 		textColorCB = new JComboBox();
+		textColorCB.setToolTipText("Select colour.");
 		textColorCB.setModel(new DefaultComboBoxModel(new String[] {"Black", "Blue", "Cyan", "Dark Gray", "Gray", "Green",
 				"Light Gray", "Magenta", "Orange", "Pink", "Red", "White", "Yellow"}));
 		textColorCB.addActionListener(this);
@@ -239,16 +241,20 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		temp3But.setActionCommand("DefPL");
 		tempPanel.add(temp3But);
 		
-		
+		//A list with different templates.
 		String[] templateChange = {
-				"Advanced Personal letter",
-		         "Advanced Curriculum vitae",
-		         "Classy Personal letter",
-		         "Classy Curriculum vitae",
-		         "Default Personal letter",
-		         "Default Curriculum vitae",
-		         "Quick Personal letter",
-		         "Quick Curriculum vitae",
+				"Advanced PL",
+		         "Advanced CV",
+		         "Classic PL",
+		         "Classic CV",
+		         "Modern PL",
+		         "Modern CV",
+		         "Left Aligned PL",
+		         "Left Aligned CV",
+		         "Right Aligned PL",
+		         "Right Aligned CV",
+		         "Quick PL",
+		         "Quick CV",
 		          };
 		
 		JComboBox otherTemps = new JComboBox(templateChange);

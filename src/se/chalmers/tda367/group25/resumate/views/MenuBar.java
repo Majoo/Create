@@ -282,10 +282,10 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 			}
 			break;
 		case "Undo":
-			pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
+			pcs.firePropertyChange(Labels.UNDO_TEXT, false, true);
 			break;
 		case "Redo":	
-			pcs.firePropertyChange(Labels.REDO_ACTION, false, true);
+			pcs.firePropertyChange(Labels.REDO_TEXT, false, true);
 			break;
 		case "Copy":
 			pcs.firePropertyChange(Labels.TEXT_COPY, false, true);
@@ -350,7 +350,7 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 							JOptionPane.showMessageDialog(null,"Please enter a word to replace with");
 						} else {
 							replaceWithNeedsInputA = false;
-							pcs.firePropertyChange(Labels.REPLACE_ALL, null, replaceThiis + "/" + replaceWiith);
+							pcs.firePropertyChange(Labels.REPLACE_ALL_TEXT, null, replaceThiis + "/" + replaceWiith);
 						}
 					}
 				}

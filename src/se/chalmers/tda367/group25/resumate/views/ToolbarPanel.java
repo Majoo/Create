@@ -357,10 +357,10 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 			pcs.firePropertyChange(Labels.SEND_DOC, false, true);
 			break;	
 		case "Undo":
-			pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
+			pcs.firePropertyChange(Labels.UNDO_TEXT, false, true);
 			break;
 		case "Redo":	
-			pcs.firePropertyChange(Labels.REDO_ACTION, false, true);
+			pcs.firePropertyChange(Labels.REDO_TEXT, false, true);
 			break;
 		case "Select All":
 			pcs.firePropertyChange(Labels.TEXT_SELECTALL, false, true);

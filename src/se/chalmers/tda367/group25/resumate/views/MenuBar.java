@@ -98,6 +98,8 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 		JMenuItem mntmCut = new JMenuItem("Cut");
 		mntmCut.setMnemonic('U');
 		mntmCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));
+		mntmCut.addActionListener(this);
+		mntmCut.setActionCommand("Cut");
 		mnEdit.add(mntmCut);
 
 		JMenuItem mntmCopy = new JMenuItem("Copy");
@@ -114,11 +116,11 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 		mntmPaste.setActionCommand("Paste");
 		mnEdit.add(mntmPaste);
 
-		JMenuItem mntmSA = new JMenuItem("Select All");
+		JMenuItem mntmSA = new JMenuItem("SelectAll");
 		mntmSA.setMnemonic('S');
 		mntmSA.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
 		mntmSA.addActionListener(this);
-		mntmSA.setActionCommand("Select All");
+		mntmSA.setActionCommand("SelectAll");
 		mnEdit.add(mntmSA);
 		
 		JSeparator separator = new JSeparator();

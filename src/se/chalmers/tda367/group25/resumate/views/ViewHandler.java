@@ -105,10 +105,7 @@ public class ViewHandler {
 	 */
 	
 	public static void textPaste(JEditorPane section){
-		new StringBuffer();
-		//String clipBoardData = "";
 			section.paste();
-			
 	}
 	
 	/**
@@ -116,8 +113,9 @@ public class ViewHandler {
 	 * @param section
 	 * 			the current textarea.
 	 */
-	public static void selectAll(JEditorPane section, String selection){
-			section.selectAll();
+	public static void selectAll(JEditorPane section){	
+		section.selectAll();
+			
 	}
 	
 	/**

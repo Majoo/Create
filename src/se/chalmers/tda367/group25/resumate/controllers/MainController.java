@@ -220,7 +220,7 @@ public class MainController implements PropertyChangeListener {
 			
 		case Labels.TEXT_SELECTALL:
 			JEditorPane textAreaSA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			//ViewHandler.selectAll(textAreaSA.getSelectedText());
+			ViewHandler.selectAll(textAreaSA);
 			break;	
 			
 			

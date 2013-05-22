@@ -25,7 +25,7 @@ public class IOHandler {
 	/**
 	 * Save to file. The project is saved by saving each RMText as a separate
 	 * text file, and saving an RSMT file to act as a locator for opening a
-	 * Document in the future.
+	 * Document in the future. Synchronized for sake of safety.
 	 * 
 	 * @param fileName
 	 *            the file to save to
@@ -65,14 +65,14 @@ public class IOHandler {
 	}
 
 	/**
-	 * Open file.
+	 * Open file. Synchronized for sake of safety.
 	 * 
 	 * @param fileName
 	 *            the file to open
 	 * @throws IOException
 	 * 
 	 */
-	public static synchronized void openFile(String fileName)
+	public static synchronized Map<SectionType, String> openFile(String fileName)
 			throws IOException, FileNotFoundException {
 
 		File chosenFile = new File(fileName);
@@ -85,6 +85,7 @@ public class IOHandler {
 		}
 		br.close();
 
+		return null;
 	}
 
 }

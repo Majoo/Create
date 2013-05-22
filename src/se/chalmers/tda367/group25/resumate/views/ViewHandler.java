@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+
 import java.awt.event.ActionEvent;
 
 import javax.naming.CannotProceedException;
@@ -73,7 +74,7 @@ public class ViewHandler {
 	}
 	/**
 	 * Copy the text made in the current textarea.
-	 * @param copy
+	 * @param section
 	 * 			the current textarea.
 	 */
 	public static void textCopy(JEditorPane section){
@@ -85,7 +86,7 @@ public class ViewHandler {
 	}
 	/**
 	 * Cut the text made in the current textarea.
-	 * @param cut
+	 * @param section
 	 * 			the current textarea.
 	 */
 	public static void textCut(JEditorPane section){
@@ -94,18 +95,20 @@ public class ViewHandler {
 		Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clpbrd.setContents(stringSelection, null);
 		//delete
-	//	section.replaceSelection("");
+		section.replaceSelection("");
 		
 	}
 	/**
 	 * Paste the text made in the current textarea.
-	 * @param paste
+	 * @param section
 	 * 			the current textarea.
 	 */
 	
 	public static void textPaste(JEditorPane section){
-			String clipBoardData;
-			//section.append(clipBoardData);
+		new StringBuffer();
+		//String clipBoardData = "";
+			section.paste();
+			
 	}
 	
 	/**

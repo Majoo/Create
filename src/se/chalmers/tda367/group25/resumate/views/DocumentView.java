@@ -1,17 +1,15 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JEditorPane;
-import javax.swing.JTabbedPane;
-import javax.swing.SpringLayout;
+import javax.swing.JScrollPane;
 
-import se.chalmers.tda367.group25.resumate.views.concreteTemplatePanels.CV_Def;
-import java.awt.BorderLayout;
+import javax.swing.ScrollPaneConstants;
+import java.awt.Font;
 
 /**
  * This class contains a TemplatePanel which shows the Document.
@@ -31,7 +29,19 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		pcs = new PropertyChangeSupport(this);
 		setLayout(new BorderLayout(0, 0));
 		templatePnl = new CV_Def();
+		templatePnl.getHeaderTitle().setText(" [HEADLINE]");
+		templatePnl.getWorkingExperienceText().setText(" [ABOUT YOURSELF]");
+		templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 20));
+		templatePnl.getWorkingExperienceText().setToolTipText("Write about yourself, what you do in your spare time and why you are suitable for this job.");
+		templatePnl.getHeaderTitle().setToolTipText("The headline of your r\u00E9sum\u00E9.");
+		templatePnl.getCurrentSection().setToolTipText("This is your personal information that needs to be filled. ");
+		templatePnl.getCurrentSection().setText("Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
 		add(templatePnl);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		add(scrollPane, BorderLayout.EAST);
 	}
 	
 	public DocumentView(TemplatePanel templatePanel) {
@@ -65,7 +75,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		
 	}
 	
-	//METHODS TO DEBUG
+	//METHODS USED TO DEBUG
 	/*
 	 * Get String-ID
 	 */

@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.model;
+package se.chalmers.tda367.group25.resumate.io;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,7 +6,20 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
+
+/**
+ * This class handles IO functions, saving and opening Documents. This is done
+ * by saving each Section as a separate text document, which in turn is named
+ * after the SectionType. It follows then that opening a Document is done by
+ * creating a new Document, and then setting the contents of the Sections to the
+ * content of the corresponding text documents.
+ * 
+ * @author Laszlo Sall Vesselenyi
+ * @author Danny Lam
+ */
 public class IOHandler {
 
 	/**
@@ -15,7 +28,8 @@ public class IOHandler {
 	 * @param fileName
 	 *            the file to save to
 	 */
-	public void saveFile(String fileName, Document doc) throws IOException {
+	public void saveFile(String fileName, Map<SectionType, String> strings)
+			throws IOException {
 		File directory = new File(fileName);
 		// Create directory for RSMT files
 		if (directory.mkdirs()) {

@@ -38,56 +38,70 @@ public class DocumentController implements PropertyChangeListener {
 		this.docAndDocView.put(getCurrent(), first);
 	}
 
+	//GETTERS
 	/**
-	 * Adds a new Document to the corresponding value (List) in the
-	 * docAndDocView Map.
-	 * 
-	 * @param ID
-	 *            the ID to give to the Document
-	 * @param d
-	 *            the Document to add
+	 * Get the Document in the List<Object> given
+	 * @param pair
+	 * 				the pair to be separated
 	 */
-	public void addDoc(String ID, Document d) {
-		List<Object> list;
-		if (!docAndDocView.containsKey(ID)) {
-			list = new ArrayList<Object>(2);
-			docAndDocView.put(ID, list);
+	public Document separateDoc(List<Object> pair){
+		Document d = null;
+		for (Object o : pair) {
+			if (o instanceof Document) {
+				d = (Document) o;
+			}
 		}
-		docAndDocView.get(ID).add(d);
-		//Problem: om listan redan finns och redan innehåller en av varje.
-
+		return d;
 	}
-
+	
 	/**
-	 * Adds a new DocumentView to the corresponding value (List) in the
-	 * docAndDocView Map.
-	 * 
-	 * @param ID
-	 *            the ID to give to the DocumentView
-	 * @param v
-	 *            the DocumentView to add
+	 * Get the DocumentView in the List<Object> given
+	 * @param pair
+	 * 				the pair to be separated
 	 */
-	public void addDocView(String ID, DocumentView v) {
-		List<Object> list;
-		if (!docAndDocView.containsKey(ID)) {
-			list = new ArrayList<Object>(2);
-			docAndDocView.put(ID, list);
+	public DocumentView separateDocView(List<Object> pair){
+		DocumentView v = null;
+		for (Object o : pair) {
+			if (o instanceof Document) {
+				v = (DocumentView) o;
+			}
 		}
-		docAndDocView.get(ID).add(v);
-		//Problem: om listan redan finns och redan innehåller en av varje.
-
+		return v;
 	}
-
+	
 	/**
-	 * Sets which DocAndDocView couple is the one currently in use by the user.
-	 * 
-	 * @param current
-	 *            the String Key
+	 * Get the Document associated with the DocumentView given as parameter.
+	 * @param
+	 * 			docView - the DocumentView to extract the Document from
 	 */
-	public void setCurrent(String current) {
-		this.current = current;
+	public Document separateDocument(DocumentView docView){
+		//Get the List that contains the DocView
+		List<Object> curDocAndDocView = null;
+		for (List<Object> value : this.docAndDocView.values()) {
+			if (value.contains(docView)) {
+				curDocAndDocView = value;
+			}
+		}
+		//Get the Document from this List
+		Document d = null;
+		for(Object o: curDocAndDocView){
+			if(o instanceof Document){
+				d = (Document)o;
+			}
+		}
+		System.out.println(d+" in docCon.separateDocument(docview)");
+		return d;
 	}
-
+	
+	/**
+	 * Randomly generates a key for a value in the docAndDocView Map.
+	 * 
+	 * @return random key
+	 */
+	private String generateKey() {
+		return "apa";
+	}
+	
 	/**
 	 * Returns the Key to the current DocAndDocView couple currently in use by
 	 * the user.
@@ -138,7 +152,72 @@ public class DocumentController implements PropertyChangeListener {
 		}
 		return null;
 	}
+	
+	//SETTERS
+	/**
+	 * Update the image of the Document associated with the BufferedImage img.
+	 * 
+	 * @param doc
+	 * 					The Document to put the BufferedImage in
+	 * @param img
+	 * 					The BufferedImage to put in the Document
+	 */
+	public void updateImage(Document doc, BufferedImage img) {
+		doc.setImage(img);
+		
+	}
+	
+	/**
+	 * Adds a new Document to the corresponding value (List) in the
+	 * docAndDocView Map.
+	 * 
+	 * @param ID
+	 *            the ID to give to the Document
+	 * @param d
+	 *            the Document to add
+	 */
+	public void addDoc(String ID, Document d) {
+		List<Object> list;
+		if (!docAndDocView.containsKey(ID)) {
+			list = new ArrayList<Object>(2);
+			docAndDocView.put(ID, list);
+		}
+		docAndDocView.get(ID).add(d);
+		//Problem: om listan redan finns och redan innehåller en av varje.
 
+	}
+
+	/**
+	 * Adds the DocumentView to the list put as a value of the key ID.
+	 * 
+	 * @param ID
+	 *            the ID to put the DocumentView under
+	 * @param v
+	 *            the DocumentView to add
+	 */
+	public void addDocView(String ID, DocumentView v) {
+		List<Object> list;
+		if (!docAndDocView.containsKey(ID)) {
+			list = new ArrayList<Object>(2);
+			docAndDocView.put(ID, list);
+		}
+		docAndDocView.get(ID).add(v);
+		System.out.println("I addDocView(), ID: "+v.getID());
+		//Problem: om listan redan finns och redan innehåller en av varje.
+
+	}
+
+	/**
+	 * Sets which DocAndDocView couple is the one currently in use by the user.
+	 * 
+	 * @param current
+	 *            the String Key
+	 */
+	public void setCurrent(String current) {
+		this.current = current;
+	}
+	
+	//PROPERTCHANGE
 	/**
 	 * Handles Events from the DocumentView objects in the docAndDocView Map.
 	 * 
@@ -178,80 +257,6 @@ public class DocumentController implements PropertyChangeListener {
 		//Text handling:
 		}
 
-	}
-
-	//GETTERS
-	/**
-	 * Get the Document in the List<Object> given
-	 * @param pair
-	 * 				the pair to be separated
-	 */
-	public Document separateDoc(List<Object> pair){
-		Document d = null;
-		for (Object o : pair) {
-			if (o instanceof Document) {
-				d = (Document) o;
-			}
-		}
-		return d;
-	}
-	
-	/**
-	 * Get the DocumentView in the List<Object> given
-	 * @param pair
-	 * 				the pair to be separated
-	 */
-	public DocumentView separateDocView(List<Object> pair){
-		DocumentView v = null;
-		for (Object o : pair) {
-			if (o instanceof Document) {
-				v = (DocumentView) o;
-			}
-		}
-		return v;
-	}
-	
-	/**
-	 * Get the Document associated with the DocumentView given as parameter.
-	 * @param
-	 * 			docView - the DocumentView to extract the Document from
-	 */
-	public Document separateDocument(DocumentView docView){
-		List<Object> curDocAndDocView = null;
-		for (List<Object> value : docAndDocView.values()) {
-			if (value.contains(docView)) {
-				curDocAndDocView = value;
-			}
-		}
-		Document d = null;
-		for(Object o: curDocAndDocView){
-			if(o instanceof Document){
-				d = (Document)o;
-			}
-		}
-		return d;
-	}
-	
-	/**
-	 * Randomly generates a key for a value in the docAndDocView Map.
-	 * 
-	 * @return random key
-	 */
-	private String generateKey() {
-		return "apa";
-	}
-	
-	//SETTERS
-	/**
-	 * Update the image of the Document associated with the BufferedImage img.
-	 * 
-	 * @param doc
-	 * 					The Document to put the BufferedImage in
-	 * @param img
-	 * 					The BufferedImage to put in the Document
-	 */
-	public void updateImage(Document doc, BufferedImage img) {
-		doc.setImage(img);
 	}
 		
 }

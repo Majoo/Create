@@ -225,14 +225,14 @@ public class MainController implements PropertyChangeListener {
 
 			break;
 
-		case Labels.PRINT_DOC:
-			ioCon.chooseFunction(Labels.PRINT_DOC,
+		case Labels.EXPORT_DOC:
+			ioCon.chooseFunction(Labels.EXPORT_DOC,
 					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
 					null);
 			break;
-
-		case Labels.EXPORT_DOC:
-			ioCon.chooseFunction(Labels.EXPORT_DOC,
+			
+		case Labels.PRINT_DOC:
+			ioCon.chooseFunction(Labels.PRINT_DOC,
 					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
 					null);
 			break;

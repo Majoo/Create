@@ -141,7 +141,7 @@ public class MainView extends JFrame implements MainViewInterface {
 	 */
 	public void sendInitialDocView() {
 		DocumentView docView = this.docViewList.get(0);
-		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, "first");
+		pcs.firePropertyChange(Labels.SEND_INITIAL_DVIEW, docView, "first");
 	}
 
 }

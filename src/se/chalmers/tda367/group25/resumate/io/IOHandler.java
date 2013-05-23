@@ -50,7 +50,7 @@ public class IOHandler {
 	}
 
 	/**
-	 * Write the content from the RMText objects stored in the Map to text
+	 * Writes the content from the RMText objects stored in the Map to text
 	 * files, and creates the RSMT file.
 	 * 
 	 * @param fileName

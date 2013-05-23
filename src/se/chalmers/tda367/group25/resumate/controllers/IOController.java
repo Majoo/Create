@@ -81,24 +81,20 @@ public class IOController {
 	 * @param function
 	 *            the context of the function e.g. save, save as, export as PDF
 	 * @param strings
+	 * 
 	 * @throws FileNotFoundException
 	 * @throws DocumentException
 	 * @throws NullPointerException
 	 */
-	public void choosePath(JComponent jc, String function,
+	private void choosePath(JComponent jc, String function,
 			Map<SectionType, String> strings) throws FileNotFoundException,
 			DocumentException, NullPointerException {
 
 		JFileChooser chooser = new JFileChooser();
-		chooser.setAcceptAllFileFilterUsed(false);
-		if (function.equals(Labels.SAVE_DOC_AS)) {
-			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		}
+		setChooser(chooser, function);
 
-		// Depending on the desired function, different kinds of Filter are
-		// required, which is why the returnFilter method is called
-		chooser.setFileFilter(getFilter(function));
-		int returnVal = chooser.showSaveDialog(null);
+		int returnVal = chooser.showDialog(null, getApproveText(function));
+
 		String filePath = chooser.getCurrentDirectory().getPath();
 		String fileName = chooser.getSelectedFile().getName();
 
@@ -129,11 +125,54 @@ public class IOController {
 		if (function.equals(Labels.EXPORT_DOC)) {
 			return new FileNameExtensionFilter("PDF", "pdf");
 		} else if (function.equals(Labels.SAVE_DOC_AS)) {
-			// RSMT = temporary file name
 			return new FileNameExtensionFilter("Directory");
 		} else if (function.equals(Labels.OPEN_DOC)) {
 			// RSMT = temporary file name
 			return new FileNameExtensionFilter("ResuMate file", "rsmt");
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Sets some properties of the JFileChooser that are dependent on the
+	 * function. Mainly relevant for saving in this iteration.
+	 * 
+	 * @param jfc
+	 *            the JFileChooser which will be set up
+	 * @param function
+	 *            the context of the JFileChooser
+	 */
+	private void setChooser(JFileChooser jfc, String function) {
+		jfc.setAcceptAllFileFilterUsed(false);
+
+		// Depending on the desired function, different kinds of Filter are
+		// required, which is why the returnFilter method is called
+		jfc.setFileFilter(getFilter(function));
+
+		// When saving, only directories are relevant
+		if (function.equals(Labels.SAVE_DOC_AS)) {
+			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		} else {
+			jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		}
+	}
+
+	/**
+	 * Gets the correct text for the Approve Button depending on the function
+	 * being performed.
+	 * 
+	 * @param function
+	 *            the context of the JFileChooser
+	 * @return text for the Approve Button
+	 */
+	private String getApproveText(String function) {
+		if (function.equals(Labels.SAVE_DOC_AS)) {
+			return "Save";
+		} else if (function.equals(Labels.OPEN_DOC)) {
+			return "Open";
+		} else if (function.equals(Labels.EXPORT_DOC)) {
+			return "Export";
 		} else {
 			return null;
 		}

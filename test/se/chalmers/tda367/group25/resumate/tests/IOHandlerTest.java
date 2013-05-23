@@ -75,7 +75,53 @@ public class IOHandlerTest {
 		assertTrue(file.exists());
 	}
 
-	/* TODO
+	@Test
+	public void testMultipleFileCreation() throws IOException {
+		Map<SectionType, String> strings = new HashMap<SectionType, String>(3);
+		String dirPath = System.getProperty("user.home") + "\\testMultipleFileCreation";
+
+		// A File with same path as the directory that is created by the
+		// saveFile method.
+		File dir = new File(dirPath);
+
+		// If a directory of that name already exists, choose another name
+		String newDirPath = dirPath;
+		int i = 1; // Used for finding correct directory
+		while (dir.exists()) {
+			newDirPath = dirPath + "(" + i + ")";
+			dir = new File(newDirPath);
+			i++;
+		}
+		if (i > 1) {
+			dirPath = newDirPath;
+		}
+
+		String info = "PERSONAL_INFO.txt";
+		String work = "WORK_EXPERIENCE.txt";
+		String empty = "EMPTY.txt";
+
+		strings.put(SectionType.PERSONAL_INFO, info); // Just a String to make the method work.
+		strings.put(SectionType.WORK_EXPERIENCE, work);
+		strings.put(SectionType.EMPTY, empty);
+		
+		IOHandler.saveFile(dirPath, strings);
+
+		String personalFilePath = dirPath + "\\" + info;
+		File personalFile = new File(personalFilePath);
+		assertTrue(personalFile.exists());
+		
+		String workFilePath = dirPath + "\\" + work;
+		File workFile = new File(workFilePath);
+		assertTrue(workFile.exists());
+		
+		String emptyFilePath = dirPath + "\\" + work;
+		File emptyFile = new File(emptyFilePath);
+		assertTrue(emptyFile.exists());
+	}
+
+	/*
+	 * TODO
+	 * 
 	 * @Test public void testOpenFile() throws IOException { Map<SectionType,
 	 * String> strings = new HashMap<SectionType, String>(1); String dirPath =
 	 * System.getProperty("user.home") + "\\testOpenCreation";

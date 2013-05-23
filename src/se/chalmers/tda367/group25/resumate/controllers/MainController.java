@@ -71,7 +71,26 @@ public class MainController implements PropertyChangeListener {
 		}
 
 	}
-
+	
+	/**
+	 * Handles events that are fired during startup of the program.
+	 * 
+	 * @param e
+	 *       the event to be handled
+	 */
+	private void initialPropertyChange(PropertyChangeEvent e) {
+		switch(e.getPropertyName()){
+		case Labels.SEND_INITIAL_DVIEW:
+			DocumentView docView = (DocumentView)e.getOldValue();
+			docCon.addDocView((String)e.getNewValue()
+					,docView);
+			break;
+		default: 
+			//Do nothing, never invoked
+			break;
+		}
+	}
+	
 	/**
 	 * Handles events that have to do with IO
 	 * 
@@ -277,24 +296,6 @@ public class MainController implements PropertyChangeListener {
 			break;
 		}
 
-	}
-
-	/**
-	 * Handles events that are fired during startup of the program.
-	 * 
-	 * @param e
-	 *            the event to be handled
-	 */
-	private void initialPropertyChange(PropertyChangeEvent e) {
-		switch (e.getPropertyName()) {
-		case Labels.SEND_INITIAL_DVIEW:
-			DocumentView docView = (DocumentView) e.getOldValue();
-			docCon.addDocView((String) e.getNewValue(), docView);
-			break;
-		default:
-			// Do nothing, never invoked
-			break;
-		}
 	}
 
 	/**

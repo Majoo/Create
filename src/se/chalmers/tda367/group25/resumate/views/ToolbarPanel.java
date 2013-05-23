@@ -33,6 +33,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import java.awt.Component;
 
 public class ToolbarPanel extends JPanel implements ActionListener{
 	private PropertyChangeSupport pcs;
@@ -64,49 +65,61 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		//Setting all the buttons and giving them actions
 		JButton btnNewDoc = new JButton("New");
+		btnNewDoc.setToolTipText("New document.");
 		btnNewDoc.addActionListener(this);
 		btnNewDoc.setActionCommand("New");
 		upperToolsPan.add(btnNewDoc);
 
 		JButton btnOpen = new JButton("Open");
+		btnOpen.setToolTipText("Open document.");
 		btnOpen.addActionListener(this);
 		btnOpen.setActionCommand("Open");
 		upperToolsPan.add(btnOpen);
 
 		JButton btnSave = new JButton("Save");
+		btnSave.setToolTipText("Save the document.");
 		btnSave.addActionListener(this);
 		btnSave.setActionCommand("Save");
 		upperToolsPan.add(btnSave);
 
-		JButton btnSend = new JButton("Send");
-		btnSend.setActionCommand("Send");
-		upperToolsPan.add(btnSend);
+		JButton btnExport = new JButton("Export");
+		btnExport.setToolTipText("Export the document as PDF.");
+		btnExport.addActionListener(this);
+		btnExport.setActionCommand("Export");
+		upperToolsPan.add(btnExport);
 
 		JButton btnPrint = new JButton("Print");
+		btnPrint.setToolTipText("Print the document.");
+		btnPrint.addActionListener(this);
 		btnPrint.setActionCommand("Print");
 		upperToolsPan.add(btnPrint);
 
 		JButton btnCut = new JButton("Cut");
-		btnPrint.setActionCommand("Cut");
+		btnCut.setToolTipText("Cut the selected text.");
+		btnCut.addActionListener(this);
+		btnCut.setActionCommand("Cut");
 		upperToolsPan.add(btnCut);
 
 		JButton btnCopy = new JButton("Copy");
+		btnCopy.setToolTipText("Copy the selected text.");
 		btnCopy.addActionListener(this);
 		btnCopy.setActionCommand("Copy");
 		upperToolsPan.add(btnCopy);
 
 		JButton btnPaste = new JButton("Paste");
+		btnPaste.setToolTipText("Paste the copied text.");
 		btnPaste.addActionListener(this);
 		btnPaste.setActionCommand("Paste");
 		upperToolsPan.add(btnPaste);
 
 		JButton btnRedo = new JButton("Redo");
+		btnRedo.setToolTipText("Redo an action.");
 		btnRedo.addActionListener(this);
 		btnRedo.setActionCommand("Redo");
-		
 		upperToolsPan.add(btnRedo);
 
 		JButton btnUndo = new JButton("Undo");
+		btnUndo.setToolTipText("Undo an action.");
 		btnUndo.addActionListener(this);
 		btnUndo.setActionCommand("Undo");
 		upperToolsPan.add(btnUndo);
@@ -117,6 +130,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the combobox in which the fonts are listed
 		fontCB = new JComboBox();
+		fontCB.setToolTipText("Protip! Don't have too many different fonts! It will look unprofessional.");
 		fontCB.addActionListener(this);
 		fontCB.setActionCommand("Font");
 		GraphicsEnvironment e = GraphicsEnvironment
@@ -126,27 +140,29 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the combobox in which the sizes for the text are listed
 		textSizeCB = new JComboBox();
+		textSizeCB.setToolTipText("Protip! Size 20 is perfect for headlines. Otherwise, use size 11 as default.");
 		textSizeCB.addActionListener(this);
 		textSizeCB.setActionCommand("Size");
 		
-		textSizeCB.setModel(new DefaultComboBoxModel(new String[] {"7", "8", "9", "10"
-				, "11", "12", "13", "14", "15", "16", "18", "20", "22", "24", "26", "28"
-				, "30", "32", "36", "40", "44", "48"}));
+		textSizeCB.setModel(new DefaultComboBoxModel(new String[] {"9", "10", "11", "12", "13", "14", "15", "16", "18", "20", "22", "24", "26", "28", "30", "32"}));
 
 		// Setting properties for the button which makes the text bold
 		JToggleButton btnBold = new JToggleButton("B");
+		btnBold.setToolTipText("Protip! You can make the headline bolded and all the subheadlines!");
 		btnBold.addActionListener(this);
 		btnBold.setActionCommand("Bold");
 		btnBold.setFont(new Font("Tahoma", Font.BOLD, 11));
 
 		// Setting properties for the button which make the text italic
 		JToggleButton btnItalic = new JToggleButton("I");
+		btnItalic.setToolTipText("Protip! Use this for names of schools, programs etc.");
 		btnItalic.addActionListener(this);
 		btnItalic.setActionCommand("Italic");	
 		btnItalic.setFont(new Font("Tahoma", Font.ITALIC, 11));
 
 		// Setting properties for the button which make the text underlined
 		JToggleButton btnUnderline = new JToggleButton("U");
+		btnUnderline.setToolTipText("Protip! Use this to emphasize.");
 		btnUnderline.addActionListener(this);
 		btnUnderline.setActionCommand("Underline");	
 		Map<TextAttribute, Object> map = new HashMap<TextAttribute, Object>();
@@ -156,6 +172,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		
 		// Setting properties for the button which make the text coloured
 		textColorCB = new JComboBox();
+		textColorCB.setToolTipText("Select colour.");
 		textColorCB.setModel(new DefaultComboBoxModel(new String[] {"Black", "Blue", "Cyan", "Dark Gray", "Gray", "Green",
 				"Light Gray", "Magenta", "Orange", "Pink", "Red", "White", "Yellow"}));
 		textColorCB.addActionListener(this);
@@ -208,20 +225,42 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		//Setting template buttons
 		tempPanel.setLayout(new GridLayout(1, 4));
 		JButton temp1But = new JButton("Default PL");
+		temp1But.setToolTipText("View in a default Personal Letter format.");
 		temp1But.addActionListener(this);
 		temp1But.setActionCommand("DefPL");
 		tempPanel.add(temp1But);
 		
 		JButton temp2But = new JButton("Default CV");
+		temp2But.setToolTipText("View in a default CV format.");
 		temp2But.addActionListener(this);
 		temp2But.setActionCommand("DefPL");
 		tempPanel.add(temp2But);
-		JButton temp3But = new JButton("Classic CV");
+		JButton temp3But = new JButton("Classy CV");
+		temp3But.setToolTipText("View in a classy CV format.");
 		temp3But.addActionListener(this);
 		temp3But.setActionCommand("DefPL");
 		tempPanel.add(temp3But);
 		
-		JComboBox otherTemps = new JComboBox();
+		//A list with different templates.
+		String[] templateChange = {
+				"Advanced PL",
+		         "Advanced CV",
+		         "Classic PL",
+		         "Classic CV",
+		         "Modern PL",
+		         "Modern CV",
+		         "Left Aligned PL",
+		         "Left Aligned CV",
+		         "Right Aligned PL",
+		         "Right Aligned CV",
+		         "Quick PL",
+		         "Quick CV",
+		          };
+		
+		JComboBox otherTemps = new JComboBox(templateChange);
+		otherTemps.setAlignmentX(Component.LEFT_ALIGNMENT);
+		otherTemps.setToolTipText("Select other templates.");
+		otherTemps.setMaximumRowCount(4);
 		tempPanel.add(otherTemps);
 		add(tempPanel);
 
@@ -250,6 +289,41 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		
 		switch(arg0.getActionCommand()){
+		case "New":
+			int selection = JOptionPane.showConfirmDialog(null,
+					"Do you want to save the document first?", null,
+					JOptionPane.YES_NO_OPTION);
+			if (selection == JOptionPane.YES_OPTION) {
+				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);	//Save Doc
+				pcs.firePropertyChange(Labels.NEW_DOC, false, true);	//New Doc
+			}else if(selection == JOptionPane.CLOSED_OPTION){
+				//Do nothing
+			}else{
+				pcs.firePropertyChange(Labels.NEW_DOC, false, true); 
+				//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
+			}
+		break;
+		case "Save":
+			pcs.firePropertyChange(Labels.SAVE_DOC, false, true);
+			break;
+		case "Open":
+			pcs.firePropertyChange(Labels.OPEN_DOC, false, true);
+			break;
+		case "Save As":
+			pcs.firePropertyChange(Labels.SAVE_DOC_AS, false, true);
+			break;
+		case "Export":
+			pcs.firePropertyChange(Labels.EXPORT_DOC, false, true);
+			break;	
+		case "Undo":
+			pcs.firePropertyChange(Labels.TEXT_UNDO, false, true);
+			break;
+		case "Redo":	
+			pcs.firePropertyChange(Labels.TEXT_REDO, false, true);
+			break;
+		case "Select All":
+			pcs.firePropertyChange(Labels.TEXT_SELECTALL, false, true);
+			break;	
 		case "Copy":
 			pcs.firePropertyChange(Labels.TEXT_COPY, false, true);
 			break;
@@ -258,15 +332,6 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 			break;
 		case "Cut":
 			pcs.firePropertyChange(Labels.TEXT_CUT, false, true);
-			break;
-		case "Select All":
-			pcs.firePropertyChange(Labels.TEXT_SELECTALL, false, true);
-			break;	
-		case "Undo":
-			pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
-			break;
-		case "Redo":	
-			pcs.firePropertyChange(Labels.REDO_ACTION, false, true);
 			break;
 		case "Font":
 			pcs.firePropertyChange(Labels.TEXTFONT_CHANGED, null, fontCB.getSelectedItem().toString());
@@ -285,61 +350,6 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 			break;
 		case "Color":
 			pcs.firePropertyChange(Labels.TEXTCOLOUR_CHANGED, null, textColorCB.getSelectedItem().toString());
-			break;
-		case "Open":
-			JOptionPane.showMessageDialog(null, "this should open a doc");
-			break;
-		case "New":
-		int selection = JOptionPane.showConfirmDialog(null,
-					"Do you want to save the document first?", null,
-					JOptionPane.YES_NO_OPTION);
-			if (selection == JOptionPane.YES_OPTION) {
-				 //Call SAVE here
-				//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
-			}else if(selection == JOptionPane.CLOSED_OPTION){
-				//Do nothing
-			}else{
-				//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
-			}
-		break;
-		case "Save":
-			 String currentFileDirectory = "";
-			if("".equals(currentFileDirectory)){					//if the current file is a new one (untitled)
-				JFileChooser sdChooser = new JFileChooser();		//file chooser
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
-				sdChooser.setFileFilter(filter);
-				int returnVal = sdChooser.showSaveDialog(null);
-				
-				try{
-					if(returnVal == JFileChooser.APPROVE_OPTION){
-						File directory = sdChooser.getCurrentDirectory();
-						String path = directory.getAbsolutePath();					//the absolute path of the directory, named "path"
-						String fileName = sdChooser.getSelectedFile().getName();	//get the file name
-						if(!fileName.contains("rsmt")){								//if the file name doesn't contain rsmt,
-							fileName = fileName + ".rsmt";							//name it a new name with .rsmt at the end
-						}
-						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "\\" + fileName), "UTF-8"));
-						currentFileDirectory = path + "\\" + fileName;				//the current file directory is now "theabsolutepath\\filename.rsmt"
-						//bw.write(THE_NAME_OF_THE_EDITORPANE_THAT_SHOULD_BE_OVERWRITTEN.getText());					//get the document text and write it over
-						bw.close();
-					}
-					
-				}catch(IOException err){
-					JOptionPane.showMessageDialog(null,  "ERROR!");
-				}
-			
-			}else{
-				
-				try{
-					//if it is not empty, we'll save it into the current directory
-					BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(currentFileDirectory), "UTF-8"));
-					//bw.write(THE_NAME_OF_THE_EDITORPANE_THAT_SHOULD_BE_OVERWRITTEN.getText());
-					bw.close();
-					
-				}catch(IOException err){
-					JOptionPane.showMessageDialog(null,  "ERROR!");
-				}	
-			}
 			break;
 		case "DefPL":
 			//pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.DEF_PL);

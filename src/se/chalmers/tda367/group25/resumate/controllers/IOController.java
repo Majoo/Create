@@ -10,6 +10,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.io.IOHandler;
 import se.chalmers.tda367.group25.resumate.io.PDFHandler;
+import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 

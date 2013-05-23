@@ -17,7 +17,7 @@ import se.chalmers.tda367.group25.resumate.utils.Labels;
 public class MainView extends JFrame implements MainViewInterface {
 	private MenuBar menuBar;
 	private JPanel toolbarPanel;
-	private JTabbedPane tabbedPane;
+	public JTabbedPane tabbedPane;
 	// A list of DocViews. Each one will be in an own tab.
 	private List<DocumentView> docViewList = new ArrayList<DocumentView>(20);
 
@@ -61,6 +61,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		contentPane.add(menuBar);
 
 		toolbarPanel = new ToolbarPanel();
+		toolbarPanel.setToolTipText("Protip! Don't change too much of the document!");
 		layout.putConstraint(SpringLayout.NORTH, toolbarPanel, 6,
 				SpringLayout.SOUTH, menuBar);
 		layout.putConstraint(SpringLayout.WEST, toolbarPanel, 0,
@@ -85,6 +86,7 @@ public class MainView extends JFrame implements MainViewInterface {
 				SpringLayout.EAST, menuBar);
 
 		DocumentView docView = new DocumentView();
+		docView.getTemplatePanel().setToolTipText("Protip!\r\n The best way of writing a Curriculum Vitae or Personal Letter is to make it interesting. \r\n");
 		docView.setID("First DocumentView");
 		docViewList.add(docView);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
@@ -141,7 +143,7 @@ public class MainView extends JFrame implements MainViewInterface {
 	 */
 	public void sendInitialDocView() {
 		DocumentView docView = this.docViewList.get(0);
-		pcs.firePropertyChange(Labels.SEND_INITIAL_DOCVIEW, docView, "first");
+		pcs.firePropertyChange(Labels.SEND_INITIAL_DVIEW, docView, "first");
 	}
 
 }

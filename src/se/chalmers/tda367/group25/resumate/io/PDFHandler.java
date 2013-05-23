@@ -20,15 +20,15 @@ import com.itextpdf.text.pdf.PdfWriter;
  */
 public class PDFHandler {
 
-private static volatile PDFHandler instance = null;
-	
-	private PDFHandler(){
+	private static volatile PDFHandler instance = null;
+
+	private PDFHandler() {
 	}
-	
-	public static PDFHandler getInstance(){
+
+	public static PDFHandler getInstance() {
 		return instance;
 	}
-	
+
 	/**
 	 * Creates PDF, using the external iText library. If a document is longer
 	 * than a single page, the PDF is extended.
@@ -46,15 +46,16 @@ private static volatile PDFHandler instance = null;
 	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("deprecation")
-	public static synchronized void createPdf(JComponent jc, String filePathAndName)
-			throws FileNotFoundException, DocumentException {
+	public static synchronized void createPdf(JComponent jc,
+			String filePathAndName) throws FileNotFoundException,
+			DocumentException {
 
 		int panelWidth = jc.getWidth();
 		int panelHeight = jc.getHeight();
 
 		Document document = new Document();
-		
-		int a = (int)(document.leftMargin() + document.rightMargin() - panelWidth);
+
+		int a = (int) (document.leftMargin() + document.rightMargin() - panelWidth);
 
 		File file = getUniqueFile(filePathAndName);
 
@@ -70,17 +71,19 @@ private static volatile PDFHandler instance = null;
 		while (delta >= 0) {
 			document.newPage();
 			PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
-			Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
+
+			// Creates graphics where text is handled as fonts instead of simple
+			// graphics
+			Graphics2D g2 = tp.createGraphics(panelWidth, panelHeight);
 			jc.print(g2);
 			cb.addTemplate(tp, document.left(document.leftMargin()),
 					document.top() - delta);
 			g2.dispose();
 			delta = (int) (delta - document.top());
 		}
-		
+
 		document.close();
 	}
-
 
 	/**
 	 * Returns a File with a unique path and file name by concatenating an

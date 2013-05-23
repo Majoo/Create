@@ -1,9 +1,13 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -20,8 +24,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import javax.swing.JCheckBoxMenuItem;
 
-public class MenuBar extends JMenuBar implements ActionListener {
+public class MenuBar extends JMenuBar implements ActionListener, MouseListener, MouseMotionListener {
 	private PropertyChangeSupport pcs;
+	private int x1, y1, x2, y2;
+	private JCheckBoxMenuItem grayscaleImage;
+	
 	/**
 	 * Create the menubar with items.
 	 */
@@ -61,12 +68,20 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmSaveAs.setActionCommand("SaveAs");
 		mnFile.add(mntmSaveAs);
 
+		JMenuItem mntmExportAsPdf = new JMenuItem("Export As PDF");
+		mntmExportAsPdf.setMnemonic('E');
+		mntmExportAsPdf.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
+		mntmExportAsPdf.addActionListener(this);
+		mntmExportAsPdf.setActionCommand("Export");
+		mnFile.add(mntmExportAsPdf);
+		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mntmExit.setMnemonic('e');
 		mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
 		mntmExit.addActionListener(this);
 		mntmExit.setActionCommand("Exit");
 		mnFile.add(mntmExit);
+		
 
 		//Setting menu items and their properties located in the Edit Menu
 		JMenu mnEdit = new JMenu("Edit");
@@ -92,6 +107,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		JMenuItem mntmCut = new JMenuItem("Cut");
 		mntmCut.setMnemonic('U');
 		mntmCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));
+		mntmCut.addActionListener(this);
+		mntmCut.setActionCommand("Cut");
 		mnEdit.add(mntmCut);
 
 		JMenuItem mntmCopy = new JMenuItem("Copy");
@@ -108,11 +125,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmPaste.setActionCommand("Paste");
 		mnEdit.add(mntmPaste);
 
-		JMenuItem mntmSA = new JMenuItem("Select All");
+		JMenuItem mntmSA = new JMenuItem("SelectAll");
 		mntmSA.setMnemonic('S');
 		mntmSA.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
 		mntmSA.addActionListener(this);
-		mntmSA.setActionCommand("Select All");
+		mntmSA.setActionCommand("SelectAll");
 		mnEdit.add(mntmSA);
 		
 		JSeparator separator = new JSeparator();
@@ -163,11 +180,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmUnderline.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_MASK));
 		mntmUnderline.setActionCommand("Underline");
 		mntmUnderline.addActionListener(this);
-		mnFormat.add(mntmUnderline);
-
-		//Setting menu items and their properties located in the Image Menu
-		JMenu mnInsert = new JMenu("Insert");
-		add(mnInsert);		
+		mnFormat.add(mntmUnderline);		
 		
 		//Setting menu items and their properties located in the Image Menu
 		JMenu mnImage = new JMenu("Image");
@@ -180,17 +193,24 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mnImage.add(uploadImage);
 		
 		JMenuItem cropImage = new JMenuItem("Crop");
+		cropImage.setMnemonic('C');
+		cropImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		cropImage.addActionListener(this);
 		cropImage.setActionCommand("Crop");
 		mnImage.add(cropImage);
 		
-		JMenuItem grayscaleImage = new JMenuItem("Grayscale");
+		grayscaleImage = new JCheckBoxMenuItem("Grayscale");
+		grayscaleImage.setMnemonic('G');
+		grayscaleImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		grayscaleImage.addActionListener(this);
 		grayscaleImage.setActionCommand("Grayscale");
 		mnImage.add(grayscaleImage);
 		
 		JMenuItem resetImage = new JMenuItem("Reset");
+		resetImage.setMnemonic('R');
+		resetImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		resetImage.addActionListener(this);
+		
 		resetImage.setActionCommand("Reset image");
 		mnImage.add(resetImage);
 
@@ -243,41 +263,39 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		
 		switch (arg0.getActionCommand()){
 		case "New":
-			/*String clipBoardData = "";
-			String currentFileDirectory = "";
 			int selection = JOptionPane.showConfirmDialog(null,
 					"Do you want to save the document first?", null,
 					JOptionPane.YES_NO_OPTION);
 			if (selection == JOptionPane.YES_OPTION) {
-				//DannyForm textEditor = new DannyForm();
-				//textEditor.setLocationRelativeTo(null);
-				//textEditor.setVisible(true);
-				//currentFileDirectory = "";			//a new file gets renamed to nothing
-				JOptionPane.showMessageDialog(null, "Explorer/SAVE");
-			}else if(selection == JOptionPane.NO_OPTION){
-				//should create a new tab, not a new program
-			}else{
-				;
-			}*/
-			break;
-		case "Exit":
-			int selection = JOptionPane.showConfirmDialog(null,
-					"Do you want to save the document first?", null,
-					JOptionPane.YES_NO_OPTION);
-			if (selection == JOptionPane.YES_OPTION) {
-				JOptionPane.showMessageDialog(null, "Expolorer/SAVE"); //Implement Save here
-				System.exit(1);
+				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);	//Save Doc
+				pcs.firePropertyChange(Labels.NEW_DOC, false, true);	//New Doc
 			}else if(selection == JOptionPane.CLOSED_OPTION){
-				;
+				//Do nothing
 			}else{
-				System.exit(1);
+				pcs.firePropertyChange(Labels.NEW_DOC, false, true); 
+				//tabbedpane.addTab("Tab 2", null, docView, "unsaved");
 			}
 			break;
+		case "Exit":
+			selection = JOptionPane.showConfirmDialog(null,
+					"Do you want to save the document first?", null,
+					JOptionPane.YES_NO_OPTION);
+			if (selection == JOptionPane.YES_OPTION) {
+				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);	//Save Doc
+				System.exit(0);
+			}else if(selection == JOptionPane.CLOSED_OPTION){
+				//Do nothing
+			}else{
+				System.exit(1337);
+			}
+		case "Export":
+			pcs.firePropertyChange(Labels.EXPORT_DOC, false, true);
+			break;
 		case "Undo":
-			pcs.firePropertyChange(Labels.UNDO_ACTION, false, true);
+			pcs.firePropertyChange(Labels.TEXT_UNDO, false, true);
 			break;
 		case "Redo":	
-			pcs.firePropertyChange(Labels.REDO_ACTION, false, true);
+			pcs.firePropertyChange(Labels.TEXT_REDO, false, true);
 			break;
 		case "Copy":
 			pcs.firePropertyChange(Labels.TEXT_COPY, false, true);
@@ -342,7 +360,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 							JOptionPane.showMessageDialog(null,"Please enter a word to replace with");
 						} else {
 							replaceWithNeedsInputA = false;
-							pcs.firePropertyChange(Labels.REPLACE_ALL, null, replaceThiis + "/" + replaceWiith);
+							pcs.firePropertyChange(Labels.REPLACE_ALL_TEXT, null, replaceThiis + "/" + replaceWiith);
 						}
 					}
 				}
@@ -373,9 +391,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		    }
 		    break;
 		case "Crop":
+			String message = "Drag the mouse over the image in a" +
+					" rectangle and it will be cropped that way";
+			JOptionPane.showMessageDialog(null, message);
 			break;
 		case "Grayscale":
+			if(grayscaleImage.isSelected() == true){
 			pcs.firePropertyChange(Labels.GRAYSCALE_IMAGE, true, false);
+			}
 			break;
 		case "Reset image":
 			pcs.firePropertyChange(Labels.RESET_IMAGE, true, false);
@@ -384,7 +407,51 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		default:	//Do nothing, never invoked
 			break;
 		}
+		
+		
 	
+	}
+	//MOUSE-EVENT-METHODS
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		this.x1 = arg0.getX();
+		this.y1 = arg0.getY();		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		this.x2 = arg0.getX();
+		this.y2 = arg0.getY();
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		Rectangle rect = new Rectangle(Math.min(x1, x2), Math.min(y1, y2), Math.max(x1, x2), Math.max(y1, y2));
+		System.out.println(rect);
+		pcs.firePropertyChange(Labels.CROP_IMAGE, rect, null);
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// Don't want anything to happen
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// Don't want anything to happen		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// Don't want anything to happen		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// Don't want anything to happen		
 	}
 
 }

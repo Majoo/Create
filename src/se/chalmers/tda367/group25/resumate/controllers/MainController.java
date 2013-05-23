@@ -135,6 +135,8 @@ public class MainController implements PropertyChangeListener {
 		 * RMText can be informed which one to be updated.
 		 */
 		JEditorPane curTextSection = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+		RMText curRMText = docCon.getDoc(docCon.getCurrent()).getTexts()
+				.get(Translator.containerToSectionType(curTextSection));
 		
 		switch(e.getPropertyName()){
 		case Labels.TEXT_UNDO:
@@ -166,54 +168,37 @@ public class MainController implements PropertyChangeListener {
 			break;
 		case Labels.TEXT_ENTERED:
 			String text = e.getNewValue().toString();
-			SectionType sectionTypeEnter = Translator.containerToSectionType(curTextSection);
-			RMText textEnter = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(sectionTypeEnter);
-
-			textEnter.setText(text);
+			curRMText.setText(text);
 
 			break;
 
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
-			RMText textFont = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(curTextSection));
-			textFont.changeFont(curTextSection, font);
+			curRMText.changeFont(curTextSection, font);
 
 			break;
 
 		case Labels.TEXTSIZE_CHANGED:
 			int size = Integer.parseInt(e.getNewValue().toString());
-			RMText textSize = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(curTextSection));
-
-			textSize.changeSize(curTextSection,size);
+			curRMText.changeSize(curTextSection,size);
 			break;
 
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
-			RMText textStyle = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(curTextSection));
-
-			textStyle.changeStyle(curTextSection,style);
+			curRMText.changeStyle(curTextSection,style);
 
 			break;
 
 		case Labels.TEXTCOLOUR_CHANGED:
 			String colour = e.getNewValue().toString();
-			RMText textCC = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(curTextSection));
-			textCC.changeColour(curTextSection,Translator.stringToColor(colour));
+			curRMText.changeColor(curTextSection,Translator.stringToColor(colour));
 			break;
 
 		case Labels.TEXT_REPLACED:
 			String[] replaceTexts = e.getNewValue().toString().split("/");
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
-			RMText textReplace = docCon.getDoc(docCon.getCurrent()).getTexts()
-					.get(Translator.containerToSectionType(curTextSection));
-
-			textReplace.replaceText(curTextSection,
+			curRMText.replaceText(curTextSection,
 					replace, replaceWith);
 
 			break;
@@ -245,6 +230,11 @@ public class MainController implements PropertyChangeListener {
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getHeaderTitle(), txt);
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText(), txt);
 			break;
+		case Labels.RENAME_DOC:
+
+			break;
+
+		case Labels.NEW_DOC:
 			
 		default: 
 			//Do nothing, never invoked
@@ -281,7 +271,6 @@ public class MainController implements PropertyChangeListener {
 	private void imagePropertyChange(PropertyChangeEvent e) {
 		DocumentView docView = 	mainView.getCurDocView();
 		Document doc = docCon.separateDocument(docView);
-		
 
 		switch(e.getPropertyName()){
 		case Labels.INSERT_IMAGE:			

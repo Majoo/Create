@@ -157,6 +157,21 @@ public class RMText {
 		}
 		section.setFont(font);
 	}
+	
+	/**
+	 * Changes the colour in the textarea 
+	 * 
+	 * @param section
+	 * 			the textarea of which its colour is to be changed
+	 * @param col
+	 * 			the colour which the textarea is to be updated with
+	 */
+	
+	public void changeColor(JEditorPane section, Color col) {
+		this.color = col;
+		section.setForeground(col);
+		
+	}
 
 	/**
 	 * Replaces the a text with another
@@ -212,6 +227,13 @@ public class RMText {
 	public int getSize() {
 		return this.size;
 	}
+	
+	/**
+	 * Returns the colour of the RMText
+	 */
+	public Color getColor(){
+		return this.color;
+	}
 
 	/**
 	 * Returns a map with the styles of the RMText
@@ -220,10 +242,6 @@ public class RMText {
 		return styles;
 	}
 
-	public void changeColour(JEditorPane section, Color col) {
-		this.color = col;
-		section.setForeground(col);
-		
-	}
+
 
 }

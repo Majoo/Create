@@ -64,7 +64,7 @@ public class IOHandlerTest {
 
 		String fileName = "PERSONAL_INFO.txt";
 
-		strings.put(SectionType.PERSONAL_INFO, new String());
+		strings.put(SectionType.PERSONAL_INFO, "");
 		// Just a String to make the method work.
 
 		IOHandler.saveFile(dirPath, strings);

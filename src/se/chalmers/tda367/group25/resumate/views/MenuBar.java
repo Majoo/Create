@@ -286,7 +286,7 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 			}else if(selection == JOptionPane.CLOSED_OPTION){
 				//Do nothing
 			}else{
-				System.exit(1337);
+				System.exit(1);
 			}
 		case "Export":
 			pcs.firePropertyChange(Labels.EXPORT_DOC, false, true);

@@ -95,8 +95,9 @@ public class MainController implements PropertyChangeListener {
 			}
 
 		case Labels.SAVE_DOC_AS:
-			ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
-					docCon.getDoc(docCon.getCurrent()).getStrings(), null);
+			System.out.println("SAVE_DOC_AS");
+//			ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
+//					docCon.getDoc(docCon.getCurrent()).getStrings(), null);
 
 			break;
 

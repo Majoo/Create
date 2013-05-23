@@ -98,12 +98,10 @@ public class IOHandlerTest {
 
 		String info = "PERSONAL_INFO.txt";
 		String work = "WORK_EXPERIENCE.txt";
-		String empty = "EMPTY.txt";
 
 		strings.put(SectionType.PERSONAL_INFO, info); // Just a String to make the method work.
 		strings.put(SectionType.WORK_EXPERIENCE, work);
-		strings.put(SectionType.EMPTY, empty);
-		
+	
 		IOHandler.saveFile(dirPath, strings);
 
 		String personalFilePath = dirPath + "\\" + info;

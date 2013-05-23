@@ -1,9 +1,6 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.List;
-import java.awt.Paint;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
@@ -13,13 +10,13 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.JTextComponent;
 import javax.swing.undo.UndoManager;
-import javax.swing.JComponent;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
@@ -50,9 +47,9 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	private JTextField educationHeader;	
 	
 	//Sections
-	JLabel imgLabel;
-	JTextPane workExperienceText;
-	JTextPane educationText;
+	private JLabel imgLabel;
+	private JTextPane workExperienceText;
+	private JTextPane educationText;
 	
 	//Important
 	private JTextComponent currentSection;
@@ -112,6 +109,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		//Personal Info TextFields
 		nameField = new JTextField();
 		nameField.setColumns(10);
+		nameField.setName("nameField");
 		nameField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(nameField);
 		nameField.addFocusListener(this);
@@ -119,6 +117,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		
 		addressField = new JTextField();
 		addressField.setColumns(10);
+		addressField.setName("addressField");
 		addressField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(addressField);
 		addressField.addFocusListener(this);
@@ -194,7 +193,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		educationText.getDocument().addUndoableEditListener(manager);
 		
 		//Important
-		this.currentSection = workExperienceText;
+		this.currentSection = nameField;
 		this.pcs = new PropertyChangeSupport(this);
 		pcs.firePropertyChange(Labels.SEND_INITIAL_TSECTIONS, false, true);
 	}
@@ -427,9 +426,11 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 
 	@Override
 	public void focusGained(FocusEvent arg0) {
-		if(arg0.getComponent().getClass().equals(JTextPane.class)){
-			currentSection = (JTextPane)arg0.getComponent();
+		if(arg0.getComponent() instanceof JTextComponent){
+			currentSection = (JTextComponent)arg0.getComponent();
+			System.out.println("" + currentSection.getName());
 			pcs.firePropertyChange(Labels.TEXTAREA_CHANGED, false, true);
+			System.out.println("focus");
 		}
 	}
 

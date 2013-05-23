@@ -5,7 +5,7 @@ import java.util.List;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
-public class Header extends absTextSection{
+public class Header extends AbsTextSection{
 	
 	//Headers
 	private String workExpHeader;

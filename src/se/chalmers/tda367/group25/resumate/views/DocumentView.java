@@ -1,6 +1,5 @@
 package se.chalmers.tda367.group25.resumate.views;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.beans.PropertyChangeEvent;

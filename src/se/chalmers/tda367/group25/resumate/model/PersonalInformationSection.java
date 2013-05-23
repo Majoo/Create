@@ -6,7 +6,7 @@ import java.util.List;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 
-public class PersonalInformation extends absTextSection {
+public class PersonalInformationSection extends AbsTextSection {
 	
 	//Personal Info Titles
 	private String nameTitles;
@@ -26,7 +26,7 @@ public class PersonalInformation extends absTextSection {
 
 	private List <String> textList;
 	
-	public PersonalInformation(){
+	public PersonalInformationSection(){
 		super(SectionType.PERSONAL_INFO, "Tahoma", "Black", 12);
 		textList = new ArrayList<String>(12);
 		//Add all the titles

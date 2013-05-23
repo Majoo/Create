@@ -49,45 +49,41 @@ public class Document implements DocumentInterface{
 		case DEF_CV:
 
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new TextSection(
-						SectionType.PERSONAL_INFO));
+				texts.put(SectionType.PERSONAL_INFO, new PersonalInformationSection());
+			}
+			if (!texts.containsKey(SectionType.HEADER)) {
+				texts.put(SectionType.HEADER, new Header());
 			}
 			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
 				texts.put(SectionType.WORK_EXPERIENCE, new TextSection(
 						SectionType.WORK_EXPERIENCE));
 			}
-			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new TextSection(SectionType.HEADER));
-			}
-
+			
 			break;
 		case DEF_PL:
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
 				texts.put(SectionType.PERSONAL_INFO, new TextSection(
 						SectionType.PERSONAL_INFO));
 			}
+			if (!texts.containsKey(SectionType.HEADER)) {
+				texts.put(SectionType.HEADER, new Header());
+			}
 			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
 				texts.put(SectionType.WORK_EXPERIENCE, new TextSection(
 						SectionType.WORK_EXPERIENCE));
 			}
-			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new TextSection(
-						SectionType.HEADER));
-			}
-			// texts.add(new RMText(SectionType.EMPTY));
+
 			break;
 		case CLASSY_CV:
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new TextSection(
-						SectionType.PERSONAL_INFO));
+				texts.put(SectionType.PERSONAL_INFO, new PersonalInformationSection());
+			}
+			if (!texts.containsKey(SectionType.HEADER)) {
+				texts.put(SectionType.HEADER, new Header());
 			}
 			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
 				texts.put(SectionType.WORK_EXPERIENCE, new TextSection(
 						SectionType.WORK_EXPERIENCE));
-			}
-			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new TextSection(
-						SectionType.HEADER));
 			}
 			if (!texts.containsKey(SectionType.EDUCATION)) {
 				texts.put(SectionType.EDUCATION, new TextSection(

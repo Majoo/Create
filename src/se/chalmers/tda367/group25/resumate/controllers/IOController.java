@@ -41,8 +41,8 @@ public class IOController {
 	 *            only necessary when saving and path already exists, may be
 	 *            null
 	 */
-	public void chooseFunction(String function, JComponent jc, Map<SectionType, String> strings,
-			String path) {
+	public void chooseFunction(String function, JComponent jc,
+			Map<SectionType, String> strings, String path) {
 		if (function.equals(Labels.SAVE_DOC)) {
 			try {
 				IOHandler.saveFile(path, strings);
@@ -58,7 +58,6 @@ public class IOController {
 				choosePath(jc, function, strings);
 			} catch (FileNotFoundException e) {
 				// Probably means that the user entered the wrong path name.
-				// Thus, let them try again.
 				chooseFunction(function, jc, strings, path);
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
@@ -78,41 +77,39 @@ public class IOController {
 	/**
 	 * A method for choosing path and file name.
 	 * 
+	 * @param jc
 	 * @param function
 	 *            the context of the function e.g. save, save as, export as PDF
-	 * @param doc
-	 *            TODO
+	 * @param strings
+	 * @throws FileNotFoundException
+	 * @throws DocumentException
+	 * @throws NullPointerException
 	 */
 	public void choosePath(JComponent jc, String function,
 			Map<SectionType, String> strings) throws FileNotFoundException,
 			DocumentException, NullPointerException {
 
-
 		JFileChooser chooser = new JFileChooser();
+		chooser.setAcceptAllFileFilterUsed(false);
+		if (function.equals(Labels.SAVE_DOC_AS)) {
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		}
 
 		// Depending on the desired function, different kinds of Filter are
 		// required, which is why the returnFilter method is called
-		chooser.setFileFilter(returnFilter(function));
+		chooser.setFileFilter(getFilter(function));
 		int returnVal = chooser.showSaveDialog(null);
-		String filePathAndName = chooser.getCurrentDirectory().getPath() + "\\"
-				+ chooser.getSelectedFile().getName();
+		String filePath = chooser.getCurrentDirectory().getPath();
+		String fileName = chooser.getSelectedFile().getName();
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			try {
 				if (function.equals(Labels.EXPORT_DOC)) {
-					PDFHandler.createPdf(jc, filePathAndName);
-				} else if (function.equals(Labels.SEND_DOC)) {
-					;
-
-				} else if (function.equals(Labels.SAVE_DOC)) {
-					// Connection to DocumentController needs to be established
-					// so that the correct Document can be fetched
-					IOHandler.saveFile(filePathAndName, strings);
+					PDFHandler.createPdf(jc, filePath + "\\" + fileName);
 				} else if (function.equals(Labels.SAVE_DOC_AS)) {
-					// Connection to DocumentController needs to be established
-					// so that the correct Document can be fetched
+					IOHandler.saveFile(filePath, strings);
 				} else if (function.equals(Labels.OPEN_DOC)) {
-					IOHandler.openFile(filePathAndName);
+					IOHandler.openFile(filePath);
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -128,16 +125,17 @@ public class IOController {
 	 *            the context of the function e.g. save, save as, export as PDF
 	 * @return Filter with the correct properties
 	 */
-	public FileNameExtensionFilter returnFilter(String function) {
+	private FileNameExtensionFilter getFilter(String function) {
 		if (function.equals(Labels.EXPORT_DOC)) {
 			return new FileNameExtensionFilter("PDF", "pdf");
-		} else if (function.equals(Labels.SAVE_DOC)) {
-			// RSMT = temporary file name
-			return new FileNameExtensionFilter("ResuMate file", "rsmt");
 		} else if (function.equals(Labels.SAVE_DOC_AS)) {
 			// RSMT = temporary file name
+			return new FileNameExtensionFilter("Directory");
+		} else if (function.equals(Labels.OPEN_DOC)) {
+			// RSMT = temporary file name
 			return new FileNameExtensionFilter("ResuMate file", "rsmt");
+		} else {
+			return null;
 		}
-		return null;
 	}
 }

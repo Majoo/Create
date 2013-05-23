@@ -1,6 +1,6 @@
-package se.chalmers.tda367.group25.resumate.tests;
+package io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -120,7 +120,7 @@ public class IOHandlerTest {
 	}
 
 	/*
-	 * TODO
+	 * TODO + openFile in IOHandler
 	 * 
 	 * @Test public void testOpenFile() throws IOException { Map<SectionType,
 	 * String> strings = new HashMap<SectionType, String>(1); String dirPath =
@@ -140,7 +140,7 @@ public class IOHandlerTest {
 	 * 
 	 * IOHandler.saveFile(dirPath, strings);
 	 * 
-	 * //TODO openFile in IOHandler }
+	 * //}
 	 */
 
 }

@@ -12,8 +12,7 @@ import se.chalmers.tda367.group25.resumate.views.CV_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 public class Translator {
-	private static ImageIO imIO;
-
+	
 	/**
 	 * Translates a DocumentView Panel to a Template.
 	 * 
@@ -168,9 +167,9 @@ public class Translator {
 	public static BufferedImage stringToImage(String filename) {
 		BufferedImage img = null;
 		try{
-			img = imIO.read(new File(filename));
+			img = ImageIO.read(new File(filename));
 		}catch(IOException e){
-			System.out.println("Kunde inte översätta filnamn till BufferedImage i Translator");
+			System.out.println("Kunde inte ï¿½versï¿½tta filnamn till BufferedImage i Translator");
 		}
 		return img;
 	}

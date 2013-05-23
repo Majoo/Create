@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.tests;
+package io;
 
 import static org.junit.Assert.*;
 

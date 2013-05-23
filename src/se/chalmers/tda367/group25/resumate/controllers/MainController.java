@@ -256,7 +256,7 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.SAVE_DOC:
 			if (docCon.getDoc(docCon.getCurrent()).getFilePath().isEmpty()) {
-				ioCon.chooseFunction(Labels.SAVE_DOC, null,
+				ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
 						docCon.getDoc(docCon.getCurrent()).getStrings(), null);
 			} else {
 				ioCon.chooseFunction(Labels.SAVE_DOC, null,

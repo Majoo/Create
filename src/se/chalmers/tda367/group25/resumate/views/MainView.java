@@ -17,7 +17,7 @@ import se.chalmers.tda367.group25.resumate.utils.Labels;
 public class MainView extends JFrame implements MainViewInterface {
 	private MenuBar menuBar;
 	private JPanel toolbarPanel;
-	private JTabbedPane tabbedPane;
+	public JTabbedPane tabbedPane;
 	// A list of DocViews. Each one will be in an own tab.
 	private List<DocumentView> docViewList = new ArrayList<DocumentView>(20);
 

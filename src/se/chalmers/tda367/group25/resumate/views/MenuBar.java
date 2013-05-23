@@ -68,12 +68,20 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 		mntmSaveAs.setActionCommand("SaveAs");
 		mnFile.add(mntmSaveAs);
 
+		JMenuItem mntmExportAsPdf = new JMenuItem("Export As PDF");
+		mntmExportAsPdf.setMnemonic('E');
+		mntmExportAsPdf.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
+		mntmExportAsPdf.addActionListener(this);
+		mntmExportAsPdf.setActionCommand("Export");
+		mnFile.add(mntmExportAsPdf);
+		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mntmExit.setMnemonic('e');
 		mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
 		mntmExit.addActionListener(this);
 		mntmExit.setActionCommand("Exit");
 		mnFile.add(mntmExit);
+		
 
 		//Setting menu items and their properties located in the Edit Menu
 		JMenu mnEdit = new JMenu("Edit");
@@ -280,6 +288,9 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 			}else{
 				System.exit(1337);
 			}
+		case "Export":
+			pcs.firePropertyChange(Labels.EXPORT_DOC, false, true);
+			break;
 		case "Undo":
 			pcs.firePropertyChange(Labels.TEXT_UNDO, false, true);
 			break;

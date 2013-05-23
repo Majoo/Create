@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
@@ -22,6 +24,7 @@ public class MainController implements PropertyChangeListener {
 	private DocumentController docCon;
 	private IOController ioCon;
 	private MainView mainView;
+	private String tabbedPanel;
 
 	/**
 	 * An application with the default document is created.
@@ -85,7 +88,9 @@ public class MainController implements PropertyChangeListener {
 			break;
 			
 		case Labels.NEW_DOC:
-			//Not yet implemented
+//			JTabbedPane jtbExample = new JTabbedPane();
+//			jtbExample.addTab(tabbedPanel);
+//			jtbExample.setSelectedIndex(0);
 			break;
 		case Labels.SAVE_DOC:
 			ioCon.chooseFunction(Labels.SAVE_DOC, null,

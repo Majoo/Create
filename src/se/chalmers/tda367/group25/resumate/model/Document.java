@@ -67,6 +67,14 @@ public class Document {
 				texts.put(SectionType.PERSONAL_INFO, new RMText(
 						SectionType.PERSONAL_INFO));
 			}
+			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
+				texts.put(SectionType.WORK_EXPERIENCE, new RMText(
+						SectionType.WORK_EXPERIENCE));
+			}
+			if (!texts.containsKey(SectionType.HEADER)) {
+				texts.put(SectionType.HEADER, new RMText(
+						SectionType.HEADER));
+			}
 			// texts.add(new RMText(SectionType.EMPTY));
 			break;
 		case CLASSY_CV:

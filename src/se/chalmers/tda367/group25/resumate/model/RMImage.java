@@ -12,6 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
+import se.chalmers.tda367.group25.resumate.views.MenuBar;
 
 public class RMImage {
 

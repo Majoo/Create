@@ -27,6 +27,7 @@ import javax.swing.JCheckBoxMenuItem;
 public class MenuBar extends JMenuBar implements ActionListener, MouseListener, MouseMotionListener {
 	private PropertyChangeSupport pcs;
 	private int x1, y1, x2, y2;
+	private JCheckBoxMenuItem grayscaleImage;
 	
 	/**
 	 * Create the menubar with items.
@@ -171,11 +172,7 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 		mntmUnderline.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_MASK));
 		mntmUnderline.setActionCommand("Underline");
 		mntmUnderline.addActionListener(this);
-		mnFormat.add(mntmUnderline);
-
-		//Setting menu items and their properties located in the Image Menu
-		JMenu mnInsert = new JMenu("Insert");
-		add(mnInsert);		
+		mnFormat.add(mntmUnderline);		
 		
 		//Setting menu items and their properties located in the Image Menu
 		JMenu mnImage = new JMenu("Image");
@@ -188,17 +185,24 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 		mnImage.add(uploadImage);
 		
 		JMenuItem cropImage = new JMenuItem("Crop");
+		cropImage.setMnemonic('C');
+		cropImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		cropImage.addActionListener(this);
 		cropImage.setActionCommand("Crop");
 		mnImage.add(cropImage);
 		
-		JMenuItem grayscaleImage = new JMenuItem("Grayscale");
+		grayscaleImage = new JCheckBoxMenuItem("Grayscale");
+		grayscaleImage.setMnemonic('G');
+		grayscaleImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		grayscaleImage.addActionListener(this);
 		grayscaleImage.setActionCommand("Grayscale");
 		mnImage.add(grayscaleImage);
 		
 		JMenuItem resetImage = new JMenuItem("Reset");
+		resetImage.setMnemonic('R');
+		resetImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		resetImage.addActionListener(this);
+		
 		resetImage.setActionCommand("Reset image");
 		mnImage.add(resetImage);
 
@@ -381,7 +385,9 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 			JOptionPane.showMessageDialog(null, message);
 			break;
 		case "Grayscale":
+			if(grayscaleImage.isSelected() == true){
 			pcs.firePropertyChange(Labels.GRAYSCALE_IMAGE, true, false);
+			}
 			break;
 		case "Reset image":
 			pcs.firePropertyChange(Labels.RESET_IMAGE, true, false);

@@ -245,18 +245,9 @@ public class MainController implements PropertyChangeListener {
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getHeaderTitle(), txt);
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText(), txt);
 			break;
-<<<<<<< HEAD
-
-		case Labels.RENAME_DOC:
-
-			break;
-
-		case Labels.NEW_DOC:
 			
-=======
 		default: 
 			//Do nothing, never invoked
->>>>>>> 0997a2c5de8dd6c1a4b7d387d8f8bd748949bcc1
 			break;
 		}
 
@@ -291,73 +282,7 @@ public class MainController implements PropertyChangeListener {
 		DocumentView docView = 	mainView.getCurDocView();
 		Document doc = docCon.separateDocument(docView);
 		
-<<<<<<< HEAD
-		case Labels.TEXT_PASTE:
-			JEditorPane textAreaPaste = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			ViewHandler.textPaste(textAreaPaste);
-			break;
-			
-		case Labels.TEXT_SELECTALL:
-			JEditorPane textAreaSA = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
-			ViewHandler.selectAll(textAreaSA);
-			break;	
-			
-			
-		case Labels.SAVE_DOC:
-			ioCon.chooseFunction(Labels.SAVE_DOC, null,
-					docCon.getDoc(docCon.getCurrent()).getStrings());
-			
-			/* String currentFileDirectory = "";
-			if("".equals(currentFileDirectory)){					//if the current file is a new one (untitled)
-				JFileChooser sdChooser = new JFileChooser();		//file chooser
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Resumate File", "rsmt");
-				sdChooser.setFileFilter(filter);
-				int returnVal = sdChooser.showSaveDialog(null);
-				
-				try{
-					if(returnVal == JFileChooser.APPROVE_OPTION){
-						File directory = sdChooser.getCurrentDirectory();
-						String path = directory.getAbsolutePath();					//the absolute path of the directory, named "path"
-						String fileName = sdChooser.getSelectedFile().getName();	//get the file name
-						if(!fileName.contains("rsmt")){								//if the file name doesn't contain rsmt,
-							fileName = fileName + ".rsmt";							//name it a new name with .rsmt at the end
-						}
-						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "\\" + fileName), "UTF-8"));
-						currentFileDirectory = path + "\\" + fileName;				//the current file directory is now "theabsolutepath\\filename.rsmt"
-						//bw.write(THE_NAME_OF_THE_EDITORPANE_THAT_SHOULD_BE_OVERWRITTEN.getText());					//get the document text and write it over
-						bw.close();
-					}
-					
-				}catch(IOException err){
-					JOptionPane.showMessageDialog(null,  "ERROR!");
-				}
-			
-			}else{
-				
-				try{
-					//if it is not empty, we'll save it into the current directory
-					BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(currentFileDirectory), "UTF-8"));
-					//bw.write(THE_NAME_OF_THE_EDITORPANE_THAT_SHOULD_BE_OVERWRITTEN.getText());
-					bw.close();
-					
-				}catch(IOException err){
-					JOptionPane.showMessageDialog(null,  "ERROR!");
-				}	
-			}*/
-			
-			
-			
-			break;
 
-		case Labels.SAVE_DOC_AS:
-
-			break;
-
-		case Labels.PRINT_DOC:
-			ioCon.chooseFunction(Labels.PRINT_DOC,
-					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
-					null);
-=======
 		switch(e.getPropertyName()){
 		case Labels.INSERT_IMAGE:			
 			BufferedImage img = Translator.stringToImage((String)e.getOldValue());
@@ -370,7 +295,6 @@ public class MainController implements PropertyChangeListener {
 			doc.getImage().setImage(doc.getImage().getCurImage());
 			//Then update the view with the image of the Document.
 			docView.getTemplatePanel().showImage(doc.getImage().getCurImage());
->>>>>>> 0997a2c5de8dd6c1a4b7d387d8f8bd748949bcc1
 			break;
 
 		case Labels.GRAYSCALE_IMAGE:

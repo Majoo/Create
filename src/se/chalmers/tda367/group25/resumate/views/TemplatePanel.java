@@ -1,9 +1,7 @@
 package se.chalmers.tda367.group25.resumate.views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Paint;
-import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
@@ -12,15 +10,9 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
+import javax.swing.JTextPane;
 import javax.swing.undo.UndoManager;
 
 
@@ -32,25 +24,25 @@ import javax.swing.undo.UndoManager;
  */
 public abstract class TemplatePanel extends JPanel implements FocusListener {
 
-	private JEditorPane personalInfoText;
-	private JEditorPane workingExperienceText;
-	private JEditorPane headerTitle;
-	private JEditorPane educationText;
+	private JTextPane personalInfoText;
+	private JTextPane workingExperienceText;
+	private JTextPane headerTitle;
+	private JTextPane educationText;
 	private JLabel imageLbl;
 	
-	private JEditorPane currentSection;
+	private JTextPane currentSection;
 	private PropertyChangeSupport pcs;
 	private UndoManager manager = new UndoManager();
 	
  	/**
  	 * Create the panel. 
- 	 * Is invoked in subclasses with the propper JEditorPanes.
+ 	 * Is invoked in subclasses with the propper JTextPanes.
  	 */
 	public TemplatePanel(){
 		this.setBackground(Color.white);
 		
 		//Initialize components & adding some settings 
-		this.personalInfoText = new JEditorPane();
+		this.personalInfoText = new JTextPane();
 		personalInfoText.setName("personalInfoText");
 		personalInfoText.setText("Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
 		personalInfoText.addFocusListener(this);
@@ -59,21 +51,21 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		personalInfoText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 
 		
-		this.headerTitle = new JEditorPane();
+		this.headerTitle = new JTextPane();
 		headerTitle.setName("headerTitle");
 		headerTitle.setText("[HEADLINE]");
 		headerTitle.addFocusListener(this);
 		headerTitle.getDocument().addUndoableEditListener(manager);
 		headerTitle.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		
-		this.workingExperienceText = new JEditorPane();
+		this.workingExperienceText = new JTextPane();
 		workingExperienceText.setName("workingExperienceText");
 		workingExperienceText.setText("[ABOUT YOURSELF]");
 		workingExperienceText.addFocusListener(this);
 		workingExperienceText.getDocument().addUndoableEditListener(manager);
 		workingExperienceText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		
-		this.educationText = new JEditorPane();
+		this.educationText = new JTextPane();
 		this.educationText.setName("educationText");
 		this.educationText.setText("[EDUCATION]");
 		this.educationText.addFocusListener(this);
@@ -93,27 +85,27 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	/**
 	 * Returns the personal information-textarea.
 	 * 
-	 * @return The JEditorPane for personal information
+	 * @return The JTextPane for personal information
 	 */
-	public JEditorPane getPersonalInfoText() {
+	public JTextPane getPersonalInfoText() {
 		return personalInfoText;
 	}
 
 	/**
 	 * Returns the working experience-textarea.
 	 * 
-	 * @return The JEditorPane for working experience
+	 * @return The JTextPane for working experience
 	 */
-	public JEditorPane getWorkingExperienceText() {
+	public JTextPane getWorkingExperienceText() {
 		return workingExperienceText;
 	}
 
 	/**
 	 * Returns the (other) textarea.
 	 * 
-	 * @return JEditorPane for other texts
+	 * @return JTextPane for other texts
 	 */
-	public JEditorPane getHeaderTitle() {
+	public JTextPane getHeaderTitle() {
 		return headerTitle;
 	}
 	
@@ -130,18 +122,18 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	 * Returns the textarea for educational information.
 	 * 
 	 * @return
-	 * 			The JEditorPane for information about education
+	 * 			The JTextPane for information about education
 	 */
-	public JEditorPane educationText() {
+	public JTextPane educationText() {
 		return this.educationText;
 	}
 	
 	/**
 	 * Returns the textarea for the current section
 	 * 
-	 * @return JEditorPane for the section
+	 * @return JTextPane for the section
 	 */
-	public JEditorPane getCurrentSection(){
+	public JTextPane getCurrentSection(){
 		return currentSection;
 	}
 	
@@ -159,7 +151,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	/**
 	 * Sets the image container
 	 * 
-	 * @return JEditorPane for image
+	 * @return JTextPane for image
 	 */
 	public void setImageLabel(JLabel imageLabel) {
 		this.imageLbl = imageLabel;
@@ -169,9 +161,9 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	/**
 	 *  Sets the current text area which currently was in focus
 	 *  
-	 * @param currentSection the current JEditorPane in focus
+	 * @param currentSection the current JTextPane in focus
 	 */
-	public void setCurrentSection(JEditorPane currentSection){
+	public void setCurrentSection(JTextPane currentSection){
 		this.currentSection = currentSection;
 	}
 	
@@ -204,17 +196,17 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	
 	@Override
 	public void focusGained(FocusEvent arg0) {
-		if(arg0.getComponent().getClass().equals(JEditorPane.class)){
+		if(arg0.getComponent().getClass().equals(JTextPane.class)){
 			//updateCurrentSection();
-			System.out.println("Focus JEDitorPane");
+			System.out.println("Focus JTextPane");
 			//currentSection.setBorder(null);
-			currentSection = (JEditorPane)arg0.getComponent();
+			currentSection = (JTextPane)arg0.getComponent();
 		}
 	}
 
 	@Override
 	public void focusLost(FocusEvent arg0) {
-		//Do nothing, the JEditorPane which is in focus will remain until another one is focused
+		//Do nothing, the JTextPane which is in focus will remain until another one is focused
 		
 	}
 }

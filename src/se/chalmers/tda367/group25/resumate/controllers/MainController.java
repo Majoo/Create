@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.JEditorPane;
+import javax.swing.JTextPane;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.RMText;
@@ -134,7 +134,7 @@ public class MainController implements PropertyChangeListener {
 		 * translator we will know which kind of section type it is so that the
 		 * RMText can be informed which one to be updated.
 		 */
-		JEditorPane curTextSection = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
+		JTextPane curTextSection = mainView.getCurDocView().getTemplatePanel().getCurrentSection();
 		RMText curRMText = docCon.getDoc(docCon.getCurrent()).getTexts()
 				.get(Translator.containerToSectionType(curTextSection));
 		
@@ -207,9 +207,9 @@ public class MainController implements PropertyChangeListener {
 			String[] replaceTextsA = e.getNewValue().toString().split("/");
 			String replaceA = replaceTextsA[0];
 			String replaceWithA = replaceTextsA[1];
-			JEditorPane textAreaPersonal =  mainView.getCurDocView().getTemplatePanel().getPersonalInfoText();
-			JEditorPane textAreaHeader =  mainView.getCurDocView().getTemplatePanel().getHeaderTitle();
-			JEditorPane textAreaWork =  mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText();
+			JTextPane textAreaPersonal =  mainView.getCurDocView().getTemplatePanel().getPersonalInfoText();
+			JTextPane textAreaHeader =  mainView.getCurDocView().getTemplatePanel().getHeaderTitle();
+			JTextPane textAreaWork =  mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText();
 
 			RMText textPersonal = docCon.getDoc(docCon.getCurrent()).getTexts()
 					.get(Translator.containerToSectionType(textAreaPersonal));

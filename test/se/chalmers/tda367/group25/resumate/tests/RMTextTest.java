@@ -6,10 +6,8 @@ import java.awt.Color;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import se.chalmers.tda367.group25.resumate.controllers.MainController;
 import se.chalmers.tda367.group25.resumate.model.RMText;
-import se.chalmers.tda367.group25.resumate.utils.SectionType;
-import se.chalmers.tda367.group25.resumate.utils.Styles;
+import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.CV_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
@@ -25,7 +23,8 @@ public class RMTextTest {
 	@BeforeClass 
 	public static void method(){
 		p = new CV_Def();
-		t = new RMText(SectionType.PERSONAL_INFO);
+		t = new RMText(Translator.containerToSectionType(p.getCurrentSection()));
+		//t = new RMText(SectionType.PERSONAL_INFO);
 		t.setText("This is a test");
 		p.getCurrentSection().setText("This a test");
 	}
@@ -61,28 +60,6 @@ public class RMTextTest {
 	public void testGetColor(){
 		testChangeColor();
 	}
-
-	@Test
-	public void testGetStyle() {
-
-		/*
-		 * Invokes the method in RMText which handles the styles
-		 * and checks if the style in the view and the one stored 
-		 * in the model are equal.
-		 */
-		t.changeStyle(p.getCurrentSection(), "B");
-		
-		boolean ModelStyle = t.getStyles().get("B");
-		boolean ViewStyle= Styles.B;
-		
-		assertTrue(ModelStyle == ViewStyle);
-		
-		/*
-		 * Change back to the original style
-		 */
-		t.changeStyle(p.getCurrentSection(), "B");
-		
-	}
 	
 	@Test
 	public void testChangeFont() {	
@@ -110,80 +87,6 @@ public class RMTextTest {
 		int ViewSize = p.getCurrentSection().getFont().getSize();
 		
 		assertTrue(ModelSize == ViewSize);
-	}
-	
-	@Test
-	public void testChangeStyle() {
-		/*
-		 * Tests by setting the styles in various combinations
-		 * and invoking the method which handles this located
-		 * in RMText
-		 */
-		String style = "U";
-		t.changeStyle(p.getCurrentSection(), style);
-		boolean isUinModel = t.getStyles().get(style);
-		boolean isUinView = Styles.U;
-
-		/*
-		 * Adds the italic style to the text
-		 */
-		style = "I";
-		t.changeStyle(p.getCurrentSection(), style);
-		boolean isIinModel = t.getStyles().get(style);
-		boolean isIinView = Styles.I;
-		
-		/*
-		 * Tests if the style in the view and in the model is underlined and italic.
-		 */
-		assertTrue(isUinModel == true && isUinView == isUinModel);
-		assertTrue(isIinModel == true && isIinView == isIinModel);
-		
-		
-		/*
-		 * Adds the underline style to the text
-		 */
-		style = "U";
-		t.changeStyle(p.getCurrentSection(), style);
-		isUinModel = t.getStyles().get(style);
-		isUinView = Styles.U;
-		
-		/*
-		 * Tests if the style in the view and in the model is still italic but not underlined.
-		 */
-		assertTrue(isUinModel == false && isUinView == isUinModel);
-		assertTrue(isIinModel == true && isIinView == isIinModel);
-		
-		
-		/*
-		 * Adds the bold style to the text
-		 */
-		style = "B";
-		t.changeStyle(p.getCurrentSection(), style);
-		boolean isBinModel = t.getStyles().get(style);
-		boolean isBinView = Styles.B;
-		
-		/*
-		 * Tests if the style in the view and in the model is still italic, not underlined but is also bold.
-		 */
-		assertTrue(isBinModel == true && isBinView == isBinModel);
-		assertTrue(isUinModel == false && isUinView == isUinModel);
-		assertTrue(isIinModel == true && isIinView == isIinModel);
-
-		
-		/*
-		 * Removes the bold style to the text
-		 */
-		style = "B";
-		t.changeStyle(p.getCurrentSection(), style);
-		isBinModel = t.getStyles().get(style);
-		isBinView = Styles.B;
-		
-		/*
-		 * Tests if the style in the view and in the model is still italic but not underlined or bold.
-		 */
-		assertTrue(isUinModel == false && isUinView == isUinModel);
-		assertTrue(isIinModel == true && isIinView == isIinModel);
-		assertTrue(isBinModel == false && isBinView == isBinModel);
 	}
 
 	@Test

@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JEditorPane;
+import javax.swing.JTextPane;
 
 import se.chalmers.tda367.group25.resumate.views.CV_Classy;
 import se.chalmers.tda367.group25.resumate.views.CV_Def;
@@ -84,7 +84,7 @@ public class Translator {
 	
 
 	/**
-	 * Translates a JEditorPane to a SectionType.
+	 * Translates a JTextPane to a SectionType.
 	 * 
 	 * @param c
 	 *          the Container to translate
@@ -92,7 +92,7 @@ public class Translator {
 	 * 			the corresponding SectionType
 	 */
 
-	public static SectionType containerToSectionType(JEditorPane container) {
+	public static SectionType containerToSectionType(JTextPane container) {
 		
 		String name = container.getName();
 		SectionType section = null;

@@ -44,7 +44,8 @@ public class IOController {
 	 */
 	public void chooseFunction(String function, JComponent jc,
 			Map<SectionType, String> strings, String path) {
-		if (function.equals(Labels.SAVE_DOC)) {
+		if ((function.equals(Labels.SAVE_DOC))
+				|| (function.equals(Labels.RENAME_DOC))) {
 			try {
 				IOHandler.saveFile(path, strings);
 			} catch (IOException e) {
@@ -53,8 +54,7 @@ public class IOController {
 			}
 		} else if ((function.equals(Labels.EXPORT_DOC))
 				|| (function.equals(Labels.SAVE_DOC_AS))
-				|| (function.equals(Labels.OPEN_DOC))
-				|| (function.equals(Labels.RENAME_DOC))) {
+				|| (function.equals(Labels.OPEN_DOC))) {
 			try {
 				choosePath(jc, function, strings);
 			} catch (FileNotFoundException e) {
@@ -68,7 +68,7 @@ public class IOController {
 			}
 		} else if (function.equals(Labels.PRINT_DOC)
 				|| (function.equals(Labels.SEND_DOC))) {
-
+			// To be implemented in the future
 		} else {
 			System.out.println("No such command!");
 		}
@@ -126,10 +126,9 @@ public class IOController {
 		if (function.equals(Labels.EXPORT_DOC)) {
 			return new FileNameExtensionFilter("PDF", "pdf");
 		} else if (function.equals(Labels.SAVE_DOC_AS)) {
-			return new FileNameExtensionFilter("Directory");
+			return new FileNameExtensionFilter("Directories", "doc");
 		} else if (function.equals(Labels.OPEN_DOC)) {
-			// RSMT = temporary file name
-			return new FileNameExtensionFilter("ResuMate file", "rsmt");
+			return new FileNameExtensionFilter("Directories", "doc");
 		} else {
 			return null;
 		}

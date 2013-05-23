@@ -281,10 +281,10 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener, 
 				System.exit(1337);
 			}
 		case "Undo":
-			pcs.firePropertyChange(Labels.UNDO_TEXT, false, true);
+			pcs.firePropertyChange(Labels.TEXT_UNDO, false, true);
 			break;
 		case "Redo":	
-			pcs.firePropertyChange(Labels.REDO_TEXT, false, true);
+			pcs.firePropertyChange(Labels.TEXT_REDO, false, true);
 			break;
 		case "Copy":
 			pcs.firePropertyChange(Labels.TEXT_COPY, false, true);

@@ -82,11 +82,11 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		btnSave.setActionCommand("Save");
 		upperToolsPan.add(btnSave);
 
-		JButton btnSend = new JButton("Send");
-		btnSend.setToolTipText("Send the document.");
-		btnSend.addActionListener(this);
-		btnSend.setActionCommand("Send");
-		upperToolsPan.add(btnSend);
+		JButton btnExport = new JButton("Export");
+		btnExport.setToolTipText("Export the document as PDF.");
+		btnExport.addActionListener(this);
+		btnExport.setActionCommand("Export");
+		upperToolsPan.add(btnExport);
 
 		JButton btnPrint = new JButton("Print");
 		btnPrint.setToolTipText("Print the document.");
@@ -312,14 +312,14 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		case "Save As":
 			pcs.firePropertyChange(Labels.SAVE_DOC_AS, false, true);
 			break;
-		case "Send":
-			pcs.firePropertyChange(Labels.SEND_DOC, false, true);
+		case "Export":
+			pcs.firePropertyChange(Labels.EXPORT_DOC, false, true);
 			break;	
 		case "Undo":
-			pcs.firePropertyChange(Labels.UNDO_TEXT, false, true);
+			pcs.firePropertyChange(Labels.TEXT_UNDO, false, true);
 			break;
 		case "Redo":	
-			pcs.firePropertyChange(Labels.REDO_TEXT, false, true);
+			pcs.firePropertyChange(Labels.TEXT_REDO, false, true);
 			break;
 		case "Select All":
 			pcs.firePropertyChange(Labels.TEXT_SELECTALL, false, true);

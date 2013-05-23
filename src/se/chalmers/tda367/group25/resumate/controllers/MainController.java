@@ -139,13 +139,13 @@ public class MainController implements PropertyChangeListener {
 				.get(Translator.containerToSectionType(curTextSection));
 		
 		switch(e.getPropertyName()){
-		case Labels.UNDO_TEXT:
+		case Labels.TEXT_UNDO:
 			TemplatePanel undoPAction = mainView.getCurDocView().getTemplatePanel();
 			ViewHandler.undoAction(undoPAction.getCurrentSection(), undoPAction.getManager());
 
 			break;
 
-		case Labels.REDO_TEXT:
+		case Labels.TEXT_REDO:
 			TemplatePanel redoPAction = mainView.getCurDocView().getTemplatePanel();
 			ViewHandler.redoAction(redoPAction.getCurrentSection(), redoPAction.getManager());
 			break;

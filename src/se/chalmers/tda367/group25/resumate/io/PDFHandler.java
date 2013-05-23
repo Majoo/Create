@@ -20,6 +20,15 @@ import com.itextpdf.text.pdf.PdfWriter;
  */
 public class PDFHandler {
 
+private static volatile PDFHandler instance = null;
+	
+	private PDFHandler(){
+	}
+	
+	public static PDFHandler getInstance(){
+		return instance;
+	}
+	
 	/**
 	 * Creates PDF, using the external iText library. If a document is longer
 	 * than a single page, the PDF is extended.

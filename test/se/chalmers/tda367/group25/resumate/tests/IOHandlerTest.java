@@ -17,14 +17,24 @@ public class IOHandlerTest {
 	@Test
 	public void testFolderCreation() throws IOException {
 		Map<SectionType, String> strings = new HashMap<SectionType, String>(1);
-		String dirPath = System.getProperty("user.home") + "\\Test";
+		String dirPath = System.getProperty("user.home")
+				+ "\\testFolderCreation";
 
 		// A File with same path as the directory that is created by the
 		// saveFile method.
 		File dir = new File(dirPath);
-		dir.createNewFile();
-		dir.setWritable(true);
-		dir.delete();
+
+		// If a directory of that name already exists, choose another name
+		String newDirPath = dirPath;
+		int i = 1; // Used for finding correct directory
+		while (dir.exists()) {
+			newDirPath = dirPath + "(" + i + ")";
+			dir = new File(newDirPath);
+			i++;
+		}
+		if (i > 1) {
+			dirPath = newDirPath;
+		}
 
 		IOHandler.saveFile(dirPath, strings);
 
@@ -34,26 +44,57 @@ public class IOHandlerTest {
 	@Test
 	public void testFileCreation() throws IOException {
 		Map<SectionType, String> strings = new HashMap<SectionType, String>(1);
-		String dirPath = System.getProperty("user.home") + "\\Test";
-		String fileName = "PERSONAL_INFO.txt";
-		String filePath = dirPath + "\\" + fileName;
-
-		strings.put(SectionType.PERSONAL_INFO, new String());
-		// Just a String to make the method work.
+		String dirPath = System.getProperty("user.home") + "\\testFileCreation";
 
 		// A File with same path as the directory that is created by the
 		// saveFile method.
 		File dir = new File(dirPath);
-//		dir.createNewFile();
-//		dir.setWritable(true);
-//		System.out.println("canWrite in Test: " + dir.canWrite());
+
+		// If a directory of that name already exists, choose another name
+		String newDirPath = dirPath;
+		int i = 1; // Used for finding correct directory
+		while (dir.exists()) {
+			newDirPath = dirPath + "(" + i + ")";
+			dir = new File(newDirPath);
+			i++;
+		}
+		if (i > 1) {
+			dirPath = newDirPath;
+		}
+
+		String fileName = "PERSONAL_INFO.txt";
+
+		strings.put(SectionType.PERSONAL_INFO, new String());
+		// Just a String to make the method work.
 
 		IOHandler.saveFile(dirPath, strings);
 
+		String filePath = dirPath + "\\" + fileName;
 		File file = new File(filePath);
+
 		assertTrue(file.exists());
 	}
-	
-	//TODO testOpenFile()
+
+	/* TODO
+	 * @Test public void testOpenFile() throws IOException { Map<SectionType,
+	 * String> strings = new HashMap<SectionType, String>(1); String dirPath =
+	 * System.getProperty("user.home") + "\\testOpenCreation";
+	 * 
+	 * // A File with same path as the directory that is created by the //
+	 * saveFile method. File dir = new File(dirPath);
+	 * 
+	 * // If a directory of that name already exists, choose another name String
+	 * newDirPath = dirPath; int i = 1; // Used for finding correct directory
+	 * while (dir.exists()) { newDirPath = dirPath + "(" + i + ")"; dir = new
+	 * File(newDirPath); i++; } if (i > 1) { dirPath = newDirPath; }
+	 * 
+	 * String fileName = "PERSONAL_INFO.txt"; String content = "Content";
+	 * 
+	 * strings.put(SectionType.PERSONAL_INFO, content);
+	 * 
+	 * IOHandler.saveFile(dirPath, strings);
+	 * 
+	 * //TODO openFile in IOHandler }
+	 */
 
 }

@@ -23,6 +23,15 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
  */
 public class IOHandler {
 
+	private static volatile IOHandler instance = null;
+
+	private IOHandler() {
+	}
+
+	public static IOHandler getInstance() {
+		return instance;
+	}
+
 	/**
 	 * Save to file. The project is saved by saving each RMText as a separate
 	 * text file, and saving an RSMT file to act as a locator for opening a
@@ -34,44 +43,60 @@ public class IOHandler {
 	public static synchronized void saveFile(String fileName,
 			Map<SectionType, String> strings) throws IOException {
 		File directory = new File(fileName);
-//		directory.createNewFile();
-//		directory.setWritable(true);
-		System.out.println("canWrite in Handler: " + directory.canWrite());
-		
+
 		if (directory.mkdirs() || directory.exists()) {
-
-			// Create all files in RSMT "project", i.e., the files corresponding
-			// the instances of RMText in a Document, by doing the following:
-			//
-			// Get the map of RMText Sections from the Document to be saved.
-			// For each existing RMText, save a text file.
-			BufferedWriter w;
-			if (strings.containsKey(SectionType.HEADER)) {
-				System.out.println("HEADER");
-				File file = new File(fileName + "\\HEADER.txt");
-				w = new BufferedWriter(new FileWriter(file));
-				w.write(strings.get(SectionType.HEADER));
-			}
-			if (strings.containsKey(SectionType.PERSONAL_INFO)) {
-				System.out.println("PERSONAL_INFO");
-				w = new BufferedWriter(new FileWriter(fileName + "\\PERSONAL_INFO.txt"));
-				w.write(strings.get(SectionType.PERSONAL_INFO));
-			}
-			if (strings.containsKey(SectionType.WORK_EXPERIENCE)) {
-				System.out.println("WORK_EXPERIENCE");
-				w = new BufferedWriter(new FileWriter(fileName + "\\WORK_EXPERIENCE.txt"));
-				w.write(strings.get(SectionType.WORK_EXPERIENCE));
-			}
-			if (strings.containsKey(SectionType.EMPTY)) {
-				System.out.println("EMPTY");
-				w = new BufferedWriter(new FileWriter(fileName + "\\EMPTY.txt"));
-				w.write(strings.get(SectionType.EMPTY));
-			}
-			w = new BufferedWriter(new FileWriter(fileName + "\\Project.rsmt"));
-			w.write("Hello");
-
-			w.close();
+			writeToFiles(fileName, strings);
 		}
+	}
+
+	/**
+	 * Write the content from the RMText objects stored in the Map to text
+	 * files, and creates the RSMT file.
+	 * 
+	 * @param fileName
+	 *            the directory in which to write the files
+	 * @param strings
+	 *            the Map with the contents
+	 * @throws IOException
+	 */
+	private static void writeToFiles(String fileName,
+			Map<SectionType, String> strings) throws IOException {
+		if (strings.containsKey(SectionType.HEADER)) {
+			System.out.println("HEADER");
+			writeSingleFile(new File(fileName + "\\HEADER.txt"),
+					strings.get(SectionType.HEADER));
+		}
+		if (strings.containsKey(SectionType.PERSONAL_INFO)) {
+			System.out.println("PERSONAL_INFO");
+			writeSingleFile(new File(fileName + "\\PERSONAL_INFO.txt"),
+					strings.get(SectionType.PERSONAL_INFO));
+		}
+		if (strings.containsKey(SectionType.WORK_EXPERIENCE)) {
+			System.out.println("WORK_EXPERIENCE");
+			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
+					strings.get(SectionType.WORK_EXPERIENCE));
+		}
+		if (strings.containsKey(SectionType.EMPTY)) {
+			System.out.println("EMPTY");
+			writeSingleFile(new File(fileName + "\\EMPTY.txt"),
+					strings.get(SectionType.EMPTY));
+		}
+		BufferedWriter w = new BufferedWriter(new FileWriter(fileName
+				+ "\\Project.rsmt"));
+		w.write("Hello");
+		w.close();
+	}
+
+	/**
+	 * Performs the actual writing of a File by means of a BufferedWriter.
+	 * 
+	 * @throws IOException
+	 */
+	private static void writeSingleFile(File file, String content)
+			throws IOException {
+		BufferedWriter w = new BufferedWriter(new FileWriter(file));
+		w.write(content);
+		w.close();
 	}
 
 	/**

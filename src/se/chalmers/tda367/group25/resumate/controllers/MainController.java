@@ -154,9 +154,11 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.EXPORT_DOC:
+			ViewHandler.removeBorder(mainView.getCurDocView().getTemplatePanel());
 			ioCon.chooseFunction(Labels.EXPORT_DOC,
 					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
 					null, null);
+			ViewHandler.setBackBorder(mainView.getCurDocView().getTemplatePanel());
 			break;
 
 		case Labels.SEND_DOC:

@@ -1,6 +1,7 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Paint;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -47,24 +48,28 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.personalInfoText = new JTextPane();
 		personalInfoText.setName("personalInfoText");
 		personalInfoText.setText("Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
+		personalInfoText.setToolTipText("Protip! \r\nAlways use correct information! You must therefore fill in all the blanks!");
 		personalInfoText.addFocusListener(this);
 		personalInfoText.getDocument().addUndoableEditListener(manager);
 		Paint blackPaint = Color.black;
 		personalInfoText.setBorder(BorderFactory.createDashedBorder(blackPaint));
-
 		
 		this.headerTitle = new JTextPane();
 		headerTitle.setName("headerTitle");
 		headerTitle.setText("[HEADLINE]");
+		headerTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		headerTitle.setToolTipText("Protip! \r\nUse a creative headline to attract the reader! But be careful to not be too informal.");
+		headerTitle.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		headerTitle.addFocusListener(this);
 		headerTitle.getDocument().addUndoableEditListener(manager);
-		headerTitle.setBorder(BorderFactory.createDashedBorder(blackPaint));
+		
 		
 		this.workingExperienceText = new JTextPane();
 		workingExperienceText.setName("workingExperienceText");
 		workingExperienceText.setText("[ABOUT YOURSELF]");
 		workingExperienceText.addFocusListener(this);
 		workingExperienceText.getDocument().addUndoableEditListener(manager);
+		workingExperienceText.setToolTipText("Protip! \nAdjust your way of writing depending on the job you are looking for!");
 		workingExperienceText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		
 		this.educationText = new JTextPane();
@@ -170,7 +175,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public void showImage(BufferedImage image){
 		imageLbl.setIcon(new ImageIcon(image));
 	}
-	
 	
 	//PROPERTY-CHANGED-METHODS
 	public void addPropertyChangeListener(PropertyChangeListener pcl){

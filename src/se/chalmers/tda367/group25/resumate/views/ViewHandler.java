@@ -1,13 +1,12 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.Color;
+import java.awt.Paint;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
-import java.awt.event.ActionEvent;
-
-import javax.naming.CannotProceedException;
+import javax.swing.BorderFactory;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
@@ -147,4 +146,21 @@ public class ViewHandler {
 			Toolkit.getDefaultToolkit().beep();
 		}
 	}
+	
+	
+	public static void removeBorder(TemplatePanel p){
+		p.getPersonalInfoText().setBorder(null);
+		p.getWorkingExperienceText().setBorder(null);
+		p.getHeaderTitle().setBorder(null);
+		p.getEducationText().setBorder(null);
+	}
+	
+	public static void setBackBorder(TemplatePanel p){
+		Paint blackPaint = Color.black;
+		p.getPersonalInfoText().setBorder(BorderFactory.createDashedBorder(blackPaint));
+		p.getWorkingExperienceText().setBorder(BorderFactory.createDashedBorder(blackPaint));
+		p.getHeaderTitle().setBorder(BorderFactory.createDashedBorder(blackPaint));
+		p.getEducationText().setBorder(BorderFactory.createDashedBorder(blackPaint));
+	}
+	
 }

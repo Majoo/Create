@@ -26,29 +26,19 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	 * A new DocumentView with the default template is created.
 	 */
 	public DocumentView() {
-		pcs = new PropertyChangeSupport(this);
-		setLayout(new BorderLayout(0, 0));
-		templatePnl = new CV_Def();
-		templatePnl.getHeaderTitle().setText(" [HEADLINE]");
-		templatePnl.getWorkingExperienceText().setText(" [ABOUT YOURSELF]");
-		templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 20));
-		templatePnl.getWorkingExperienceText().setToolTipText("Protip! \nAdjust your way of writing depending on the job you are looking for!");
-		templatePnl.getHeaderTitle().setToolTipText("Protip! \r\nUse a creative headline to attract the reader! But be careful to not be too informal.");
-		templatePnl.getCurrentSection().setToolTipText("Protip! \r\nAlways use correct information! You must therefore fill in all the blanks!");
-		templatePnl.getCurrentSection().setText("Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
-		add(templatePnl);
-		
-		JScrollPane scroller = new JScrollPane(templatePnl);
-		 
-		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		add(scroller);
+		this(new CV_Def());
 	}
 	
 	public DocumentView(TemplatePanel templatePanel) {
 		pcs = new PropertyChangeSupport(this);	
+		setLayout(new BorderLayout(0, 0));
 		this.templatePnl = templatePanel;
 		add(templatePnl);
+		
+		JScrollPane scroller = new JScrollPane(templatePnl);
+		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		add(scroller);
 	}
 
 	//GETTERS
@@ -58,6 +48,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	
 	//SETTERS
 	public void setTemplate(TemplatePanel tmplPnl){
+		System.out.println("Setting template");
 		this.templatePnl = tmplPnl;
 		this.templatePnl.validate();
 		this.templatePnl.updateUI();

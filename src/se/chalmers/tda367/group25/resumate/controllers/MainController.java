@@ -5,12 +5,12 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JComboBox;
 import javax.swing.JTextPane;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.RMText;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
-import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
@@ -49,6 +49,7 @@ public class MainController implements PropertyChangeListener {
 			imagePropertyChange(e);
 		}else if(e.getPropertyName().contains("TEXT")){
 			textPropertyChange(e);
+			System.out.println("MainController Text");
 		}else if(e.getPropertyName().contains("DOC")){
 			ioPropertyChange(e);
 		}
@@ -57,10 +58,30 @@ public class MainController implements PropertyChangeListener {
 		switch (e.getPropertyName()) {
 		
 		case Labels.TEMPLATE_CHANGED:
-			TemplatePanel tempPChange = Translator.templateToPanel(e.getNewValue());
-			mainView.getCurDocView().setTemplate(tempPChange);
-			break;
 			
+			System.out.println("in tempchanged in maincontroller");
+			
+			TemplatePanel curTemp = mainView.getCurDocView().getTemplatePanel();
+			String workText = curTemp.getWorkingExperienceText().getText();
+			String persText = curTemp.getPersonalInfoText().getText();
+			String headText = curTemp.getHeaderTitle().getText();
+			String eduText = curTemp.getEducationText().getText();
+			
+			TemplatePanel tempChange = Translator.templateToPanel(e.getNewValue());
+			tempChange.getWorkingExperienceText().setText(workText);
+			tempChange.getPersonalInfoText().setText(persText);
+			tempChange.getHeaderTitle().setText(headText);
+			tempChange.getEducationText().setText(eduText);
+			
+			System.out.println(workText);
+			System.out.println(persText);
+			System.out.println(headText);
+			System.out.println(eduText);
+			
+			mainView.getCurDocView().setTemplate(tempChange);
+
+			break;
+						
 		default: 
 			//Do nothing, never invoked
 			break;
@@ -139,6 +160,14 @@ public class MainController implements PropertyChangeListener {
 				.get(Translator.containerToSectionType(curTextSection));
 		
 		switch(e.getPropertyName()){
+		
+		case Labels.TEXTAREA_CHANGED:
+			System.out.println("In textarea changed in MainController");
+			mainView.getToolbarPanel().getTextFontCombo().getModel().setSelectedItem(curRMText.getFont());
+			mainView.getToolbarPanel().getTextSizeCombo().getModel().setSelectedItem(curRMText.getSize());
+			mainView.getToolbarPanel().getTextColorCombo().getModel().setSelectedItem(curRMText.getColor());
+			break;
+		
 		case Labels.TEXT_UNDO:
 			TemplatePanel undoPAction = mainView.getCurDocView().getTemplatePanel();
 			ViewHandler.undoAction(undoPAction.getCurrentSection(), undoPAction.getManager());
@@ -175,7 +204,7 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
 			curRMText.changeFont(curTextSection, font);
-
+			
 			break;
 
 		case Labels.TEXTSIZE_CHANGED:
@@ -230,6 +259,9 @@ public class MainController implements PropertyChangeListener {
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getHeaderTitle(), txt);
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel().getWorkingExperienceText(), txt);
 			break;
+			
+		
+			
 		case Labels.RENAME_DOC:
 
 			break;

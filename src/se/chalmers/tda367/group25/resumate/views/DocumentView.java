@@ -59,6 +59,8 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	//SETTERS
 	public void setTemplate(TemplatePanel tmplPnl){
 		this.templatePnl = tmplPnl;
+		this.templatePnl.validate();
+		this.templatePnl.updateUI();
 	}
 	
 	//PROPERTY-CHANGED-METHODS

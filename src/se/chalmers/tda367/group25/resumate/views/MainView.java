@@ -16,11 +16,10 @@ import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 public class MainView extends JFrame implements MainViewInterface {
 	private MenuBar menuBar;
-	private JPanel toolbarPanel;
+	private ToolbarPanel toolbarPanel;
 	private JTabbedPane tabbedPane;
 	// A list of DocViews. Each one will be in an own tab.
 	private List<DocumentView> docViewList = new ArrayList<DocumentView>(20);
-
 	private PropertyChangeSupport pcs;
 
 	/**
@@ -73,7 +72,6 @@ public class MainView extends JFrame implements MainViewInterface {
 		toolbarPanel.addPropertyChangeListener(this);
 		toolbarPanel.setVisible(true);
 		contentPane.add(toolbarPanel);
-
 		tabbedPane = new JTabbedPane();
 
 		layout.putConstraint(SpringLayout.NORTH, tabbedPane, 6,
@@ -110,9 +108,11 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		if (!arg0.getNewValue().equals(null)) {
+		try{
 			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(),
 					arg0.getNewValue());
+		} catch (NullPointerException e){
+			
 		}
 	}
 
@@ -124,6 +124,10 @@ public class MainView extends JFrame implements MainViewInterface {
 	 */
 	public DocumentView getCurDocView() {
 		return (DocumentView) tabbedPane.getSelectedComponent();
+	}
+	
+	public ToolbarPanel getToolbarPanel(){
+		return toolbarPanel;
 	}
 
 	// -----SETTERS-----

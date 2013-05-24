@@ -25,7 +25,7 @@ public class CV_2 extends TemplatePanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(getWorkingExperienceText(), GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(educationText(), GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
+							.addComponent(getEducationText(), GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
 						.addComponent(getHeaderTitle(), GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(getImageLabel(), GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
@@ -44,7 +44,7 @@ public class CV_2 extends TemplatePanel {
 					.addComponent(getHeaderTitle(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(educationText(), GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+						.addComponent(getEducationText(), GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
 						.addComponent(getWorkingExperienceText(), GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
 					.addContainerGap())
 		);

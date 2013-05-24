@@ -61,10 +61,13 @@ public class Translator {
 		if(o instanceof Template){
 			template = (Template)o;
 		}
+		
+		System.out.println(template);
+		
 		switch(template){
 		
 		case DEF_CV:
-			panel = new CV_Def(); //It should get all the information stored from its parent.
+			panel = new CV_Def(); 
 			break;
 		
 		case DEF_PL:

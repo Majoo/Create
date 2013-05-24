@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.undo.UndoManager;
 
+import se.chalmers.tda367.group25.resumate.utils.Labels;
+
 
 /**
  * A class which represents the core of a Template. It holds the
@@ -124,7 +126,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	 * @return
 	 * 			The JTextPane for information about education
 	 */
-	public JTextPane educationText() {
+	public JTextPane getEducationText() {
 		return this.educationText;
 	}
 	
@@ -157,16 +159,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.imageLbl = imageLabel;
 	}
 	
-	
-	/**
-	 *  Sets the current text area which currently was in focus
-	 *  
-	 * @param currentSection the current JTextPane in focus
-	 */
-	public void setCurrentSection(JTextPane currentSection){
-		this.currentSection = currentSection;
-	}
-	
 	//-----Setters for updating the view with new text/image-----
 	/**
 	 * Shows in view the image given as parameter.
@@ -197,10 +189,10 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	@Override
 	public void focusGained(FocusEvent arg0) {
 		if(arg0.getComponent().getClass().equals(JTextPane.class)){
-			//updateCurrentSection();
-			System.out.println("Focus JTextPane");
-			//currentSection.setBorder(null);
 			currentSection = (JTextPane)arg0.getComponent();
+			System.out.println("Fire Textarea change");
+			pcs.firePropertyChange(Labels.TEXTAREA_CHANGED, false, true);
+			System.out.println("Fired Textarea change");
 		}
 	}
 

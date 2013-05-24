@@ -20,7 +20,7 @@ public class PL_Def extends TemplatePanel{
 								.addGroup(groupLayout.createSequentialGroup()
 									//.addComponent(getWorkingExperienceText(), GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(educationText(), GroupLayout.PREFERRED_SIZE, 500, Short.MAX_VALUE))
+									.addComponent(getEducationText(), GroupLayout.PREFERRED_SIZE, 500, Short.MAX_VALUE))
 								.addComponent(getHeaderTitle(), GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
 								.addGroup(Alignment.CENTER, groupLayout.createSequentialGroup()
 									.addComponent(getImageLabel(), GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
@@ -43,7 +43,7 @@ public class PL_Def extends TemplatePanel{
 						
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.CENTER)
-								.addComponent(educationText(), GroupLayout.PREFERRED_SIZE, 500, Short.MAX_VALUE))
+								.addComponent(getEducationText(), GroupLayout.PREFERRED_SIZE, 500, Short.MAX_VALUE))
 								//.addComponent(getWorkingExperienceText(), GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
 							.addContainerGap())
 				);

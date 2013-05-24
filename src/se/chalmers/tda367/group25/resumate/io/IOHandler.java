@@ -61,30 +61,22 @@ public class IOHandler {
 	private static void writeToFiles(String fileName,
 			Map<SectionType, String> strings) throws IOException {
 		if (strings.containsKey(SectionType.HEADER)) {
-			System.out.println("HEADER");
 			writeSingleFile(new File(fileName + "\\HEADER.txt"),
 					strings.get(SectionType.HEADER));
 		}
 		if (strings.containsKey(SectionType.PERSONAL_INFO)) {
-			System.out.println("PERSONAL_INFO");
 			writeSingleFile(new File(fileName + "\\PERSONAL_INFO.txt"),
 					strings.get(SectionType.PERSONAL_INFO));
 		}
 		if (strings.containsKey(SectionType.WORK_EXPERIENCE)) {
-			System.out.println("WORK_EXPERIENCE");
 			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
 					strings.get(SectionType.WORK_EXPERIENCE));
 		}
 		if (strings.containsKey(SectionType.EMPTY)) {
-			System.out.println("EMPTY");
 			writeSingleFile(new File(fileName + "\\EMPTY.txt"),
 					strings.get(SectionType.EMPTY));
 		}
-		System.out.println("Project.rsmt");
-		BufferedWriter w = new BufferedWriter(new FileWriter(fileName
-				+ "\\Project.rsmt"));
-		w.write("Hello");
-		w.close();
+		writeSingleFile(new File(fileName + "\\Project.rsmt"), "");
 		System.out.println("DONE SAVING");
 	}
 
@@ -95,6 +87,7 @@ public class IOHandler {
 	 */
 	private static void writeSingleFile(File file, String content)
 			throws IOException {
+		System.out.println(file.getName());
 		BufferedWriter w = new BufferedWriter(new FileWriter(file));
 		w.write(content);
 		w.close();
@@ -109,12 +102,12 @@ public class IOHandler {
 	 * 
 	 */
 	public static synchronized Map<SectionType, String> openFile(String fileName)
-			throws IOException{
+			throws IOException {
 		System.out.println("In openFile");
 		File chosenDir = new File(fileName);
 		File rsmtInDir = new File(fileName + "\\Project.rsmt");
-		
-		if(chosenDir.isDirectory() && rsmtInDir.exists()){
+
+		if (chosenDir.isDirectory() && rsmtInDir.exists()) {
 			System.out.println("In if-block");
 			BufferedReader br = new BufferedReader(new FileReader(chosenDir));
 
@@ -122,7 +115,7 @@ public class IOHandler {
 			while ((data = br.readLine()) != null) {
 
 			}
-			br.close();			
+			br.close();
 		}
 		throw new IOException("Not project folder");
 	}

@@ -10,6 +10,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.io.IOHandler;
 import se.chalmers.tda367.group25.resumate.io.PDFHandler;
+import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
@@ -38,7 +39,7 @@ public class IOController {
 	 * @param jc
 	 *            only necessary when exporting, printing or sending, may be
 	 *            null
-	 * @param strings
+	 * @param doc
 	 *            only necessary when saving, may be null
 	 * @param path
 	 *            only necessary when saving and path already exists, may be
@@ -46,13 +47,21 @@ public class IOController {
 	 * @return when function = OPEN_DOC, a Map with String values is returned
 	 */
 	public Map<SectionType, String> chooseFunction(String function,
-			JComponent jc, Map<SectionType, String> strings, String path) {
+			JComponent jc, Document doc, String path) {
+
+		Map<SectionType, String> strings;
+		if(function.equals(Labels.SAVE_DOC) || function.equals(Labels.SAVE_DOC_AS)){
+			strings = doc.getStrings();
+		} else {
+			strings = null;
+		}
+		
+		
 		if ((function.equals(Labels.SAVE_DOC))
 				|| (function.equals(Labels.RENAME_DOC))) {
 			try {
 				IOHandler.saveFile(path, strings);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else if ((function.equals(Labels.EXPORT_DOC))
@@ -70,14 +79,14 @@ public class IOController {
 									"You chose a directory that is not a ResuMate project folder, try again. Hint: ResuMate project folders contain the file Project.rsmt.",
 									"Invalid choice made.",
 									JOptionPane.ERROR_MESSAGE);
-					chooseFunction(function, jc, strings, path);
+					chooseFunction(function, jc, doc, path);
 				} else {
 					// Probably means that the user entered the wrong path name
 					// when trying to save or export.
 					JOptionPane.showMessageDialog(null,
 							"You chose an invalid file or path, try again.",
 							"Invalid choice made.", JOptionPane.ERROR_MESSAGE);
-					chooseFunction(function, jc, strings, path);
+					chooseFunction(function, jc, doc, path);
 				}
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block

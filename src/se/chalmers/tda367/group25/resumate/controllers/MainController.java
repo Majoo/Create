@@ -71,26 +71,25 @@ public class MainController implements PropertyChangeListener {
 		}
 
 	}
-	
+
 	/**
 	 * Handles events that are fired during startup of the program.
 	 * 
 	 * @param e
-	 *       the event to be handled
+	 *            the event to be handled
 	 */
 	private void initialPropertyChange(PropertyChangeEvent e) {
-		switch(e.getPropertyName()){
+		switch (e.getPropertyName()) {
 		case Labels.SEND_INITIAL_DVIEW:
-			DocumentView docView = (DocumentView)e.getOldValue();
-			docCon.addDocView((String)e.getNewValue()
-					,docView);
+			DocumentView docView = (DocumentView) e.getOldValue();
+			docCon.addDocView((String) e.getNewValue(), docView);
 			break;
-		default: 
-			//Do nothing, never invoked
+		default:
+			// Do nothing, never invoked
 			break;
 		}
 	}
-	
+
 	/**
 	 * Handles events that have to do with IO
 	 * 
@@ -106,22 +105,20 @@ public class MainController implements PropertyChangeListener {
 		case Labels.SAVE_DOC:
 			if (docCon.getDoc(docCon.getCurrent()).getFilePath().isEmpty()) {
 				ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
-						docCon.getDoc(docCon.getCurrent()).getStrings(), null);
+						docCon.getDoc(docCon.getCurrent()), null);
 			} else {
 				ioCon.chooseFunction(Labels.SAVE_DOC, null,
-						docCon.getDoc(docCon.getCurrent()).getStrings(), docCon
-								.getDoc(docCon.getCurrent()).getFilePath());
+						docCon.getDoc(docCon.getCurrent()),
+						docCon.getDoc(docCon.getCurrent()).getFilePath());
 			}
 
 		case Labels.SAVE_DOC_AS:
-			System.out.println("SAVE_DOC_AS");
-//			ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
-//					docCon.getDoc(docCon.getCurrent()).getStrings(), null);
+			ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
+					docCon.getDoc(docCon.getCurrent()), null);
 
 			break;
 
 		case Labels.OPEN_DOC:
-			//TODO !!
 			ioCon.chooseFunction(Labels.OPEN_DOC, null, null, null);
 			break;
 

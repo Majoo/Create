@@ -32,6 +32,7 @@ public class MainController implements PropertyChangeListener {
 	public MainController() {
 		docCon = new DocumentController();
 		ioCon = new IOController();
+		ioCon.addPropertyChangeListener(this);
 		mainView = new MainView();
 		mainView.addPropertyChangeListener(this);
 		mainView.sendInitialDocView();
@@ -54,6 +55,8 @@ public class MainController implements PropertyChangeListener {
 			textPropertyChange(e);
 		} else if (e.getPropertyName().contains("DOC")) {
 			ioPropertyChange(e);
+		} else if (e.getPropertyName().contains("IO")){
+			
 		}
 
 		/* Other handling */
@@ -151,6 +154,10 @@ public class MainController implements PropertyChangeListener {
 			// JTabbedPane jtbExample = new JTabbedPane();
 			// jtbExample.addTab(tabbedPanel);
 			// jtbExample.setSelectedIndex(0);
+			break;
+			
+		case Labels.DOC_LOAD:
+			docCon.getDoc(docCon.getCurrent()).setAllTexts(ioCon.getStringsMap());
 			break;
 
 		default:

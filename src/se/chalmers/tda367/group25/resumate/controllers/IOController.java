@@ -1,5 +1,7 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.Map;
 
@@ -24,10 +26,15 @@ import com.itextpdf.text.DocumentException;
  */
 public class IOController {
 
-	private String recentDir;
+	private PropertyChangeSupport pcs;
+
+	private Map<SectionType, String> stringsFromFiles;
+
+	private String recentPath;
 
 	public IOController() {
-		recentDir = System.getProperty("user.home");
+		pcs = new PropertyChangeSupport(this);
+		recentPath = System.getProperty("user.home");
 	}
 
 	/**
@@ -44,19 +51,18 @@ public class IOController {
 	 * @param path
 	 *            only necessary when saving and path already exists, may be
 	 *            null
-	 * @return when function = OPEN_DOC, a Map with String values is returned
 	 */
-	public Map<SectionType, String> chooseFunction(String function,
+	public void chooseFunction(String function,
 			JComponent jc, Document doc, String path) {
 
 		Map<SectionType, String> strings;
-		if(function.equals(Labels.SAVE_DOC) || function.equals(Labels.SAVE_DOC_AS)){
+		if (function.equals(Labels.SAVE_DOC)
+				|| function.equals(Labels.SAVE_DOC_AS)) {
 			strings = doc.getStrings();
 		} else {
 			strings = null;
 		}
-		
-		
+
 		if ((function.equals(Labels.SAVE_DOC))
 				|| (function.equals(Labels.RENAME_DOC))) {
 			try {
@@ -94,17 +100,14 @@ public class IOController {
 			} catch (NullPointerException e) {
 				// If no file is chosen or operation is aborted, nothing
 				// happens.
-
 			}
 		} else if (function.equals(Labels.PRINT_DOC)
 				|| (function.equals(Labels.SEND_DOC))) {
 			// To be implemented in the future
-		} else {
-			// No such command.
 		}
-		return null;
-
 	}
+
+	// --- IO Support Functions---//
 
 	/**
 	 * A method for choosing path and file name.
@@ -112,21 +115,19 @@ public class IOController {
 	 * @param jc
 	 * @param function
 	 *            the context of the function e.g. save, save as, export as PDF
-	 * @param strings
+	 * @param stringsFromFiles
 	 *            the Strings from the RMText instances in an instance of
 	 *            Document
-	 * 
-	 * @return when function = OPEN_DOC, a Map with String values is returned
 	 * 
 	 * @throws DocumentException
 	 * @throws NullPointerException
 	 * @throws IOException
 	 */
-	private Map<SectionType, String> choosePath(JComponent jc, String function,
+	private void choosePath(JComponent jc, String function,
 			Map<SectionType, String> strings) throws DocumentException,
 			NullPointerException, IOException {
 
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser = new JFileChooser(recentPath);
 		setChooser(chooser, function);
 
 		int returnVal = chooser.showDialog(null, getApproveText(function));
@@ -140,12 +141,13 @@ public class IOController {
 			} else if (function.equals(Labels.SAVE_DOC_AS)) {
 				IOHandler.saveFile(filePath, strings);
 			} else if (function.equals(Labels.OPEN_DOC)) {
-				return IOHandler.openFile(filePath + "\\" + fileName);
+				stringsFromFiles = IOHandler.openFile(filePath + "\\"
+						+ fileName);
+				pcs.firePropertyChange(Labels.DOC_LOAD, true, false);
 			}
 		} else if (returnVal == JFileChooser.CANCEL_OPTION) {
-			;
+			// Do nothing
 		}
-		return null;
 	}
 
 	/**
@@ -214,13 +216,31 @@ public class IOController {
 
 	// ---Getters--- //
 
-	public String getRecentDir() {
-		return recentDir;
+	public String getRecentPath() {
+		return recentPath;
+	}
+
+	public Map<SectionType, String> getStringsMap() {
+		return stringsFromFiles;
 	}
 
 	// ---Setters--- //
 
-	public void setRecentDir(String newDir) {
-		this.recentDir = newDir;
+	public void setRecentPath(String newPath) {
+		this.recentPath = newPath;
+	}
+
+	public void setStringsMap(Map<SectionType, String> strings) {
+		this.stringsFromFiles = strings;
+	}
+
+	// ---PropertyChanged Methods--- //
+
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		pcs.addPropertyChangeListener(pcl);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener pcl) {
+		pcs.removePropertyChangeListener(pcl);
 	}
 }

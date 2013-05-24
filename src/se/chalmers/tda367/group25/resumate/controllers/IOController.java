@@ -52,8 +52,8 @@ public class IOController {
 	 *            only necessary when saving and path already exists, may be
 	 *            null
 	 */
-	public void chooseFunction(String function,
-			JComponent jc, Document doc, String path) {
+	public void chooseFunction(String function, JComponent jc, Document doc,
+			String path) {
 
 		Map<SectionType, String> strings;
 		if (function.equals(Labels.SAVE_DOC)
@@ -95,8 +95,7 @@ public class IOController {
 					chooseFunction(function, jc, doc, path);
 				}
 			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// iText related exception
 			} catch (NullPointerException e) {
 				// If no file is chosen or operation is aborted, nothing
 				// happens.
@@ -139,11 +138,10 @@ public class IOController {
 			if (function.equals(Labels.EXPORT_DOC)) {
 				PDFHandler.createPdf(jc, filePath + "\\" + fileName);
 			} else if (function.equals(Labels.SAVE_DOC_AS)) {
-				IOHandler.saveFile(filePath, strings);
+				IOHandler.saveFile(filePath + "\\" + fileName, strings);
 			} else if (function.equals(Labels.OPEN_DOC)) {
 				stringsFromFiles = IOHandler.openFile(filePath + "\\"
 						+ fileName);
-				pcs.firePropertyChange(Labels.DOC_LOAD, true, false);
 			}
 		} else if (returnVal == JFileChooser.CANCEL_OPTION) {
 			// Do nothing

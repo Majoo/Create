@@ -55,7 +55,8 @@ public class PDFHandler {
 
 		Document document = new Document();
 
-		int a = (int) (document.leftMargin() + document.rightMargin() - panelWidth);
+		// int a = (int) (document.leftMargin() + document.rightMargin() -
+		// panelWidth);
 
 		File file = getUniqueFile(filePathAndName);
 
@@ -77,7 +78,8 @@ public class PDFHandler {
 			Graphics2D g2 = tp.createGraphics(panelWidth, panelHeight);
 			jc.print(g2);
 
-			cb.addTemplate(tp, -25, document.top() - delta); // 0 = document.left(document.leftMargin())
+			cb.addTemplate(tp, -25, document.top() - delta); // 0 =
+																// document.left(document.leftMargin())
 			g2.dispose();
 			delta = (int) (delta - document.top());
 		}

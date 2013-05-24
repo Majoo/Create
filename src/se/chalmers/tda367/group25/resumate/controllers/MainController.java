@@ -55,8 +55,6 @@ public class MainController implements PropertyChangeListener {
 			textPropertyChange(e);
 		} else if (e.getPropertyName().contains("DOC")) {
 			ioPropertyChange(e);
-		} else if (e.getPropertyName().contains("IO")){
-			
 		}
 
 		/* Other handling */

@@ -1,4 +1,4 @@
-package io;
+package se.chalmers.tda367.group25.resumate.io;
 
 import static org.junit.Assert.assertTrue;
 

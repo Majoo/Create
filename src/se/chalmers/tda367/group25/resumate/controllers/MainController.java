@@ -150,6 +150,7 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.NEW_DOC:
+			// No gui-elements in the controller pls!
 			// JTabbedPane jtbExample = new JTabbedPane();
 			// jtbExample.addTab(tabbedPanel);
 			// jtbExample.setSelectedIndex(0);

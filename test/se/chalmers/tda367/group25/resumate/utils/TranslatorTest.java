@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.tests;
+package se.chalmers.tda367.group25.resumate.utils;
 import static org.junit.Assert.*;
 
 import java.awt.image.BufferedImage;
@@ -8,7 +8,7 @@ import org.junit.Test;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 
 
-public class stringToImageTest {
+public class TranslatorTest {
 
 	@Test
 	public void test() {

@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.tests;
+package se.chalmers.tda367.group25.resumate.controllers;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -8,7 +8,7 @@ import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 
 
-public class DocConTest {
+public class DocumentControllerTest {
 	DocumentController docCon = new DocumentController();
 	DocumentView dv = new DocumentView();
 

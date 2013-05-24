@@ -17,14 +17,14 @@ public class DocumentControllerTest {
 		String ID = "ID";
 		docCon.addDocView(ID, dv);
 
-		assert(docCon.getView(ID)== dv);
+		assertTrue(docCon.getView(ID)== dv);
 	}
 	
 	@Test
 	public void getDocTest() {		
 		Document doc = docCon.getDoc(docCon.getCurrent());
 		
-		assert(docCon.getDoc(docCon.getCurrent()) != null);
+		assertTrue(docCon.getDoc(docCon.getCurrent()) != null);
 		
 	}
 	
@@ -33,7 +33,7 @@ public class DocumentControllerTest {
 		docCon.addDocView("first", dv);
 		Document doc = docCon.separateDocument(dv);
 		
-		assert(doc == docCon.getDoc("first"));
+		assertTrue(doc == docCon.getDoc("first"));
 		
 	}
 

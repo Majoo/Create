@@ -28,6 +28,7 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 		MouseMotionListener {
 	private PropertyChangeSupport pcs;
 	private int x1, y1, x2, y2;
+	private String curDirectoryPath;
 	private JCheckBoxMenuItem grayscaleImage;
 
 	/**
@@ -248,6 +249,15 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 		add(mnAbout);
 	}
 
+	//SETTERS
+	/*
+	 * Set the directory in wich to open the next JFileChooser.
+	 */
+	private void setCurrentDirectoryPath(String newCurDirectoryPath) {
+		this.curDirectoryPath = newCurDirectoryPath;
+		
+	}
+	
 	/**
 	 * Set look and feel
 	 */
@@ -419,14 +429,24 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 
 		/* Image related: */
 		case "Upload":
-			JFileChooser chooser = new JFileChooser();
+			JFileChooser chooser;
+			if(this.curDirectoryPath == null){
+				chooser = new JFileChooser();
+			}else{
+				chooser = new JFileChooser(this.curDirectoryPath);
+			}
+			//Let the user choose an image
 			FileNameExtensionFilter filter = new FileNameExtensionFilter(
 					"JPG, PNG & GIF Images", "jpg", "gif", "png", "jpeg");
 			chooser.setFileFilter(filter);
 			int returnVal = chooser.showOpenDialog(getParent());
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				String path = chooser.getSelectedFile().getPath();
+				//Set the new lastOpenedDirectoryPath
+				int index = path.lastIndexOf("\"");
+				this.setCurrentDirectoryPath(path.substring(index+1, path.length()-1));
 				System.out.println("You chose to open this file: " + path);
+				//Fire PropertyChangEvent
 				pcs.firePropertyChange(Labels.INSERT_IMAGE, path, false);
 			}
 			break;

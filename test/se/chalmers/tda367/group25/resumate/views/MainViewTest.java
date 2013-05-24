@@ -11,7 +11,7 @@ public class MainViewTest {
 	@Test
 	public void test() {
 		MainView mv = new MainView();
-		assert(mv.getCurDocView().getID() == "First DocumentView");
+		assertTrue(mv.getCurDocView().getID() == "First DocumentView");
 	}
 
 }

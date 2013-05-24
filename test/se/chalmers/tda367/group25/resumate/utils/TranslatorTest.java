@@ -15,7 +15,7 @@ public class TranslatorTest {
 		String path = "C:\\Users\\Patricia\\Pictures\\sexIT-bilder\\DSC03953.JPG";
 		BufferedImage img = Translator.stringToImage(path);
 		
-		assert(img != null);
+		assertTrue(img != null);
 	}
 
 }

@@ -10,7 +10,7 @@ public class MainControllerTest {
 
 	@Test
 	public void delegateTest() {
-		assert(Labels.CROP_IMAGE.contains("IMAGE"));
+		assertTrue(Labels.CROP_IMAGE.contains("IMAGE"));
 		
 	}
 

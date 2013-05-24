@@ -6,7 +6,6 @@ package se.chalmers.tda367.group25.resumate.utils;
  * and is used to generate appropriate tips, input prompts etc.
  */
 public enum SectionType {
-	IMAGE,
 	PERSONAL_INFO,
 	WORK_EXPERIENCE,
 	EDUCATION,

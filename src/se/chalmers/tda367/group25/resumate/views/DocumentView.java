@@ -56,6 +56,9 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	}
 	
 	//PROPERTY-CHANGED-METHODS
+	/**
+	 * 
+	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
 	}

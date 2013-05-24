@@ -239,14 +239,11 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXT_ENTERED:
 			String text = e.getNewValue().toString();
 			curRMText.setText(text);
-
 			break;
 
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
-
 			curRMText.changeFont(curTextSection, font);
-			
 			break;
 
 		case Labels.TEXTSIZE_CHANGED:

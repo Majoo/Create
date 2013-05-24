@@ -19,7 +19,6 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
  * content of the corresponding text documents.
  * 
  * @author Laszlo Sall Vesselenyi
- * @author Danny Lam
  */
 public class IOHandler {
 
@@ -35,7 +34,7 @@ public class IOHandler {
 	/**
 	 * Save to file. The project is saved by saving each RMText as a separate
 	 * text file, and saving an RSMT file to act as a locator for opening a
-	 * Document in the future. Synchronized for sake of safety.
+	 * Document in the future. Synchronized for sake of eventual thread safety.
 	 * 
 	 * @param fileName
 	 *            the file to save to
@@ -81,10 +80,12 @@ public class IOHandler {
 			writeSingleFile(new File(fileName + "\\EMPTY.txt"),
 					strings.get(SectionType.EMPTY));
 		}
+		System.out.println("Project.rsmt");
 		BufferedWriter w = new BufferedWriter(new FileWriter(fileName
 				+ "\\Project.rsmt"));
 		w.write("Hello");
 		w.close();
+		System.out.println("DONE SAVING");
 	}
 
 	/**
@@ -100,7 +101,7 @@ public class IOHandler {
 	}
 
 	/**
-	 * Open file. Synchronized for sake of safety.
+	 * Open file. Synchronized for sake of eventual thread safety.
 	 * 
 	 * @param fileName
 	 *            the file to open
@@ -108,18 +109,21 @@ public class IOHandler {
 	 * 
 	 */
 	public static synchronized Map<SectionType, String> openFile(String fileName)
-			throws IOException, FileNotFoundException {
+			throws IOException{
+		System.out.println("In openFile");
+		File chosenDir = new File(fileName);
+		File rsmtInDir = new File(fileName + "\\Project.rsmt");
+		
+		if(chosenDir.isDirectory() && rsmtInDir.exists()){
+			System.out.println("In if-block");
+			BufferedReader br = new BufferedReader(new FileReader(chosenDir));
 
-		File chosenFile = new File(fileName);
+			String data;
+			while ((data = br.readLine()) != null) {
 
-		BufferedReader br = new BufferedReader(new FileReader(chosenFile));
-
-		String data;
-		while ((data = br.readLine()) != null) {
-
+			}
+			br.close();			
 		}
-		br.close();
-
-		return null;
+		throw new IOException("Not project folder");
 	}
 }

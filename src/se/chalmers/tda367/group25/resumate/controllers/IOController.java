@@ -1,16 +1,15 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.io.IOHandler;
 import se.chalmers.tda367.group25.resumate.io.PDFHandler;
-import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
@@ -24,7 +23,10 @@ import com.itextpdf.text.DocumentException;
  */
 public class IOController {
 
+	private String recentDir;
+
 	public IOController() {
+		recentDir = System.getProperty("user.home");
 	}
 
 	/**
@@ -41,9 +43,10 @@ public class IOController {
 	 * @param path
 	 *            only necessary when saving and path already exists, may be
 	 *            null
+	 * @return when function = OPEN_DOC, a Map with String values is returned
 	 */
-	public void chooseFunction(String function, JComponent jc,
-			Map<SectionType, String> strings, String path) {
+	public Map<SectionType, String> chooseFunction(String function,
+			JComponent jc, Map<SectionType, String> strings, String path) {
 		if ((function.equals(Labels.SAVE_DOC))
 				|| (function.equals(Labels.RENAME_DOC))) {
 			try {
@@ -57,21 +60,40 @@ public class IOController {
 				|| (function.equals(Labels.OPEN_DOC))) {
 			try {
 				choosePath(jc, function, strings);
-			} catch (FileNotFoundException e) {
-				// Probably means that the user entered the wrong path name.
-				chooseFunction(function, jc, strings, path);
+			} catch (IOException e) {
+				// If incorrect file is chosen during OPEN_DOC issue warning and
+				// try again.
+				if (e.getMessage().equals("Not project folder")) {
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"You chose a directory that is not a ResuMate project folder, try again. Hint: ResuMate project folders contain the file Project.rsmt.",
+									"Invalid choice made.",
+									JOptionPane.ERROR_MESSAGE);
+					chooseFunction(function, jc, strings, path);
+				} else {
+					// Probably means that the user entered the wrong path name
+					// when trying to save or export.
+					JOptionPane.showMessageDialog(null,
+							"You chose an invalid file or path, try again.",
+							"Invalid choice made.", JOptionPane.ERROR_MESSAGE);
+					chooseFunction(function, jc, strings, path);
+				}
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NullPointerException e) {
-				// If no file is chosen or operation is aborted, nothing happens
+				// If no file is chosen or operation is aborted, nothing
+				// happens.
+
 			}
 		} else if (function.equals(Labels.PRINT_DOC)
 				|| (function.equals(Labels.SEND_DOC))) {
 			// To be implemented in the future
 		} else {
-			System.out.println("No such command!");
+			// No such command.
 		}
+		return null;
 
 	}
 
@@ -82,14 +104,18 @@ public class IOController {
 	 * @param function
 	 *            the context of the function e.g. save, save as, export as PDF
 	 * @param strings
+	 *            the Strings from the RMText instances in an instance of
+	 *            Document
 	 * 
-	 * @throws FileNotFoundException
+	 * @return when function = OPEN_DOC, a Map with String values is returned
+	 * 
 	 * @throws DocumentException
 	 * @throws NullPointerException
+	 * @throws IOException
 	 */
-	private void choosePath(JComponent jc, String function,
-			Map<SectionType, String> strings) throws FileNotFoundException,
-			DocumentException, NullPointerException {
+	private Map<SectionType, String> choosePath(JComponent jc, String function,
+			Map<SectionType, String> strings) throws DocumentException,
+			NullPointerException, IOException {
 
 		JFileChooser chooser = new JFileChooser();
 		setChooser(chooser, function);
@@ -100,19 +126,17 @@ public class IOController {
 		String fileName = chooser.getSelectedFile().getName();
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			try {
-				if (function.equals(Labels.EXPORT_DOC)) {
-					PDFHandler.createPdf(jc, filePath + "\\" + fileName);
-				} else if (function.equals(Labels.SAVE_DOC_AS)) {
-					IOHandler.saveFile(filePath, strings);
-				} else if (function.equals(Labels.OPEN_DOC)) {
-					IOHandler.openFile(filePath);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (function.equals(Labels.EXPORT_DOC)) {
+				PDFHandler.createPdf(jc, filePath + "\\" + fileName);
+			} else if (function.equals(Labels.SAVE_DOC_AS)) {
+				IOHandler.saveFile(filePath, strings);
+			} else if (function.equals(Labels.OPEN_DOC)) {
+				return IOHandler.openFile(filePath + "\\" + fileName);
 			}
+		} else if (returnVal == JFileChooser.CANCEL_OPTION) {
+			;
 		}
+		return null;
 	}
 
 	/**
@@ -151,7 +175,8 @@ public class IOController {
 		jfc.setFileFilter(getFilter(function));
 
 		// When saving, only directories are relevant
-		if (function.equals(Labels.SAVE_DOC_AS)) {
+		if (function.equals(Labels.SAVE_DOC_AS)
+				|| function.equals(Labels.OPEN_DOC)) {
 			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		} else {
 			jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -176,5 +201,17 @@ public class IOController {
 		} else {
 			return null;
 		}
+	}
+
+	// ---Getters--- //
+
+	public String getRecentDir() {
+		return recentDir;
+	}
+
+	// ---Setters--- //
+
+	public void setRecentDir(String newDir) {
+		this.recentDir = newDir;
 	}
 }

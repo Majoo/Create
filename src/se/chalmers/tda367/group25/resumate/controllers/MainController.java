@@ -16,7 +16,7 @@ import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
-import se.chalmers.tda367.group25.resumate.views.ViewHandler;
+import se.chalmers.tda367.group25.resumate.utils.ViewHandler;
 
 public class MainController implements PropertyChangeListener {
 

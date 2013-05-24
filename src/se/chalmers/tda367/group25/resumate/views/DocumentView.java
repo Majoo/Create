@@ -19,7 +19,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	private PropertyChangeSupport pcs;
 	
 	private TemplatePanel templatePnl;
-	//This string is only for debugging:
+	// Initiate a string for debugging
 	private String id;
 	
 	/**
@@ -28,25 +28,28 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	public DocumentView() {
 		this(new CV_Def());
 	}
-	
+	/*
+	 * A constructor with template panel
+	 */
 	public DocumentView(TemplatePanel templatePanel) {
 		pcs = new PropertyChangeSupport(this);	
 		setLayout(new BorderLayout(0, 0));
 		this.templatePnl = templatePanel;
 		add(templatePnl);
 		
+		// A Scrollpane to the template panel
 		JScrollPane scroller = new JScrollPane(templatePnl);
 		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		add(scroller);
 	}
 
-	//GETTERS
+	// Get template
 	public TemplatePanel getTemplatePanel(){
 		return templatePnl;
 	}
 	
-	//SETTERS
+	// Set template
 	public void setTemplate(TemplatePanel tmplPnl){
 		System.out.println("Setting template");
 		this.templatePnl = tmplPnl;
@@ -54,7 +57,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		this.templatePnl.updateUI();
 	}
 	
-	//PROPERTY-CHANGED-METHODS
+	// PROPERTY-CHANGE-METHODS
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
 	}
@@ -69,16 +72,16 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		
 	}
 	
-	//METHODS USED TO DEBUG
 	/*
-	 * Get String-ID
+	 * Methods used to debug
 	 */
+	
+	// Get String-ID
 	public String getID(){
 		return this.id;
 	}
-	/*
-	 * Set String-ID
-	 */
+	
+	// Set String-ID
 	public void setID(String newID){
 		this.id = newID;
 	}

@@ -22,8 +22,7 @@ import se.chalmers.tda367.group25.resumate.utils.Labels;
 /**
  * A class which represents the core of a Template. It holds the
  * methods for accesing the text in the different fields, for 
- * styling the text in the textareas and basic functions involving writing.
- *
+ * styling the text in the text areas and basic functions involving writing.
  */
 public abstract class TemplatePanel extends JPanel implements FocusListener {
 
@@ -39,16 +38,19 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	
  	/**
  	 * Create the panel. 
- 	 * Is invoked in subclasses with the propper JTextPanes.
+ 	 * Is invoked in subclasses with the proper JTextPanes.
  	 */
 	public TemplatePanel(){
 		this.setBackground(Color.white);
 		
-		//Initialize components & adding some settings 
+		// Initialize components and adding settings 
 		this.personalInfoText = new JTextPane();
 		personalInfoText.setName("personalInfoText");
-		personalInfoText.setText("Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
-		personalInfoText.setToolTipText("Protip! \r\nAlways use correct information! You must therefore fill in all the blanks!");
+		personalInfoText.setText("Name: " +
+				"\r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
+		personalInfoText.setToolTipText("Protip! " +
+				"\r\nAlways use correct information! " +
+				"You must therefore fill in all the blanks!");
 		personalInfoText.addFocusListener(this);
 		personalInfoText.getDocument().addUndoableEditListener(manager);
 		Paint blackPaint = Color.black;
@@ -58,7 +60,9 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		headerTitle.setName("headerTitle");
 		headerTitle.setText("[HEADLINE]");
 		headerTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		headerTitle.setToolTipText("Protip! \r\nUse a creative headline to attract the reader! But be careful to not be too informal.");
+		headerTitle.setToolTipText("Protip! " +
+				"\r\nUse a creative headline to attract the reader! " +
+				"But be careful to not be too informal.");
 		headerTitle.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		headerTitle.addFocusListener(this);
 		headerTitle.getDocument().addUndoableEditListener(manager);
@@ -69,7 +73,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		workingExperienceText.setText("[ABOUT YOURSELF]");
 		workingExperienceText.addFocusListener(this);
 		workingExperienceText.getDocument().addUndoableEditListener(manager);
-		workingExperienceText.setToolTipText("Protip! \nAdjust your way of writing depending on the job you are looking for!");
+		workingExperienceText.setToolTipText("Protip! " +
+				"\nAdjust your way of writing depending on the job you are looking for!");
 		workingExperienceText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		
 		this.educationText = new JTextPane();
@@ -146,6 +151,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	
 	/**
 	 * Returns the manager handling undo & redo
+	 * 
 	 * @return UndoManager for the sections
 	 */
 	public UndoManager getManager(){
@@ -176,7 +182,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		imageLbl.setIcon(new ImageIcon(image));
 	}
 	
-	//PROPERTY-CHANGED-METHODS
+	// PROPERTY-CHANGED-METHODS
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
 	}
@@ -187,11 +193,12 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	
 	/**
 	 * Sets the current section which is the one currently in focus.
-	 * Informs the controller that the textarea has changed so 
+	 * Informs the controller that the text area has changed so 
 	 * that the view may be informed of these changes. 
 	 * @param arg0 
 	 * 			the focused container		
 	 */
+	
 	@Override
 	public void focusGained(FocusEvent arg0) {
 		if(arg0.getComponent().getClass().equals(JTextPane.class)){
@@ -204,7 +211,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 
 	@Override
 	public void focusLost(FocusEvent arg0) {
-		//Do nothing, the JTextPane which is in focus will remain until another one is focused
+		//Do nothing, the JTextPane which is in focus 
+		//will remain until another one is focused
 		
 	}
 }

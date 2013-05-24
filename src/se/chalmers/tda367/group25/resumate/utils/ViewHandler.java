@@ -131,12 +131,11 @@ public class ViewHandler {
 	 */
 	public static void undoAction(JEditorPane section, UndoManager manager){
 		try {
-//			if(section.getCaret().equals("")){
-//					while(!section.equals(" ")){
-//			manager.undo();
-//					}
-//			}
-//			
+			manager.undo();
+				while(section.getCaret().equals(" ")){
+			manager.undo();
+			}
+			
 			} catch (CannotUndoException e) {
 			Toolkit.getDefaultToolkit().beep();
 		}

@@ -32,9 +32,10 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	 * A constructor with template panel
 	 */
 	public DocumentView(TemplatePanel templatePanel) {
-		pcs = new PropertyChangeSupport(this);	
+		pcs = new PropertyChangeSupport(this);
 		setLayout(new BorderLayout(0, 0));
 		this.templatePnl = templatePanel;
+		templatePnl.addPropertyChangeListener(this);
 		add(templatePnl);
 		
 		// A Scrollpane to the template panel
@@ -68,7 +69,13 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
+		System.out.println("In DocView changed");
+		try{
+			pcs.firePropertyChange(evt.getPropertyName(),evt.getOldValue(),
+					evt.getNewValue());
+		} catch (NullPointerException e){
+			
+		}
 		
 	}
 	

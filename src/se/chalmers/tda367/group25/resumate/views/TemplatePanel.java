@@ -191,10 +191,13 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		pcs.removePropertyChangeListener(pcl);
 	}
 	
-	// This is here, allowing the subclasses to use this pcs to send further events.
-	public PropertyChangeSupport getPcs() {
-		return this.pcs;
-	}
+	/**
+	 * Sets the current section which is the one currently in focus.
+	 * Informs the controller that the text area has changed so 
+	 * that the view may be informed of these changes. 
+	 * @param arg0 
+	 * 			the focused container		
+	 */
 	
 	@Override
 	public void focusGained(FocusEvent arg0) {

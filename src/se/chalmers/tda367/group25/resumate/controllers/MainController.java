@@ -81,6 +81,8 @@ public class MainController implements PropertyChangeListener {
 			System.out.println(eduText);
 			
 			mainView.getCurDocView().setTemplate(tempChange);
+			mainView.validate();
+			mainView.setVisible(true);
 
 			break;
 

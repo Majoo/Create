@@ -24,10 +24,7 @@ import com.itextpdf.text.DocumentException;
  */
 public class IOController {
 
-	private IOHandler ioHandler;
-
 	public IOController() {
-		ioHandler = new IOHandler();
 	}
 
 	/**
@@ -41,28 +38,37 @@ public class IOController {
 	 *            null
 	 * @param strings
 	 *            only necessary when saving, may be null
+	 * @param path
+	 *            only necessary when saving and path already exists, may be
+	 *            null
 	 */
 	public void chooseFunction(String function, JComponent jc,
-			Map<SectionType, String> strings) {
-		if (function.equals(Labels.PRINT_DOC)
-				|| (function.equals(Labels.SAVE_DOC))
-				|| (function.equals(Labels.SEND_DOC))) {
-			// A printing, method will be called here
+			Map<SectionType, String> strings, String path) {
+		if ((function.equals(Labels.SAVE_DOC))
+				|| (function.equals(Labels.RENAME_DOC))) {
+			try {
+				IOHandler.saveFile(path, strings);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else if ((function.equals(Labels.EXPORT_DOC))
 				|| (function.equals(Labels.SAVE_DOC_AS))
-				|| (function.equals(Labels.OPEN_DOC))
-				|| (function.equals(Labels.RENAME_DOC))) {
+				|| (function.equals(Labels.OPEN_DOC))) {
 			try {
 				choosePath(jc, function, strings);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// Probably means that the user entered the wrong path name.
+				chooseFunction(function, jc, strings, path);
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NullPointerException e) {
 				// If no file is chosen or operation is aborted, nothing happens
 			}
+		} else if (function.equals(Labels.PRINT_DOC)
+				|| (function.equals(Labels.SEND_DOC))) {
+			// To be implemented in the future
 		} else {
 			System.out.println("No such command!");
 		}
@@ -72,41 +78,35 @@ public class IOController {
 	/**
 	 * A method for choosing path and file name.
 	 * 
+	 * @param jc
 	 * @param function
 	 *            the context of the function e.g. save, save as, export as PDF
+	 * @param strings
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws DocumentException
+	 * @throws NullPointerException
 	 */
-	public void choosePath(JComponent jc, String function,
+	private void choosePath(JComponent jc, String function,
 			Map<SectionType, String> strings) throws FileNotFoundException,
 			DocumentException, NullPointerException {
 
 		JFileChooser chooser = new JFileChooser();
+		setChooser(chooser, function);
 
-		// Depending on the desired function, different kinds of Filter are
-		// required, which is why the returnFilter method is called
-		FileNameExtensionFilter filter = returnFilter(function);
-		chooser.setFileFilter(filter);
-		int returnVal = chooser.showSaveDialog(null);
-		String filePathAndName = chooser.getCurrentDirectory().getPath() + "\\"
-				+ chooser.getSelectedFile().getName();
+		int returnVal = chooser.showDialog(null, getApproveText(function));
+
+		String filePath = chooser.getCurrentDirectory().getPath();
+		String fileName = chooser.getSelectedFile().getName();
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			try {
 				if (function.equals(Labels.EXPORT_DOC)) {
-					PDFHandler.createPdf(jc, filePathAndName);
-				} else if (function.equals(Labels.SEND_DOC)) {
-					;
-				} else if (function.equals(Labels.SAVE_DOC)) {
-			//		ioHandler.saveFile(filePathAndName, new Document());
-					// Connection to DocumentController needs to be established
-					// so that the correct Document can be fetched
-					ioHandler.saveFile(filePathAndName, strings);
-
+					PDFHandler.createPdf(jc, filePath + "\\" + fileName);
 				} else if (function.equals(Labels.SAVE_DOC_AS)) {
-					// Connection to DocumentController needs to be established
-					// so that the correct Document can be fetched
-					ioHandler.saveFile(filePathAndName, strings);
+					IOHandler.saveFile(filePath, strings);
 				} else if (function.equals(Labels.OPEN_DOC)) {
-					ioHandler.openFile(filePathAndName);
+					IOHandler.openFile(filePath);
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -122,16 +122,59 @@ public class IOController {
 	 *            the context of the function e.g. save, save as, export as PDF
 	 * @return Filter with the correct properties
 	 */
-	public FileNameExtensionFilter returnFilter(String function) {
+	private FileNameExtensionFilter getFilter(String function) {
 		if (function.equals(Labels.EXPORT_DOC)) {
 			return new FileNameExtensionFilter("PDF", "pdf");
-		} else if (function.equals(Labels.SAVE_DOC)) {
-			// RSMT = temporary file name
-			return new FileNameExtensionFilter("ResuMate file", "rsmt");
 		} else if (function.equals(Labels.SAVE_DOC_AS)) {
-			// RSMT = temporary file name
-			return new FileNameExtensionFilter("ResuMate file", "rsmt");
+			return new FileNameExtensionFilter("Directories", "doc");
+		} else if (function.equals(Labels.OPEN_DOC)) {
+			return new FileNameExtensionFilter("Directories", "doc");
+		} else {
+			return null;
 		}
-		return null;
+	}
+
+	/**
+	 * Sets some properties of the JFileChooser that are dependent on the
+	 * function. Mainly relevant for saving in this iteration.
+	 * 
+	 * @param jfc
+	 *            the JFileChooser which will be set up
+	 * @param function
+	 *            the context of the JFileChooser
+	 */
+	private void setChooser(JFileChooser jfc, String function) {
+		jfc.setAcceptAllFileFilterUsed(false);
+
+		// Depending on the desired function, different kinds of Filter are
+		// required, which is why the returnFilter method is called
+		jfc.setFileFilter(getFilter(function));
+
+		// When saving, only directories are relevant
+		if (function.equals(Labels.SAVE_DOC_AS)) {
+			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		} else {
+			jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		}
+	}
+
+	/**
+	 * Gets the correct text for the Approve Button depending on the function
+	 * being performed.
+	 * 
+	 * @param function
+	 *            the context of the JFileChooser
+	 * @return text for the Approve Button
+	 */
+	private String getApproveText(String function) {
+		if (function.equals(Labels.SAVE_DOC_AS)) {
+			return "Save";
+		} else if (function.equals(Labels.OPEN_DOC)) {
+			return "Open";
+		} else if (function.equals(Labels.EXPORT_DOC)) {
+			return "Export";
+		} else {
+			return null;
+		}
 	}
 }

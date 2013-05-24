@@ -18,6 +18,7 @@ public class MainView extends JFrame implements MainViewInterface {
 	private MenuBar menuBar;
 	private ToolbarPanel toolbarPanel;
 	private JTabbedPane tabbedPane;
+
 	// A list of DocViews. Each one will be in an own tab.
 	private List<DocumentView> docViewList = new ArrayList<DocumentView>(20);
 	private PropertyChangeSupport pcs;

@@ -1,6 +1,7 @@
 package se.chalmers.tda367.group25.resumate.model;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +18,10 @@ public class Document {
 	private RMImage rmI;
 
 	private List<Document> history;
+
+	// Unsurprisingly, the path to the file representation of this Document is
+	// stored here. This variable is used for "quick save" functionality.
+	private String filePath = "";
 
 	/**
 	 * Create a new Document using the default Template.
@@ -66,6 +71,14 @@ public class Document {
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
 				texts.put(SectionType.PERSONAL_INFO, new RMText(
 						SectionType.PERSONAL_INFO));
+			}
+			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
+				texts.put(SectionType.WORK_EXPERIENCE, new RMText(
+						SectionType.WORK_EXPERIENCE));
+			}
+			if (!texts.containsKey(SectionType.HEADER)) {
+				texts.put(SectionType.HEADER, new RMText(
+						SectionType.HEADER));
 			}
 			// texts.add(new RMText(SectionType.EMPTY));
 			break;
@@ -141,6 +154,15 @@ public class Document {
 					.getText());
 		}
 		return strings;
+	}
+	
+	/**
+	 * Gets the FilePath of the 
+	 * 
+	 * @return
+	 */
+	public String getFilePath(){
+		return filePath;
 	}
 
 	// ---Setters---//

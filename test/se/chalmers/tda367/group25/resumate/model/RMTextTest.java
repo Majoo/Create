@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.tests;
+package se.chalmers.tda367.group25.resumate.model;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;

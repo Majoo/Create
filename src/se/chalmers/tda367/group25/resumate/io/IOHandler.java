@@ -1,6 +1,7 @@
 package se.chalmers.tda367.group25.resumate.io;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -22,41 +23,92 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
  */
 public class IOHandler {
 
+	private static volatile IOHandler instance = null;
+
+	private IOHandler() {
+	}
+
+	public static IOHandler getInstance() {
+		return instance;
+	}
+
 	/**
-	 * Save to file.
+	 * Save to file. The project is saved by saving each RMText as a separate
+	 * text file, and saving an RSMT file to act as a locator for opening a
+	 * Document in the future. Synchronized for sake of safety.
 	 * 
 	 * @param fileName
 	 *            the file to save to
 	 */
-	public void saveFile(String fileName, Map<SectionType, String> strings)
-			throws IOException {
+	public static synchronized void saveFile(String fileName,
+			Map<SectionType, String> strings) throws IOException {
 		File directory = new File(fileName);
-		// Create directory for RSMT files
-		if (directory.mkdirs()) {
-			// Create all files in RSMT "project", i.e., the files corresponding
-			// the instances of RMText in a Document, by doing the following:
-			//
-			// Get the map of RMText Sections from the Document to be saved.
-			// Map map = doc.getRMTextMap();
-			// For each existing RMText, save a text document.
-			// for(int i = 0; i < map.size();i++){
-			FileWriter w = new FileWriter(fileName + "//"
-					+ "The label of the current RMText goes here");
-			// }
-			// Create .RSMT file in the folder to make
+
+		if (directory.mkdirs() || directory.exists()) {
+			writeToFiles(fileName, strings);
 		}
 	}
 
 	/**
-	 * Open file.
+	 * Writes the content from the RMText objects stored in the Map to text
+	 * files, and creates the RSMT file.
+	 * 
+	 * @param fileName
+	 *            the directory in which to write the files
+	 * @param strings
+	 *            the Map with the contents
+	 * @throws IOException
+	 */
+	private static void writeToFiles(String fileName,
+			Map<SectionType, String> strings) throws IOException {
+		if (strings.containsKey(SectionType.HEADER)) {
+			System.out.println("HEADER");
+			writeSingleFile(new File(fileName + "\\HEADER.txt"),
+					strings.get(SectionType.HEADER));
+		}
+		if (strings.containsKey(SectionType.PERSONAL_INFO)) {
+			System.out.println("PERSONAL_INFO");
+			writeSingleFile(new File(fileName + "\\PERSONAL_INFO.txt"),
+					strings.get(SectionType.PERSONAL_INFO));
+		}
+		if (strings.containsKey(SectionType.WORK_EXPERIENCE)) {
+			System.out.println("WORK_EXPERIENCE");
+			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
+					strings.get(SectionType.WORK_EXPERIENCE));
+		}
+		if (strings.containsKey(SectionType.EMPTY)) {
+			System.out.println("EMPTY");
+			writeSingleFile(new File(fileName + "\\EMPTY.txt"),
+					strings.get(SectionType.EMPTY));
+		}
+		BufferedWriter w = new BufferedWriter(new FileWriter(fileName
+				+ "\\Project.rsmt"));
+		w.write("Hello");
+		w.close();
+	}
+
+	/**
+	 * Performs the actual writing of a File by means of a BufferedWriter.
+	 * 
+	 * @throws IOException
+	 */
+	private static void writeSingleFile(File file, String content)
+			throws IOException {
+		BufferedWriter w = new BufferedWriter(new FileWriter(file));
+		w.write(content);
+		w.close();
+	}
+
+	/**
+	 * Open file. Synchronized for sake of safety.
 	 * 
 	 * @param fileName
 	 *            the file to open
 	 * @throws IOException
 	 * 
 	 */
-	public void openFile(String fileName) throws IOException,
-			FileNotFoundException {
+	public static synchronized Map<SectionType, String> openFile(String fileName)
+			throws IOException, FileNotFoundException {
 
 		File chosenFile = new File(fileName);
 
@@ -68,6 +120,6 @@ public class IOHandler {
 		}
 		br.close();
 
+		return null;
 	}
-
 }

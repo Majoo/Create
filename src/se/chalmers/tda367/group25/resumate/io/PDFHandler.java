@@ -20,6 +20,15 @@ import com.itextpdf.text.pdf.PdfWriter;
  */
 public class PDFHandler {
 
+	private static volatile PDFHandler instance = null;
+
+	private PDFHandler() {
+	}
+
+	public static PDFHandler getInstance() {
+		return instance;
+	}
+
 	/**
 	 * Creates PDF, using the external iText library. If a document is longer
 	 * than a single page, the PDF is extended.
@@ -37,15 +46,16 @@ public class PDFHandler {
 	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("deprecation")
-	public static void createPdf(JComponent jc, String filePathAndName)
-			throws FileNotFoundException, DocumentException {
+	public static synchronized void createPdf(JComponent jc,
+			String filePathAndName) throws FileNotFoundException,
+			DocumentException {
 
 		int panelWidth = jc.getWidth();
 		int panelHeight = jc.getHeight();
 
 		Document document = new Document();
-		
-		int a = (int)(document.leftMargin() + document.rightMargin() - panelWidth);
+
+		int a = (int) (document.leftMargin() + document.rightMargin() - panelWidth);
 
 		File file = getUniqueFile(filePathAndName);
 
@@ -61,14 +71,17 @@ public class PDFHandler {
 		while (delta >= 0) {
 			document.newPage();
 			PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
-			Graphics2D g2 = tp.createGraphicsShapes(panelWidth, panelHeight);
+
+			// Creates graphics where text is handled as fonts instead of simple
+			// graphics
+			Graphics2D g2 = tp.createGraphics(panelWidth, panelHeight);
 			jc.print(g2);
 			cb.addTemplate(tp, document.left(document.leftMargin()),
 					document.top() - delta);
 			g2.dispose();
 			delta = (int) (delta - document.top());
 		}
-		
+
 		document.close();
 	}
 
@@ -81,7 +94,7 @@ public class PDFHandler {
 	 *            the original path and file name
 	 * @return a File with a unique path and file name
 	 */
-	private static File getUniqueFile(String fileName) {
+	private static synchronized File getUniqueFile(String fileName) {
 		File file = new File(fileName + ".pdf");
 		int i = 1;
 		while (file.exists()) {

@@ -52,7 +52,7 @@ public class IOController {
 	 *            only necessary when saving and path already exists, may be
 	 *            null
 	 */
-	public void chooseFunction(String function, JComponent jc, Document doc,
+	public synchronized void chooseFunction(String function, JComponent jc, Document doc,
 			String path) {
 
 		Map<SectionType, String> strings;
@@ -65,11 +65,11 @@ public class IOController {
 
 		if ((function.equals(Labels.SAVE_DOC))
 				|| (function.equals(Labels.RENAME_DOC))) {
-			try {
-				IOHandler.saveFile(path, strings);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//			try {
+//			IOHandler.saveFile(path, strings);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 		} else if ((function.equals(Labels.EXPORT_DOC))
 				|| (function.equals(Labels.SAVE_DOC_AS))) {
 			try {

@@ -42,9 +42,9 @@ public class IOHandler {
 	public static synchronized void saveFile(String fileName,
 			Map<SectionType, String> strings) throws IOException {
 		File directory = new File(fileName);
-
 		if (directory.mkdirs() || directory.exists()) {
 			writeToFiles(fileName, strings);
+			
 			Desktop desktop = Desktop.getDesktop();
 			desktop.open(directory);
 		}
@@ -60,26 +60,31 @@ public class IOHandler {
 	 *            the Map with the contents
 	 * @throws IOException
 	 */
-	private static void writeToFiles(String fileName,
-			Map<SectionType, String> strings) throws IOException {
-		if (strings.containsKey(SectionType.HEADER)) {
-			writeSingleFile(new File(fileName + "\\HEADER.txt"),
-					strings.get(SectionType.HEADER));
+	private static synchronized void writeToFiles(String fileName,
+			Map<SectionType, String> strings) {
+		try {
+
+			writeSingleFile(new File(fileName + "\\Project.rsmt"), "");
+			if (strings.containsKey(SectionType.HEADER)) {
+				writeSingleFile(new File(fileName + "\\HEADER.txt"),
+						strings.get(SectionType.HEADER));
+			}
+			if (strings.containsKey(SectionType.PERSONAL_INFO)) {
+				writeSingleFile(new File(fileName + "\\PERSONAL_INFO.txt"),
+						strings.get(SectionType.PERSONAL_INFO));
+			}
+			if (strings.containsKey(SectionType.WORK_EXPERIENCE)) {
+				writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
+						strings.get(SectionType.WORK_EXPERIENCE));
+			}
+			if (strings.containsKey(SectionType.EMPTY)) {
+				writeSingleFile(new File(fileName + "\\EMPTY.txt"),
+						strings.get(SectionType.EMPTY));
+			}
+
+		} catch (Exception e) {
+e.getStackTrace();
 		}
-		if (strings.containsKey(SectionType.PERSONAL_INFO)) {
-			writeSingleFile(new File(fileName + "\\PERSONAL_INFO.txt"),
-					strings.get(SectionType.PERSONAL_INFO));
-		}
-		if (strings.containsKey(SectionType.WORK_EXPERIENCE)) {
-			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
-					strings.get(SectionType.WORK_EXPERIENCE));
-		}
-		if (strings.containsKey(SectionType.EMPTY)) {
-			writeSingleFile(new File(fileName + "\\EMPTY.txt"),
-					strings.get(SectionType.EMPTY));
-		}
-		writeSingleFile(new File(fileName + "\\Project.rsmt"), "");
-		System.out.println("DONE SAVING");
 	}
 
 	/**
@@ -87,9 +92,8 @@ public class IOHandler {
 	 * 
 	 * @throws IOException
 	 */
-	private static void writeSingleFile(File file, String content)
+	private static synchronized void writeSingleFile(File file, String content)
 			throws IOException {
-		System.out.println(file.getName());
 		BufferedWriter w = new BufferedWriter(new FileWriter(file));
 		w.write(content);
 		w.close();

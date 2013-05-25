@@ -53,7 +53,7 @@ public class MainController implements PropertyChangeListener {
 		} else if (e.getPropertyName().contains("TEXT")) {
 			textPropertyChange(e);
 			System.out.println("MainController Text");
-		}else if(e.getPropertyName().contains("DOC")){
+		} else if (e.getPropertyName().contains("DOC")) {
 			ioPropertyChange(e);
 		}
 
@@ -61,26 +61,27 @@ public class MainController implements PropertyChangeListener {
 		switch (e.getPropertyName()) {
 
 		case Labels.TEMPLATE_CHANGED:
-			
+
 			System.out.println("in tempchanged in maincontroller");
-			
+
 			TemplatePanel curTemp = mainView.getCurDocView().getTemplatePanel();
 			String workText = curTemp.getWorkingExperienceText().getText();
 			String persText = curTemp.getPersonalInfoText().getText();
 			String headText = curTemp.getHeaderTitle().getText();
 			String eduText = curTemp.getEducationText().getText();
-			
-			TemplatePanel tempChange = Translator.templateToPanel(e.getNewValue());
+
+			TemplatePanel tempChange = Translator.templateToPanel(e
+					.getNewValue());
 			tempChange.getWorkingExperienceText().setText(workText);
 			tempChange.getPersonalInfoText().setText(persText);
 			tempChange.getHeaderTitle().setText(headText);
 			tempChange.getEducationText().setText(eduText);
-			
+
 			System.out.println(workText);
 			System.out.println(persText);
 			System.out.println(headText);
 			System.out.println(eduText);
-			
+
 			mainView.getCurDocView().setTemplate(tempChange);
 			mainView.validate();
 			mainView.setVisible(true);
@@ -128,12 +129,14 @@ public class MainController implements PropertyChangeListener {
 			if (docCon.getDoc(docCon.getCurrent()).getFilePath().isEmpty()) {
 				ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
 						docCon.getDoc(docCon.getCurrent()), null);
-			} else {
+			} else if (!(docCon.getDoc(docCon.getCurrent()).getFilePath().isEmpty())) {
 				ioCon.chooseFunction(Labels.SAVE_DOC, null,
 						docCon.getDoc(docCon.getCurrent()),
 						docCon.getDoc(docCon.getCurrent()).getFilePath());
 			}
-
+			
+			break;
+		
 		case Labels.SAVE_DOC_AS:
 			ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
 					docCon.getDoc(docCon.getCurrent()), null);
@@ -154,11 +157,13 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.EXPORT_DOC:
-			ViewHandler.removeBorder(mainView.getCurDocView().getTemplatePanel());
+			ViewHandler.removeBorder(docCon.getView(docCon.getCurrent())
+					.getTemplatePanel());
 			ioCon.chooseFunction(Labels.EXPORT_DOC,
 					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
 					null, null);
-			ViewHandler.setBackBorder(mainView.getCurDocView().getTemplatePanel());
+			ViewHandler.setBackBorder(mainView.getCurDocView()
+					.getTemplatePanel());
 			break;
 
 		case Labels.SEND_DOC:
@@ -176,9 +181,10 @@ public class MainController implements PropertyChangeListener {
 			// jtbExample.addTab(tabbedPanel);
 			// jtbExample.setSelectedIndex(0);
 			break;
-			
+
 		case Labels.DOC_LOAD:
-			docCon.getDoc(docCon.getCurrent()).setAllTexts(ioCon.getStringsMap());
+			docCon.getDoc(docCon.getCurrent()).setAllTexts(
+					ioCon.getStringsMap());
 			break;
 
 		default:
@@ -205,9 +211,9 @@ public class MainController implements PropertyChangeListener {
 				.getCurrentSection();
 		RMText curRMText = docCon.getDoc(docCon.getCurrent()).getTexts()
 				.get(Translator.containerToSectionType(curTextSection));
-		
-		switch(e.getPropertyName()){
-		
+
+		switch (e.getPropertyName()) {
+
 		case Labels.TEXT_UNDO:
 			TemplatePanel undoPAction = mainView.getCurDocView()
 					.getTemplatePanel();
@@ -308,14 +314,17 @@ public class MainController implements PropertyChangeListener {
 			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel()
 					.getWorkingExperienceText(), txt);
 			break;
-			
+
 		case Labels.TEXTAREA_CHANGED:
 			System.out.println("In textarea changed in MainController");
-			mainView.getToolbarPanel().getTextFontCombo().getModel().setSelectedItem(curRMText.getFont());
-			mainView.getToolbarPanel().getTextSizeCombo().getModel().setSelectedItem(curRMText.getSize());
-			mainView.getToolbarPanel().getTextColorCombo().getModel().setSelectedItem(curRMText.getColor());
+			mainView.getToolbarPanel().getTextFontCombo().getModel()
+					.setSelectedItem(curRMText.getFont());
+			mainView.getToolbarPanel().getTextSizeCombo().getModel()
+					.setSelectedItem(curRMText.getSize());
+			mainView.getToolbarPanel().getTextColorCombo().getModel()
+					.setSelectedItem(curRMText.getColor());
 			break;
-			
+
 		case Labels.RENAME_DOC:
 
 			break;

@@ -6,7 +6,7 @@ import java.util.List;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 
-public class PersonalInformation extends absTextSection {
+public class PersonalInformation extends AbsTextSection {
 	
 	//Personal Info Titles
 	private String nameTitles;

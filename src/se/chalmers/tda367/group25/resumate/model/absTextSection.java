@@ -11,7 +11,7 @@ import javax.swing.text.JTextComponent;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Styles;
 
-public abstract class absTextSection implements ITextSection {
+public abstract class AbsTextSection implements ITextSection {
 
 	private String font;
 	private String color;
@@ -19,7 +19,7 @@ public abstract class absTextSection implements ITextSection {
 	private SectionType secType;
 	private Map<String, Boolean> styles;
 
-	public absTextSection(SectionType section,String font, String color, int size) {
+	public AbsTextSection(SectionType section,String font, String color, int size) {
 		this.secType = section;
 		this.font = font;
 		this.color = color;

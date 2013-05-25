@@ -77,7 +77,7 @@ public class PDFHandler {
 			Graphics2D g2 = tp.createGraphics(panelWidth, panelHeight);
 			jc.print(g2);
 
-			cb.addTemplate(tp, -25, document.top() - delta);
+			cb.addTemplate(tp, 0, document.top() - delta);
 			// -25 instead of document.left(document.leftMargin())
 
 			g2.dispose();

@@ -16,21 +16,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.undo.UndoManager;
 
-<<<<<<< HEAD
-/**
- * A class which represents the core of a Template. It holds the methods for
- * accesing the text in the different fields, for styling the text in the
- * textareas and basic functions involving writing.
- * 
-=======
 import se.chalmers.tda367.group25.resumate.utils.Labels;
-
 
 /**
  * A class which represents the core of a Template. It holds the
  * methods for accesing the text in the different fields, for 
  * styling the text in the text areas and basic functions involving writing.
->>>>>>> origin/master
  */
 public abstract class TemplatePanel extends JPanel implements FocusListener {
 
@@ -43,26 +34,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	private JTextPane currentSection;
 	private PropertyChangeSupport pcs;
 	private UndoManager manager = new UndoManager();
-<<<<<<< HEAD
-
-	/**
-	 * Create the panel. Is invoked in subclasses with the propper JTextPanes.
-	 */
-	public TemplatePanel() {
-		this.setBackground(Color.white);
-
-		// Initialize components & adding some settings
-		this.personalInfoText = new JTextPane();
-		personalInfoText.setName("personalInfoText");
-		personalInfoText
-				.setText("Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
-		personalInfoText.addFocusListener(this);
-		personalInfoText.getDocument().addUndoableEditListener(manager);
-		Paint blackPaint = Color.black;
-		personalInfoText
-				.setBorder(BorderFactory.createDashedBorder(blackPaint));
-
-=======
 	
  	/**
  	 * Create the panel. 
@@ -84,7 +55,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		Paint blackPaint = Color.black;
 		personalInfoText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		
->>>>>>> origin/master
 		this.headerTitle = new JTextPane();
 		headerTitle.setName("headerTitle");
 		headerTitle.setText("[HEADLINE]");
@@ -95,28 +65,16 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		headerTitle.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		headerTitle.addFocusListener(this);
 		headerTitle.getDocument().addUndoableEditListener(manager);
-<<<<<<< HEAD
-		headerTitle.setBorder(BorderFactory.createDashedBorder(blackPaint));
-
-=======
 		
-		
->>>>>>> origin/master
 		this.workingExperienceText = new JTextPane();
 		workingExperienceText.setName("workingExperienceText");
 		workingExperienceText.setText("[ABOUT YOURSELF]");
 		workingExperienceText.addFocusListener(this);
 		workingExperienceText.getDocument().addUndoableEditListener(manager);
-<<<<<<< HEAD
-		workingExperienceText.setBorder(BorderFactory
-				.createDashedBorder(blackPaint));
-
-=======
 		workingExperienceText.setToolTipText("Protip! " +
 				"\nAdjust your way of writing depending on the job you are looking for!");
 		workingExperienceText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		
->>>>>>> origin/master
 		this.educationText = new JTextPane();
 		this.educationText.setName("educationText");
 		this.educationText.setText("[EDUCATION]");
@@ -208,23 +166,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public void setImageLabel(JLabel imageLabel) {
 		this.imageLbl = imageLabel;
 	}
-<<<<<<< HEAD
-
-	/**
-	 * Sets the current text area which currently was in focus
-	 * 
-	 * @param currentSection
-	 *            the current JTextPane in focus
-	 */
-	public void setCurrentSection(JTextPane currentSection) {
-		this.currentSection = currentSection;
-	}
-
-	// -----Setters for updating the view with new text/image-----
-=======
 	
 	//-----Setters for updating the view with new text/image-----
->>>>>>> origin/master
 	/**
 	 * Shows in view the image given as parameter. The idea is to get the image
 	 * from the model and use this method to show it.
@@ -235,37 +178,15 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public void showImage(BufferedImage image) {
 		imageLbl.setIcon(new ImageIcon(image));
 	}
-<<<<<<< HEAD
-
-	// PROPERTY-CHANGED-METHODS
-	public void addPropertyChangeListener(PropertyChangeListener pcl) {
-=======
 	
 	// PROPERTY-CHANGED-METHODS
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
->>>>>>> origin/master
 		pcs.addPropertyChangeListener(pcl);
 	}
 
 	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.removePropertyChangeListener(pcl);
 	}
-<<<<<<< HEAD
-
-	// This is here so that the subclasses can use this pcs to send further
-	// events.
-	public PropertyChangeSupport getPcs() {
-		return this.pcs;
-	}
-
-	@Override
-	public void focusGained(FocusEvent arg0) {
-		if (arg0.getComponent().getClass().equals(JTextPane.class)) {
-			// updateCurrentSection();
-			System.out.println("Focus JTextPane");
-			// currentSection.setBorder(null);
-			currentSection = (JTextPane) arg0.getComponent();
-=======
 	
 	/**
 	 * Sets the current section which is the one currently in focus.
@@ -282,20 +203,12 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 			System.out.println("Fire Textarea change");
 			pcs.firePropertyChange(Labels.TEXTAREA_CHANGED, false, true);
 			System.out.println("Fired Textarea change");
->>>>>>> origin/master
 		}
 	}
 
 	@Override
 	public void focusLost(FocusEvent arg0) {
-<<<<<<< HEAD
-		// Do nothing, the JTextPane which is in focus will remain until another
-		// one is focused
-
-=======
 		//Do nothing, the JTextPane which is in focus 
 		//will remain until another one is focused
-		
->>>>>>> origin/master
 	}
 }

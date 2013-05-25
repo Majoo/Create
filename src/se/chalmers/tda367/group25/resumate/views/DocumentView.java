@@ -35,11 +35,12 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	 */
 	public DocumentView(TemplatePanel templatePanel) {
 		pcs = new PropertyChangeSupport(this);
-		setPreferredSize(new Dimension(599, 400));
+		
+		setPreferredSize(new Dimension(599, 1000));
 		this.templatePnl = templatePanel;
 		templatePnl.getWorkingExperienceText().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		templatePnl.getCurrentSection().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		//templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 27));
+		templatePnl.getWorkExpHeader().setFont(new Font("Tahoma", Font.PLAIN, 27));
 		templatePnl.addPropertyChangeListener(this);
 		add(templatePnl);
 		
@@ -84,7 +85,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	}
 
 	/**
-	 *Removes a propertychange listnener to this class.
+	 *Removes a propertychange listener to this class.
 	 * @param pcl
 	 * 			the listener to be unregistered
 	 */
@@ -106,7 +107,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 			pcs.firePropertyChange(evt.getPropertyName(),evt.getOldValue(),
 					evt.getNewValue());
 		} catch (NullPointerException e){
-			
+			System.out.println("Caught NullPointerException in DocumentViews propertyChange");
 		}
 		
 	}

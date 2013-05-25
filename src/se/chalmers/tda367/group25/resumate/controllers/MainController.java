@@ -199,7 +199,7 @@ public class MainController implements PropertyChangeListener {
 		 */
 		JTextComponent curTextSection = docCon.getView(docCon.getCurrentID()).getTemplatePanel()
 				.getCurrentSection();
-		ITextSection curRMText = docCon.getDoc(docCon.getCurrentID()).getTexts()
+		ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getTexts()
 				.get(Translator.containerToSectionType(curTextSection));
 
 		switch (e.getPropertyName()) {
@@ -240,27 +240,23 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
-			//			curRMText.changeFont(curTextSection, font);
-			// TODO
+			curText.changeFont(curTextSection, font);
 			break;
 
 		case Labels.TEXTSIZE_CHANGED:
 			int size = Integer.parseInt(e.getNewValue().toString());
-			//			curRMText.changeSize(curTextSection, size);
-			// TODO
+			curText.changeSize(curTextSection, size);
 			break;
 
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
-			//			curRMText.changeStyle(curTextSection, style);
+			curText.changeStyle(curTextSection, style);
 			// TODO
 			break;
 
 		case Labels.TEXTCOLOUR_CHANGED:
 			String colour = e.getNewValue().toString();
-			//			curRMText.changeColor(curTextSection,
-			//					Translator.stringToColor(colour), colour);
-			// TODO
+			curText.changeColor(curTextSection, Translator.stringToColor(colour), colour);
 			break;
 
 		case Labels.TEXT_REPLACED:
@@ -306,11 +302,11 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.TEXTAREA_CHANGED:
-			mainView.getToolbarPanel().getTextFontCombo().getModel().setSelectedItem(curRMText.getFont());
-			mainView.getToolbarPanel().getTextSizeCombo().getModel().setSelectedItem(curRMText.getSize());
-			mainView.getToolbarPanel().getTextColorCombo().getModel().setSelectedItem(curRMText.getColor());
+			/*mainView.getToolbarPanel().getTextFontCombo().getModel().setSelectedItem(curText.getFont());
+			mainView.getToolbarPanel().getTextSizeCombo().getModel().setSelectedItem(curText.getSize());
+			mainView.getToolbarPanel().getTextColorCombo().getModel().setSelectedItem(curText.getColor());
 			mainView.getToolbarPanel().updateUI();
-			mainView.getToolbarPanel().validate();
+			mainView.getToolbarPanel().validate();*/
 			break;
 
 		case Labels.RENAME_DOC:

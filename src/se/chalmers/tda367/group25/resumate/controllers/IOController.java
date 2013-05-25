@@ -25,6 +25,7 @@ import com.itextpdf.text.DocumentException;
  * @author Laszlo Sall Vesselenyi
  */
 public class IOController {
+	private String curPath;
 
 	private PropertyChangeSupport pcs;
 
@@ -128,6 +129,7 @@ public class IOController {
 		int returnVal = chooser.showDialog(null, getApproveText(function));
 
 		String filePath = chooser.getCurrentDirectory().getPath();
+		setRecentPath(filePath);
 		String fileName = chooser.getSelectedFile().getName();
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {

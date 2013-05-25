@@ -23,17 +23,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import javax.swing.JCheckBoxMenuItem;
+
 /**
  * A Menu bar top of the document 
  * with clickable items (actions)
  * @author Danny
  */
-public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
-		MouseMotionListener {
+public class MenuBar extends JMenuBar implements ActionListener {
 	private PropertyChangeSupport pcs;
-	private int x1, y1, x2, y2;
 	private String curDirectoryPath;
-	private JCheckBoxMenuItem grayscaleImage;
 
 	/**
 	 * Create the menubar with clickable items.
@@ -215,15 +213,7 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 		uploadImage.setActionCommand("Upload");
 		mnImage.add(uploadImage);
 
-		JMenuItem cropImage = new JMenuItem("Crop");
-		cropImage.setMnemonic('C');
-		cropImage.setAccelerator(KeyStroke.getKeyStroke
-				(KeyEvent.VK_C, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
-		cropImage.addActionListener(this);
-		cropImage.setActionCommand("Crop");
-		mnImage.add(cropImage);
-
-		grayscaleImage = new JCheckBoxMenuItem("Grayscale");
+		JMenuItem grayscaleImage = new JMenuItem("Grayscale");
 		grayscaleImage.setMnemonic('G');
 		grayscaleImage.setAccelerator(KeyStroke.getKeyStroke
 				(KeyEvent.VK_G, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
@@ -458,25 +448,16 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 			int returnVal = chooser.showOpenDialog(getParent());
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				String path = chooser.getSelectedFile().getPath();
-				// Set the new lastOpenedDirectoryPath
-				int index = path.lastIndexOf("\"");
-				this.setCurrentDirectoryPath(path.substring(index+1, path.length()-1));
+				//Set the new lastOpenedDirectoryPath
+				setCurrentDirectoryPath(path);
+				//Fire PropertyChangEvent
 				System.out.println("You chose to open this file: " + path);
-				// Fire PropertyChangEvent
 				pcs.firePropertyChange(Labels.INSERT_IMAGE, path, false);
 			}
 			break;
 
-		case "Crop":
-			String message = "Drag the mouse over the image in a"
-					+ " rectangle and it will be cropped that way";
-			JOptionPane.showMessageDialog(null, message);
-			break;
-
 		case "Grayscale":
-			if (grayscaleImage.isSelected() == true) {
-				pcs.firePropertyChange(Labels.GRAYSCALE_IMAGE, true, false);
-			}
+			pcs.firePropertyChange(Labels.GRAYSCALE_IMAGE, true, false);
 			break;
 
 		case "Reset image":
@@ -487,50 +468,6 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 			break;
 		}
 
-	}
-
-	// MOUSE-EVENT-METHODS
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		this.x1 = arg0.getX();
-		this.y1 = arg0.getY();
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		this.x2 = arg0.getX();
-		this.y2 = arg0.getY();
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		Rectangle rect = new Rectangle(Math.min(x1, x2), Math.min(y1, y2),
-				Math.max(x1, x2), Math.max(y1, y2));
-		System.out.println(rect);
-		pcs.firePropertyChange(Labels.CROP_IMAGE, rect, null);
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// Don't want anything to happen
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		// Don't want anything to happen
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// Don't want anything to happen
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// Don't want anything to happen
 	}
 
 }

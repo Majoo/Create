@@ -21,7 +21,7 @@ public class RMText {
 	private String text;
 	private SectionType secType;
 	private String font;
-	private Color color;
+	private String color;
 	private int size;
 	private boolean bold;
 	private boolean italic;
@@ -44,6 +44,9 @@ public class RMText {
 	 */
 	public RMText(SectionType sectionType) {
 		this.secType = sectionType;
+		this.color = "Black";
+		this.size = 16;
+		this.font = "Tahoma";
 	}
 
 	// MUTATORS
@@ -69,9 +72,8 @@ public class RMText {
 	 */
 
 	public void changeFont(JTextPane section, String font) {
-		//Store the font in the model
+		//Store the font in the models
 		this.font = font;
-		
 		//Update the font in the view
 		Font currentFont = section.getFont();
 		section.setFont(new Font(font, currentFont.getStyle(), currentFont
@@ -92,7 +94,6 @@ public class RMText {
 	public void changeSize(JTextPane section, int size) {
 		//Store the size in the model
 		this.size = size;
-		
 		//Update the size in the view
 		Font currentFont = section.getFont();
 		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
@@ -150,8 +151,8 @@ public class RMText {
 	 * 			the colour which the textarea is to be updated with
 	 */
 	
-	public void changeColor(JTextPane section, Color col) {
-		this.color = col;
+	public void changeColor(JTextPane section, Color col, String colour) {
+		this.color = colour;
 		section.setForeground(col);
 		
 	}
@@ -214,7 +215,7 @@ public class RMText {
 	/**
 	 * Returns the colour of the RMText
 	 */
-	public Color getColor(){
+	public String getColor(){
 		return this.color;
 	}
 

@@ -1,6 +1,7 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -23,7 +24,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	 * A new DocumentView with the default template is created.
 	 */
 	public DocumentView() {
-		this(new CV_Def());
+		this(new CV_Def2());
 	}
 
 	/**
@@ -34,11 +35,11 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	 */
 	public DocumentView(TemplatePanel templatePanel) {
 		pcs = new PropertyChangeSupport(this);
-		setLayout(new BorderLayout(0, 0));
+		setPreferredSize(new Dimension(599, 400));
 		this.templatePnl = templatePanel;
 		templatePnl.getWorkingExperienceText().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		templatePnl.getCurrentSection().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 27));
+		//templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 27));
 		templatePnl.addPropertyChangeListener(this);
 		add(templatePnl);
 		
@@ -49,9 +50,10 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 		add(scroller);
 	}
 
+
 	//-----Getters------
 
-	 /* Get the TemplatePanel of the DocumentView.
+	 /** Get the TemplatePanel of the DocumentView.
 	 * @return
 	 * 			the TemplatePanel of this DocumentView
 	 */
@@ -59,7 +61,6 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 		return templatePnl;
 	}
 	//-----Setters------
-
 	/**
 	 * Set the TemplatePanel of this DocumentView.
 	 * @param tmplPnl

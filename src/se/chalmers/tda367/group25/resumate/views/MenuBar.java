@@ -178,7 +178,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		JMenu mnFormat = new JMenu("Format");
 		add(mnFormat);
 
-		JCheckBoxMenuItem mntmBold = new JCheckBoxMenuItem("Bold");
+		JMenuItem mntmBold = new JMenuItem("Bold");
 		mntmBold.setMnemonic('B');
 		mntmBold.setAccelerator(KeyStroke.getKeyStroke
 				(KeyEvent.VK_B, InputEvent.CTRL_MASK));
@@ -186,7 +186,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmBold.setActionCommand("Bold");
 		mnFormat.add(mntmBold);
 
-		JCheckBoxMenuItem mntmItalic = new JCheckBoxMenuItem("Italic");
+		JMenuItem mntmItalic = new JMenuItem("Italic");
 		mntmItalic.setMnemonic('I');
 		mntmItalic.setAccelerator
 		(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
@@ -194,7 +194,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmItalic.setActionCommand("Italic");
 		mnFormat.add(mntmItalic);
 
-		JCheckBoxMenuItem mntmUnderline = new JCheckBoxMenuItem("Underline");
+		JMenuItem mntmUnderline = new JMenuItem("Underline");
 		mntmUnderline.setMnemonic('U');
 		mntmUnderline.setAccelerator(KeyStroke.getKeyStroke
 				(KeyEvent.VK_U, InputEvent.CTRL_MASK));

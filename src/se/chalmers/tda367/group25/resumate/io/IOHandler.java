@@ -80,10 +80,6 @@ public class IOHandler {
 			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
 					strings.get(SectionType.WORK_EXPERIENCE));
 		}
-		if (strings.containsKey(SectionType.EMPTY)) {
-			writeSingleFile(new File(fileName + "\\EMPTY.txt"),
-					strings.get(SectionType.EMPTY));
-		}
 	}
 
 	/**
@@ -130,8 +126,8 @@ public class IOHandler {
 	}
 
 	/**
-	 * Shows a PDF, indicated by the file parameter, using the natively
-	 * associated application, if supported by the current platform.
+	 * Shows a directory, indicated by the file parameter, using the native file
+	 * explorer if supported by the current platform.
 	 * 
 	 * @param file
 	 *            the PDF file to show

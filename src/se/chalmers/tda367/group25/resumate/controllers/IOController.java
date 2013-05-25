@@ -25,7 +25,6 @@ import com.itextpdf.text.DocumentException;
  * @author Laszlo Sall Vesselenyi
  */
 public class IOController {
-	private String curPath;
 
 	private PropertyChangeSupport pcs;
 

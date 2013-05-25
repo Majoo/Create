@@ -47,14 +47,7 @@ public class IOHandler {
 		try {
 			if (directory.mkdirs() || directory.exists()) {
 				writeToFiles(fileName, strings);
-
 				showFile(directory);
-				/*
-				 * if (Desktop.isDesktopSupported()) { Desktop desktop =
-				 * Desktop.getDesktop(); if
-				 * (desktop.isSupported(Desktop.Action.OPEN)) {
-				 * desktop.open(directory); } }
-				 */
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -145,12 +138,9 @@ public class IOHandler {
 	 * @throws IOException
 	 */
 	private static void showFile(File file) throws IOException {
-		System.out.println("showFile");
 		if (Desktop.isDesktopSupported()) {
-			System.out.println("Desktop.isDesktopSupported()");
 			Desktop desktop = Desktop.getDesktop();
 			if (desktop.isSupported(Desktop.Action.OPEN)) {
-				System.out.println("desktop.isSupported(Desktop.Action.OPEN)");
 				desktop.open(file);
 			}
 		}

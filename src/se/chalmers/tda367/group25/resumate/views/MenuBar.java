@@ -180,7 +180,7 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 		JMenu mnFormat = new JMenu("Format");
 		add(mnFormat);
 
-		JCheckBoxMenuItem mntmBold = new JCheckBoxMenuItem("Bold");
+		JMenuItem mntmBold = new JMenuItem("Bold");
 		mntmBold.setMnemonic('B');
 		mntmBold.setAccelerator(KeyStroke.getKeyStroke
 				(KeyEvent.VK_B, InputEvent.CTRL_MASK));
@@ -188,7 +188,7 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 		mntmBold.setActionCommand("Bold");
 		mnFormat.add(mntmBold);
 
-		JCheckBoxMenuItem mntmItalic = new JCheckBoxMenuItem("Italic");
+		JMenuItem mntmItalic = new JMenuItem("Italic");
 		mntmItalic.setMnemonic('I');
 		mntmItalic.setAccelerator
 		(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
@@ -196,7 +196,7 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 		mntmItalic.setActionCommand("Italic");
 		mnFormat.add(mntmItalic);
 
-		JCheckBoxMenuItem mntmUnderline = new JCheckBoxMenuItem("Underline");
+		JMenuItem mntmUnderline = new JMenuItem("Underline");
 		mntmUnderline.setMnemonic('U');
 		mntmUnderline.setAccelerator(KeyStroke.getKeyStroke
 				(KeyEvent.VK_U, InputEvent.CTRL_MASK));
@@ -223,7 +223,7 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 		cropImage.setActionCommand("Crop");
 		mnImage.add(cropImage);
 
-		grayscaleImage = new JCheckBoxMenuItem("Grayscale");
+		JMenuItem grayscaleImage = new JMenuItem("Grayscale");
 		grayscaleImage.setMnemonic('G');
 		grayscaleImage.setAccelerator(KeyStroke.getKeyStroke
 				(KeyEvent.VK_G, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));

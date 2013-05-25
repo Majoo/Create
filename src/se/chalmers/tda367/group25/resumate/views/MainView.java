@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
@@ -81,7 +82,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		toolbarPanel.setVisible(true);
 		contentPane.add(toolbarPanel);
 		tabbedPane = new JTabbedPane();
-
+		
 		spLayout.putConstraint(SpringLayout.NORTH, tabbedPane, 6,
 				SpringLayout.SOUTH, toolbarPanel);
 		spLayout.putConstraint(SpringLayout.WEST, tabbedPane, 0,
@@ -100,6 +101,8 @@ public class MainView extends JFrame implements MainViewInterface {
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
 		tabbedPane.setSelectedComponent(docView);
+		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
+		tabbedPane.setTabComponentAt(0, ctb);
 
 		System.out.println(getCurDocView().getID());
 

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.JTextComponent;
 
@@ -95,23 +96,58 @@ public class Translator {
 	 */
 
 	public static SectionType containerToSectionType(JTextComponent container) {
-		
+
 		String name = container.getName();
 		SectionType section = null;
 		
 		switch(name){
-		case "personalInfoText":
-			section = SectionType.PERSONAL_INFO;
-			break;
+		//Personal Info			
+		case "nameField":
+		section = SectionType.PERSONAL_INFO;
+		break;
+		
+		case "cityzipcodeField": 
+		section = SectionType.PERSONAL_INFO;
+		break;
+		
+		case "addressField": 
+		section = SectionType.PERSONAL_INFO;
+		break;
+		
+		case "phoneField": 
+		section = SectionType.PERSONAL_INFO;
+		break;
+		
+		case "emailField": 
+		section = SectionType.PERSONAL_INFO;
+		break;
+		
+		case "empty1Field": 
+		section = SectionType.PERSONAL_INFO;
+		break;
+		
+		case "empty2Field": 
+		section = SectionType.PERSONAL_INFO;
+		break;
+		
+		//Texts
 		case "workingExperienceText":
 			section = SectionType.WORK_EXPERIENCE;
 			break;
-		case "headerTitle":
-			section = SectionType.HEADER;
-			break;
+			
 		case "educationText":
 			section = SectionType.EDUCATION;
 			break;
+			
+		//Headers
+		case "workExpHeader":
+			section = SectionType.HEADER;
+			break;
+			
+		case "educationHeader":
+			section = SectionType.HEADER;
+			break;
+		
 		default: //Do nothing, never invoked.
 		
 		}

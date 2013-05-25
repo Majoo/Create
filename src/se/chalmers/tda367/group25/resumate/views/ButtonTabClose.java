@@ -45,15 +45,18 @@ public class ButtonTabClose extends JPanel {
         add(button);
         // Add more space to the top of the component
         setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+        
+        pcs = new PropertyChangeSupport(this);
     }
 	/*
-	 * Setting the tab button 
+	 * Settings, the tab button 
 	 */
     private class TabButton extends JButton implements ActionListener {
         public TabButton() {
             int size = 20;
             setPreferredSize(new Dimension(size, size));
             setToolTipText("Close this tab.");
+            // Set the Look and Feel for a basic button
             setUI(new BasicButtonUI());
             // Make the button transperent
             setContentAreaFilled(false);
@@ -66,28 +69,19 @@ public class ButtonTabClose extends JPanel {
             setRolloverEnabled(true);
             //Close the proper tab by clicking the button
             addActionListener(this);
-            
-            pcs = new PropertyChangeSupport(this);
+      
         }
         
     	// What happens when you click on the close button
         public void actionPerformed(ActionEvent arg0) {
             int i = tabbedPane.indexOfTabComponent(ButtonTabClose.this);
-            if (i != -1) {
+            if (i != -1) { 
             	int selection = JOptionPane.showConfirmDialog(null,
-    					"Do you want to save the document first?", null,
+    					"Are you sure you want to close this tab?", null,
     					JOptionPane.YES_NO_OPTION);
-    			if (selection == JOptionPane.YES_OPTION) {
-    				// Saves the document
-    				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);
-    				// Close tab
+    			if (selection == JOptionPane.YES_OPTION) {	
     				tabbedPane.remove(i);
-    			}else if(selection == JOptionPane.CLOSED_OPTION){
-    				// Cancel
-    			}else{
-    				// Close tab
-    				tabbedPane.remove(i);
-    			}  
+    			}
             }
         }
         

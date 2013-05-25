@@ -35,7 +35,6 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	 */
 	public DocumentView(TemplatePanel templatePanel) {
 		pcs = new PropertyChangeSupport(this);
-		setLayout(new BorderLayout(0, 0));
 		setPreferredSize(new Dimension(599, 400));
 		this.templatePnl = templatePanel;
 		templatePnl.getWorkingExperienceText().setFont(new Font("Tahoma", Font.PLAIN, 14));

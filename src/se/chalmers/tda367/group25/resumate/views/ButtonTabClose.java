@@ -6,6 +6,7 @@ import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
@@ -15,16 +16,14 @@ import java.beans.PropertyChangeSupport;
  */ 
 
 public class ButtonTabClose extends JPanel {
-    private final JTabbedPane pane;
+    private final JTabbedPane tabbedPane;
     private PropertyChangeSupport pcs;
 
     public ButtonTabClose(final JTabbedPane tabbedPane) {
         // Set FlowLayout to the left (of the tab)
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        if (tabbedPane == null) {
-            throw new NullPointerException("TabbedPane is null");
-        }
-        this.pane = tabbedPane;
+        
+        this.tabbedPane = tabbedPane;
         setOpaque(false);
         
         // Make JLabel read titles from JTabbedPane
@@ -49,33 +48,31 @@ public class ButtonTabClose extends JPanel {
     }
 	/*
 	 * Setting the tab button 
-	 * 
-	 * 
 	 */
     private class TabButton extends JButton implements ActionListener {
         public TabButton() {
-            int size = 17;
+            int size = 20;
             setPreferredSize(new Dimension(size, size));
-            setToolTipText("Close this tab");
-            // Make the button looks the same for all Laf's
+            setToolTipText("Close this tab.");
             setUI(new BasicButtonUI());
-            // Make it transparent
+            // Make the button transperent
             setContentAreaFilled(false);
-            // No need to be focusable
+
             setFocusable(false);
             setBorder(BorderFactory.createEtchedBorder());
             setBorderPainted(false);
             // Make a rollover effect
-            // on all the buttons
             addMouseListener(btnMouseListener);
             setRolloverEnabled(true);
             //Close the proper tab by clicking the button
             addActionListener(this);
+            
+            pcs = new PropertyChangeSupport(this);
         }
         
     	// What happens when you click on the close button
-        public void actionPerformed(ActionEvent e) {
-            int i = pane.indexOfTabComponent(ButtonTabClose.this);
+        public void actionPerformed(ActionEvent arg0) {
+            int i = tabbedPane.indexOfTabComponent(ButtonTabClose.this);
             if (i != -1) {
             	int selection = JOptionPane.showConfirmDialog(null,
     					"Do you want to save the document first?", null,
@@ -84,31 +81,39 @@ public class ButtonTabClose extends JPanel {
     				// Saves the document
     				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);
     				// Close tab
-    				pane.remove(i);
+    				tabbedPane.remove(i);
     			}else if(selection == JOptionPane.CLOSED_OPTION){
     				// Cancel
     			}else{
     				// Close tab
-    				pane.remove(i);
+    				tabbedPane.remove(i);
     			}  
             }
         }
-
+        
         // We don't want to update UI for this button
         public void updateUI() {
         	;
         }
 
-        // Paint the close button (a cross)
+        /* Paint the close button (a cross)
+         * with the help of 2 dimensional graphics
+         * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+         * for more information
+         */
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g.create();
             
+            // Make it default black
             g2.setStroke(new BasicStroke(2));
             g2.setColor(Color.BLACK);
+            
+            // Make it red when the mouse rolls over
             if (getModel().isRollover()) {
                 g2.setColor(Color.RED);
             }
+            // Draw an X (cross)
             g2.drawLine(6, 6, getWidth() - 6 - 1, getHeight() - 6 - 1);
             g2.drawLine(getWidth() - 6 - 1, 6, 6, getHeight() - 6 - 1);
             g2.dispose();

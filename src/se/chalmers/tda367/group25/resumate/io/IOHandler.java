@@ -1,9 +1,9 @@
 package se.chalmers.tda367.group25.resumate.io;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,7 +19,6 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
  * content of the corresponding text documents.
  * 
  * @author Laszlo Sall Vesselenyi
- * @author Danny Lam
  */
 public class IOHandler {
 
@@ -35,7 +34,7 @@ public class IOHandler {
 	/**
 	 * Save to file. The project is saved by saving each RMText as a separate
 	 * text file, and saving an RSMT file to act as a locator for opening a
-	 * Document in the future. Synchronized for sake of safety.
+	 * Document in the future. Synchronized for sake of eventual thread safety.
 	 * 
 	 * @param fileName
 	 *            the file to save to
@@ -43,9 +42,11 @@ public class IOHandler {
 	public static synchronized void saveFile(String fileName,
 			Map<SectionType, String> strings) throws IOException {
 		File directory = new File(fileName);
-
 		if (directory.mkdirs() || directory.exists()) {
 			writeToFiles(fileName, strings);
+
+			Desktop desktop = Desktop.getDesktop();
+			desktop.open(directory);
 		}
 	}
 
@@ -59,20 +60,19 @@ public class IOHandler {
 	 *            the Map with the contents
 	 * @throws IOException
 	 */
-	private static void writeToFiles(String fileName,
+	private static synchronized void writeToFiles(String fileName,
 			Map<SectionType, String> strings) throws IOException {
+
+		writeSingleFile(new File(fileName + "\\Project.rsmt"), "");
 		if (strings.containsKey(SectionType.HEADER)) {
-			System.out.println("HEADER");
 			writeSingleFile(new File(fileName + "\\HEADER.txt"),
 					strings.get(SectionType.HEADER));
 		}
 		if (strings.containsKey(SectionType.PERSONAL_INFO)) {
-			System.out.println("PERSONAL_INFO");
 			writeSingleFile(new File(fileName + "\\PERSONAL_INFO.txt"),
 					strings.get(SectionType.PERSONAL_INFO));
 		}
 		if (strings.containsKey(SectionType.WORK_EXPERIENCE)) {
-			System.out.println("WORK_EXPERIENCE");
 			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
 					strings.get(SectionType.WORK_EXPERIENCE));
 		}
@@ -95,7 +95,7 @@ public class IOHandler {
 	}
 
 	/**
-	 * Open file. Synchronized for sake of safety.
+	 * Open file. Synchronized for sake of eventual thread safety.
 	 * 
 	 * @param fileName
 	 *            the file to open
@@ -103,18 +103,21 @@ public class IOHandler {
 	 * 
 	 */
 	public static synchronized Map<SectionType, String> openFile(String fileName)
-			throws IOException, FileNotFoundException {
+			throws IOException {
+		System.out.println("In openFile");
+		File chosenDir = new File(fileName);
+		File rsmtInDir = new File(fileName + "\\Project.rsmt");
 
-		File chosenFile = new File(fileName);
+		if (chosenDir.isDirectory() && rsmtInDir.exists()) {
+			System.out.println("In if-block");
+			BufferedReader br = new BufferedReader(new FileReader(chosenDir));
 
-		BufferedReader br = new BufferedReader(new FileReader(chosenFile));
+			String data;
+			while ((data = br.readLine()) != null) {
 
-		String data;
-		while ((data = br.readLine()) != null) {
-
+			}
+			br.close();
 		}
-		br.close();
-
-		return null;
+		throw new IOException("Not project folder");
 	}
 }

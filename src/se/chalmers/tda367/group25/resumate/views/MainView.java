@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -7,10 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
+
+import com.itextpdf.awt.geom.Dimension;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
@@ -39,10 +43,10 @@ public class MainView extends JFrame implements MainViewInterface {
 		// The frame
 		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
-		// Default size when not fullscreened
+		// Default size when not maximized
 		setSize(840,500);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
-		// Always make it fullscreened when the program starts
+		// Always make it maximized when the program starts
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		// Creating and setting background panel
 		JPanel contentPane = new JPanel();
@@ -81,7 +85,8 @@ public class MainView extends JFrame implements MainViewInterface {
 		toolbarPanel.setVisible(true);
 		contentPane.add(toolbarPanel);
 		tabbedPane = new JTabbedPane();
-
+		
+		
 		spLayout.putConstraint(SpringLayout.NORTH, tabbedPane, 6,
 				SpringLayout.SOUTH, toolbarPanel);
 		spLayout.putConstraint(SpringLayout.WEST, tabbedPane, 0,
@@ -96,7 +101,11 @@ public class MainView extends JFrame implements MainViewInterface {
 				"The best way of writing a Curriculum Vitae " +
 				"or Personal Letter is to make it interesting. \r\n");
 		docViewList.add(docView);
+		
+		tabbedPane.setSize(599, 1000);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
+		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
+		tabbedPane.setTabComponentAt(0, ctb);
 		contentPane.add(tabbedPane);
 		tabbedPane.setSelectedComponent(docView);
 		pcs.firePropertyChange(Labels.UPDATE_INITIAL_TOOLBAR, false, true);
@@ -165,7 +174,11 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	//----Setters------
 	/**
+<<<<<<< HEAD
+	 * Creates a new tab and puts a DocumentView in it.
+=======
 	 * Creates a new tab and puts a DocumentView within it. 
+>>>>>>> origin/master
 	 * 
 	 * @param docView
 	 *            the template the new DocumentView will have.

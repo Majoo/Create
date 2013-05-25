@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JTextPane;
+import javax.swing.text.JTextComponent;
 
 import se.chalmers.tda367.group25.resumate.views.CV_Classy;
 import se.chalmers.tda367.group25.resumate.views.CV_Def;
@@ -93,7 +94,7 @@ public class Translator {
 	 * 			the corresponding SectionType
 	 */
 
-	public static SectionType containerToSectionType(JTextPane container) {
+	public static SectionType containerToSectionType(JTextComponent container) {
 		
 		String name = container.getName();
 		SectionType section = null;

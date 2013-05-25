@@ -84,7 +84,7 @@ public abstract class absTextSection implements ITextSection {
 				font = currentFont.deriveFont(currentFont.getStyle()
 						& ~Font.BOLD);
 			}
-			Styles.B = !Styles.B;
+			//Styles.B = !Styles.B;
 			styles.put("B", Styles.B);
 			break;
 
@@ -96,7 +96,7 @@ public abstract class absTextSection implements ITextSection {
 				font = currentFont.deriveFont(currentFont.getStyle()
 						& ~Font.ITALIC);
 			}
-			Styles.I = !Styles.I;
+		//	Styles.I = !Styles.I;
 			styles.put("I", Styles.I);
 			break;
 
@@ -109,7 +109,7 @@ public abstract class absTextSection implements ITextSection {
 			} else {
 				attributes.put(TextAttribute.UNDERLINE, -1);
 			}
-			Styles.U = !Styles.U;
+			//Styles.U = !Styles.U;
 			styles.put("U", Styles.U);
 			font = currentFont.deriveFont(attributes);
 		}

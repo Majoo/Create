@@ -146,14 +146,18 @@ public class Document implements DocumentInterface{
 		}
 		return strings;
 	}
-	
+
 	/**
+<<<<<<< HEAD
+	 * Gets the FilePath of the
+=======
 	 * Gets the FilePath of the Document
+>>>>>>> master
 	 * 
 	 * @return 
 	 * 			the FilePath of the Document
 	 */
-	public String getFilePath(){
+	public String getFilePath() {
 		return filePath;
 	}
 
@@ -190,11 +194,18 @@ public class Document implements DocumentInterface{
 	 *            the text to change to
 	 */
 	public void setText(SectionType st, String text) {
-		if (!texts.containsKey(SectionType.WORK_EXPERIENCE)
-				|| !texts.containsKey(SectionType.PERSONAL_INFO)) {
+		if (!texts.containsKey(st)) {
 			createSections();
 		}
 
 		//texts.get(st).setText(text);
+	}
+
+	/**
+	 * 
+	 * @param strings
+	 */
+	public void setAllTexts(Map<SectionType, String> strings) {
+//		texts.putAll(strings);
 	}
 }

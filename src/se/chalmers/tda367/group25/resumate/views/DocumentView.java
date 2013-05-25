@@ -1,30 +1,30 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import javax.swing.ScrollPaneConstants;
-import java.awt.Font;
 
 /**
- * This class contains a TemplatePanel which shows the Document.
- * The TemplatePanel can be changed.
+ * This class contains a TemplatePanel which shows the Document. The
+ * TemplatePanel can be changed.
  */
-public class DocumentView extends JPanel implements PropertyChangeListener{
+public class DocumentView extends JPanel implements PropertyChangeListener {
 	private PropertyChangeSupport pcs;
-	
+
 	private TemplatePanel templatePnl;
 	
 	/**
 	 * A new DocumentView with the default template is created.
 	 */
 	public DocumentView() {
-		this(new CV_Def());
+		this(new CV_Def2());
 	}
 
 	/**
@@ -35,11 +35,11 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	 */
 	public DocumentView(TemplatePanel templatePanel) {
 		pcs = new PropertyChangeSupport(this);
-		setLayout(new BorderLayout(0, 0));
+		setPreferredSize(new Dimension(599, 400));
 		this.templatePnl = templatePanel;
 		templatePnl.getWorkingExperienceText().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		templatePnl.getCurrentSection().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 27));
+		//templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 27));
 		templatePnl.addPropertyChangeListener(this);
 		add(templatePnl);
 		
@@ -50,19 +50,17 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		add(scroller);
 	}
 
-	//GETTERS
-	/**
-	 * Get the TemplatePanel of the DocumentView.
+
+	//-----Getters------
+
+	 /** Get the TemplatePanel of the DocumentView.
 	 * @return
 	 * 			the TemplatePanel of this DocumentView
 	 */
-
 	public TemplatePanel getTemplatePanel(){
 		return templatePnl;
 	}
-	
-	
-	//SETTERS
+	//-----Setters------
 	/**
 	 * Set the TemplatePanel of this DocumentView.
 	 * @param tmplPnl

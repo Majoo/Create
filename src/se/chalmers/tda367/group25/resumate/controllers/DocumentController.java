@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
@@ -42,7 +43,7 @@ public class DocumentController implements PropertyChangeListener{
 		this.docAndDocView.put(getCurrentID(), first);
 	}
 
-	//GETTERS
+	// ---GETTERS--- //
 	/**
 	 * Get the Document in the List<Object> given
 	 * @param pair
@@ -149,7 +150,7 @@ public class DocumentController implements PropertyChangeListener{
 		return null;
 	}
 	
-	//SETTERS
+	// ---SETTERS--- //
 	/**
 	 * Update the image of the Document associated with the BufferedImage img.
 	 * 
@@ -248,7 +249,7 @@ public class DocumentController implements PropertyChangeListener{
 	
 		case Labels.SEND_INITIAL_TSECTIONS:
 			JTextPane workText = getView(getCurrentID()).getTemplatePanel().getWorkingExperienceText();			
-			JTextPane headerTitleText = getView(getCurrentID()).getTemplatePanel().getHeaderTitle();	
+			JTextField headerTitleText = getView(getCurrentID()).getTemplatePanel().getWorkExpHeader();	
 			JTextPane educationText = getView(getCurrentID()).getTemplatePanel().getEducationText();	
 			
 			getDoc(getCurrentID()).setText(SectionType.HEADER, headerTitleText.getText());

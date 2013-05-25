@@ -182,10 +182,10 @@ public class MainController implements PropertyChangeListener {
 			// jtbExample.setSelectedIndex(0);
 			break;
 
-		case Labels.DOC_LOAD:
-			docCon.getDoc(docCon.getCurrent()).setAllTexts(
-					ioCon.getStringsMap());
-			break;
+//		case Labels.DOC_LOAD:
+//			docCon.getDoc(docCon.getCurrent()).setAllTexts(
+//					ioCon.getStringsMap());
+//			break;
 
 		default:
 			// Do nothing, never invoked

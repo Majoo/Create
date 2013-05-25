@@ -74,77 +74,105 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		nameTitle.setColumns(10);
 		nameTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(nameTitle);
+		nameTitle.addFocusListener(this);
+		nameTitle.getDocument().addUndoableEditListener(manager);
 		
 		cityzipcodeTitle = new JTextField();
 		cityzipcodeTitle.setText("City/Zipcode:");
 		cityzipcodeTitle.setColumns(10);
 		cityzipcodeTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(cityzipcodeTitle);
+		cityzipcodeTitle.addFocusListener(this);
+		cityzipcodeTitle.getDocument().addUndoableEditListener(manager);
 		
 		addressTitle = new JTextField();
 		addressTitle.setText("Address:");
 		addressTitle.setColumns(10);
 		addressTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(addressTitle);
+		addressTitle.addFocusListener(this);
+		addressTitle.getDocument().addUndoableEditListener(manager);
 		
 		phoneTitle = new JTextField();
 		phoneTitle.setText("Phone:");
 		phoneTitle.setColumns(10);
 		phoneTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(phoneTitle);
+		phoneTitle.addFocusListener(this);
+		phoneTitle.getDocument().addUndoableEditListener(manager);
 		
 		emailTitle = new JTextField();
 		emailTitle.setText("E-mail:");
 		emailTitle.setColumns(10);
 		emailTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(emailTitle);
+		emailTitle.addFocusListener(this);
+		emailTitle.getDocument().addUndoableEditListener(manager);
 		
 		//Personal Info TextFields
 		nameField = new JTextField();
 		nameField.setColumns(10);
 		nameField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(nameField);
+		nameField.addFocusListener(this);
+		nameField.getDocument().addUndoableEditListener(manager);
 		
 		addressField = new JTextField();
 		addressField.setColumns(10);
 		addressField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(addressField);
+		addressField.addFocusListener(this);
+		addressField.getDocument().addUndoableEditListener(manager);
 		
 		cityzipcodeField = new JTextField();
 		cityzipcodeField.setColumns(10);
 		cityzipcodeField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(cityzipcodeField);
+		cityzipcodeField.addFocusListener(this);
+		cityzipcodeField.getDocument().addUndoableEditListener(manager);
 		
 		phoneField = new JTextField();
 		phoneField.setColumns(10);
 		phoneField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(phoneField);
+		phoneField.addFocusListener(this);
+		phoneField.getDocument().addUndoableEditListener(manager);
 		
 		emailField = new JTextField();
 		emailField.setColumns(10);
 		emailField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(emailField);
+		emailField.addFocusListener(this);
+		emailField.getDocument().addUndoableEditListener(manager);
 		
 		empty1Field = new JTextField();
 		empty1Field.setColumns(10);
 		empty1Field.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(empty1Field);
+		empty1Field.addFocusListener(this);
+		empty1Field.getDocument().addUndoableEditListener(manager);
 		
 		empty2Field = new JTextField();
 		empty2Field.setColumns(10);
 		empty2Field.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(empty2Field);
+		empty2Field.addFocusListener(this);
+		empty2Field.getDocument().addUndoableEditListener(manager);
 		
 		//Headers
 		workExpHeader = new JTextField();
 		workExpHeader.setColumns(10);
 		workExpHeader.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(workExpHeader);
+		workExpHeader.addFocusListener(this);
+		workExpHeader.getDocument().addUndoableEditListener(manager);
 		
 		educationHeader = new JTextField();
 		educationHeader.setColumns(10);
 		educationHeader.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(educationHeader);
+		educationHeader.addFocusListener(this);
+		educationHeader.getDocument().addUndoableEditListener(manager);
 		
 		//Sections
 		imgLabel = new JLabel("");
@@ -156,10 +184,14 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		workExperienceText = new JTextPane();
 		workExperienceText.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(workExperienceText);
+		workExperienceText.addFocusListener(this);
+		workExperienceText.getDocument().addUndoableEditListener(manager);
 		
 		educationText = new JTextPane();
 		educationText.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(educationText);
+		educationText.addFocusListener(this);
+		educationText.getDocument().addUndoableEditListener(manager);
 		
 		//Important
 		this.currentSection = workExperienceText;

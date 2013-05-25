@@ -99,7 +99,11 @@ public class MainView extends JFrame implements MainViewInterface {
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
 		tabbedPane.setSelectedComponent(docView);
+<<<<<<< HEAD
 		pcs.firePropertyChange(Labels.UPDATE_INITIAL_TOOLBAR, false, true);
+=======
+
+>>>>>>> 29ca3bb4a791e92e95595b4f437b7ae748471088
 
 		// Update the frame
 		this.invalidate();

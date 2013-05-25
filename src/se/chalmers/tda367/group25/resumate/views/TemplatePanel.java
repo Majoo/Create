@@ -64,11 +64,19 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.personalInfoText.getDocument().addUndoableEditListener(manager);
 		Paint blackPaint = Color.black;
 		personalInfoText.setBorder(BorderFactory.createDashedBorder(blackPaint));
+<<<<<<< HEAD
 
 		this.headerTF = new JTextPane();
 		headerTF.setName("headerTitle");
 		headerTF.setText("[HEADLINE]");
 		headerTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
+=======
+		
+		this.headerTF = new JTextPane();
+		headerTF.setName("headerTitle");
+		headerTF.setText("[HEADLINE]");
+		headerTF.setFont(new Font("Tahoma", Font.PLAIN, 20));
+>>>>>>> 29ca3bb4a791e92e95595b4f437b7ae748471088
 		headerTF.setToolTipText("Protip! " +
 				"\r\nUse a creative headline to attract the reader! " +
 				"But be careful to not be too informal.");

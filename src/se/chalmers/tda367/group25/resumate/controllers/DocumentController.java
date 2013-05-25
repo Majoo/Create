@@ -38,6 +38,10 @@ public class DocumentController implements PropertyChangeListener{
 		Document d = new Document();
 		List<Object> first = new ArrayList(2);
 		first.add(d);
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 29ca3bb4a791e92e95595b4f437b7ae748471088
 		setCurrentID(0);
 		this.docAndDocView.put(getCurrentID(), first);
 	}
@@ -210,6 +214,7 @@ public class DocumentController implements PropertyChangeListener{
 	 */
 	public void setCurrentID(int currentID) {
 		this.curID = currentID;
+<<<<<<< HEAD
 	}
 
 	//-----PropertyChanged-Methods------
@@ -261,6 +266,8 @@ public class DocumentController implements PropertyChangeListener{
 			
 		}
 		
+=======
+>>>>>>> 29ca3bb4a791e92e95595b4f437b7ae748471088
 	}
 		
 }

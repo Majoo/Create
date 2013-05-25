@@ -44,14 +44,20 @@ public class IOHandler {
 	public static synchronized void saveFile(String fileName,
 			Map<SectionType, String> strings) throws IOException {
 		File directory = new File(fileName);
-		if (directory.mkdirs() || directory.exists()) {
-			writeToFiles(fileName, strings);
-			try {
-				Desktop desktop = Desktop.getDesktop();
-				desktop.open(directory);
-			} catch (Exception e) {
-				e.getStackTrace();
+		try {
+			if (directory.mkdirs() || directory.exists()) {
+				writeToFiles(fileName, strings);
+
+				showFile(directory);
+				/*
+				 * if (Desktop.isDesktopSupported()) { Desktop desktop =
+				 * Desktop.getDesktop(); if
+				 * (desktop.isSupported(Desktop.Action.OPEN)) {
+				 * desktop.open(directory); } }
+				 */
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -97,7 +103,9 @@ public class IOHandler {
 		BufferedWriter w = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream(file), Charset.forName("UTF-8")
 						.newEncoder()));
-		w.write(content);
+		if (content != null) {
+			w.write(content);
+		}
 		w.close();
 	}
 
@@ -126,5 +134,25 @@ public class IOHandler {
 			br.close();
 		}
 		throw new IOException("Not project folder");
+	}
+
+	/**
+	 * Shows a PDF, indicated by the file parameter, using the natively
+	 * associated application, if supported by the current platform.
+	 * 
+	 * @param file
+	 *            the PDF file to show
+	 * @throws IOException
+	 */
+	private static void showFile(File file) throws IOException {
+		System.out.println("showFile");
+		if (Desktop.isDesktopSupported()) {
+			System.out.println("Desktop.isDesktopSupported()");
+			Desktop desktop = Desktop.getDesktop();
+			if (desktop.isSupported(Desktop.Action.OPEN)) {
+				System.out.println("desktop.isSupported(Desktop.Action.OPEN)");
+				desktop.open(file);
+			}
+		}
 	}
 }

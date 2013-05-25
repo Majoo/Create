@@ -56,23 +56,27 @@ public class IOController {
 			Document doc, String path) {
 
 		Map<SectionType, String> strings;
-		if (function.equals(Labels.SAVE_DOC)
-				|| function.equals(Labels.SAVE_DOC_AS)) {
-			strings = doc.getStrings();
-		} else {
-			strings = null;
+		try {
+			if (function.equals(Labels.SAVE_DOC)
+					|| function.equals(Labels.SAVE_DOC_AS)) {
+				strings = doc.getStrings();
+			} else {
+				strings = null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		try {
-			if ((function.equals(Labels.SAVE_DOC))
-					|| (function.equals(Labels.RENAME_DOC))) {
-				IOHandler.saveFile(path, strings);
+			if (function.equals(Labels.SAVE_DOC)) {
+				IOHandler.saveFile(path, doc.getStrings());
+			} else if ((function.equals(Labels.SAVE_DOC_AS))) {
+				choosePath(jc, function, doc.getStrings());
 			} else if ((function.equals(Labels.EXPORT_DOC))
-					|| (function.equals(Labels.SAVE_DOC_AS))) {
-				choosePath(jc, function, strings);
-			} else if (function.equals(Labels.OPEN_DOC)) {
-				choosePath(jc, function, strings);
+					|| function.equals(Labels.OPEN_DOC)) {
+				choosePath(jc, function, null);
 			} else if (function.equals(Labels.PRINT_DOC)
-					|| (function.equals(Labels.SEND_DOC))) {
+					|| (function.equals(Labels.SEND_DOC) || (function
+							.equals(Labels.RENAME_DOC)))) {
 				// To be implemented in the future
 			}
 		} catch (NullPointerException e) {
@@ -84,7 +88,8 @@ public class IOController {
 			// If incorrect file is chosen during OPEN_DOC issue warning and
 			// try again.
 			if (e.getMessage().equals("Not project folder")
-					&& function.equals(Labels.OPEN_DOC) || function.equals(Labels.SAVE_DOC)) {
+					&& function.equals(Labels.OPEN_DOC)
+					|| function.equals(Labels.SAVE_DOC)) {
 				JOptionPane
 						.showMessageDialog(
 								null,
@@ -117,7 +122,7 @@ public class IOController {
 			NullPointerException, IOException {
 
 		JFileChooser chooser = new JFileChooser(recentPath);
-//		setChooser(chooser, function);
+		// setChooser(chooser, function);
 		chooser.setFileFilter(getFilter(function));
 
 		int returnVal = chooser.showDialog(null, getApproveText(function));
@@ -151,9 +156,11 @@ public class IOController {
 		if (function.equals(Labels.EXPORT_DOC)) {
 			return new FileNameExtensionFilter("PDF", "pdf");
 		} else if (function.equals(Labels.SAVE_DOC_AS)) {
-			return new FileNameExtensionFilter("ResuMate Project Directories", "doc");
+			return new FileNameExtensionFilter("ResuMate Project Directories",
+					"doc");
 		} else if (function.equals(Labels.OPEN_DOC)) {
-			return new FileNameExtensionFilter("ResuMate Project Directories", "doc");
+			return new FileNameExtensionFilter("ResuMate Project Directories",
+					"doc");
 		} else {
 			return null;
 		}
@@ -168,21 +175,19 @@ public class IOController {
 	 * @param function
 	 *            the context of the JFileChooser
 	 */
-	/*private void setChooser(JFileChooser jfc, String function) {
-		jfc.setAcceptAllFileFilterUsed(false);
-
-		// Depending on the desired function, different kinds of Filter are
-		// required, which is why the returnFilter method is called
-		jfc.setFileFilter(getFilter(function));
-
-		// When saving, only directories are relevant
-		if (function.equals(Labels.SAVE_DOC_AS)
-				|| function.equals(Labels.OPEN_DOC)) {
-			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		} else {
-			jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		}
-	}*/
+	/*
+	 * private void setChooser(JFileChooser jfc, String function) {
+	 * jfc.setAcceptAllFileFilterUsed(false);
+	 * 
+	 * // Depending on the desired function, different kinds of Filter are //
+	 * required, which is why the returnFilter method is called
+	 * jfc.setFileFilter(getFilter(function));
+	 * 
+	 * // When saving, only directories are relevant if
+	 * (function.equals(Labels.SAVE_DOC_AS) || function.equals(Labels.OPEN_DOC))
+	 * { jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); } else {
+	 * jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); } }
+	 */
 
 	/**
 	 * Gets the correct text for the Approve Button depending on the function

@@ -4,9 +4,11 @@ import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -29,9 +31,13 @@ public class IOHandler {
 	private IOHandler() {
 	}
 
+	// ---Getters--- //
+
 	public static IOHandler getInstance() {
 		return instance;
 	}
+
+	// ---IO Methods--- //
 
 	/**
 	 * Save to file. The project is saved by saving each RMText as a separate
@@ -55,6 +61,32 @@ public class IOHandler {
 	}
 
 	/**
+	 * Open file. Synchronized for sake of eventual thread safety.
+	 * 
+	 * @param fileName
+	 *            the file to open
+	 * @throws IOException
+	 * 
+	 */
+	public static synchronized Map<SectionType, String> openFile(String fileName)
+			throws IOException {
+		System.out.println("In openFile");
+		File chosenDir = new File(fileName);
+		File rsmtInDir = new File(fileName + "\\Project.rsmt");
+		String data;
+
+		if (chosenDir.isDirectory() && rsmtInDir.exists()) {
+			System.out.println("In if-block in openFile");
+
+			data = readSingleFile(rsmtInDir);
+//			if(data.contains(Labels)){
+//				
+//			}
+		}
+		throw new IOException("Not project folder");
+	}
+
+	/**
 	 * Writes the content from the RMText objects stored in the Map to text
 	 * files, and creates the RSMT file.
 	 * 
@@ -67,7 +99,8 @@ public class IOHandler {
 	private static synchronized void writeToFiles(String fileName,
 			Map<SectionType, String> strings) throws IOException {
 
-		writeSingleFile(new File(fileName + "\\Project.rsmt"), "");
+		writeSingleFile(new File(fileName + "\\Project.rsmt"),
+				strings.toString());
 		if (strings.containsKey(SectionType.HEADER)) {
 			writeSingleFile(new File(fileName + "\\HEADER.txt"),
 					strings.get(SectionType.HEADER));
@@ -79,6 +112,10 @@ public class IOHandler {
 		if (strings.containsKey(SectionType.WORK_EXPERIENCE)) {
 			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
 					strings.get(SectionType.WORK_EXPERIENCE));
+		}
+		if (strings.containsKey(SectionType.EDUCATION)) {
+			writeSingleFile(new File(fileName + "\\EDUCATION.txt"),
+					strings.get(SectionType.EDUCATION));
 		}
 	}
 
@@ -99,31 +136,25 @@ public class IOHandler {
 	}
 
 	/**
-	 * Open file. Synchronized for sake of eventual thread safety.
+	 * Reads and returns the String content of a single file.
 	 * 
-	 * @param fileName
-	 *            the file to open
+	 * @param file
+	 *            the file to be read
+	 * @return the String content of the file
 	 * @throws IOException
-	 * 
 	 */
-	public static synchronized Map<SectionType, String> openFile(String fileName)
-			throws IOException {
-		System.out.println("In openFile");
-		File chosenDir = new File(fileName);
-		File rsmtInDir = new File(fileName + "\\Project.rsmt");
-
-		if (chosenDir.isDirectory() && rsmtInDir.exists()) {
-			System.out.println("In if-block");
-			BufferedReader br = new BufferedReader(new FileReader(chosenDir));
-
-			String data;
-			while ((data = br.readLine()) != null) {
-
-			}
-			br.close();
+	private static String readSingleFile(File file) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				new FileInputStream(file), Charset.forName("UTF-8")
+						.newDecoder()));
+		String content = "";
+		while (br.readLine() != null) {
+			content = content + br.readLine();
 		}
-		throw new IOException("Not project folder");
+		return content;
 	}
+
+	// ---Auxiliary methods--- //
 
 	/**
 	 * Shows a directory, indicated by the file parameter, using the native file

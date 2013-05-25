@@ -51,8 +51,8 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	}
 
 	//-----Getters------
-	/**
-	 * Get the TemplatePanel of the DocumentView.
+
+	 /* Get the TemplatePanel of the DocumentView.
 	 * @return
 	 * 			the TemplatePanel of this DocumentView
 	 */
@@ -60,6 +60,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		return templatePnl;
 	}
 	//-----Setters------
+
 	/**
 	 * Set the TemplatePanel of this DocumentView.
 	 * @param tmplPnl

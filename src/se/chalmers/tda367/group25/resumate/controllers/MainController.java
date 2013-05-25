@@ -14,6 +14,7 @@ import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.utils.ViewHandler;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
+import se.chalmers.tda367.group25.resumate.views.MainViewInterface;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 public class MainController implements PropertyChangeListener {
@@ -328,7 +329,6 @@ public class MainController implements PropertyChangeListener {
 	 *            the event to be handled
 	 */
 	private void imagePropertyChange(PropertyChangeEvent e) {
-
 		DocumentView docView = docCon.getView(docCon.getCurrentID());
 		Document doc = docCon.separateDocument(docView);
 

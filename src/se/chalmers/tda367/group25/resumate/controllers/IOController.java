@@ -69,7 +69,7 @@ public class IOController {
 				IOHandler.saveFile(path, strings);
 			} else if ((function.equals(Labels.EXPORT_DOC))
 					|| (function.equals(Labels.SAVE_DOC_AS))) {
-					choosePath(jc, function, strings);
+				choosePath(jc, function, strings);
 			} else if (function.equals(Labels.OPEN_DOC)) {
 				choosePath(jc, function, strings);
 			} else if (function.equals(Labels.PRINT_DOC)
@@ -84,20 +84,14 @@ public class IOController {
 		} catch (IOException e) {
 			// If incorrect file is chosen during OPEN_DOC issue warning and
 			// try again.
-			if (e.getMessage().equals("Not project folder") && function.equals(Labels.OPEN_DOC)) {
+			if (e.getMessage().equals("Not project folder")
+					&& function.equals(Labels.OPEN_DOC) || function.equals(Labels.SAVE_DOC)) {
 				JOptionPane
 						.showMessageDialog(
 								null,
 								"You chose a directory that is not a ResuMate project folder, try again. Hint: ResuMate project folders contain the file Project.rsmt.",
 								"Invalid choice made.",
 								JOptionPane.ERROR_MESSAGE);
-				chooseFunction(function, jc, doc, path);
-			} else {
-				// Probably means that the user entered the wrong path name
-				// when trying to save or export.
-				JOptionPane.showMessageDialog(null,
-						"You chose an invalid file or path, try again.",
-						"Invalid choice made.", JOptionPane.ERROR_MESSAGE);
 				chooseFunction(function, jc, doc, path);
 			}
 		}
@@ -124,7 +118,8 @@ public class IOController {
 			NullPointerException, IOException {
 
 		JFileChooser chooser = new JFileChooser(recentPath);
-		setChooser(chooser, function);
+//		setChooser(chooser, function);
+		chooser.setFileFilter(getFilter(function));
 
 		int returnVal = chooser.showDialog(null, getApproveText(function));
 
@@ -157,9 +152,9 @@ public class IOController {
 		if (function.equals(Labels.EXPORT_DOC)) {
 			return new FileNameExtensionFilter("PDF", "pdf");
 		} else if (function.equals(Labels.SAVE_DOC_AS)) {
-			return new FileNameExtensionFilter("Directories", "doc");
+			return new FileNameExtensionFilter("ResuMate Project Directories", "doc");
 		} else if (function.equals(Labels.OPEN_DOC)) {
-			return new FileNameExtensionFilter("Directories", "doc");
+			return new FileNameExtensionFilter("ResuMate Project Directories", "doc");
 		} else {
 			return null;
 		}
@@ -174,7 +169,7 @@ public class IOController {
 	 * @param function
 	 *            the context of the JFileChooser
 	 */
-	private void setChooser(JFileChooser jfc, String function) {
+	/*private void setChooser(JFileChooser jfc, String function) {
 		jfc.setAcceptAllFileFilterUsed(false);
 
 		// Depending on the desired function, different kinds of Filter are
@@ -188,7 +183,7 @@ public class IOController {
 		} else {
 			jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		}
-	}
+	}*/
 
 	/**
 	 * Gets the correct text for the Approve Button depending on the function

@@ -16,13 +16,14 @@ import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
- * This class handles exporting a document as a PDF.
+ * This singleton class handles exporting a document as a PDF by means of the
+ * external iText library.
  * 
  * @author Laszlo Sall Vesselenyi
  */
 public class PDFHandler {
 
-	private static volatile PDFHandler instance = null;
+	private static volatile PDFHandler instance = new PDFHandler();
 
 	private PDFHandler() {
 	}
@@ -51,9 +52,6 @@ public class PDFHandler {
 	public static synchronized void createPdf(JComponent jc,
 			String filePathAndName) throws DocumentException, IOException {
 
-		int panelWidth = jc.getWidth();
-		int panelHeight = jc.getHeight();
-
 		Document document = new Document();
 
 		File file = getUniqueFile(filePathAndName);
@@ -64,21 +62,24 @@ public class PDFHandler {
 		document.open();
 		PdfContentByte cb = writer.getDirectContent();
 
-		// If the incoming JComponent representation of a Document is larger
-		// than a single PDF document, create new pages accordingly
+		int panelWidth = jc.getWidth();
+		int panelHeight = jc.getHeight();
 		int delta = panelHeight;
+
+		// If the incoming JComponent representation of a Document is higher
+		// than a single PDF document, create new pages accordingly
 		while (delta >= 0) {
 			document.newPage();
 			PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
 
 			// Creates graphics where text is handled as fonts instead of simple
-			// graphics
+			// graphics/shapes
 			Graphics2D g2 = tp.createGraphics(panelWidth, panelHeight);
 			jc.print(g2);
 
 			cb.addTemplate(tp, -25, document.top() - delta);
 			// -25 instead of document.left(document.leftMargin())
-			
+
 			g2.dispose();
 			delta = (int) (delta - document.top());
 		}
@@ -108,8 +109,8 @@ public class PDFHandler {
 	}
 
 	/**
-	 * Shows a PDF, indicated by the file parameter, using the natively associated application, if
-	 * supported by the current platform.
+	 * Shows a PDF, indicated by the file parameter, using the natively
+	 * associated application, if supported by the current platform.
 	 * 
 	 * @param file
 	 *            the PDF file to show

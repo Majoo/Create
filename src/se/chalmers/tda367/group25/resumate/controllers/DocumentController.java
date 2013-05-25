@@ -1,18 +1,25 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JTextPane;
+
 import se.chalmers.tda367.group25.resumate.model.Document;
+import se.chalmers.tda367.group25.resumate.model.RMText;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 
-public class DocumentController {
+public class DocumentController implements PropertyChangeListener{
+	private PropertyChangeSupport pcs;
 
 	// Each value (List) holds a Document object and a DocumentView object
 	private Map<String, List<Object>> docAndDocView;
@@ -36,6 +43,8 @@ public class DocumentController {
 		// and put in the map with addDocView
 		setCurrent("first");
 		this.docAndDocView.put(getCurrent(), first);
+		
+		pcs = new PropertyChangeSupport(this);
 	}
 
 	//GETTERS
@@ -215,6 +224,52 @@ public class DocumentController {
 	 */
 	public void setCurrent(String current) {
 		this.current = current;
+	}
+
+	//-----PropertyChanged-Methods------
+	
+	 /** Adds a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be registered
+	 */
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		pcs.addPropertyChangeListener(pcl);
+	}
+
+	/**
+	 * Removes a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be unregistered
+	 */
+	public void removePropertyChangeListener(PropertyChangeListener pcl) {
+		pcs.removePropertyChangeListener(pcl);
+	}
+	
+
+	/**
+	 * Fires the propertychange event further to the main controller
+	 * where the events are to be handled.
+	 * 
+	 * @param arg0
+	 * 		the source of the event
+	 * 		
+	 */
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		switch (arg0.getPropertyName()) {
+		case Labels.SEND_INITIAL_TSECTIONS:
+			JTextPane workText = getView(getCurrent()).getTemplatePanel().getWorkingExperienceText();			
+			JTextPane headerTitleText = getView(getCurrent()).getTemplatePanel().getHeaderTitle();	
+			JTextPane educationText = getView(getCurrent()).getTemplatePanel().getEducationText();	
+			
+			getDoc(getCurrent()).setText(SectionType.HEADER, headerTitleText.getText());
+			getDoc(getCurrent()).setText(SectionType.WORK_EXPERIENCE, workText.getText());
+			getDoc(getCurrent()).setText(SectionType.EDUCATION, educationText.getText());
+			break;
+		default:	
+			
+		}
+		
 	}
 		
 }

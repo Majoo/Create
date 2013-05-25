@@ -156,7 +156,12 @@ public class ViewHandler {
 		}
 	}
 	
-	
+	/**
+	 * Removes the border around a panel in the current document
+	 * 
+	 * @param p
+	 * 		the template to remove the borders from.	
+	 */
 	public static void removeBorder(TemplatePanel p){
 		p.getPersonalInfoText().setBorder(null);
 		p.getWorkingExperienceText().setBorder(null);
@@ -164,6 +169,12 @@ public class ViewHandler {
 		p.getEducationText().setBorder(null);
 	}
 	
+	/**
+	 * Adds the original borders around the panel in the current document.
+	 * 
+	 * @param p
+	 * 		the template to set the back the borders to.
+	 */
 	public static void setBackBorder(TemplatePanel p){
 		Paint blackPaint = Color.black;
 		p.getPersonalInfoText().setBorder(BorderFactory.createDashedBorder(blackPaint));
@@ -171,5 +182,25 @@ public class ViewHandler {
 		p.getHeaderTitle().setBorder(BorderFactory.createDashedBorder(blackPaint));
 		p.getEducationText().setBorder(BorderFactory.createDashedBorder(blackPaint));
 	}
+	
+	public static void changeTemplate(TemplatePanel previous, TemplatePanel current){
+
+		String workText = previous.getWorkingExperienceText().getText();
+		String persText = previous.getPersonalInfoText().getText();
+		String headText = previous.getHeaderTitle().getText();
+		String eduText = previous.getEducationText().getText();
+		
+		current.getWorkingExperienceText().setText(workText);
+		current.getPersonalInfoText().setText(persText);
+		current.getHeaderTitle().setText(headText);
+		current.getEducationText().setText(eduText);
+		
+		/*System.out.println(workText);
+		System.out.println(persText);
+		System.out.println(headText);
+		System.out.println(eduText);*/
+		
+	}
+	
 	
 }

@@ -45,12 +45,12 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		add(scroller);
 	}
 
-	// Get template
+	//-----Getters------
 	public TemplatePanel getTemplatePanel(){
 		return templatePnl;
 	}
 	
-	// Set template
+	//-----Setters------
 	public void setTemplate(TemplatePanel tmplPnl){
 		System.out.println("Setting template");
 		this.templatePnl = tmplPnl;
@@ -59,15 +59,33 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	}
 	
 
-	//PROPERTY-CHANGED-METHODS
+	//-----PropertyChanged-Methods------
+	/**
+	 * Adds a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be registered
+	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
 	}
 
+	/**
+	 *Removes a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be unregistered
+	 */
 	public void removePropertyChangeListener(PropertyChangeListener pcl){
 		pcs.removePropertyChangeListener(pcl);
 	}
-
+	
+	/**
+	 * Fires the propertychange event further to the main controller
+	 * where the events are to be handled.
+	 * 
+	 * @param arg0
+	 * 		the source of the event
+	 * 		
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		System.out.println("In DocView changed");

@@ -45,41 +45,44 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		
 		// Initialize components and adding settings 
 		this.personalInfoText = new JTextPane();
-		personalInfoText.setName("personalInfoText");
-		personalInfoText.setText("Name: " +
+		this.personalInfoText.setName("personalInfoText");
+		this.personalInfoText.setText("Name: " +
 				"\r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
-		personalInfoText.setToolTipText("Protip! " +
+		this.personalInfoText.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		this.personalInfoText.setToolTipText("Protip! " +
 				"\r\nAlways use correct information! " +
 				"You must therefore fill in all the blanks!");
-		personalInfoText.addFocusListener(this);
-		personalInfoText.getDocument().addUndoableEditListener(manager);
+		this.personalInfoText.addFocusListener(this);
+		this.personalInfoText.getDocument().addUndoableEditListener(manager);
 		Paint blackPaint = Color.black;
 		personalInfoText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		
 		this.headerTitle = new JTextPane();
-		headerTitle.setName("headerTitle");
-		headerTitle.setText("[HEADLINE]");
-		headerTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		headerTitle.setToolTipText("Protip! " +
+		this.headerTitle.setName("headerTitle");
+		this.headerTitle.setText("[HEADLINE]");
+		this.headerTitle.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		this.headerTitle.setToolTipText("Protip! " +
 				"\r\nUse a creative headline to attract the reader! " +
 				"But be careful to not be too informal.");
-		headerTitle.setBorder(BorderFactory.createDashedBorder(blackPaint));
-		headerTitle.addFocusListener(this);
-		headerTitle.getDocument().addUndoableEditListener(manager);
+		this.headerTitle.setBorder(BorderFactory.createDashedBorder(blackPaint));
+		this.headerTitle.addFocusListener(this);
+		this.headerTitle.getDocument().addUndoableEditListener(manager);
 		
 		
 		this.workingExperienceText = new JTextPane();
-		workingExperienceText.setName("workingExperienceText");
-		workingExperienceText.setText("[ABOUT YOURSELF]");
-		workingExperienceText.addFocusListener(this);
-		workingExperienceText.getDocument().addUndoableEditListener(manager);
-		workingExperienceText.setToolTipText("Protip! " +
+		this.workingExperienceText.setName("workingExperienceText");
+		this.workingExperienceText.setText("[ABOUT YOURSELF]");
+		this.workingExperienceText.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		this.workingExperienceText.addFocusListener(this);
+		this.workingExperienceText.getDocument().addUndoableEditListener(manager);
+		this.workingExperienceText.setToolTipText("Protip! " +
 				"\nAdjust your way of writing depending on the job you are looking for!");
-		workingExperienceText.setBorder(BorderFactory.createDashedBorder(blackPaint));
+		this.workingExperienceText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		
 		this.educationText = new JTextPane();
 		this.educationText.setName("educationText");
 		this.educationText.setText("[EDUCATION]");
+		this.educationText.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		this.educationText.addFocusListener(this);
 		this.educationText.getDocument().addUndoableEditListener(manager);
 		this.educationText.setBorder(BorderFactory.createDashedBorder(blackPaint));
@@ -89,8 +92,10 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.imageLbl.setVisible(true);
 		setImageLabel(imageLbl);
 		
-		currentSection = personalInfoText;
+		this.currentSection = personalInfoText;
 		this.pcs = new PropertyChangeSupport(this);
+		
+		pcs.firePropertyChange(Labels.SEND_INITIAL_TSECTIONS, false, true);
 	}
 
 	//-----Getters-----
@@ -157,9 +162,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public UndoManager getManager(){
 		return manager;
 	}
-	
-	
-	//-----Setters for components------
+	//-----Setters for the image------
 	
 	/**
 	 * Sets the image container
@@ -170,7 +173,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.imageLbl = imageLabel;
 	}
 	
-	//-----Setters for updating the view with new text/image-----
 	/**
 	 * Shows in view the image given as parameter.
 	 * The idea is to get the image from the model and 
@@ -182,14 +184,27 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		imageLbl.setIcon(new ImageIcon(image));
 	}
 	
-	// PROPERTY-CHANGED-METHODS
+	//-----PropertyChanged-Methods------
+	/**
+	 * Adds a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be registered
+	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
 	}
-
+	
+	/**
+	 * Removes a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be unregistered
+	 */
 	public void removePropertyChangeListener(PropertyChangeListener pcl){
 		pcs.removePropertyChangeListener(pcl);
 	}
+	
+	
+	//-----Focus-related methods------
 	
 	/**
 	 * Sets the current section which is the one currently in focus.
@@ -203,9 +218,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public void focusGained(FocusEvent arg0) {
 		if(arg0.getComponent().getClass().equals(JTextPane.class)){
 			currentSection = (JTextPane)arg0.getComponent();
-			System.out.println("Fire Textarea change");
 			pcs.firePropertyChange(Labels.TEXTAREA_CHANGED, false, true);
-			System.out.println("Fired Textarea change");
 		}
 	}
 

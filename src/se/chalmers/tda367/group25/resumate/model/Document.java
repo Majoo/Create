@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.model;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,10 +15,8 @@ public class Document {
 
 	private Template currentTempl;
 	// Sections
-	private Map<SectionType, RMText> texts = new HashMap<SectionType, RMText>(3);
+	private Map<SectionType, RMText> texts = new HashMap<SectionType, RMText>(4);
 	private RMImage rmI;
-
-	private List<Document> history;
 
 	// Unsurprisingly, the path to the file representation of this Document is
 	// stored here. This variable is used for "quick save" functionality.
@@ -38,7 +37,6 @@ public class Document {
 	 */
 	public Document(Template templ) {
 		// Set variables
-		history = new LinkedList<Document>();
 		this.currentTempl = templ;
 		rmI = new RMImage(null);
 		// create Sections according to Template.

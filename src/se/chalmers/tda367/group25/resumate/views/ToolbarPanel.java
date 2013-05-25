@@ -285,19 +285,22 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		tempPanel.add(otherTemps);
 		add(tempPanel);
 
-		// PropertyChangeSupport
 		pcs = new PropertyChangeSupport(this);
 	}
 
 	/**
-	 * Add a PropertyChangeListener given as a parameter.
+	 * Adds a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be registered
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
 	}
 
 	/**
-	 * Remove the PropertyChangeListener given as a parameter.
+	 * Removes a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be unregistered
 	 */
 	public void removePropertyChangeListener(PropertyChangeListener pcl){
 		pcs.removePropertyChangeListener(pcl);
@@ -306,6 +309,9 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 	/**
 	 * Settles the actions to be performed depeding on 
 	 * which component which was the source.
+	 * 
+	 * @param arg0
+	 * 			the source of the events
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		
@@ -391,7 +397,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		}
 	}
 	
-	// GETTERS
+	//-----Getters------
 	
 	public JComboBox getTextSizeCombo(){
 		return textSizeCB;

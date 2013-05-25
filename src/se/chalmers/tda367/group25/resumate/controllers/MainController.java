@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
@@ -12,6 +13,7 @@ import javax.swing.JTextPane;
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.RMText;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
@@ -23,13 +25,13 @@ public class MainController implements PropertyChangeListener {
 	private DocumentController docCon;
 	private IOController ioCon;
 	private MainView mainView;
-	private String tabbedPanel;
 
 	/**
 	 * An application with the default document is created.
 	 **/
 	public MainController() {
 		docCon = new DocumentController();
+		docCon.addPropertyChangeListener(this);
 		ioCon = new IOController();
 		mainView = new MainView();
 		mainView.addPropertyChangeListener(this);
@@ -62,28 +64,13 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEMPLATE_CHANGED:
 			
 			System.out.println("in tempchanged in maincontroller");
-			
-			TemplatePanel curTemp = mainView.getCurDocView().getTemplatePanel();
-			String workText = curTemp.getWorkingExperienceText().getText();
-			String persText = curTemp.getPersonalInfoText().getText();
-			String headText = curTemp.getHeaderTitle().getText();
-			String eduText = curTemp.getEducationText().getText();
-			
+			TemplatePanel prevTemp = docCon.getView(docCon.getCurrent()).getTemplatePanel();
 			TemplatePanel tempChange = Translator.templateToPanel(e.getNewValue());
-			tempChange.getWorkingExperienceText().setText(workText);
-			tempChange.getPersonalInfoText().setText(persText);
-			tempChange.getHeaderTitle().setText(headText);
-			tempChange.getEducationText().setText(eduText);
+			ViewHandler.changeTemplate(prevTemp, tempChange);
 			
-			System.out.println(workText);
-			System.out.println(persText);
-			System.out.println(headText);
-			System.out.println(eduText);
-			
-			mainView.getCurDocView().setTemplate(tempChange);
+			docCon.getView(docCon.getCurrent()).setTemplate(tempChange);
 			mainView.validate();
 			mainView.setVisible(true);
-
 			break;
 
 		default:
@@ -105,7 +92,19 @@ public class MainController implements PropertyChangeListener {
 			DocumentView docView = (DocumentView)e.getOldValue();
 			docCon.addDocView((String)e.getNewValue()
 					,docView);
+			docCon.getView(docCon.getCurrent()).addPropertyChangeListener(this);
+			
+			JTextPane curTextSection = docCon.getView(docCon.getCurrent()).getTemplatePanel()
+					.getCurrentSection();
+			RMText curRMText = docCon.getDoc(docCon.getCurrent()).getTexts()
+					.get(Translator.containerToSectionType(curTextSection));
+			
+			mainView.getToolbarPanel().getTextFontCombo().setSelectedItem(curRMText.getFont());
+			mainView.getToolbarPanel().getTextSizeCombo().setSelectedItem(curRMText.getSize());
+			mainView.getToolbarPanel().getTextColorCombo().setSelectedItem(curRMText.getColor());
+			
 			break;
+			
 		default: 
 			//Do nothing, never invoked
 			break;
@@ -156,11 +155,11 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.EXPORT_DOC:
-			ViewHandler.removeBorder(mainView.getCurDocView().getTemplatePanel());
+			ViewHandler.removeBorder(docCon.getView(docCon.getCurrent()).getTemplatePanel());
 			ioCon.chooseFunction(Labels.EXPORT_DOC,
 					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
 					null, null);
-			ViewHandler.setBackBorder(mainView.getCurDocView().getTemplatePanel());
+			ViewHandler.setBackBorder(docCon.getView(docCon.getCurrent()).getTemplatePanel());
 			break;
 
 		case Labels.SEND_DOC:
@@ -199,7 +198,7 @@ public class MainController implements PropertyChangeListener {
 		 * which kind of section type it is so that the RMText can be informed
 		 * which one to be updated.
 		 */
-		JTextPane curTextSection = mainView.getCurDocView().getTemplatePanel()
+		JTextPane curTextSection = docCon.getView(docCon.getCurrent()).getTemplatePanel()
 				.getCurrentSection();
 		RMText curRMText = docCon.getDoc(docCon.getCurrent()).getTexts()
 				.get(Translator.containerToSectionType(curTextSection));
@@ -207,14 +206,14 @@ public class MainController implements PropertyChangeListener {
 		switch(e.getPropertyName()){
 		
 		case Labels.TEXT_UNDO:
-			TemplatePanel undoPAction = mainView.getCurDocView()
+			TemplatePanel undoPAction = docCon.getView(docCon.getCurrent())
 					.getTemplatePanel();
 			ViewHandler.undoAction(undoPAction.getCurrentSection(),
 					undoPAction.getManager());
 			break;
 
 		case Labels.TEXT_REDO:
-			TemplatePanel redoPAction = mainView.getCurDocView()
+			TemplatePanel redoPAction = docCon.getView(docCon.getCurrent())
 					.getTemplatePanel();
 			ViewHandler.redoAction(redoPAction.getCurrentSection(),
 					redoPAction.getManager());
@@ -242,6 +241,7 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.TEXTFONT_CHANGED:
+			//Testa ta in en font ist för en string kanske
 			String font = e.getNewValue().toString();
 			curRMText.changeFont(curTextSection, font);
 			break;
@@ -261,7 +261,7 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXTCOLOUR_CHANGED:
 			String colour = e.getNewValue().toString();
 			curRMText.changeColor(curTextSection,
-					Translator.stringToColor(colour));
+					Translator.stringToColor(colour), colour);
 
 			break;
 
@@ -277,11 +277,11 @@ public class MainController implements PropertyChangeListener {
 			String[] replaceTextsA = e.getNewValue().toString().split("/");
 			String replaceA = replaceTextsA[0];
 			String replaceWithA = replaceTextsA[1];
-			JTextPane textAreaPersonal = mainView.getCurDocView()
+			JTextPane textAreaPersonal = docCon.getView(docCon.getCurrent())
 					.getTemplatePanel().getPersonalInfoText();
-			JTextPane textAreaHeader = mainView.getCurDocView()
+			JTextPane textAreaHeader = docCon.getView(docCon.getCurrent())
 					.getTemplatePanel().getHeaderTitle();
-			JTextPane textAreaWork = mainView.getCurDocView()
+			JTextPane textAreaWork = docCon.getView(docCon.getCurrent())
 					.getTemplatePanel().getWorkingExperienceText();
 
 			RMText textPersonal = docCon.getDoc(docCon.getCurrent()).getTexts()
@@ -299,19 +299,25 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.FIND_TEXT:
 			String txt = e.getNewValue().toString();
-			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel()
+			ViewHandler.findText(docCon.getView(docCon.getCurrent()).getTemplatePanel()
 					.getPersonalInfoText(), txt);
-			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel()
+			ViewHandler.findText(docCon.getView(docCon.getCurrent()).getTemplatePanel()
 					.getHeaderTitle(), txt);
-			ViewHandler.findText(mainView.getCurDocView().getTemplatePanel()
+			ViewHandler.findText(docCon.getView(docCon.getCurrent()).getTemplatePanel()
 					.getWorkingExperienceText(), txt);
 			break;
 			
 		case Labels.TEXTAREA_CHANGED:
 			System.out.println("In textarea changed in MainController");
 			mainView.getToolbarPanel().getTextFontCombo().getModel().setSelectedItem(curRMText.getFont());
+			System.out.println(curRMText.getFont());
 			mainView.getToolbarPanel().getTextSizeCombo().getModel().setSelectedItem(curRMText.getSize());
+			System.out.println(curRMText.getSize());
 			mainView.getToolbarPanel().getTextColorCombo().getModel().setSelectedItem(curRMText.getColor());
+			System.out.println(curRMText.getColor());
+			
+			mainView.getToolbarPanel().updateUI();
+			mainView.getToolbarPanel().validate();
 			break;
 			
 		case Labels.RENAME_DOC:
@@ -334,7 +340,7 @@ public class MainController implements PropertyChangeListener {
 	 *            the event to be handled
 	 */
 	private void imagePropertyChange(PropertyChangeEvent e) {
-		DocumentView docView = mainView.getCurDocView();
+		DocumentView docView = docCon.getView(docCon.getCurrent());
 		Document doc = docCon.separateDocument(docView);
 
 		switch (e.getPropertyName()) {

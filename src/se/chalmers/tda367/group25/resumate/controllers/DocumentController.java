@@ -38,7 +38,7 @@ public class DocumentController {
 		this.docAndDocView.put(getCurrent(), first);
 	}
 
-	//GETTERS
+	// ---GETTERS--- //
 	/**
 	 * Get the Document in the List<Object> given
 	 * @param pair
@@ -153,7 +153,7 @@ public class DocumentController {
 		return null;
 	}
 	
-	//SETTERS
+	// ---SETTERS--- //
 	/**
 	 * Update the image of the Document associated with the BufferedImage img.
 	 * 

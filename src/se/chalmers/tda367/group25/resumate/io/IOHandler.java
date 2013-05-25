@@ -1,9 +1,9 @@
 package se.chalmers.tda367.group25.resumate.io;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -45,6 +45,8 @@ public class IOHandler {
 
 		if (directory.mkdirs() || directory.exists()) {
 			writeToFiles(fileName, strings);
+			Desktop desktop = Desktop.getDesktop();
+			desktop.open(directory);
 		}
 	}
 

@@ -71,8 +71,7 @@ public class IOController {
 				e.printStackTrace();
 			}
 		} else if ((function.equals(Labels.EXPORT_DOC))
-				|| (function.equals(Labels.SAVE_DOC_AS))
-				|| (function.equals(Labels.OPEN_DOC))) {
+				|| (function.equals(Labels.SAVE_DOC_AS))) {
 			try {
 				choosePath(jc, function, strings);
 			} catch (IOException e) {
@@ -100,6 +99,24 @@ public class IOController {
 				// If no file is chosen or operation is aborted, nothing
 				// happens.
 			}
+		} else if (function.equals(Labels.OPEN_DOC)) {
+				try {
+					choosePath(jc, function, strings);
+				} catch (NullPointerException e) {
+					e.printStackTrace();
+				} catch (DocumentException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					if (e.getMessage().equals("Not project folder")) {
+						JOptionPane
+								.showMessageDialog(
+										null,
+										"You chose a directory that is not a ResuMate project folder, try again. Hint: ResuMate project folders contain the file Project.rsmt.",
+										"Invalid choice made.",
+										JOptionPane.ERROR_MESSAGE);
+						chooseFunction(function, jc, doc, path);
+					}
+				}
 		} else if (function.equals(Labels.PRINT_DOC)
 				|| (function.equals(Labels.SEND_DOC))) {
 			// To be implemented in the future

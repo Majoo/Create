@@ -1,9 +1,11 @@
 package se.chalmers.tda367.group25.resumate.io;
 
+import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import javax.swing.JComponent;
 
@@ -43,20 +45,16 @@ public class PDFHandler {
 	 *            the String used to decide where the PDF file will be saved and
 	 *            what its name will be
 	 * @throws DocumentException
-	 * @throws FileNotFoundException
+	 * @throws IOException
 	 */
 	@SuppressWarnings("deprecation")
 	public static synchronized void createPdf(JComponent jc,
-			String filePathAndName) throws FileNotFoundException,
-			DocumentException {
+			String filePathAndName) throws DocumentException, IOException {
 
 		int panelWidth = jc.getWidth();
 		int panelHeight = jc.getHeight();
 
 		Document document = new Document();
-
-		// int a = (int) (document.leftMargin() + document.rightMargin() -
-		// panelWidth);
 
 		File file = getUniqueFile(filePathAndName);
 
@@ -78,13 +76,16 @@ public class PDFHandler {
 			Graphics2D g2 = tp.createGraphics(panelWidth, panelHeight);
 			jc.print(g2);
 
-			cb.addTemplate(tp, -25, document.top() - delta); // 0 =
-																// document.left(document.leftMargin())
+			cb.addTemplate(tp, -25, document.top() - delta);
+			// -25 instead of document.left(document.leftMargin())
+			
 			g2.dispose();
 			delta = (int) (delta - document.top());
 		}
 
 		document.close();
+
+		showFile(file);
 	}
 
 	/**
@@ -104,5 +105,22 @@ public class PDFHandler {
 			i++;
 		}
 		return file;
+	}
+
+	/**
+	 * Shows a PDF, indicated by the file parameter, using the natively associated application, if
+	 * supported by the current platform.
+	 * 
+	 * @param file
+	 *            the PDF file to show
+	 * @throws IOException
+	 */
+	private static void showFile(File file) throws IOException {
+		if (Desktop.isDesktopSupported()) {
+			Desktop desktop = Desktop.getDesktop();
+			if (desktop.isSupported(Desktop.Action.OPEN)) {
+				desktop.open(file);
+			}
+		}
 	}
 }

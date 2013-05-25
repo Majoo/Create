@@ -1,4 +1,4 @@
-package se.chalmers.tda367.group25.resumate.views;
+package se.chalmers.tda367.group25.resumate.utils;
 
 import java.awt.Color;
 import java.awt.Paint;
@@ -14,6 +14,8 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
+
+import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 
 public class ViewHandler {
@@ -77,6 +79,7 @@ public class ViewHandler {
 	 * 			the current textarea.
 	 */
 	public static void textCopy(JEditorPane section){
+		// Copy the selected text into a clipboard.
 		String clipBoardData = section.getSelectedText();
 		StringSelection stringSelection = new StringSelection(clipBoardData);
 		Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -89,11 +92,12 @@ public class ViewHandler {
 	 * 			the current textarea.
 	 */
 	public static void textCut(JEditorPane section){
+		// Copy the selected text into a clipboard.
 		String clipBoardData = section.getSelectedText();
 		StringSelection stringSelection = new StringSelection(clipBoardData);
 		Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clpbrd.setContents(stringSelection, null);
-		//delete
+		// Delete
 		section.replaceSelection("");
 		
 	}
@@ -105,6 +109,7 @@ public class ViewHandler {
 	
 	public static void textPaste(JEditorPane section){
 			section.paste();
+			
 	}
 	
 	/**
@@ -113,12 +118,12 @@ public class ViewHandler {
 	 * 			the current textarea.
 	 */
 	public static void selectAll(JEditorPane section){	
-		section.selectAll();
-			
+		section.selectAll();	
 	}
 	
 	/**
 	 * Undo's the change made in the current textarea.
+	 * Only undo one character (event) at a time.
 	 * @param section
 	 * 			the current textarea.
 	 * @param manager
@@ -127,7 +132,11 @@ public class ViewHandler {
 	public static void undoAction(JEditorPane section, UndoManager manager){
 		try {
 			manager.undo();
-		} catch (CannotUndoException e) {
+				while(section.getCaret().equals(" ")){
+			manager.undo();
+			}
+			
+			} catch (CannotUndoException e) {
 			Toolkit.getDefaultToolkit().beep();
 		}
 	}

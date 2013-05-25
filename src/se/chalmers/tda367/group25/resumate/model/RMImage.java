@@ -18,7 +18,6 @@ public class RMImage {
 
 	private BufferedImage origImg;
 	private BufferedImage curImg;
-	private SectionType secType;
 
 	//-----Constructors-----//
 
@@ -26,7 +25,6 @@ public class RMImage {
 	 * Creates an empty RMImage. 
 	 **/
 	public RMImage(){
-		this.secType = SectionType.IMAGE;
 	}
 
 	/**
@@ -37,7 +35,6 @@ public class RMImage {
 	 *				the image to make an RMImage of.
 	 */
 	public RMImage(BufferedImage image) {
-		this.secType = SectionType.IMAGE;
 		this.origImg = image;
 		this.curImg = image;
 	}

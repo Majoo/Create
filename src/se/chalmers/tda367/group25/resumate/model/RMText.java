@@ -113,8 +113,13 @@ public class RMText {
 
 	public void changeStyle(JTextPane section, String style) {
 		
-		int start = section.getSelectionStart();
-		int end = section.getSelectedText().length();
+		int start = 0;
+		int end = section.getText().length();
+		
+		if(!section.getSelectedText().isEmpty()){
+			start = section.getSelectionStart();
+			end = section.getSelectedText().length();
+		}
 		
 		switch (style) {
 		case "B":

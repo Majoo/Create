@@ -23,51 +23,56 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import javax.swing.JCheckBoxMenuItem;
-
+/**
+ * A Menu bar top of the document 
+ * with clickable items (actions)
+ * @author Danny
+ */
 public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 		MouseMotionListener {
 	private PropertyChangeSupport pcs;
 	private int x1, y1, x2, y2;
+	private String curDirectoryPath;
 	private JCheckBoxMenuItem grayscaleImage;
 
 	/**
-	 * Create the menubar with items.
+	 * Create the menubar with clickable items.
 	 */
 	public MenuBar() {
 		pcs = new PropertyChangeSupport(this);
 		setLookAndFeel();
 
-		// Setting menu items and their properties located in the File Menu
+		// Adding menu items and setting properties located in the File Menu
 		JMenu mnFile = new JMenu("File");
 		add(mnFile);
 
 		JMenuItem mntmNew = new JMenuItem("New");
 		mntmNew.setMnemonic('n');
-		mntmNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
-				InputEvent.CTRL_MASK));
+		mntmNew.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_N, InputEvent.CTRL_MASK));
 		mntmNew.addActionListener(this);
 		mntmNew.setActionCommand("New");
 		mnFile.add(mntmNew);
 
 		JMenuItem mntmOpen = new JMenuItem("Open");
 		mntmOpen.setMnemonic('o');
-		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
-				InputEvent.CTRL_MASK));
+		mntmOpen.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		mntmOpen.addActionListener(this);
 		mntmOpen.setActionCommand("Open");
 		mnFile.add(mntmOpen);
 
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.setMnemonic('s');
-		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-				InputEvent.CTRL_MASK));
+		mntmSave.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		mntmSave.addActionListener(this);
 		mntmSave.setActionCommand("Save");
 		mnFile.add(mntmSave);
 
 		JMenuItem mntmSaveAs = new JMenuItem("Save As...");
-		mntmSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-				InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		mntmSaveAs.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmSaveAs.setMnemonic('a');
 		mntmSaveAs.addActionListener(this);
 		mntmSaveAs.setActionCommand("SaveAs");
@@ -75,36 +80,36 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 
 		JMenuItem mntmExportAsPdf = new JMenuItem("Export As PDF");
 		mntmExportAsPdf.setMnemonic('E');
-		mntmExportAsPdf.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
-				InputEvent.CTRL_MASK));
+		mntmExportAsPdf.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_E, InputEvent.CTRL_MASK));
 		mntmExportAsPdf.addActionListener(this);
 		mntmExportAsPdf.setActionCommand("Export");
 		mnFile.add(mntmExportAsPdf);
 
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mntmExit.setMnemonic('e');
-		mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
-				InputEvent.CTRL_MASK));
+		mntmExit.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
 		mntmExit.addActionListener(this);
 		mntmExit.setActionCommand("Exit");
 		mnFile.add(mntmExit);
 
-		// Setting menu items and their properties located in the Edit Menu
+		// Adding menu items and setting properties located in the Edit Menu
 		JMenu mnEdit = new JMenu("Edit");
 		add(mnEdit);
 
 		JMenuItem mntmUndo = new JMenuItem("Undo");
 		mntmUndo.setMnemonic('Z');
-		mntmUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
-				InputEvent.CTRL_MASK));
+		mntmUndo.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
 		mntmUndo.addActionListener(this);
 		mntmUndo.setActionCommand("Undo");
 		mnEdit.add(mntmUndo);
 
 		JMenuItem mntmRedo = new JMenuItem("Redo");
 		mntmRedo.setMnemonic('Y');
-		mntmRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y,
-				InputEvent.CTRL_MASK));
+		mntmRedo.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_Y, InputEvent.CTRL_MASK));
 		mntmRedo.addActionListener(this);
 		mntmRedo.setActionCommand("Redo");
 		mnEdit.add(mntmRedo);
@@ -114,32 +119,32 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 
 		JMenuItem mntmCut = new JMenuItem("Cut");
 		mntmCut.setMnemonic('U');
-		mntmCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
-				InputEvent.CTRL_MASK));
+		mntmCut.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_X, InputEvent.CTRL_MASK));
 		mntmCut.addActionListener(this);
 		mntmCut.setActionCommand("Cut");
 		mnEdit.add(mntmCut);
 
 		JMenuItem mntmCopy = new JMenuItem("Copy");
 		mntmCopy.setMnemonic('o');
-		mntmCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
-				InputEvent.CTRL_MASK));
+		mntmCopy.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_C, InputEvent.CTRL_MASK));
 		mntmCopy.addActionListener(this);
 		mntmCopy.setActionCommand("Copy");
 		mnEdit.add(mntmCopy);
 
 		JMenuItem mntmPaste = new JMenuItem("Paste");
 		mntmPaste.setMnemonic('p');
-		mntmPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,
-				InputEvent.CTRL_MASK));
+		mntmPaste.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_V, InputEvent.CTRL_MASK));
 		mntmPaste.addActionListener(this);
 		mntmPaste.setActionCommand("Paste");
 		mnEdit.add(mntmPaste);
 
 		JMenuItem mntmSA = new JMenuItem("SelectAll");
 		mntmSA.setMnemonic('S');
-		mntmSA.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
-				InputEvent.CTRL_MASK));
+		mntmSA.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_A, InputEvent.CTRL_MASK));
 		mntmSA.addActionListener(this);
 		mntmSA.setActionCommand("SelectAll");
 		mnEdit.add(mntmSA);
@@ -148,8 +153,8 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 		mnEdit.add(separator);
 
 		JMenuItem mntmFind = new JMenuItem("Find");
-		mntmFind.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,
-				InputEvent.CTRL_MASK));
+		mntmFind.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_F, InputEvent.CTRL_MASK));
 		mntmFind.setMnemonic('F');
 		mntmFind.addActionListener(this);
 		mntmFind.setActionCommand("Find");
@@ -157,97 +162,106 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 
 		JMenuItem mntmReplace = new JMenuItem("Replace");
 		mntmReplace.setMnemonic('R');
-		mntmReplace.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
-				InputEvent.CTRL_MASK));
+		mntmReplace.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_R, InputEvent.CTRL_MASK));
 		mntmReplace.addActionListener(this);
 		mntmReplace.setActionCommand("Replace");
 		mnEdit.add(mntmReplace);
 
 		JMenuItem mntmReplaceAll = new JMenuItem("Replace All");
-		mntmReplaceAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
-				InputEvent.CTRL_MASK));
+		mntmReplaceAll.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_L, InputEvent.CTRL_MASK));
 		mntmReplaceAll.setMnemonic('A');
 		mntmReplaceAll.addActionListener(this);
 		mntmReplaceAll.setActionCommand("ReplaceAll");
 		mnEdit.add(mntmReplaceAll);
 
-		// Setting menu items and their properties located in the Format Menu
+		// Adding menu items and setting properties located in the Format Menu
 		JMenu mnFormat = new JMenu("Format");
 		add(mnFormat);
 
 		JCheckBoxMenuItem mntmBold = new JCheckBoxMenuItem("Bold");
 		mntmBold.setMnemonic('B');
-		mntmBold.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,
-				InputEvent.CTRL_MASK));
+		mntmBold.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_B, InputEvent.CTRL_MASK));
 		mntmBold.addActionListener(this);
 		mntmBold.setActionCommand("Bold");
 		mnFormat.add(mntmBold);
 
 		JCheckBoxMenuItem mntmItalic = new JCheckBoxMenuItem("Italic");
 		mntmItalic.setMnemonic('I');
-		mntmItalic.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I,
-				InputEvent.CTRL_MASK));
+		mntmItalic.setAccelerator
+		(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
 		mntmItalic.addActionListener(this);
 		mntmItalic.setActionCommand("Italic");
 		mnFormat.add(mntmItalic);
 
 		JCheckBoxMenuItem mntmUnderline = new JCheckBoxMenuItem("Underline");
 		mntmUnderline.setMnemonic('U');
-		mntmUnderline.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U,
-				InputEvent.CTRL_MASK));
+		mntmUnderline.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_U, InputEvent.CTRL_MASK));
 		mntmUnderline.setActionCommand("Underline");
 		mntmUnderline.addActionListener(this);
 		mnFormat.add(mntmUnderline);
 
-		// Setting menu items and their properties located in the Image Menu
+		// Adding menu items and setting properties located in the Image Menu
 		JMenu mnImage = new JMenu("Image");
 		add(mnImage);
 
 		JMenuItem uploadImage = new JMenuItem("Upload");
-		uploadImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I,
-				InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		uploadImage.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_I, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		uploadImage.addActionListener(this);
 		uploadImage.setActionCommand("Upload");
 		mnImage.add(uploadImage);
 
 		JMenuItem cropImage = new JMenuItem("Crop");
 		cropImage.setMnemonic('C');
-		cropImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
-				InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		cropImage.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_C, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		cropImage.addActionListener(this);
 		cropImage.setActionCommand("Crop");
 		mnImage.add(cropImage);
 
 		grayscaleImage = new JCheckBoxMenuItem("Grayscale");
 		grayscaleImage.setMnemonic('G');
-		grayscaleImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G,
-				InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		grayscaleImage.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_G, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		grayscaleImage.addActionListener(this);
 		grayscaleImage.setActionCommand("Grayscale");
 		mnImage.add(grayscaleImage);
 
 		JMenuItem resetImage = new JMenuItem("Reset");
 		resetImage.setMnemonic('R');
-		resetImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
-				InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		resetImage.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_R, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		resetImage.addActionListener(this);
 
 		resetImage.setActionCommand("Reset image");
 		mnImage.add(resetImage);
 
-		// Setting menu items and their properties located in the Show Menu
+		// Adding menu items and setting properties located in the Show Menu
 		JMenu mnShow = new JMenu("Show");
 		add(mnShow);
 
-		// Setting menu items and their properties located in the Help Menu
+		// Adding menu items and setting properties located in the Help Menu
 		JMenu mnHelp = new JMenu("Help");
 		add(mnHelp);
 
-		// Setting menu items and their properties located in the About Menu
+		// Adding menu items and setting properties located in the About Menu
 		JMenu mnAbout = new JMenu("About");
 		add(mnAbout);
 	}
 
+	// Setters
+	/*
+	 * Set the directory in which to open the next JFileChooser.
+	 */
+	private void setCurrentDirectoryPath(String newCurDirectoryPath) {
+		this.curDirectoryPath = newCurDirectoryPath;
+		
+	}
+	
 	/**
 	 * Set look and feel
 	 */
@@ -260,7 +274,7 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 		}
 	}
 
-	// PROPERTY-CHANGED-METHODS
+	// PROPERTY-CHANGE-METHODS
 	/**
 	 * Add a PropertyChangeListener given as a parameter.
 	 */
@@ -296,6 +310,18 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 				pcs.firePropertyChange(Labels.NEW_DOC, false, true);
 				// tabbedpane.addTab("Tab 2", null, docView, "unsaved");
 			}
+			break;
+			
+		case "Save":
+			pcs.firePropertyChange(Labels.SAVE_DOC, true, false);
+			break;
+
+		case "SaveAs":
+			pcs.firePropertyChange(Labels.SAVE_DOC_AS, true, false);
+			break;
+
+		case "Open":
+			pcs.firePropertyChange(Labels.OPEN_DOC, true, false);
 			break;
 			
 		case "Exit":
@@ -340,8 +366,8 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 			break;
 
 		case "Find":
-			String text = JOptionPane.showInputDialog(null, null, "Find text",
-					2);
+			String text = JOptionPane.showInputDialog
+			(null, null, "Find text", 2);
 			pcs.firePropertyChange(Labels.FIND_TEXT, null, text);
 			break;
 
@@ -352,23 +378,23 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 			boolean replaceWithNeedsInput = true;
 			boolean replaceNeedsInput = true;
 			while (replaceNeedsInput) {
-				replaceThis = JOptionPane.showInputDialog(null, null,
-						"Replace text", 2);
+				replaceThis = JOptionPane.showInputDialog
+						(null, null, "Replace text", 2);
 				if (replaceThis.isEmpty()) {
-					JOptionPane.showMessageDialog(null,
-							"Please enter a word to replace");
+					JOptionPane.showMessageDialog
+					(null, "Please enter a word to replace");
 				} else {
 					replaceNeedsInput = false;
 					while (replaceWithNeedsInput) {
-						replaceWith = JOptionPane.showInputDialog(null, null,
-								"Replace " + replaceThis + " with:", 2);
+						replaceWith = JOptionPane.showInputDialog
+								(null, null, "Replace " + replaceThis + " with:", 2);
 						if (replaceWith.isEmpty()) {
-							JOptionPane.showMessageDialog(null,
-									"Please enter a word to replace with");
+							JOptionPane.showMessageDialog
+							(null, "Please enter a word to replace with");
 						} else {
 							replaceWithNeedsInput = false;
-							pcs.firePropertyChange(Labels.TEXT_REPLACED, null,
-									replaceThis + "/" + replaceWith);
+							pcs.firePropertyChange(Labels.TEXT_REPLACED, 
+									null, replaceThis + "/" + replaceWith);
 						}
 					}
 				}
@@ -380,15 +406,15 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 			String replaceWiith = null;
 
 			boolean replaceWithNeedsInputA = true;
-			boolean replaceeNeedsInputA = true;
-			while (replaceeNeedsInputA) {
-				replaceThiis = JOptionPane.showInputDialog(null, null,
-						"Replace all text", 2);
+			boolean replaceNeedsInputA = true;
+			while (replaceNeedsInputA) {
+				replaceThiis = JOptionPane.showInputDialog
+						(null, null, "Replace all text", 2);
 				if (replaceThiis.isEmpty()) {
-					JOptionPane.showMessageDialog(null,
-							"Please enter a word to replace");
+					JOptionPane.showMessageDialog
+					(null, "Please enter a word to replace");
 				} else {
-					replaceeNeedsInputA = false;
+					replaceNeedsInputA = false;
 					while (replaceWithNeedsInputA) {
 						replaceWiith = JOptionPane.showInputDialog(null, null,
 								"Replace all " + replaceThiis + " with:", 2);
@@ -419,14 +445,24 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 
 		/* Image related: */
 		case "Upload":
-			JFileChooser chooser = new JFileChooser();
-			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-					"JPG, PNG & GIF Images", "jpg", "gif", "png", "jpeg");
+			JFileChooser chooser;
+			if(this.curDirectoryPath == null){
+				chooser = new JFileChooser();
+			}else{
+				chooser = new JFileChooser(this.curDirectoryPath);
+			}
+			// Let the user choose an image
+			FileNameExtensionFilter filter = new FileNameExtensionFilter
+					("JPG, PNG & GIF Images", "jpg", "gif", "png", "jpeg");
 			chooser.setFileFilter(filter);
 			int returnVal = chooser.showOpenDialog(getParent());
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				String path = chooser.getSelectedFile().getPath();
+				// Set the new lastOpenedDirectoryPath
+				int index = path.lastIndexOf("\"");
+				this.setCurrentDirectoryPath(path.substring(index+1, path.length()-1));
 				System.out.println("You chose to open this file: " + path);
+				// Fire PropertyChangEvent
 				pcs.firePropertyChange(Labels.INSERT_IMAGE, path, false);
 			}
 			break;
@@ -445,18 +481,6 @@ public class MenuBar extends JMenuBar implements ActionListener, MouseListener,
 
 		case "Reset image":
 			pcs.firePropertyChange(Labels.RESET_IMAGE, true, false);
-			break;
-
-		case "Save":
-			pcs.firePropertyChange(Labels.SAVE_DOC, true, false);
-			break;
-
-		case "SaveAs":
-			pcs.firePropertyChange(Labels.SAVE_DOC_AS, true, false);
-			break;
-
-		case "Open":
-			pcs.firePropertyChange(Labels.OPEN_DOC, true, false);
 			break;
 
 		default: // Do nothing, never invoked

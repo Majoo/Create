@@ -18,61 +18,48 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	private PropertyChangeSupport pcs;
 
 	private TemplatePanel templatePnl;
-	// This string is only for debugging:
+	// Initiate a string for debugging
 	private String id;
 
 	/**
 	 * A new DocumentView with the default template is created.
 	 */
 	public DocumentView() {
+		this(new CV_Def());
+	}
+	/*
+	 * A constructor with template panel
+	 */
+	public DocumentView(TemplatePanel templatePanel) {
 		pcs = new PropertyChangeSupport(this);
 		setLayout(new BorderLayout(0, 0));
-		templatePnl = new CV_Def();
-		templatePnl.getHeaderTitle().setText(" [HEADLINE]");
-		templatePnl.getWorkingExperienceText().setText(" [ABOUT YOURSELF]");
-		templatePnl.getHeaderTitle()
-				.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		templatePnl
-				.getWorkingExperienceText()
-				.setToolTipText(
-						"Protip! \nAdjust your way of writing depending on the job you are looking for!");
-		templatePnl
-				.getHeaderTitle()
-				.setToolTipText(
-						"Protip! \r\nUse a creative headline to attract the reader! But be careful to not be too informal.");
-		templatePnl
-				.getCurrentSection()
-				.setToolTipText(
-						"Protip! \r\nAlways use correct information! You must therefore fill in all the blanks!");
-		templatePnl.getCurrentSection().setText(
-				"Name: \r\nAddress: \r\nCity/Zipcode: \r\nPhone:  \r\nEmail: ");
+		this.templatePnl = templatePanel;
+		templatePnl.addPropertyChangeListener(this);
 		add(templatePnl);
-
+		
+		// A Scrollpane to the template panel
 		JScrollPane scroller = new JScrollPane(templatePnl);
-
 		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		add(scroller);
 	}
 
-	public DocumentView(TemplatePanel templatePanel) {
-		pcs = new PropertyChangeSupport(this);
-		this.templatePnl = templatePanel;
-		add(templatePnl);
-	}
-
-	// GETTERS
-	public TemplatePanel getTemplatePanel() {
+	// Get template
+	public TemplatePanel getTemplatePanel(){
 		return templatePnl;
 	}
-
-	// SETTERS
-	public void setTemplate(TemplatePanel tmplPnl) {
+	
+	// Set template
+	public void setTemplate(TemplatePanel tmplPnl){
+		System.out.println("Setting template");
 		this.templatePnl = tmplPnl;
+		this.templatePnl.validate();
+		this.templatePnl.updateUI();
 	}
+	
 
-	// PROPERTY-CHANGED-METHODS
-	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+	//PROPERTY-CHANGED-METHODS
+	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
 	}
 
@@ -82,22 +69,27 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
-
+		System.out.println("In DocView changed");
+		try{
+			pcs.firePropertyChange(evt.getPropertyName(),evt.getOldValue(),
+					evt.getNewValue());
+		} catch (NullPointerException e){
+			
+		}
+		
 	}
-
-	// METHODS USED TO DEBUG
+	
 	/*
-	 * Get String-ID
+	 * Methods used to debug
 	 */
-	public String getID() {
+	
+	// Get String-ID
+	public String getID(){
 		return this.id;
 	}
-
-	/*
-	 * Set String-ID
-	 */
-	public void setID(String newID) {
+	
+	// Set String-ID
+	public void setID(String newID){
 		this.id = newID;
 	}
 

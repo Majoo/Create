@@ -15,10 +15,9 @@ import se.chalmers.tda367.group25.resumate.views.DocumentView;
 public class DocumentController {
 
 	// Each value (List) holds a Document object and a DocumentView object
-	private Map<String, List<Object>> docAndDocView;
-
+	private Map<Integer, List<Object>> docAndDocView;
 	// The current used set of Document and DocumentView
-	private String current;
+	private int curID;
 
 	/**
 	 * Constructs a new DocumentController with the DocumentView to be placed in
@@ -26,16 +25,15 @@ public class DocumentController {
 	 */
 	public DocumentController() {
 		// Instantiate Map
-		this.docAndDocView = new HashMap<String, List<Object>>(20);
+		this.docAndDocView = new HashMap<Integer, List<Object>>(20);
 		
 		//create first document
 		Document d = new Document();
 		List<Object> first = new ArrayList(2);
 		first.add(d);
-		// The view is created in MainView and then sent here
-		// and put in the map with addDocView
-		setCurrent("first");
-		this.docAndDocView.put(getCurrent(), first);
+		
+		setCurrentID(0);
+		this.docAndDocView.put(getCurrentID(), first);
 	}
 
 	//GETTERS
@@ -62,7 +60,7 @@ public class DocumentController {
 	public DocumentView separateDocView(List<Object> pair){
 		DocumentView v = null;
 		for (Object o : pair) {
-			if (o instanceof Document) {
+			if (o instanceof DocumentView) {
 				v = (DocumentView) o;
 			}
 		}
@@ -92,15 +90,7 @@ public class DocumentController {
 		System.out.println(d+" in docCon.separateDocument(docview)");
 		return d;
 	}
-	
-	/**
-	 * Randomly generates a key for a value in the docAndDocView Map.
-	 * 
-	 * @return random key
-	 */
-	private String generateKey() {
-		return "apa";
-	}
+
 	
 	/**
 	 * Returns the Key to the current DocAndDocView couple currently in use by
@@ -108,8 +98,8 @@ public class DocumentController {
 	 * 
 	 * @return The String Key to the current couple
 	 */
-	public String getCurrent() {
-		return this.current;
+	public int getCurrentID() {
+		return this.curID;
 	}
 
 	/**
@@ -120,8 +110,8 @@ public class DocumentController {
 	 *            the ID of the Document to return
 	 * @return the Document in given by the parameter ID
 	 */
-	public Document getDoc(String ID) {
-		List<Object> list = docAndDocView.get(ID);
+	public Document getDoc(int id) {
+		List<Object> list = docAndDocView.get(new Integer(id));
 		Document doc;
 		for (Object o : list) {
 			if (o instanceof Document) {
@@ -141,8 +131,8 @@ public class DocumentController {
 	 *            the ID of the DocumentView to return
 	 * @return the DocumentView given by the parameter ID
 	 */
-	public DocumentView getView(String ID) {
-		List<Object> list = docAndDocView.get(ID);
+	public DocumentView getView(int id) {
+		List<Object> list = docAndDocView.get(new Integer(id));
 		DocumentView v;
 		for (Object o : list) {
 			if (o instanceof DocumentView) {
@@ -176,7 +166,7 @@ public class DocumentController {
 	 * @param d
 	 *            the Document to add
 	 */
-	public void addDoc(String ID, Document d) {
+	public void addDoc(int ID, Document d) {
 		List<Object> list;
 		if (!docAndDocView.containsKey(ID)) {
 			list = new ArrayList<Object>(2);
@@ -195,14 +185,13 @@ public class DocumentController {
 	 * @param v
 	 *            the DocumentView to add
 	 */
-	public void addDocView(String ID, DocumentView v) {
+	public void addDocView(int ID, DocumentView v) {
 		List<Object> list;
 		if (!docAndDocView.containsKey(ID)) {
 			list = new ArrayList<Object>(2);
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(v);
-		System.out.println("I addDocView(), ID: "+v.getID());
 		//Problem: om listan redan finns och redan innehåller en av varje.
 
 	}
@@ -213,8 +202,8 @@ public class DocumentController {
 	 * @param current
 	 *            the String Key
 	 */
-	public void setCurrent(String current) {
-		this.current = current;
+	public void setCurrentID(int currentID) {
+		this.curID = currentID;
 	}
 		
 }

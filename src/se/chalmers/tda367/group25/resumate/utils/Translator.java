@@ -60,27 +60,26 @@ public class Translator {
 		if(o instanceof Template){
 			template = (Template)o;
 		}
-		
 		System.out.println(template);
 		
 		switch(template){
-		
+
 		case DEF_CV:
 			panel = new CV_Def(); 
 			break;
-		
+
 		case DEF_PL:
 			panel = new PL_Def();
 			break;
-			
+
 		case CLASSY_CV:
 			panel = new CV_Classy();
 			break;
-		
+
 		default: //Do nothing, never invoke
-			
+
 		}
-		
+			
 		return panel;
 	}
 	
@@ -99,10 +98,6 @@ public class Translator {
 		String name = container.getName();
 		SectionType section = null;
 		
-		if(name.equals(null)){
-			System.out.println("name is null");
-		}
-		
 		switch(name){
 		case "personalInfoText":
 			section = SectionType.PERSONAL_INFO;
@@ -119,10 +114,7 @@ public class Translator {
 		default: //Do nothing, never invoked.
 		
 		}
-		
-		if(section.equals(null)){
-			System.out.println("Sectiontype is null");
-		}
+
 		
 		return section;
 	}
@@ -180,14 +172,14 @@ public class Translator {
 	/**
 	 * Takes in a String that represents an image in the filesystem
 	 * and converts it to a BufferedImage.
-	 * @param filename 
+	 * @param filepath 
 	 * 					the filename of the image to make a BufferedImage from
 	 * @return a BufferedImage
 	 */
-	public static BufferedImage stringToImage(String filename) {
+	public static BufferedImage stringToImage(String filepath) {
 		BufferedImage img = null;
 		try{
-			img = ImageIO.read(new File(filename));
+			img = ImageIO.read(new File(filepath));
 		}catch(IOException e){
 			System.out.println("Kunde inte �vers�tta filnamn till BufferedImage i Translator");
 		}

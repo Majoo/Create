@@ -15,6 +15,7 @@ import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
+import se.chalmers.tda367.group25.resumate.views.MainViewInterface;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 import se.chalmers.tda367.group25.resumate.utils.ViewHandler;
 
@@ -23,7 +24,6 @@ public class MainController implements PropertyChangeListener {
 	private DocumentController docCon;
 	private IOController ioCon;
 	private MainView mainView;
-	private String tabbedPanel;
 
 	/**
 	 * An application with the default document is created.
@@ -70,15 +70,16 @@ public class MainController implements PropertyChangeListener {
 			String eduText = curTemp.getEducationText().getText();
 			
 			TemplatePanel tempChange = Translator.templateToPanel(e.getNewValue());
+			System.out.println(tempChange);
 			tempChange.getWorkingExperienceText().setText(workText);
 			tempChange.getPersonalInfoText().setText(persText);
 			tempChange.getHeaderTitle().setText(headText);
 			tempChange.getEducationText().setText(eduText);
 			
-			System.out.println(workText);
+			/*System.out.println(workText);
 			System.out.println(persText);
 			System.out.println(headText);
-			System.out.println(eduText);
+			System.out.println(eduText);*/
 			
 			mainView.getCurDocView().setTemplate(tempChange);
 			mainView.validate();
@@ -102,9 +103,12 @@ public class MainController implements PropertyChangeListener {
 	private void initialPropertyChange(PropertyChangeEvent e) {
 		switch(e.getPropertyName()){
 		case Labels.SEND_INITIAL_DVIEW:
-			DocumentView docView = (DocumentView)e.getOldValue();
-			docCon.addDocView((String)e.getNewValue()
-					,docView);
+			if(e.getOldValue() instanceof DocumentView 
+					&& e.getNewValue() instanceof Integer){
+				DocumentView docView = (DocumentView)e.getOldValue();
+				docCon.addDocView((Integer)e.getNewValue()
+						,docView);
+			}
 			break;
 		default: 
 			//Do nothing, never invoked
@@ -125,13 +129,13 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.SAVE_DOC:
-			if (docCon.getDoc(docCon.getCurrent()).getFilePath().isEmpty()) {
+			if (docCon.getDoc(docCon.getCurrentID()).getFilePath().isEmpty()) {
 				ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
-						docCon.getDoc(docCon.getCurrent()).getStrings(), null);
+						docCon.getDoc(docCon.getCurrentID()).getStrings(), null);
 			} else {
 				ioCon.chooseFunction(Labels.SAVE_DOC, null,
-						docCon.getDoc(docCon.getCurrent()).getStrings(), docCon
-								.getDoc(docCon.getCurrent()).getFilePath());
+						docCon.getDoc(docCon.getCurrentID()).getStrings(), docCon
+								.getDoc(docCon.getCurrentID()).getFilePath());
 			}
 
 		case Labels.SAVE_DOC_AS:
@@ -158,7 +162,7 @@ public class MainController implements PropertyChangeListener {
 		case Labels.EXPORT_DOC:
 			ViewHandler.removeBorder(mainView.getCurDocView().getTemplatePanel());
 			ioCon.chooseFunction(Labels.EXPORT_DOC,
-					docCon.getView(docCon.getCurrent()).getTemplatePanel(),
+					docCon.getView(docCon.getCurrentID()).getTemplatePanel(),
 					null, null);
 			ViewHandler.setBackBorder(mainView.getCurDocView().getTemplatePanel());
 			break;
@@ -173,10 +177,7 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.NEW_DOC:
-			// No gui-elements in the controller pls!
-			// JTabbedPane jtbExample = new JTabbedPane();
-			// jtbExample.addTab(tabbedPanel);
-			// jtbExample.setSelectedIndex(0);
+			// To be implemented
 			break;
 
 		default:
@@ -201,7 +202,7 @@ public class MainController implements PropertyChangeListener {
 		 */
 		JTextPane curTextSection = mainView.getCurDocView().getTemplatePanel()
 				.getCurrentSection();
-		RMText curRMText = docCon.getDoc(docCon.getCurrent()).getTexts()
+		RMText curRMText = docCon.getDoc(docCon.getCurrentID()).getTexts()
 				.get(Translator.containerToSectionType(curTextSection));
 		
 		switch(e.getPropertyName()){
@@ -284,11 +285,11 @@ public class MainController implements PropertyChangeListener {
 			JTextPane textAreaWork = mainView.getCurDocView()
 					.getTemplatePanel().getWorkingExperienceText();
 
-			RMText textPersonal = docCon.getDoc(docCon.getCurrent()).getTexts()
+			RMText textPersonal = docCon.getDoc(docCon.getCurrentID()).getTexts()
 					.get(Translator.containerToSectionType(textAreaPersonal));
-			RMText textHeader = docCon.getDoc(docCon.getCurrent()).getTexts()
+			RMText textHeader = docCon.getDoc(docCon.getCurrentID()).getTexts()
 					.get(Translator.containerToSectionType(textAreaHeader));
-			RMText textWork = docCon.getDoc(docCon.getCurrent()).getTexts()
+			RMText textWork = docCon.getDoc(docCon.getCurrentID()).getTexts()
 					.get(Translator.containerToSectionType(textAreaWork));
 
 			textPersonal.replaceText(textAreaPersonal, replaceA, replaceWithA);
@@ -334,13 +335,13 @@ public class MainController implements PropertyChangeListener {
 	 *            the event to be handled
 	 */
 	private void imagePropertyChange(PropertyChangeEvent e) {
-		DocumentView docView = mainView.getCurDocView();
+		DocumentView docView = docCon.getView(0);
 		Document doc = docCon.separateDocument(docView);
 
 		switch (e.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
-			BufferedImage img = Translator.stringToImage((String) e
-					.getOldValue());
+			BufferedImage img = Translator.stringToImage(e
+					.getOldValue().toString());
 			// Update the image of the Document associated with the DocumentView
 			// in focus.
 			docCon.updateImage(doc, img);
@@ -366,10 +367,12 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.CROP_IMAGE:
-			Rectangle rect = (Rectangle) e.getOldValue();
-			doc.getImage().crop(rect);
-			// Then update the view with the image of the Document.
-			docView.getTemplatePanel().showImage(doc.getImage().getCurImage());
+			if(e.getOldValue() instanceof Rectangle){
+				Rectangle rect = (Rectangle) e.getOldValue();
+				doc.getImage().crop(rect);
+				// Then update the view with the image of the Document.
+				docView.getTemplatePanel().showImage(doc.getImage().getCurImage());
+			}
 			break;
 		default:
 			// Do nothing, never invoked

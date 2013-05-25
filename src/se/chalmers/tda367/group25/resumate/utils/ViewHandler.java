@@ -1,15 +1,15 @@
 package se.chalmers.tda367.group25.resumate.utils;
 
 import java.awt.Color;
-import java.awt.Paint;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.JTextComponent;
@@ -21,6 +21,9 @@ import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 
 public class ViewHandler {
+	
+	private static int isFalse = 0;
+	
 	/**
 	 * Searches after the String input in variable text. 
 	 * If it is found then the current textcontainer will mark this text.
@@ -68,13 +71,21 @@ public class ViewHandler {
 			} else {
 				isSearching = false;
 				if (matchesFound == 0) {
-					JOptionPane.showMessageDialog(null, "'" + input
-							+ "' not found.");
-				}
+					isFalse++;
+				} 
 			}
 		}
 	//	JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
 	}
+	
+	public static void showNoMatchesPopUp(String input, int searchedComponents){
+		if(isFalse == searchedComponents){
+			JOptionPane.showMessageDialog(null, "'" + input
+					+ "' not found.");
+		}
+	}
+	
+	
 	/**
 	 * Copy the text made in the current textarea.
 	 * @param section
@@ -162,11 +173,9 @@ public class ViewHandler {
 	 * @param p
 	 * 		the template to remove the borders from.	
 	 */	
-	/*public static void removeBorder(TemplatePanel p){
-		p.getPersonalInfoText().setBorder(null);
-		p.getWorkingExperienceText().setBorder(null);
-		p.getHeaderTitle().setBorder(null);
-		p.getEducationText().setBorder(null);
+	public static void removeBorder(TemplatePanel p){
+		for(JComponent comp :p.getBorderedComponents())
+			comp.setBorder(null);
 	}
 	
 	/**
@@ -175,13 +184,10 @@ public class ViewHandler {
 	 * @param p
 	 * 		the template to set the back the borders to.
 	 */
-	/*public static void setBackBorder(TemplatePanel p){
-		Paint blackPaint = Color.black;
-		p.getPersonalInfoText().setBorder(BorderFactory.createDashedBorder(blackPaint));
-		p.getWorkingExperienceText().setBorder(BorderFactory.createDashedBorder(blackPaint));
-		p.getHeaderTitle().setBorder(BorderFactory.createDashedBorder(blackPaint));
-		p.getEducationText().setBorder(BorderFactory.createDashedBorder(blackPaint));
-	}*/
+	public static void setBackBorder(TemplatePanel p){
+		for(JComponent comp :p.getBorderedComponents())
+			comp.setBorder(BorderFactory.createDashedBorder(Color.black));
+	}
 	
 	/*public static void changeTemplate(TemplatePanel previous, TemplatePanel current){
 

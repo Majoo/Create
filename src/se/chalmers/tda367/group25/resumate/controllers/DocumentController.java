@@ -211,6 +211,17 @@ public class DocumentController implements PropertyChangeListener{
 		this.curID = currentID;
 	}
 
+	
+	
+	
+	//Other
+	public void saveTexts(){
+		//Get the text from TemplatePanel & Store in Text Section
+		
+	}
+	
+	
+	
 	//-----PropertyChanged-Methods------
 	
 	 /** Adds a propertychange listnener to this class.

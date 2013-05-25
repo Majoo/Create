@@ -19,12 +19,13 @@ public abstract class AbsTextSection implements ITextSection {
 	private SectionType secType;
 	private Map<String, Boolean> styles;
 
-	public AbsTextSection(SectionType section,String font, String color, int size) {
+	public AbsTextSection(SectionType section, String font, String color,
+			int size) {
 		this.secType = section;
 		this.font = font;
 		this.color = color;
 		this.size = size;
-		
+
 		if (section.equals(SectionType.HEADER)
 				|| section.equals(SectionType.PERSONAL_INFO)) {
 			this.styles = new HashMap<String, Boolean>();
@@ -84,7 +85,7 @@ public abstract class AbsTextSection implements ITextSection {
 				font = currentFont.deriveFont(currentFont.getStyle()
 						& ~Font.BOLD);
 			}
-			//Styles.B = !Styles.B;
+			Styles.B = !Styles.B;
 			styles.put("B", Styles.B);
 			break;
 
@@ -96,7 +97,7 @@ public abstract class AbsTextSection implements ITextSection {
 				font = currentFont.deriveFont(currentFont.getStyle()
 						& ~Font.ITALIC);
 			}
-		//	Styles.I = !Styles.I;
+			Styles.I = !Styles.I;
 			styles.put("I", Styles.I);
 			break;
 
@@ -109,59 +110,57 @@ public abstract class AbsTextSection implements ITextSection {
 			} else {
 				attributes.put(TextAttribute.UNDERLINE, -1);
 			}
-			//Styles.U = !Styles.U;
+			Styles.U = !Styles.U;
 			styles.put("U", Styles.U);
 			font = currentFont.deriveFont(attributes);
 		}
 		section.setFont(font);
 	}
 
-	
 	/**
-	 * Changes the colour in the textarea 
+	 * Changes the colour in the textarea
 	 * 
 	 * @param section
-	 * 			the textarea of which its colour is to be changed
+	 *            the textarea of which its colour is to be changed
 	 * @param col
-	 * 			the colour which the textarea is to be updated with
+	 *            the colour which the textarea is to be updated with
 	 */
 	public void changeColor(JTextComponent section, Color col, String colour) {
 		this.color = colour;
 		section.setForeground(col);
 
-	}	
-	
+	}
+
 	// GETTERS
-	
+
 	/**
-	 * Returns SectionType of this RMText.
+	 * Returns SectionType of this text section.
 	 * 
-	 * @return the SectionType of this RMText
+	 * @return the SectionType of this text section
 	 */
 	public SectionType getSecType() {
 		return this.secType;
 	}
 
 	/**
-	 * Returns the font of the RMText
+	 * Returns the font of the text section
 	 */
 	public String getFont() {
 		return this.font;
 	}
 
 	/**
-	 * Returns the size of the RMText
+	 * Returns the size of the text section
 	 */
 	public int getSize() {
 		return this.size;
 	}
-	
+
 	/**
-	 * Returns the colour of the RMText
+	 * Returns the colour of the text section
 	 */
-	public String getColor(){
+	public String getColor() {
 		return this.color;
 	}
-
 
 }

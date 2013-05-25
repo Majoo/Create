@@ -59,6 +59,10 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	//List of those who should have a border that can be removed easily.
 	int nbrOfBorderedComponents = 17;
 	private ArrayList<JComponent> borderedComponents = new ArrayList<JComponent>(nbrOfBorderedComponents);
+	
+	//List/Map for field
+	//List/Map for title
+	//List/Map for headers
 
  	/**
  	 * Create the panel. 
@@ -445,9 +449,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public void focusGained(FocusEvent arg0) {
 		if(arg0.getComponent() instanceof JTextComponent){
 			currentSection = (JTextComponent)arg0.getComponent();
-			System.out.println("" + currentSection.getName());
 			pcs.firePropertyChange(Labels.TEXTAREA_CHANGED, false, true);
-			System.out.println("focus");
 		}
 	}
 

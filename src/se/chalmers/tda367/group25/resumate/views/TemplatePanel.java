@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.undo.UndoManager;
 
@@ -28,9 +29,16 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 
 	private JTextPane personalInfoText;
 	private JTextPane workingExperienceText;
-	private JTextPane headerTitle;
+	private JTextPane headerTF;
 	private JTextPane educationText;
 	private JLabel imageLbl;
+	
+	private JTextField txtName;
+	private JTextField txtCityzipcode;
+	private JTextField txtAddress;
+	private JTextField txtPhone;
+	private JTextField txtEmail;
+	private JTextField txtEmpty;
 	
 	private JTextPane currentSection;
 	private PropertyChangeSupport pcs;
@@ -56,16 +64,16 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		Paint blackPaint = Color.black;
 		personalInfoText.setBorder(BorderFactory.createDashedBorder(blackPaint));
 		
-		this.headerTitle = new JTextPane();
-		headerTitle.setName("headerTitle");
-		headerTitle.setText("[HEADLINE]");
-		headerTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		headerTitle.setToolTipText("Protip! " +
+		this.headerTF = new JTextPane();
+		headerTF.setName("headerTitle");
+		headerTF.setText("[HEADLINE]");
+		headerTF.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		headerTF.setToolTipText("Protip! " +
 				"\r\nUse a creative headline to attract the reader! " +
 				"But be careful to not be too informal.");
-		headerTitle.setBorder(BorderFactory.createDashedBorder(blackPaint));
-		headerTitle.addFocusListener(this);
-		headerTitle.getDocument().addUndoableEditListener(manager);
+		headerTF.setBorder(BorderFactory.createDashedBorder(blackPaint));
+		headerTF.addFocusListener(this);
+		headerTF.getDocument().addUndoableEditListener(manager);
 		
 		
 		this.workingExperienceText = new JTextPane();
@@ -118,7 +126,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	 * @return JTextPane for other texts
 	 */
 	public JTextPane getHeaderTitle() {
-		return headerTitle;
+		return headerTF;
 	}
 	
 	/**

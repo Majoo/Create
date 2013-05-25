@@ -176,7 +176,6 @@ public class Document implements DocumentInterface{
 	 */
 	public void setImage(BufferedImage image) {
 		this.rmI.setImage(image);
-
 	}
 
 	/**

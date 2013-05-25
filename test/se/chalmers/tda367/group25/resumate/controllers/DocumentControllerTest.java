@@ -14,26 +14,26 @@ public class DocumentControllerTest {
 
 	@Test
 	public void addDocViewTest() {
-		String ID = "ID";
-		docCon.addDocView(ID, dv);
+		int id = 2;
+		docCon.addDocView(id, dv);
 
-		assertTrue(docCon.getView(ID)== dv);
+		assertTrue(docCon.getView(id)== dv);
 	}
 	
 	@Test
 	public void getDocTest() {		
-		Document doc = docCon.getDoc(docCon.getCurrent());
+		Document doc = docCon.getDoc(docCon.getCurrentID());
 		
-		assertTrue(docCon.getDoc(docCon.getCurrent()) != null);
+		assertTrue(docCon.getDoc(docCon.getCurrentID()) != null);
 		
 	}
 	
 	@Test
 	public void separateDocTest() {
-		docCon.addDocView("first", dv);
+		docCon.addDocView(3, dv);
 		Document doc = docCon.separateDocument(dv);
 		
-		assertTrue(doc == docCon.getDoc("first"));
+		assertTrue(doc == docCon.getDoc(3));
 		
 	}
 

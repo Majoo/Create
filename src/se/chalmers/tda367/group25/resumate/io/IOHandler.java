@@ -5,12 +5,12 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Map;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
@@ -61,27 +61,43 @@ public class IOHandler {
 	}
 
 	/**
-	 * Open file. Synchronized for sake of eventual thread safety.
+	 ** Open file. Synchronized for sake of eventual thread safety.
 	 * 
 	 * @param fileName
 	 *            the file to open
+	 * @return
 	 * @throws IOException
-	 * 
 	 */
 	public static synchronized Map<SectionType, String> openFile(String fileName)
 			throws IOException {
 		System.out.println("In openFile");
 		File chosenDir = new File(fileName);
 		File rsmtInDir = new File(fileName + "\\Project.rsmt");
-		String data;
 
 		if (chosenDir.isDirectory() && rsmtInDir.exists()) {
 			System.out.println("In if-block in openFile");
 
-			data = readSingleFile(rsmtInDir);
-//			if(data.contains(Labels)){
-//				
-//			}
+			Map<SectionType, String> strings = new HashMap<SectionType, String>(
+					3);
+			String data = readSingleFile(rsmtInDir);
+			if (data.contains("PERSONAL_INFO")) {
+				strings.put(SectionType.PERSONAL_INFO, readSingleFile(new File(
+						chosenDir + "\\PERSONAL_INFO.txt")));
+			}
+			if (data.contains("WORK_EXPERIENCE")) {
+				strings.put(SectionType.WORK_EXPERIENCE,
+						readSingleFile(new File(chosenDir
+								+ "\\WORK_EXPERIENCE.txt")));
+			}
+			if (data.contains("EDUCATION")) {
+				strings.put(SectionType.EDUCATION, readSingleFile(new File(
+						chosenDir + "\\EDUCATION.txt")));
+			}
+			if (data.contains("HEADER")) {
+				strings.put(SectionType.HEADER, readSingleFile(new File(
+						chosenDir + "\\HEADER.txt")));
+			}
+			return strings;
 		}
 		throw new IOException("Not project folder");
 	}

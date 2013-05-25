@@ -21,7 +21,7 @@ public class PL_Def extends TemplatePanel{
 									//.addComponent(getWorkingExperienceText(), GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(getEducationText(), GroupLayout.PREFERRED_SIZE, 500, Short.MAX_VALUE))
-								.addComponent(getHeaderTitle(), GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+								.addComponent(getWorkExpHeader(), GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
 								.addGroup(Alignment.CENTER, groupLayout.createSequentialGroup()
 									.addComponent(getImageLabel(), GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
 									.addGap(10)
@@ -39,7 +39,7 @@ public class PL_Def extends TemplatePanel{
 								.addComponent(getImageLabel(), Alignment.CENTER, GroupLayout.PREFERRED_SIZE, 10, Short.MAX_VALUE))
 							.addContainerGap()
 								.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(getHeaderTitle(), GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
+							.addComponent(getWorkExpHeader(), GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
 						
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.CENTER)

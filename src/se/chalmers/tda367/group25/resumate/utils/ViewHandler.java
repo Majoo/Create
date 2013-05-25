@@ -159,8 +159,8 @@ public class ViewHandler {
 	 * 
 	 * @param p
 	 * 		the template to remove the borders from.	
-	 */
-	public static void removeBorder(TemplatePanel p){
+	 */	
+	/*public static void removeBorder(TemplatePanel p){
 		p.getPersonalInfoText().setBorder(null);
 		p.getWorkingExperienceText().setBorder(null);
 		p.getHeaderTitle().setBorder(null);
@@ -173,15 +173,15 @@ public class ViewHandler {
 	 * @param p
 	 * 		the template to set the back the borders to.
 	 */
-	public static void setBackBorder(TemplatePanel p){
+	/*public static void setBackBorder(TemplatePanel p){
 		Paint blackPaint = Color.black;
 		p.getPersonalInfoText().setBorder(BorderFactory.createDashedBorder(blackPaint));
 		p.getWorkingExperienceText().setBorder(BorderFactory.createDashedBorder(blackPaint));
 		p.getHeaderTitle().setBorder(BorderFactory.createDashedBorder(blackPaint));
 		p.getEducationText().setBorder(BorderFactory.createDashedBorder(blackPaint));
-	}
+	}*/
 	
-	public static void changeTemplate(TemplatePanel previous, TemplatePanel current){
+	/*public static void changeTemplate(TemplatePanel previous, TemplatePanel current){
 
 		String workText = previous.getWorkingExperienceText().getText();
 		String persText = previous.getPersonalInfoText().getText();
@@ -201,4 +201,4 @@ public class ViewHandler {
 	}
 	
 	
-}
+

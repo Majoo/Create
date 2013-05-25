@@ -45,6 +45,7 @@ public class Labels {
 	public static final String SCALE_IMAGE = "SCALE_IMAGE";
 	public static final String GRAYSCALE_IMAGE = "GRAYSCALE_IMAGE";
 	public static final String RESET_IMAGE = "RESET_IMAGE";
+	public static final String SEND_INITIAL_TSECTIONS = "SEND_INITIAL_TSECTIONS";
 
 	public static final String DOC_LOAD = "DOC_LOAD"; //WORK IN PROGRESS
 }

@@ -38,7 +38,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 		this.templatePnl = templatePanel;
 		templatePnl.getWorkingExperienceText().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		templatePnl.getCurrentSection().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 27));
+		//templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 27));
 		templatePnl.addPropertyChangeListener(this);
 		add(templatePnl);
 		

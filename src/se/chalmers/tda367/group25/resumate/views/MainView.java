@@ -96,30 +96,43 @@ public class MainView extends JFrame implements MainViewInterface {
 		docView.getTemplatePanel().setToolTipText("Protip!\r\n " +
 				"The best way of writing a Curriculum Vitae " +
 				"or Personal Letter is to make it interesting. \r\n");
-		docView.setID("First DocumentView");
 		docViewList.add(docView);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
 		tabbedPane.setSelectedComponent(docView);
-		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
-		tabbedPane.setTabComponentAt(0, ctb);
-
-		System.out.println(getCurDocView().getID());
 
 		// Update the frame
 		this.invalidate();
 		this.validate();
 	}
 
-	// Property Change-methods
+	//-----PropertyChanged-Methods------
+	/**
+	 * Adds a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be registered
+	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.addPropertyChangeListener(pcl);
 	}
 
+	/**
+	 * Removes a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be unregistered
+	 */
 	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.removePropertyChangeListener(pcl);
 	}
 
+	/**
+	 * Fires the propertychange event further to the main controller
+	 * where the events are to be handled.
+	 * 
+	 * @param arg0
+	 * 		the source of the event
+	 * 		
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		try{
@@ -130,7 +143,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		}
 	}
 
-	// Getters
+	//-----Getters------
 	/**
 	 * Get the DocView in the tab that is currently in focus.
 	 * 
@@ -150,7 +163,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		return toolbarPanel;
 	}
 
-	// Setters
+	//----Setters------
 	/**
 	 * Creates a new tab and puts a DocumentView within it. 
 	 * 
@@ -167,7 +180,7 @@ public class MainView extends JFrame implements MainViewInterface {
 	 */
 	public void sendInitialDocView() {
 		DocumentView docView = this.docViewList.get(0);
-		pcs.firePropertyChange(Labels.SEND_INITIAL_DVIEW, docView, "first");
+		pcs.firePropertyChange(Labels.SEND_INITIAL_DVIEW, docView, 0);
 	}
 
 }

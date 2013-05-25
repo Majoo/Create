@@ -1,5 +1,7 @@
 package se.chalmers.tda367.group25.resumate.utils;
 
+import java.beans.PropertyChangeEvent;
+
 /**
  * The Template enum is used to decide what kind 
  * of label it is
@@ -8,8 +10,10 @@ package se.chalmers.tda367.group25.resumate.utils;
 public class Labels {
 	
 	public static final String SEND_INITIAL_DVIEW = "SEND_INITIAL_DVIEW";
+	public static final String SEND_INITIAL_TSECTIONS = "SEND_INITIAL_TSECTIONS";
 	public static final String TEMPLATE_CHANGED = "TEMPLATE_CHANGED";
 	public static final String TEXTAREA_CHANGED = "TEXTAREA_CHANGED";
+	public static final String UPDATE_INITIAL_TOOLBAR = "UPDATE_INITIAL_TOOLBAR";
 	
 	public static final String SAVE_DOC = "SAVE_DOC";
 	public static final String SAVE_DOC_AS = "SAVE_DOC_AS";
@@ -42,8 +46,5 @@ public class Labels {
 	public static final String GRAYSCALE_IMAGE = "GRAYSCALE_IMAGE";
 	public static final String RESET_IMAGE = "RESET_IMAGE";
 
-	
-
-	
 }
 	

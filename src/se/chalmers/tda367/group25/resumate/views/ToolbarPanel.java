@@ -150,7 +150,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		textSizeCB.setModel(new DefaultComboBoxModel(new String[] 
 				{"9", "10", "11", "12", "13", "14", "15", "16", 
 				"18", "20", "22", "24", "26", "28", "30", "32"}));
-
+		
 		// Setting properties for the button which makes the text bold
 		JToggleButton btnBold = new JToggleButton("B");
 		btnBold.setToolTipText("Protip! " +
@@ -293,19 +293,22 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		tempPanel.add(otherTemps);
 		add(tempPanel);
 
-		// PropertyChangeSupport
 		pcs = new PropertyChangeSupport(this);
 	}
 
 	/**
-	 * Add a PropertyChangeListener given as a parameter.
+	 * Adds a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be registered
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
 	}
 
 	/**
-	 * Remove the PropertyChangeListener given as a parameter.
+	 * Removes a propertychange listnener to this class.
+	 * @param pcl
+	 * 			the listener to be unregistered
 	 */
 	public void removePropertyChangeListener(PropertyChangeListener pcl){
 		pcs.removePropertyChangeListener(pcl);
@@ -314,6 +317,9 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 	/**
 	 * Settles the actions to be performed depeding on 
 	 * which component which was the source.
+	 * 
+	 * @param arg0
+	 * 			the source of the events
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		
@@ -391,7 +397,8 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		case "DefCV":
 			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.DEF_CV);
 			break;
-		case "ClassyCV":
+		case "ClassyCV":			
+			System.out.println("sends event with CLASSY_CV");
 			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.CLASSY_CV);
 			break;		
 			
@@ -399,7 +406,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		}
 	}
 	
-	// GETTERS
+	//-----Getters------
 	
 	public JComboBox getTextSizeCombo(){
 		return textSizeCB;

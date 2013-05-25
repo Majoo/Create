@@ -23,6 +23,7 @@ import com.itextpdf.text.DocumentException;
  * @author Laszlo Sall Vesselenyi
  */
 public class IOController {
+	private String curPath;
 
 	public IOController() {
 	}
@@ -91,12 +92,18 @@ public class IOController {
 			Map<SectionType, String> strings) throws FileNotFoundException,
 			DocumentException, NullPointerException {
 
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser;
+		if(this.curPath == null){
+			chooser = new JFileChooser();
+		}else{
+			chooser = new JFileChooser(this.curPath);
+		}
 		setChooser(chooser, function);
 
 		int returnVal = chooser.showDialog(null, getApproveText(function));
 
 		String filePath = chooser.getCurrentDirectory().getPath();
+		setCurrentPath(filePath);
 		String fileName = chooser.getSelectedFile().getName();
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -176,5 +183,13 @@ public class IOController {
 		} else {
 			return null;
 		}
+	}
+	
+	/*
+	 * Set the directory in which to open the next JFileChooser.
+	 */
+	private void setCurrentPath(String filePath) {
+		this.curPath = filePath;
+		
 	}
 }

@@ -10,5 +10,4 @@ public enum SectionType {
 	WORK_EXPERIENCE,
 	EDUCATION,
 	HEADER,
-	EMPTY;
 }

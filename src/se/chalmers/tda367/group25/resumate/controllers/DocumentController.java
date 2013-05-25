@@ -13,7 +13,7 @@ import java.util.Map;
 import javax.swing.JTextPane;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
-import se.chalmers.tda367.group25.resumate.model.RMText;
+import se.chalmers.tda367.group25.resumate.model.TextSection;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
@@ -38,10 +38,6 @@ public class DocumentController implements PropertyChangeListener{
 		Document d = new Document();
 		List<Object> first = new ArrayList(2);
 		first.add(d);
-<<<<<<< HEAD
-=======
-		
->>>>>>> 29ca3bb4a791e92e95595b4f437b7ae748471088
 		setCurrentID(0);
 		this.docAndDocView.put(getCurrentID(), first);
 	}
@@ -214,7 +210,6 @@ public class DocumentController implements PropertyChangeListener{
 	 */
 	public void setCurrentID(int currentID) {
 		this.curID = currentID;
-<<<<<<< HEAD
 	}
 
 	//-----PropertyChanged-Methods------
@@ -265,9 +260,6 @@ public class DocumentController implements PropertyChangeListener{
 					arg0.getNewValue());
 			
 		}
-		
-=======
->>>>>>> 29ca3bb4a791e92e95595b4f437b7ae748471088
 	}
 		
 }

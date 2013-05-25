@@ -76,11 +76,6 @@ public class IOHandler {
 			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
 					strings.get(SectionType.WORK_EXPERIENCE));
 		}
-		if (strings.containsKey(SectionType.EMPTY)) {
-			System.out.println("EMPTY");
-			writeSingleFile(new File(fileName + "\\EMPTY.txt"),
-					strings.get(SectionType.EMPTY));
-		}
 		BufferedWriter w = new BufferedWriter(new FileWriter(fileName
 				+ "\\Project.rsmt"));
 		w.write("Hello");

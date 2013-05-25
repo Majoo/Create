@@ -8,7 +8,8 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JTextPane;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
-import se.chalmers.tda367.group25.resumate.model.RMText;
+import se.chalmers.tda367.group25.resumate.model.ITextSection;
+import se.chalmers.tda367.group25.resumate.model.TextSection;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.utils.ViewHandler;
@@ -96,7 +97,7 @@ public class MainController implements PropertyChangeListener {
 		case Labels.UPDATE_INITIAL_TOOLBAR:
 			JTextPane curTextSection = docCon.getView(docCon.getCurrentID()).getTemplatePanel()
 			.getCurrentSection();
-			RMText curRMText = docCon.getDoc(docCon.getCurrentID()).getTexts()
+			ITextSection curRMText = docCon.getDoc(docCon.getCurrentID()).getTexts()
 			.get(Translator.containerToSectionType(curTextSection));
 			mainView.getToolbarPanel().getTextFontCombo().setSelectedItem(curRMText.getFont());
 			mainView.getToolbarPanel().getTextSizeCombo().setSelectedItem(curRMText.getSize());
@@ -194,7 +195,7 @@ public class MainController implements PropertyChangeListener {
 		 */
 		JTextPane curTextSection = docCon.getView(docCon.getCurrentID()).getTemplatePanel()
 				.getCurrentSection();
-		RMText curRMText = docCon.getDoc(docCon.getCurrentID()).getTexts()
+		ITextSection curRMText = docCon.getDoc(docCon.getCurrentID()).getTexts()
 				.get(Translator.containerToSectionType(curTextSection));
 		
 		switch(e.getPropertyName()){
@@ -231,11 +232,11 @@ public class MainController implements PropertyChangeListener {
 			break;
 		case Labels.TEXT_ENTERED:
 			String text = e.getNewValue().toString();
-			curRMText.setText(text);
+//			curRMText.setText(text);
+			//TODO
 			break;
 
 		case Labels.TEXTFONT_CHANGED:
-			//Testa ta in en font ist för en string kanske
 			String font = e.getNewValue().toString();
 			curRMText.changeFont(curTextSection, font);
 			break;
@@ -263,7 +264,8 @@ public class MainController implements PropertyChangeListener {
 			String[] replaceTexts = e.getNewValue().toString().split("/");
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
-			curRMText.replaceText(curTextSection, replace, replaceWith);
+//			curRMText.replaceText(curTextSection, replace, replaceWith);
+			//TODO
 
 			break;
 
@@ -278,16 +280,17 @@ public class MainController implements PropertyChangeListener {
 			JTextPane textAreaWork = docCon.getView(docCon.getCurrentID())
 					.getTemplatePanel().getWorkingExperienceText();
 
-			RMText textPersonal = docCon.getDoc(docCon.getCurrentID()).getTexts()
+			ITextSection textPersonal = docCon.getDoc(docCon.getCurrentID()).getTexts()
 					.get(Translator.containerToSectionType(textAreaPersonal));
-			RMText textHeader = docCon.getDoc(docCon.getCurrentID()).getTexts()
+			ITextSection textHeader = docCon.getDoc(docCon.getCurrentID()).getTexts()
 					.get(Translator.containerToSectionType(textAreaHeader));
-			RMText textWork = docCon.getDoc(docCon.getCurrentID()).getTexts()
+			ITextSection textWork = docCon.getDoc(docCon.getCurrentID()).getTexts()
 					.get(Translator.containerToSectionType(textAreaWork));
 
-			textPersonal.replaceText(textAreaPersonal, replaceA, replaceWithA);
-			textHeader.replaceText(textAreaHeader, replaceA, replaceWithA);
-			textWork.replaceText(textAreaWork, replaceA, replaceWithA);
+//			textPersonal.replaceText(textAreaPersonal, replaceA, replaceWithA);
+//			textHeader.replaceText(textAreaHeader, replaceA, replaceWithA);
+//			textWork.replaceText(textAreaWork, replaceA, replaceWithA);
+			//TODO
 
 			break;
 

@@ -1,11 +1,7 @@
 package se.chalmers.tda367.group25.resumate.model;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
@@ -15,7 +11,7 @@ public class Document implements DocumentInterface{
 
 	private Template currentTempl;
 	// Sections
-	private Map<SectionType, RMText> texts = new HashMap<SectionType, RMText>(4);
+	private Map<SectionType, ITextSection> texts = new HashMap<SectionType, ITextSection>(4);
 	private RMImage rmI;
 
 	// Unsurprisingly, the path to the file representation of this Document is
@@ -53,48 +49,48 @@ public class Document implements DocumentInterface{
 		case DEF_CV:
 
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new RMText(
+				texts.put(SectionType.PERSONAL_INFO, new TextSection(
 						SectionType.PERSONAL_INFO));
 			}
 			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-				texts.put(SectionType.WORK_EXPERIENCE, new RMText(
+				texts.put(SectionType.WORK_EXPERIENCE, new TextSection(
 						SectionType.WORK_EXPERIENCE));
 			}
 			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new RMText(SectionType.HEADER));
+				texts.put(SectionType.HEADER, new TextSection(SectionType.HEADER));
 			}
 
 			break;
 		case DEF_PL:
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new RMText(
+				texts.put(SectionType.PERSONAL_INFO, new TextSection(
 						SectionType.PERSONAL_INFO));
 			}
 			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-				texts.put(SectionType.WORK_EXPERIENCE, new RMText(
+				texts.put(SectionType.WORK_EXPERIENCE, new TextSection(
 						SectionType.WORK_EXPERIENCE));
 			}
 			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new RMText(
+				texts.put(SectionType.HEADER, new TextSection(
 						SectionType.HEADER));
 			}
 			// texts.add(new RMText(SectionType.EMPTY));
 			break;
 		case CLASSY_CV:
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new RMText(
+				texts.put(SectionType.PERSONAL_INFO, new TextSection(
 						SectionType.PERSONAL_INFO));
 			}
 			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-				texts.put(SectionType.WORK_EXPERIENCE, new RMText(
+				texts.put(SectionType.WORK_EXPERIENCE, new TextSection(
 						SectionType.WORK_EXPERIENCE));
 			}
 			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new RMText(
+				texts.put(SectionType.HEADER, new TextSection(
 						SectionType.HEADER));
 			}
 			if (!texts.containsKey(SectionType.EDUCATION)) {
-				texts.put(SectionType.EDUCATION, new RMText(
+				texts.put(SectionType.EDUCATION, new TextSection(
 						SectionType.EDUCATION));
 			}
 			break;
@@ -118,7 +114,7 @@ public class Document implements DocumentInterface{
 	 * 
 	 * @return the Map of the RMTexts
 	 */
-	public Map<SectionType, RMText> getTexts() {
+	public Map<SectionType, ITextSection> getTexts() {
 		// TODO Make clone safe
 		return texts;
 	}
@@ -132,24 +128,21 @@ public class Document implements DocumentInterface{
 		Map<SectionType, String> strings = new HashMap<SectionType, String>(
 				texts.size());
 		if (texts.containsKey(SectionType.HEADER)) {
-			strings.put(SectionType.HEADER, texts.get(SectionType.HEADER)
-					.getText());
+			
+			for (String text: texts.get(SectionType.HEADER).getText())	
+			strings.put(SectionType.HEADER, text);
 		}
 		if (texts.containsKey(SectionType.PERSONAL_INFO)) {
-			strings.put(SectionType.PERSONAL_INFO,
-					texts.get(SectionType.PERSONAL_INFO).getText());
+			for(String text: texts.get(SectionType.PERSONAL_INFO).getText())
+			strings.put(SectionType.PERSONAL_INFO, text);
 		}
 		if (texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-			strings.put(SectionType.WORK_EXPERIENCE,
-					texts.get(SectionType.WORK_EXPERIENCE).getText());
+			for(String text: texts.get(SectionType.WORK_EXPERIENCE).getText())
+			strings.put(SectionType.WORK_EXPERIENCE, text);
 		}
 		if (texts.containsKey(SectionType.EDUCATION)) {
-			strings.put(SectionType.EDUCATION,
-					texts.get(SectionType.EDUCATION).getText());
-		}
-		if (texts.containsKey(SectionType.EMPTY)) {
-			strings.put(SectionType.EMPTY, texts.get(SectionType.EMPTY)
-					.getText());
+			for(String text: texts.get(SectionType.EDUCATION).getText())
+			strings.put(SectionType.EDUCATION, text);
 		}
 		return strings;
 	}
@@ -202,6 +195,6 @@ public class Document implements DocumentInterface{
 			createSections();
 		}
 
-		texts.get(st).setText(text);
+		//texts.get(st).setText(text);
 	}
 }

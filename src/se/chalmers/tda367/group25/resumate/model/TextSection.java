@@ -1,14 +1,14 @@
 package se.chalmers.tda367.group25.resumate.model;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JTextPane;
+import javax.swing.text.JTextComponent;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
-import se.chalmers.tda367.group25.resumate.utils.Styles;
 
 /**
  * A class which represents a section with text of a template.
@@ -16,25 +16,16 @@ import se.chalmers.tda367.group25.resumate.utils.Styles;
  * @author ResuMate
  * 
  */
-public class RMText {
+public class TextSection extends absTextSection{
 
 	private String text;
-	private SectionType secType;
-	private String font;
-	private String color;
-	private int size;
 	private boolean bold;
 	private boolean italic;
 	private boolean underline;
+	private List <String> textList;
 	private SimpleAttributeSet attributes = new SimpleAttributeSet();
 
-	/**
-	 * Default constructor of a RMtext Section in a Document.
-	 */
-	public RMText() {
-		this(SectionType.EMPTY);
-	}
-
+	
 	/**
 	 * Constructs a RMText with the specified SectionType in a Document.
 	 * 
@@ -42,64 +33,22 @@ public class RMText {
 	 *            the specified SectionType, deciding what kind of Section this
 	 *            RMText is
 	 */
-	public RMText(SectionType sectionType) {
-		this.secType = sectionType;
-		this.color = "Black";
-		this.size = 16;
-		this.font = "Tahoma";
+	public TextSection(SectionType sectionType) {
+		super(sectionType,"Tahoma", "Black", 16);
+		textList = new ArrayList<String>(1);
+		textList.add(text);
 	}
-
-	// MUTATORS
-
+	
 	/**
-	 * Sets the String text to the parameter input.
+	 * Sets the String text to the parameter text.
 	 * 
-	 * @param input
+	 * @param text
 	 *            the new String to which to set the String text
 	 */
-	public void setText(String input) {
-		this.text = input;
+	public void setText(String text) {
+		this.text = text;
 	}
-
-	/**
-	 * Changes the font of the RMText depending on the parameter font.
-	 * 
-	 * @param section
-	 *            the JTextPane whose contents is to be customized
-	 * 
-	 * @param font
-	 *            the font by which the section is to be customized with
-	 */
-
-	public void changeFont(JTextPane section, String font) {
-		//Store the font in the models
-		this.font = font;
-		//Update the font in the view
-		Font currentFont = section.getFont();
-		section.setFont(new Font(font, currentFont.getStyle(), currentFont
-				.getSize()));
-		if (Styles.U) {
-			changeStyle(section, "U");
-		}
-	}
-
-	/**
-	 * Changes the size of the RMText depending on the parameter size.
-	 * 
-	 * @param section
-	 *            the JTextPane whose contents is to be customized
-	 * @param size
-	 *            the size by which the section is to be customized with
-	 */
-	public void changeSize(JTextPane section, int size) {
-		//Store the size in the model
-		this.size = size;
-		//Update the size in the view
-		Font currentFont = section.getFont();
-		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
-		
-	}
-
+	
 	/**
 	 * Changes the style of the specific textarea 
 	 * Checks wether the current style is the one which has been chosen. 
@@ -113,7 +62,6 @@ public class RMText {
 	 */
 
 	public void changeStyle(JTextPane section, String style) {
-		
 		int start = 0;
 		int end = section.getText().length();
 		
@@ -143,21 +91,6 @@ public class RMText {
 	}
 	
 	/**
-	 * Changes the colour in the textarea 
-	 * 
-	 * @param section
-	 * 			the textarea of which its colour is to be changed
-	 * @param col
-	 * 			the colour which the textarea is to be updated with
-	 */
-	
-	public void changeColor(JTextPane section, Color col, String colour) {
-		this.color = colour;
-		section.setForeground(col);
-		
-	}
-
-	/**
 	 * Replaces the a text with another
 	 * 
 	 * @param replace
@@ -169,55 +102,25 @@ public class RMText {
 	 * @param section
 	 *            the JTextPane whose contents is to be customized
 	 */
-	public void replaceText(JTextPane section, String replace,
+	public void replaceText(JTextComponent section, String replace,
 			String replaceWith) {
 		//Store the text in the model
 		this.setText(section.getText());
 		//Update the text in the view
 		section.setText(section.getText().replaceAll(replace, replaceWith));
-		
 	}
 
-	// GETTERS
-
-	/**
-	 * Returns SectionType of this RMText.
-	 * 
-	 * @return the SectionType of this RMText
-	 */
-	public SectionType getSecType() {
-		return this.secType;
+	@Override
+	public List<String> getText() {
+		return null;
 	}
-
+	
 	/**
 	 * Returns the String text from this RMText.
 	 * 
 	 * @return the String text from this RMText
 	 */
-	public String getText() {
-		return this.text;
-	}
 
-	/**
-	 * Returns the font of the RMText
-	 */
-	public String getFont() {
-		return this.font;
-	}
-
-	/**
-	 * Returns the size of the RMText
-	 */
-	public int getSize() {
-		return this.size;
-	}
-	
-	/**
-	 * Returns the colour of the RMText
-	 */
-	public String getColor(){
-		return this.color;
-	}
 
 
 }

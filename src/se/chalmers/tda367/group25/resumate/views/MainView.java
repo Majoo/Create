@@ -84,6 +84,8 @@ public class MainView extends JFrame implements MainViewInterface {
 		toolbarPanel.addPropertyChangeListener(this);
 		toolbarPanel.setVisible(true);
 		contentPane.add(toolbarPanel);
+		
+		// Create a tabbed pane
 		tabbedPane = new JTabbedPane();
 		
 		
@@ -106,6 +108,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
 		tabbedPane.setTabComponentAt(0, ctb);
+		ctb.addPropertyChangeListener(this);
 		contentPane.add(tabbedPane);
 		tabbedPane.setSelectedComponent(docView);
 		pcs.firePropertyChange(Labels.UPDATE_INITIAL_TOOLBAR, false, true);
@@ -174,18 +177,28 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	//----Setters------
 	/**
-<<<<<<< HEAD
-	 * Creates a new tab and puts a DocumentView in it.
-=======
 	 * Creates a new tab and puts a DocumentView within it. 
->>>>>>> origin/master
-	 * 
 	 * @param docView
 	 *            the template the new DocumentView will have.
 	 */
-	public void newTab(DocumentView docView) {
+	public void newTab(DocumentView docView, String name) {
 		docViewList.add(docView);
-		tabbedPane.addTab("unsaved", null, docView, "unsaved");
+		tabbedPane.addTab(name, null, docView, "unsaved");
+		
+//		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
+//		tabbedPane.setTabComponentAt(0, ctb);
+//		ctb.addPropertyChangeListener(this);
+//		tabbedPane.setSelectedComponent(docView);
+//		this.validate();
+		
+	}
+	
+	/**
+	 * Creates a new tab with the default template 
+	 */
+	public void newTab(String name) {
+		DocumentView docView = new DocumentView();
+		this.newTab(docView, name);
 	}
 
 	/**

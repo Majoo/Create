@@ -329,16 +329,15 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 					"Do you want to save the document first?", null,
 					JOptionPane.YES_NO_OPTION);
 			if (selection == JOptionPane.YES_OPTION) {
-				// Saves the document
 				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);
-				// Create a new document
-				pcs.firePropertyChange(Labels.NEW_DOC, false, true);
-			}else if(selection == JOptionPane.CLOSED_OPTION){
-				// Cancel
-			}else{
-				// Create a new document
-				pcs.firePropertyChange(Labels.NEW_DOC, false, true); 
+
 			}
+			String st = JOptionPane.showInputDialog("New document:", "untitled");
+
+			if(!st.equals("")){
+				pcs.firePropertyChange(Labels.NEW_DOC, false, st);
+			}
+			
 		break;
 		case "Save":
 			pcs.firePropertyChange(Labels.SAVE_DOC, false, true);

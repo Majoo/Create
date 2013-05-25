@@ -169,7 +169,7 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.NEW_DOC:
-			// To be implemented
+			mainView.newTab((String)e.getNewValue());
 			break;
 
 			//		case Labels.DOC_LOAD:

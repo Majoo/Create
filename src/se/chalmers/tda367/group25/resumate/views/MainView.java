@@ -95,13 +95,11 @@ public class MainView extends JFrame implements MainViewInterface {
 		docView.getTemplatePanel().setToolTipText("Protip!\r\n " +
 				"The best way of writing a Curriculum Vitae " +
 				"or Personal Letter is to make it interesting. \r\n");
-		docView.setID("First DocumentView");
 		docViewList.add(docView);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
 		tabbedPane.setSelectedComponent(docView);
-
-		System.out.println(getCurDocView().getID());
+		pcs.firePropertyChange(Labels.UPDATE_INITIAL_TOOLBAR, false, true);
 
 		// Update the frame
 		this.invalidate();
@@ -182,7 +180,7 @@ public class MainView extends JFrame implements MainViewInterface {
 	 */
 	public void sendInitialDocView() {
 		DocumentView docView = this.docViewList.get(0);
-		pcs.firePropertyChange(Labels.SEND_INITIAL_DVIEW, docView, "first");
+		pcs.firePropertyChange(Labels.SEND_INITIAL_DVIEW, docView, 0);
 	}
 
 }

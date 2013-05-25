@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.views.MenuBar;
 
-public class RMImage {
+public class RMImage implements ImageInterface{
 
 	private BufferedImage origImg;
 	private BufferedImage curImg;
@@ -71,7 +71,7 @@ public class RMImage {
 
 	/**
 	 * Crop the Image of this RMImage.
-	 * (DOESN'T WORK QUITE AS IT SHOULD
+	 * (UNFINISHED DOESN'T WORK QUITE AS IT SHOULD
 	 * somtimes RasterFormatException is thrown)
 	 * 
 	 * @param rect 

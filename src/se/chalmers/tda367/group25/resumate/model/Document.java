@@ -11,7 +11,7 @@ import java.util.Map;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Template;
 
-public class Document {
+public class Document implements DocumentInterface{
 
 	private Template currentTempl;
 	// Sections
@@ -47,7 +47,7 @@ public class Document {
 	 * Create necessary Sections according to Template. Checks if Sections have
 	 * already been created; if they haven't, this method creates them
 	 */
-	public void createSections() {
+	private void createSections() {
 		switch (currentTempl) {
 
 		case DEF_CV:
@@ -155,9 +155,10 @@ public class Document {
 	}
 	
 	/**
-	 * Gets the FilePath of the 
+	 * Gets the FilePath of the Document
 	 * 
-	 * @return
+	 * @return 
+	 * 			the FilePath of the Document
 	 */
 	public String getFilePath(){
 		return filePath;

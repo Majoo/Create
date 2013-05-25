@@ -19,8 +19,6 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	private PropertyChangeSupport pcs;
 	
 	private TemplatePanel templatePnl;
-	// Initiate a string for debugging
-	private String id;
 	
 	/**
 	 * A new DocumentView with the default template is created.
@@ -28,13 +26,20 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	public DocumentView() {
 		this(new CV_Def());
 	}
-	/*
-	 * A constructor with template panel
+
+	/**
+	 * A new DocumentView with a specified template is created.
+	 * @param templatePanel
+	 * 						the TemplatePanel specified for the new DocumentView
+	 *
 	 */
 	public DocumentView(TemplatePanel templatePanel) {
 		pcs = new PropertyChangeSupport(this);
 		setLayout(new BorderLayout(0, 0));
 		this.templatePnl = templatePanel;
+		templatePnl.getWorkingExperienceText().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		templatePnl.getCurrentSection().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		templatePnl.getHeaderTitle().setFont(new Font("Tahoma", Font.PLAIN, 27));
 		templatePnl.addPropertyChangeListener(this);
 		add(templatePnl);
 		
@@ -46,13 +51,21 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	}
 
 	//-----Getters------
+	/**
+	 * Get the TemplatePanel of the DocumentView.
+	 * @return
+	 * 			the TemplatePanel of this DocumentView
+	 */
 	public TemplatePanel getTemplatePanel(){
 		return templatePnl;
 	}
-	
 	//-----Setters------
+	/**
+	 * Set the TemplatePanel of this DocumentView.
+	 * @param tmplPnl
+	 */
 	public void setTemplate(TemplatePanel tmplPnl){
-		System.out.println("Setting template");
+		System.out.println("Setting template in DocumentViews");
 		this.templatePnl = tmplPnl;
 		this.templatePnl.validate();
 		this.templatePnl.updateUI();
@@ -88,7 +101,6 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		System.out.println("In DocView changed");
 		try{
 			pcs.firePropertyChange(evt.getPropertyName(),evt.getOldValue(),
 					evt.getNewValue());
@@ -97,19 +109,4 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		}
 		
 	}
-	
-	/*
-	 * Methods used to debug
-	 */
-	
-	// Get String-ID
-	public String getID(){
-		return this.id;
-	}
-	
-	// Set String-ID
-	public void setID(String newID){
-		this.id = newID;
-	}
-
 }

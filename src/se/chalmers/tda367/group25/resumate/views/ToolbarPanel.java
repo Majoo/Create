@@ -128,7 +128,8 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		// Setting properties for the combobox in which the fonts are listed
 		textFontCB = new JComboBox();
 		textFontCB.setToolTipText("Protip! " +
-				"Don't have too many different fonts! It will look unprofessional.");
+				"Don't have too many different fonts! " +
+				"It will look unprofessional.");
 		textFontCB.addActionListener(this);
 		textFontCB.setActionCommand("Font");
 		GraphicsEnvironment e = GraphicsEnvironment
@@ -149,7 +150,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		textSizeCB.setModel(new DefaultComboBoxModel(new String[] 
 				{"9", "10", "11", "12", "13", "14", "15", "16", 
 				"18", "20", "22", "24", "26", "28", "30", "32"}));
-
+		
 		// Setting properties for the button which makes the text bold
 		JToggleButton btnBold = new JToggleButton("B");
 		btnBold.setToolTipText("Protip! " +
@@ -242,21 +243,26 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		(SpringLayout.EAST, tempPanel, -10, SpringLayout.EAST, this);
 		tempPanel.setLayout(new GridLayout(1, 4));
 		
-		//Setting template buttons
+		// Setting template buttons
 		JButton btnTemp1 = new JButton("Default PL");
-		btnTemp1.setToolTipText("View in a default Personal Letter format.");
+		btnTemp1.setToolTipText("Protip! " +
+				"This template works in almost all jobs you are searching for.");
 		btnTemp1.addActionListener(this);
 		btnTemp1.setActionCommand("DefPL");
 		tempPanel.add(btnTemp1);
 		
 		JButton btnTemp2 = new JButton("Default CV");
-		btnTemp2.setToolTipText("View in a default CV format.");
+		btnTemp2.setToolTipText("Protip! " +
+				"This template is the default one to write a CV. " +
+				"Use this if you are searching for a regular job.");
 		btnTemp2.addActionListener(this);
 		btnTemp2.setActionCommand("DefCV");
 		tempPanel.add(btnTemp2);
 		
 		JButton btnTemp3 = new JButton("Classy CV");
-		btnTemp3.setToolTipText("View in a classy CV format.");
+		btnTemp3.setToolTipText("Protip! " +
+				"The Classy CV template is a way to show off " +
+				"your experiences for your boss!");
 		btnTemp3.addActionListener(this);
 		btnTemp3.setActionCommand("ClassyCV");
 		tempPanel.add(btnTemp3);
@@ -280,7 +286,9 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		
 		JComboBox otherTemps = new JComboBox(templateChange);
 		otherTemps.setAlignmentX(Component.LEFT_ALIGNMENT);
-		otherTemps.setToolTipText("Select other templates.");
+		otherTemps.setToolTipText("Protip! " +
+				"A list of different templates. " +
+				"Choose something that fits your future job.");
 		otherTemps.setMaximumRowCount(4);
 		tempPanel.add(otherTemps);
 		add(tempPanel);
@@ -389,7 +397,8 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		case "DefCV":
 			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.DEF_CV);
 			break;
-		case "ClassyCV":
+		case "ClassyCV":			
+			System.out.println("sends event with CLASSY_CV");
 			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.CLASSY_CV);
 			break;		
 			

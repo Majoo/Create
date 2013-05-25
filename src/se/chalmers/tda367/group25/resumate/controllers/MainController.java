@@ -30,6 +30,7 @@ public class MainController implements PropertyChangeListener {
 		docCon = new DocumentController();
 		docCon.addPropertyChangeListener(this);
 		ioCon = new IOController();
+		ioCon.addPropertyChangeListener(this);
 		mainView = new MainView();
 		mainView.addPropertyChangeListener(this);
 		mainView.sendInitialDocView();
@@ -58,7 +59,7 @@ public class MainController implements PropertyChangeListener {
 		switch (e.getPropertyName()) {
 
 		case Labels.TEMPLATE_CHANGED:
-			
+
 			System.out.println("in tempchanged in maincontroller");
 			TemplatePanel prevTemp = docCon.getView(docCon.getCurrentID()).getTemplatePanel();
 			TemplatePanel tempChange = Translator.templateToPanel(e.getNewValue());
@@ -74,15 +75,15 @@ public class MainController implements PropertyChangeListener {
 		}
 
 	}
-	
+
 	/**
 	 * Handles events that are fired during startup of the program.
 	 * 
 	 * @param e
-	 *       the event to be handled
+	 *            the event to be handled
 	 */
 	private void initialPropertyChange(PropertyChangeEvent e) {
-		switch(e.getPropertyName()){
+		switch (e.getPropertyName()) {
 		case Labels.SEND_INITIAL_DVIEW:
 			if(e.getOldValue() instanceof DocumentView 
 					&& e.getNewValue() instanceof Integer){
@@ -107,7 +108,7 @@ public class MainController implements PropertyChangeListener {
 			break;
 		}
 	}
-	
+
 	/**
 	 * Handles events that have to do with IO
 	 * 
@@ -123,22 +124,22 @@ public class MainController implements PropertyChangeListener {
 		case Labels.SAVE_DOC:
 			if (docCon.getDoc(docCon.getCurrentID()).getFilePath().isEmpty()) {
 				ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
-						docCon.getDoc(docCon.getCurrentID()).getStrings(), null);
-			} else {
+						docCon.getDoc(docCon.getCurrentID()), null);
+			} else if (!(docCon.getDoc(docCon.getCurrentID()).getFilePath().isEmpty())) {
 				ioCon.chooseFunction(Labels.SAVE_DOC, null,
-						docCon.getDoc(docCon.getCurrentID()).getStrings(), docCon
-								.getDoc(docCon.getCurrentID()).getFilePath());
+						docCon.getDoc(docCon.getCurrentID()),
+						docCon.getDoc(docCon.getCurrentID()).getFilePath());
 			}
-
+			
+			break;
+		
 		case Labels.SAVE_DOC_AS:
-			System.out.println("SAVE_DOC_AS");
-//			ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
-//					docCon.getDoc(docCon.getCurrent()).getStrings(), null);
+			ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
+					docCon.getDoc(docCon.getCurrentID()), null);
 
 			break;
 
 		case Labels.OPEN_DOC:
-			//TODO !!
 			ioCon.chooseFunction(Labels.OPEN_DOC, null, null, null);
 			break;
 
@@ -172,6 +173,11 @@ public class MainController implements PropertyChangeListener {
 			// To be implemented
 			break;
 
+//		case Labels.DOC_LOAD:
+//			docCon.getDoc(docCon.getCurrent()).setAllTexts(
+//					ioCon.getStringsMap());
+//			break;
+
 		default:
 			// Do nothing, never invoked
 			break;
@@ -196,9 +202,9 @@ public class MainController implements PropertyChangeListener {
 				.getCurrentSection();
 		RMText curRMText = docCon.getDoc(docCon.getCurrentID()).getTexts()
 				.get(Translator.containerToSectionType(curTextSection));
-		
-		switch(e.getPropertyName()){
-		
+
+		switch (e.getPropertyName()) {
+
 		case Labels.TEXT_UNDO:
 			TemplatePanel undoPAction = docCon.getView(docCon.getCurrentID())
 					.getTemplatePanel();
@@ -300,7 +306,7 @@ public class MainController implements PropertyChangeListener {
 			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
 					.getWorkingExperienceText(), txt);
 			break;
-			
+
 		case Labels.TEXTAREA_CHANGED:
 			mainView.getToolbarPanel().getTextFontCombo().getModel().setSelectedItem(curRMText.getFont());
 			mainView.getToolbarPanel().getTextSizeCombo().getModel().setSelectedItem(curRMText.getSize());
@@ -308,7 +314,7 @@ public class MainController implements PropertyChangeListener {
 			mainView.getToolbarPanel().updateUI();
 			mainView.getToolbarPanel().validate();
 			break;
-			
+
 		case Labels.RENAME_DOC:
 
 			break;

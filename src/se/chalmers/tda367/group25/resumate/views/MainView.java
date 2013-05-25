@@ -40,10 +40,10 @@ public class MainView extends JFrame implements MainViewInterface {
 		// The frame
 		setVisible(true);
 		setTitle("ResuMate" + "- [the name of the file]");
-		// Default size when not fullscreened
+		// Default size when not maximized
 		setSize(840,500);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
-		// Always make it fullscreened when the program starts
+		// Always make it maximized when the program starts
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		// Creating and setting background panel
 		JPanel contentPane = new JPanel();
@@ -100,6 +100,11 @@ public class MainView extends JFrame implements MainViewInterface {
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		contentPane.add(tabbedPane);
 		tabbedPane.setSelectedComponent(docView);
+<<<<<<< HEAD
+=======
+		pcs.firePropertyChange(Labels.UPDATE_INITIAL_TOOLBAR, false, true);
+
+>>>>>>> 56f5cd04b0b2d0d902628d31f33f208792c16756
 
 		// Update the frame
 		this.invalidate();
@@ -165,7 +170,11 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	//----Setters------
 	/**
+<<<<<<< HEAD
+	 * Creates a new tab and puts a DocumentView in it.
+=======
 	 * Creates a new tab and puts a DocumentView within it. 
+>>>>>>> origin/master
 	 * 
 	 * @param docView
 	 *            the template the new DocumentView will have.

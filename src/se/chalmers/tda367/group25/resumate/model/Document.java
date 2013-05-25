@@ -75,8 +75,7 @@ public class Document implements DocumentInterface{
 						SectionType.WORK_EXPERIENCE));
 			}
 			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new RMText(
-						SectionType.HEADER));
+				texts.put(SectionType.HEADER, new RMText(SectionType.HEADER));
 			}
 			// texts.add(new RMText(SectionType.EMPTY));
 			break;
@@ -90,8 +89,7 @@ public class Document implements DocumentInterface{
 						SectionType.WORK_EXPERIENCE));
 			}
 			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new RMText(
-						SectionType.HEADER));
+				texts.put(SectionType.HEADER, new RMText(SectionType.HEADER));
 			}
 			if (!texts.containsKey(SectionType.EDUCATION)) {
 				texts.put(SectionType.EDUCATION, new RMText(
@@ -144,8 +142,8 @@ public class Document implements DocumentInterface{
 					texts.get(SectionType.WORK_EXPERIENCE).getText());
 		}
 		if (texts.containsKey(SectionType.EDUCATION)) {
-			strings.put(SectionType.EDUCATION,
-					texts.get(SectionType.EDUCATION).getText());
+			strings.put(SectionType.EDUCATION, texts.get(SectionType.EDUCATION)
+					.getText());
 		}
 		if (texts.containsKey(SectionType.EMPTY)) {
 			strings.put(SectionType.EMPTY, texts.get(SectionType.EMPTY)
@@ -153,14 +151,18 @@ public class Document implements DocumentInterface{
 		}
 		return strings;
 	}
-	
+
 	/**
+<<<<<<< HEAD
+	 * Gets the FilePath of the
+=======
 	 * Gets the FilePath of the Document
+>>>>>>> master
 	 * 
 	 * @return 
 	 * 			the FilePath of the Document
 	 */
-	public String getFilePath(){
+	public String getFilePath() {
 		return filePath;
 	}
 
@@ -197,11 +199,18 @@ public class Document implements DocumentInterface{
 	 *            the text to change to
 	 */
 	public void setText(SectionType st, String text) {
-		if (!texts.containsKey(SectionType.WORK_EXPERIENCE)
-				|| !texts.containsKey(SectionType.PERSONAL_INFO)) {
+		if (!texts.containsKey(st)) {
 			createSections();
 		}
 
 		texts.get(st).setText(text);
+	}
+
+	/**
+	 * 
+	 * @param strings
+	 */
+	public void setAllTexts(Map<SectionType, String> strings) {
+//		texts.putAll(strings);
 	}
 }

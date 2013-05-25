@@ -1,11 +1,13 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
-import java.io.FileNotFoundException;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import se.chalmers.tda367.group25.resumate.io.IOHandler;
@@ -25,7 +27,15 @@ import com.itextpdf.text.DocumentException;
 public class IOController {
 	private String curPath;
 
+	private PropertyChangeSupport pcs;
+
+	private Map<SectionType, String> stringsFromFiles;
+
+	private String recentPath;
+
 	public IOController() {
+		pcs = new PropertyChangeSupport(this);
+		recentPath = System.getProperty("user.home");
 	}
 
 	/**
@@ -37,44 +47,63 @@ public class IOController {
 	 * @param jc
 	 *            only necessary when exporting, printing or sending, may be
 	 *            null
-	 * @param strings
+	 * @param doc
 	 *            only necessary when saving, may be null
 	 * @param path
 	 *            only necessary when saving and path already exists, may be
 	 *            null
 	 */
-	public void chooseFunction(String function, JComponent jc,
-			Map<SectionType, String> strings, String path) {
-		if ((function.equals(Labels.SAVE_DOC))
-				|| (function.equals(Labels.RENAME_DOC))) {
-			try {
-				IOHandler.saveFile(path, strings);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else if ((function.equals(Labels.EXPORT_DOC))
-				|| (function.equals(Labels.SAVE_DOC_AS))
-				|| (function.equals(Labels.OPEN_DOC))) {
-			try {
-				choosePath(jc, function, strings);
-			} catch (FileNotFoundException e) {
-				// Probably means that the user entered the wrong path name.
-				chooseFunction(function, jc, strings, path);
-			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NullPointerException e) {
-				// If no file is chosen or operation is aborted, nothing happens
-			}
-		} else if (function.equals(Labels.PRINT_DOC)
-				|| (function.equals(Labels.SEND_DOC))) {
-			// To be implemented in the future
-		} else {
-			System.out.println("No such command!");
-		}
+	public synchronized void chooseFunction(String function, JComponent jc,
+			Document doc, String path) {
 
+		Map<SectionType, String> strings;
+		if (function.equals(Labels.SAVE_DOC)
+				|| function.equals(Labels.SAVE_DOC_AS)) {
+			strings = doc.getStrings();
+		} else {
+			strings = null;
+		}
+		try {
+			if ((function.equals(Labels.SAVE_DOC))
+					|| (function.equals(Labels.RENAME_DOC))) {
+				IOHandler.saveFile(path, strings);
+			} else if ((function.equals(Labels.EXPORT_DOC))
+					|| (function.equals(Labels.SAVE_DOC_AS))) {
+					choosePath(jc, function, strings);
+			} else if (function.equals(Labels.OPEN_DOC)) {
+				choosePath(jc, function, strings);
+			} else if (function.equals(Labels.PRINT_DOC)
+					|| (function.equals(Labels.SEND_DOC))) {
+				// To be implemented in the future
+			}
+		} catch (NullPointerException e) {
+			// If no file is chosen or operation is aborted, nothing
+			// happens.
+		} catch (DocumentException e) {
+			// iText related exception
+		} catch (IOException e) {
+			// If incorrect file is chosen during OPEN_DOC issue warning and
+			// try again.
+			if (e.getMessage().equals("Not project folder") && function.equals(Labels.OPEN_DOC)) {
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"You chose a directory that is not a ResuMate project folder, try again. Hint: ResuMate project folders contain the file Project.rsmt.",
+								"Invalid choice made.",
+								JOptionPane.ERROR_MESSAGE);
+				chooseFunction(function, jc, doc, path);
+			} else {
+				// Probably means that the user entered the wrong path name
+				// when trying to save or export.
+				JOptionPane.showMessageDialog(null,
+						"You chose an invalid file or path, try again.",
+						"Invalid choice made.", JOptionPane.ERROR_MESSAGE);
+				chooseFunction(function, jc, doc, path);
+			}
+		}
 	}
+
+	// --- IO Support Functions---//
 
 	/**
 	 * A method for choosing path and file name.
@@ -82,43 +111,38 @@ public class IOController {
 	 * @param jc
 	 * @param function
 	 *            the context of the function e.g. save, save as, export as PDF
-	 * @param strings
+	 * @param stringsFromFiles
+	 *            the Strings from the RMText instances in an instance of
+	 *            Document
 	 * 
-	 * @throws FileNotFoundException
 	 * @throws DocumentException
 	 * @throws NullPointerException
+	 * @throws IOException
 	 */
 	private void choosePath(JComponent jc, String function,
-			Map<SectionType, String> strings) throws FileNotFoundException,
-			DocumentException, NullPointerException {
+			Map<SectionType, String> strings) throws DocumentException,
+			NullPointerException, IOException {
 
-		JFileChooser chooser;
-		if(this.curPath == null){
-			chooser = new JFileChooser();
-		}else{
-			chooser = new JFileChooser(this.curPath);
-		}
+		JFileChooser chooser = new JFileChooser(recentPath);
 		setChooser(chooser, function);
 
 		int returnVal = chooser.showDialog(null, getApproveText(function));
 
 		String filePath = chooser.getCurrentDirectory().getPath();
-		setCurrentPath(filePath);
+		setRecentPath(filePath);
 		String fileName = chooser.getSelectedFile().getName();
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			try {
-				if (function.equals(Labels.EXPORT_DOC)) {
-					PDFHandler.createPdf(jc, filePath + "\\" + fileName);
-				} else if (function.equals(Labels.SAVE_DOC_AS)) {
-					IOHandler.saveFile(filePath, strings);
-				} else if (function.equals(Labels.OPEN_DOC)) {
-					IOHandler.openFile(filePath);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (function.equals(Labels.EXPORT_DOC)) {
+				PDFHandler.createPdf(jc, filePath + "\\" + fileName);
+			} else if (function.equals(Labels.SAVE_DOC_AS)) {
+				IOHandler.saveFile(filePath + "\\" + fileName, strings);
+			} else if (function.equals(Labels.OPEN_DOC)) {
+				stringsFromFiles = IOHandler.openFile(filePath + "\\"
+						+ fileName);
 			}
+		} else if (returnVal == JFileChooser.CANCEL_OPTION) {
+			// Do nothing
 		}
 	}
 
@@ -158,7 +182,8 @@ public class IOController {
 		jfc.setFileFilter(getFilter(function));
 
 		// When saving, only directories are relevant
-		if (function.equals(Labels.SAVE_DOC_AS)) {
+		if (function.equals(Labels.SAVE_DOC_AS)
+				|| function.equals(Labels.OPEN_DOC)) {
 			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		} else {
 			jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -184,12 +209,34 @@ public class IOController {
 			return null;
 		}
 	}
-	
-	/*
-	 * Set the directory in which to open the next JFileChooser.
-	 */
-	private void setCurrentPath(String filePath) {
-		this.curPath = filePath;
-		
+
+	// ---Getters--- //
+
+	public String getRecentPath() {
+		return recentPath;
+	}
+
+	public Map<SectionType, String> getStringsMap() {
+		return stringsFromFiles;
+	}
+
+	// ---Setters--- //
+
+	public void setRecentPath(String newPath) {
+		this.recentPath = newPath;
+	}
+
+	public void setStringsMap(Map<SectionType, String> strings) {
+		this.stringsFromFiles = strings;
+	}
+
+	// ---PropertyChanged Methods--- //
+
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		pcs.addPropertyChangeListener(pcl);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener pcl) {
+		pcs.removePropertyChangeListener(pcl);
 	}
 }

@@ -319,13 +319,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					"Do you want to save the document first?", null,
 					JOptionPane.YES_NO_OPTION);
 			if (selection == JOptionPane.YES_OPTION) {
-				pcs.firePropertyChange(Labels.SAVE_DOC, false, true); // Save
-																		// Doc
+				pcs.firePropertyChange(Labels.SAVE_DOC, false, true); 
+																		
 				System.exit(0);
 			} else if (selection == JOptionPane.CLOSED_OPTION) {
 				// Do nothing
 			} else {
-				System.exit(1);
+				System.exit(0);
 			}
 		case "Export":
 			pcs.firePropertyChange(Labels.EXPORT_DOC, false, true);

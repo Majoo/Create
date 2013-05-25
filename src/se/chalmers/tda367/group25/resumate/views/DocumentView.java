@@ -1,23 +1,22 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import javax.swing.ScrollPaneConstants;
-import java.awt.Font;
 
 /**
- * This class contains a TemplatePanel which shows the Document.
- * The TemplatePanel can be changed.
+ * This class contains a TemplatePanel which shows the Document. The
+ * TemplatePanel can be changed.
  */
-public class DocumentView extends JPanel implements PropertyChangeListener{
+public class DocumentView extends JPanel implements PropertyChangeListener {
 	private PropertyChangeSupport pcs;
-	
+
 	private TemplatePanel templatePnl;
 	
 	/**
@@ -50,6 +49,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 		add(scroller);
 	}
 
+<<<<<<< HEAD
 	//GETTERS
 	/**
 	 * Get the TemplatePanel of the DocumentView.
@@ -63,6 +63,19 @@ public class DocumentView extends JPanel implements PropertyChangeListener{
 	
 	
 	//SETTERS
+=======
+	//-----Getters------
+
+	 /* Get the TemplatePanel of the DocumentView.
+	 * @return
+	 * 			the TemplatePanel of this DocumentView
+	 */
+	public TemplatePanel getTemplatePanel(){
+		return templatePnl;
+	}
+	//-----Setters------
+
+>>>>>>> 56f5cd04b0b2d0d902628d31f33f208792c16756
 	/**
 	 * Set the TemplatePanel of this DocumentView.
 	 * @param tmplPnl

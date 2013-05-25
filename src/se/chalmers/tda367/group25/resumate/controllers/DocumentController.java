@@ -38,15 +38,12 @@ public class DocumentController implements PropertyChangeListener{
 		Document d = new Document();
 		List<Object> first = new ArrayList(2);
 		first.add(d);
-<<<<<<< HEAD
-=======
-		
->>>>>>> 29ca3bb4a791e92e95595b4f437b7ae748471088
+
 		setCurrentID(0);
 		this.docAndDocView.put(getCurrentID(), first);
 	}
 
-	//GETTERS
+	// ---GETTERS--- //
 	/**
 	 * Get the Document in the List<Object> given
 	 * @param pair
@@ -153,7 +150,7 @@ public class DocumentController implements PropertyChangeListener{
 		return null;
 	}
 	
-	//SETTERS
+	// ---SETTERS--- //
 	/**
 	 * Update the image of the Document associated with the BufferedImage img.
 	 * 
@@ -214,7 +211,6 @@ public class DocumentController implements PropertyChangeListener{
 	 */
 	public void setCurrentID(int currentID) {
 		this.curID = currentID;
-<<<<<<< HEAD
 	}
 
 	//-----PropertyChanged-Methods------
@@ -265,9 +261,6 @@ public class DocumentController implements PropertyChangeListener{
 					arg0.getNewValue());
 			
 		}
-		
-=======
->>>>>>> 29ca3bb4a791e92e95595b4f437b7ae748471088
 	}
 		
 }

@@ -19,7 +19,6 @@ import javax.swing.undo.UndoManager;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
-
 /**
  * A class which represents the core of a Template. It holds the
  * methods for accesing the text in the different fields, for 
@@ -76,7 +75,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		headerTF.addFocusListener(this);
 		headerTF.getDocument().addUndoableEditListener(manager);
 		
-		
 		this.workingExperienceText = new JTextPane();
 		this.workingExperienceText.setName("workingExperienceText");
 		this.workingExperienceText.setText("[ABOUT YOURSELF]");
@@ -93,7 +91,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		this.educationText.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		this.educationText.addFocusListener(this);
 		this.educationText.getDocument().addUndoableEditListener(manager);
-		this.educationText.setBorder(BorderFactory.createDashedBorder(blackPaint));
+		this.educationText.setBorder(BorderFactory
+				.createDashedBorder(blackPaint));
 
 		this.imageLbl = new JLabel();
 		this.imageLbl.setBackground(Color.cyan);
@@ -106,7 +105,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		pcs.firePropertyChange(Labels.SEND_INITIAL_TSECTIONS, false, true);
 	}
 
-	//-----Getters-----
+	// -----Getters-----
 	/**
 	 * Returns the personal information-textarea.
 	 * 
@@ -133,41 +132,40 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public JTextPane getHeaderTitle() {
 		return headerTF;
 	}
-	
+
 	/**
 	 * Returns the label for the image
 	 * 
 	 * @return JLabel for the image
 	 */
-	public JLabel getImageLabel(){
+	public JLabel getImageLabel() {
 		return imageLbl;
 	}
-	
+
 	/**
 	 * Returns the textarea for educational information.
 	 * 
-	 * @return
-	 * 			The JTextPane for information about education
+	 * @return The JTextPane for information about education
 	 */
 	public JTextPane getEducationText() {
 		return this.educationText;
 	}
-	
+
 	/**
 	 * Returns the textarea for the current section
 	 * 
 	 * @return JTextPane for the section
 	 */
-	public JTextPane getCurrentSection(){
+	public JTextPane getCurrentSection() {
 		return currentSection;
 	}
-	
+
 	/**
 	 * Returns the manager handling undo & redo
 	 * 
 	 * @return UndoManager for the sections
 	 */
-	public UndoManager getManager(){
+	public UndoManager getManager() {
 		return manager;
 	}
 	//-----Setters for the image------
@@ -182,13 +180,13 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	}
 	
 	/**
-	 * Shows in view the image given as parameter.
-	 * The idea is to get the image from the model and 
-	 * use this method to show it.
-	 * @param image 
-	 * 				BufferedImage to be shown in view
+	 * Shows in view the image given as parameter. The idea is to get the image
+	 * from the model and use this method to show it.
+	 * 
+	 * @param image
+	 *            BufferedImage to be shown in view
 	 */
-	public void showImage(BufferedImage image){
+	public void showImage(BufferedImage image) {
 		imageLbl.setIcon(new ImageIcon(image));
 	}
 	
@@ -234,6 +232,5 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public void focusLost(FocusEvent arg0) {
 		//Do nothing, the JTextPane which is in focus 
 		//will remain until another one is focused
-		
 	}
 }

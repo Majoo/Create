@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.views;
 
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -83,6 +84,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		contentPane.add(toolbarPanel);
 		tabbedPane = new JTabbedPane();
 		
+		
 		spLayout.putConstraint(SpringLayout.NORTH, tabbedPane, 6,
 				SpringLayout.SOUTH, toolbarPanel);
 		spLayout.putConstraint(SpringLayout.WEST, tabbedPane, 0,
@@ -98,13 +100,10 @@ public class MainView extends JFrame implements MainViewInterface {
 				"or Personal Letter is to make it interesting. \r\n");
 		docViewList.add(docView);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
+		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
+		tabbedPane.setTabComponentAt(0, ctb);
 		contentPane.add(tabbedPane);
 		tabbedPane.setSelectedComponent(docView);
-<<<<<<< HEAD
-=======
-		pcs.firePropertyChange(Labels.UPDATE_INITIAL_TOOLBAR, false, true);
-
->>>>>>> 56f5cd04b0b2d0d902628d31f33f208792c16756
 
 		// Update the frame
 		this.invalidate();

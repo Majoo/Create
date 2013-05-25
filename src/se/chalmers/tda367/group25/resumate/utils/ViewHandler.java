@@ -9,8 +9,10 @@ import java.awt.datatransfer.StringSelection;
 import javax.swing.BorderFactory;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.JTextComponent;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
@@ -26,7 +28,7 @@ public class ViewHandler {
 	 * @param input
 	 *            the String which is to be found
 	 */
-	public static void findText(JEditorPane section, String input) {
+	public static void findText(JTextComponent section, String input) {
 
 		// Removes the previous highlights if there were any. 
 			section.getHighlighter().removeAllHighlights();
@@ -78,7 +80,7 @@ public class ViewHandler {
 	 * @param section
 	 * 			the current textarea.
 	 */
-	public static void textCopy(JEditorPane section){
+	public static void textCopy(JTextComponent section){
 		// Copy the selected text into a clipboard.
 		String clipBoardData = section.getSelectedText();
 		StringSelection stringSelection = new StringSelection(clipBoardData);
@@ -91,7 +93,7 @@ public class ViewHandler {
 	 * @param section
 	 * 			the current textarea.
 	 */
-	public static void textCut(JEditorPane section){
+	public static void textCut(JTextComponent section){
 		// Copy the selected text into a clipboard.
 		String clipBoardData = section.getSelectedText();
 		StringSelection stringSelection = new StringSelection(clipBoardData);
@@ -107,7 +109,7 @@ public class ViewHandler {
 	 * 			the current textarea.
 	 */
 	
-	public static void textPaste(JEditorPane section){
+	public static void textPaste(JTextComponent section){
 			section.paste();
 			
 	}
@@ -117,7 +119,7 @@ public class ViewHandler {
 	 * @param section
 	 * 			the current textarea.
 	 */
-	public static void selectAll(JEditorPane section){	
+	public static void selectAll(JTextComponent section){	
 		section.selectAll();	
 	}
 	
@@ -129,7 +131,7 @@ public class ViewHandler {
 	 * @param manager
 	 * 			the manager which is connected to the current section
 	 */
-	public static void undoAction(JEditorPane section, UndoManager manager){
+	public static void undoAction(UndoManager manager){
 		try {
 				// while(section.getCaret().equals(" ")){
 			manager.undo();
@@ -146,7 +148,7 @@ public class ViewHandler {
 	 * @param manager
 	 * 			the manager which is connected to the current section
 	 */
-	public static void redoAction(JEditorPane section, UndoManager manager){
+	public static void redoAction(UndoManager manager){
 		try {
 			manager.redo();
 		} catch (CannotRedoException e) {

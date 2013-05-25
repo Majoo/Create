@@ -14,6 +14,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import com.itextpdf.awt.geom.Dimension;
+
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 /**
@@ -99,6 +101,8 @@ public class MainView extends JFrame implements MainViewInterface {
 				"The best way of writing a Curriculum Vitae " +
 				"or Personal Letter is to make it interesting. \r\n");
 		docViewList.add(docView);
+		
+		tabbedPane.setSize(599, 1000);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
 		tabbedPane.setTabComponentAt(0, ctb);

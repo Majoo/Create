@@ -42,8 +42,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	private JTextField addressField;
 	private JTextField phoneField;
 	private JTextField emailField;
-	private JTextField txtEmpty1;
-	private JTextField txtEmpty2;
+	private JTextField empty1Field;
+	private JTextField empty2Field;
 	
 	//Headers
 	private JTextField workExpHeader;
@@ -125,15 +125,15 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		emailField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(emailField);
 		
-		txtEmpty1 = new JTextField();
-		txtEmpty1.setColumns(10);
-		txtEmpty1.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(txtEmpty1);
+		empty1Field = new JTextField();
+		empty1Field.setColumns(10);
+		empty1Field.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
+		borderedComponents.add(empty1Field);
 		
-		txtEmpty2 = new JTextField();
-		txtEmpty2.setColumns(10);
-		txtEmpty2.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(txtEmpty2);
+		empty2Field = new JTextField();
+		empty2Field.setColumns(10);
+		empty2Field.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
+		borderedComponents.add(empty2Field);
 		
 		//Headers
 		workExpHeader = new JTextField();
@@ -169,73 +169,160 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 
 	//-----Getters-----
 	//Personal Info Titles
+	
+	/**
+	 * Get the JTextField that tells the user to write their name.
+	 * @return
+	 * 			the JTextField that tells the user to write their name.
+	 */
 	public JTextField getNameTitle(){
 		return this.nameTitle;
 	}
 	
+	/**
+	 * Get the JTextField that tells the user to write their address.
+	 * @return
+	 * 			the JTextField that tells the user to write their address.
+	 */
 	public JTextField getAddressTitle(){
 		return this.addressTitle;
 	}
 	
+	/**
+	 * Get the JTextField that tells the user to write their City/Zipcode.
+	 * @return
+	 * 			the JTextField that tells the user to write their City/Zipcode.
+	 */
 	public JTextField getCityTitle(){
 		return this.cityzipcodeTitle;
 	} 
 	
+	/**
+	 * Get the JTextField that tells the user to write their phone number.
+	 * @return
+	 * 			the JTextField that tells the user to write their phone number.
+	 */
 	public JTextField getPhoneTitle(){
 		return this.phoneTitle;
 	}
 	
+	/**
+	 * Get the JTextField that tells the user to write their email-address.
+	 * @return
+	 * 			the JTextField that tells the user to write their email-address.
+	 */
 	public JTextField getEmailTitle(){
 		return this.emailTitle;
 	}
 	
 	//Personal Info TextFields
+	/**
+	 * Get the JTextField were´the user usually writes their name.
+	 * @return
+	 * 			the JTextField were´the user usually writes their name.
+	 */
 	public JTextField getNameField(){
 		return this.nameField;
 	}
 	
+	/**
+	 * Get the JTextField were´the user usually writes their address.
+	 * @return
+	 * 			the JTextField were´the user usually writes their address.
+	 */
 	public JTextField getAddressField(){
 		return this.addressField;
 	}
 	
+	/**
+	 * Get the JTextField were´the user usually writes their City/Zipcode.
+	 * @return
+	 * 			the JTextField were´the user usually writes their City/Zipcode.
+	 */
 	public JTextField getCityField(){
 		return this.cityzipcodeField;
 	} 
 	
+	/**
+	 * Get the JTextField were´the user usually writes their phone number.
+	 * @return
+	 * 			the JTextField were´the user usually writes their phone number.
+	 */
 	public JTextField getPhoneField(){
 		return this.phoneField;
 	}
 	
+	/**
+	 * Get the JTextField were´the user usually writes their email-address.
+	 * @return
+	 * 			the JTextField were´the user usually writes their email-address.
+	 */
 	public JTextField getEmailField(){
 		return this.emailField;
 	}
 	
+	/**
+	 * Get the first JTextField were the user can write whatever personal info they like.
+	 * @return
+	 * 			the first JTextField were the user can write whatever personal info they like.
+	 */
 	public JTextField getEmptyField1(){
-		return this.txtEmpty1;
+		return this.empty1Field;
 	}
 	
+	/**
+	 * Get the second JTextField were the user can write whatever personal info they like.
+	 * @return
+	 * 			the second JTextField were the user can write whatever personal info they like.
+	 */
 	public JTextField getEmptyField2(){
-		return this.txtEmpty2;
+		return this.empty2Field;
 	}
 	
 	//Headers
+	/**
+	 * Get the header for writing "Education".
+	 * @return
+	 * 			the header for writing "Education".
+	 */
 	public JTextField getEduHeader(){
 		return this.educationHeader;
 	}
 	
+	/**
+	 * Get the header for writing "Work Experience".
+	 * @return
+	 * 			the header for writing "Work Experience".
+	 */
 	public JTextField getWorkExpHeader(){
 		return this.workExpHeader;
 	}
 	
+
 	//Sections
+	/**
+	 * Get the Image Label
+	 * @return
+	 * 			the Image Label
+	 */
 	public JLabel getImageLabel(){
 		return this.imgLabel;
 	}
 	
+	/**
+	 * Get the Working Experience Text
+	 * @return
+	 * 			the Working Experience Text
+	 */
 	public JTextPane getWorkingExperienceText(){
 		return this.workExperienceText;
 	}
 	
+	/**
+	 * Get the Education Text
+	 * @return
+	 * 			the Education text
+	 */
 	public JTextPane getEducationText(){
 		return this.educationText;
 	}

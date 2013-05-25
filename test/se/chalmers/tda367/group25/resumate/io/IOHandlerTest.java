@@ -101,7 +101,6 @@ public class IOHandlerTest {
 
 		strings.put(SectionType.PERSONAL_INFO, info); // Just a String to make the method work.
 		strings.put(SectionType.WORK_EXPERIENCE, work);
-	
 		IOHandler.saveFile(dirPath, strings);
 
 		String personalFilePath = dirPath + "\\" + info;
@@ -112,9 +111,6 @@ public class IOHandlerTest {
 		File workFile = new File(workFilePath);
 		assertTrue(workFile.exists());
 		
-		String emptyFilePath = dirPath + "\\" + work;
-		File emptyFile = new File(emptyFilePath);
-		assertTrue(emptyFile.exists());
 	}
 
 	/*

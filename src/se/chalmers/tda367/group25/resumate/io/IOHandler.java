@@ -4,25 +4,27 @@ import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 /**
- * This class handles IO functions, saving and opening Documents. This is done
- * by saving each Section as a separate text document, which in turn is named
- * after the SectionType. It follows then that opening a Document is done by
- * creating a new Document, and then setting the contents of the Sections to the
- * content of the corresponding text documents.
+ * This singleton class handles IO functions, saving and opening Documents. This
+ * is done by saving each Section as a separate text document, which in turn is
+ * named after the SectionType. It follows then that opening a Document is done
+ * by creating a new Document, and then setting the contents of the Sections to
+ * the content of the corresponding text documents.
  * 
  * @author Laszlo Sall Vesselenyi
  */
 public class IOHandler {
 
-	private static volatile IOHandler instance = null;
+	private static volatile IOHandler instance = new IOHandler();
 
 	private IOHandler() {
 	}
@@ -42,11 +44,13 @@ public class IOHandler {
 	public static synchronized void saveFile(String fileName,
 			Map<SectionType, String> strings) throws IOException {
 		File directory = new File(fileName);
-		if (directory.mkdirs() || directory.exists()) {
-			writeToFiles(fileName, strings);
-
-			Desktop desktop = Desktop.getDesktop();
-			desktop.open(directory);
+		try {
+			if (directory.mkdirs() || directory.exists()) {
+				writeToFiles(fileName, strings);
+				showFile(directory);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -76,10 +80,6 @@ public class IOHandler {
 			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
 					strings.get(SectionType.WORK_EXPERIENCE));
 		}
-		BufferedWriter w = new BufferedWriter(new FileWriter(fileName
-				+ "\\Project.rsmt"));
-		w.write("Hello");
-		w.close();
 	}
 
 	/**
@@ -89,8 +89,12 @@ public class IOHandler {
 	 */
 	private static void writeSingleFile(File file, String content)
 			throws IOException {
-		BufferedWriter w = new BufferedWriter(new FileWriter(file));
-		w.write(content);
+		BufferedWriter w = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream(file), Charset.forName("UTF-8")
+						.newEncoder()));
+		if (content != null) {
+			w.write(content);
+		}
 		w.close();
 	}
 
@@ -119,5 +123,22 @@ public class IOHandler {
 			br.close();
 		}
 		throw new IOException("Not project folder");
+	}
+
+	/**
+	 * Shows a directory, indicated by the file parameter, using the native file
+	 * explorer if supported by the current platform.
+	 * 
+	 * @param file
+	 *            the PDF file to show
+	 * @throws IOException
+	 */
+	private static void showFile(File file) throws IOException {
+		if (Desktop.isDesktopSupported()) {
+			Desktop desktop = Desktop.getDesktop();
+			if (desktop.isSupported(Desktop.Action.OPEN)) {
+				desktop.open(file);
+			}
+		}
 	}
 }

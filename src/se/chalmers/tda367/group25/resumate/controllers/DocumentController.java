@@ -1,6 +1,5 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -14,7 +13,6 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
-import se.chalmers.tda367.group25.resumate.model.TextSection;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
@@ -118,7 +116,7 @@ public class DocumentController implements PropertyChangeListener{
 	 * @return the Document in given by the parameter ID
 	 */
 	public Document getDoc(int id) {
-		List<Object> list = docAndDocView.get(new Integer(id));
+		List<Object> list = docAndDocView.get(Integer.valueOf(id));
 		Document doc;
 		for (Object o : list) {
 			if (o instanceof Document) {
@@ -139,7 +137,7 @@ public class DocumentController implements PropertyChangeListener{
 	 * @return the DocumentView given by the parameter ID
 	 */
 	public DocumentView getView(int id) {
-		List<Object> list = docAndDocView.get(new Integer(id));
+		List<Object> list = docAndDocView.get(Integer.valueOf(id));
 		DocumentView v;
 		for (Object o : list) {
 			if (o instanceof DocumentView) {

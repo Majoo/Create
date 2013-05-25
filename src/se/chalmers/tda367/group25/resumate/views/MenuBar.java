@@ -12,10 +12,12 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
@@ -249,9 +251,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 */
 	private void setCurrentDirectoryPath(String newCurDirectoryPath) {
 		this.curDirectoryPath = newCurDirectoryPath;
-		
+
 	}
-	
+
 	/**
 	 * Set look and feel
 	 */
@@ -291,17 +293,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					"Do you want to save the document first?", null,
 					JOptionPane.YES_NO_OPTION);
 			if (selection == JOptionPane.YES_OPTION) {
-				pcs.firePropertyChange(Labels.SAVE_DOC, false, true); // Save
-																		// Doc
-				pcs.firePropertyChange(Labels.NEW_DOC, false, true); // New Doc
-			} else if (selection == JOptionPane.CLOSED_OPTION) {
-				// Do nothing
-			} else {
-				pcs.firePropertyChange(Labels.NEW_DOC, false, true);
-				// tabbedpane.addTab("Tab 2", null, docView, "unsaved");
+				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);
+
 			}
-			break;
-			
+			String st = JOptionPane.showInputDialog("New document:", "untitled");
+			if(!st.equals(null)){
+				pcs.firePropertyChange(Labels.NEW_DOC, false, st);
+			}
+
 		case "Save":
 			pcs.firePropertyChange(Labels.SAVE_DOC, true, false);
 			break;
@@ -313,14 +312,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		case "Open":
 			pcs.firePropertyChange(Labels.OPEN_DOC, true, false);
 			break;
-			
+
 		case "Exit":
 			selection = JOptionPane.showConfirmDialog(null,
 					"Do you want to save the document first?", null,
 					JOptionPane.YES_NO_OPTION);
 			if (selection == JOptionPane.YES_OPTION) {
 				pcs.firePropertyChange(Labels.SAVE_DOC, false, true); 
-																		
+
 				System.exit(0);
 			} else if (selection == JOptionPane.CLOSED_OPTION) {
 				// Do nothing
@@ -330,27 +329,27 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		case "Export":
 			pcs.firePropertyChange(Labels.EXPORT_DOC, false, true);
 			break;
-			
+
 		case "Undo":
 			pcs.firePropertyChange(Labels.TEXT_UNDO, false, true);
 			break;
-			
+
 		case "Redo":
 			pcs.firePropertyChange(Labels.TEXT_REDO, false, true);
 			break;
-			
+
 		case "Copy":
 			pcs.firePropertyChange(Labels.TEXT_COPY, false, true);
 			break;
-			
+
 		case "Paste":
 			pcs.firePropertyChange(Labels.TEXT_PASTE, false, true);
 			break;
-			
+
 		case "Cut":
 			pcs.firePropertyChange(Labels.TEXT_CUT, false, true);
 			break;
-			
+
 		case "SelectAll":
 			pcs.firePropertyChange(Labels.TEXT_SELECTALL, false, true);
 			break;
@@ -433,7 +432,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, null, "U");
 			break;
 
-		/* Image related: */
+			/* Image related: */
 		case "Upload":
 			JFileChooser chooser;
 			if(this.curDirectoryPath == null){

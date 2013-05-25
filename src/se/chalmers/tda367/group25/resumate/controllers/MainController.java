@@ -62,7 +62,7 @@ public class MainController implements PropertyChangeListener {
 			System.out.println("in tempchanged in maincontroller");
 			TemplatePanel prevTemp = docCon.getView(docCon.getCurrentID()).getTemplatePanel();
 			TemplatePanel tempChange = Translator.templateToPanel(e.getNewValue());
-//			ViewHandler.changeTemplate(prevTemp, tempChange);
+			//			ViewHandler.changeTemplate(prevTemp, tempChange);
 			docCon.getView(docCon.getCurrentID()).setTemplate(tempChange);
 			mainView.validate();
 			mainView.setVisible(true);
@@ -86,22 +86,22 @@ public class MainController implements PropertyChangeListener {
 		case Labels.SEND_INITIAL_DVIEW:
 			if(e.getOldValue() instanceof DocumentView 
 					&& e.getNewValue() instanceof Integer){
-			DocumentView docView = (DocumentView)e.getOldValue();
-			docCon.addDocView((int)e.getNewValue()
-					,docView);
-			docCon.getView(docCon.getCurrentID()).addPropertyChangeListener(this);
+				DocumentView docView = (DocumentView)e.getOldValue();
+				docCon.addDocView((int)e.getNewValue()
+						,docView);
+				docCon.getView(docCon.getCurrentID()).addPropertyChangeListener(this);
 			}
 			break;
-			
+
 		case Labels.UPDATE_INITIAL_TOOLBAR:
 			JTextComponent curTextSection = docCon.getView(docCon.getCurrentID()).getTemplatePanel()
 			.getCurrentSection();
 			ITextSection curRMText = docCon.getDoc(docCon.getCurrentID()).getTexts()
-			.get(Translator.containerToSectionType(curTextSection));
+					.get(Translator.containerToSectionType(curTextSection));
 			mainView.getToolbarPanel().getTextFontCombo().setSelectedItem(curRMText.getFont());
 			mainView.getToolbarPanel().getTextSizeCombo().setSelectedItem(curRMText.getSize());
 			mainView.getToolbarPanel().getTextColorCombo().setSelectedItem(curRMText.getColor());
-			
+
 		default: 
 			//Do nothing, never invoked
 			break;
@@ -129,9 +129,9 @@ public class MainController implements PropertyChangeListener {
 						docCon.getDoc(docCon.getCurrentID()),
 						docCon.getDoc(docCon.getCurrentID()).getFilePath());
 			}
-			
+
 			break;
-		
+
 		case Labels.SAVE_DOC_AS:
 			ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
 					docCon.getDoc(docCon.getCurrentID()), null);
@@ -152,11 +152,11 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.EXPORT_DOC:
-//			ViewHandler.removeBorder(docCon.getView(docCon.getCurrentID()).getTemplatePanel());
+			//			ViewHandler.removeBorder(docCon.getView(docCon.getCurrentID()).getTemplatePanel());
 			ioCon.chooseFunction(Labels.EXPORT_DOC,
 					docCon.getView(docCon.getCurrentID()).getTemplatePanel(),
 					null, null);
-//			ViewHandler.setBackBorder(docCon.getView(docCon.getCurrentID()).getTemplatePanel());
+			//			ViewHandler.setBackBorder(docCon.getView(docCon.getCurrentID()).getTemplatePanel());
 			break;
 
 		case Labels.SEND_DOC:
@@ -169,13 +169,13 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.NEW_DOC:
-			// To be implemented
+			mainView.newTab((String)e.getNewValue());
 			break;
 
-//		case Labels.DOC_LOAD:
-//			docCon.getDoc(docCon.getCurrent()).setAllTexts(
-//					ioCon.getStringsMap());
-//			break;
+			//		case Labels.DOC_LOAD:
+			//			docCon.getDoc(docCon.getCurrent()).setAllTexts(
+			//					ioCon.getStringsMap());
+			//			break;
 
 		default:
 			// Do nothing, never invoked
@@ -206,13 +206,13 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.TEXT_UNDO:
 			TemplatePanel undoPAction = docCon.getView(docCon.getCurrentID())
-					.getTemplatePanel();
+			.getTemplatePanel();
 			ViewHandler.undoAction(undoPAction.getManager());
 			break;
 
 		case Labels.TEXT_REDO:
 			TemplatePanel redoPAction = docCon.getView(docCon.getCurrentID())
-					.getTemplatePanel();
+			.getTemplatePanel();
 			ViewHandler.redoAction(redoPAction.getManager());
 			break;
 
@@ -234,7 +234,7 @@ public class MainController implements PropertyChangeListener {
 			break;
 		case Labels.TEXT_ENTERED:
 			String text = e.getNewValue().toString();
-//			curRMText.setText(text);
+			//			curRMText.setText(text);
 			//TODO
 			break;
 
@@ -246,7 +246,6 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXTSIZE_CHANGED:
 			int size = Integer.parseInt(e.getNewValue().toString());
 			curText.changeSize(curTextSection, size);
-			// TODO
 			break;
 
 		case Labels.TEXTSTYLE_CHANGED:
@@ -258,14 +257,13 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXTCOLOUR_CHANGED:
 			String colour = e.getNewValue().toString();
 			curText.changeColor(curTextSection, Translator.stringToColor(colour), colour);
-			// TODO
 			break;
 
 		case Labels.TEXT_REPLACED:
 			String[] replaceTexts = e.getNewValue().toString().split("/");
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
-//			curRMText.replaceText(curTextSection, replace, replaceWith);
+			//			curRMText.replaceText(curTextSection, replace, replaceWith);
 			//TODO
 			break;
 
@@ -294,12 +292,12 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.FIND_TEXT:
 			String txt = e.getNewValue().toString();
-//			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
-//					.getPersonalInfoText(), txt);
-//			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
-//					.getHeaderTitle(), txt);
-//			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
-//					.getWorkingExperienceText(), txt);
+			//			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
+			//					.getPersonalInfoText(), txt);
+			//			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
+			//					.getHeaderTitle(), txt);
+			//			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
+			//					.getWorkingExperienceText(), txt);
 			// TODO
 			break;
 

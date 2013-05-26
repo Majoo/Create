@@ -6,7 +6,7 @@ import java.awt.Rectangle;
  * An interface to describe an image.
  * The image can be cropped, scaled and made gray.
  */
-public interface ImageInterface {
+public interface IImage {
 	
 	/**
 	 * Crop a Rectangle of the Image.

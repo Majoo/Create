@@ -61,17 +61,19 @@ public class IOController implements PropertyChangeListener {
 			if (function.equals(Labels.SAVE_DOC)
 					|| function.equals(Labels.SAVE_DOC_AS)) {
 				strings = doc.getTexts();
-				System.out.print(strings.toString());
 			} else {
 				strings = null;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("CHOOSE FUNCTION");
 		try {
+			System.out.println(function);
 			if (function.equals(Labels.SAVE_DOC)) {
 				IOHandler.saveFile(path, doc.getTexts());
 			} else if ((function.equals(Labels.SAVE_DOC_AS))) {
+				System.out.println("SAVE DOC AS");
 				choosePath(jc, function, doc.getTexts());
 			} else if ((function.equals(Labels.EXPORT_DOC))
 					|| function.equals(Labels.OPEN_DOC)) {
@@ -110,7 +112,6 @@ public class IOController implements PropertyChangeListener {
 									JOptionPane.ERROR_MESSAGE);
 					chooseFunction(function, jc, doc, path);
 				}
-				System.out.println("IO");
 			} else if (sourceClass.equals("PDFHandler")) {
 				String stackTraceTop = e.getStackTrace()[0].getMethodName();
 				if (stackTraceTop.contains("print")) {

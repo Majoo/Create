@@ -29,29 +29,17 @@ import se.chalmers.tda367.group25.resumate.utils.Labels;
  */
 public abstract class TemplatePanel extends JPanel implements FocusListener {
 	// Textfields with personal info titles
-	private JTextField nameTitle;
-	private JTextField cityzipcodeTitle;
-	private JTextField addressTitle;
-	private JTextField phoneTitle;
-	private JTextField emailTitle;
+	private JTextField nameTitle, cityzipcodeTitle, addressTitle, phoneTitle, emailTitle;
 		
 	// Empty textfields with personal info
-	private JTextField nameField;
-	private JTextField cityzipcodeField;
-	private JTextField addressField;
-	private JTextField phoneField;
-	private JTextField emailField;
-	private JTextField empty1Field;
-	private JTextField empty2Field;
+	private JTextField nameField, cityzipcodeField, addressField, phoneField, emailField, empty1Field, empty2Field;
 	
 	// Textfields for headers
-	private JTextField workExpHeader;
-	private JTextField educationHeader;	
+	private JTextField workExpHeader, educationHeader;	
 	
 	// Textfields for sections
 	private JLabel imgLabel;
-	private JTextPane workExpText;
-	private JTextPane educationText;
+	private JTextPane workExpText, educationText;
 	
 	// Important variables
 	private JTextComponent currentSection;
@@ -248,6 +236,33 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		// Important variables
 		this.currentSection = nameField;
 		this.pcs = new PropertyChangeSupport(this);
+		
+		// Tooltips
+		getEducationText().setToolTipText("Enter your education experiences.");
+		getEduHeader().setToolTipText("<html>Headline for your education experiences. <br><b>Protip!</b><br> Instead of <i>Education</i> you could use something more creative. <br> But be careful to not be too informal.</html>");
+		getEduHeader().setText("[EDUCATION HEADLINE]");
+		getWorkingExperienceText().setToolTipText("<html>Enter the work experiences you've got. " +
+				"<br>Do not forget to add a reference to your earlier employers. <br>" +
+				"<b>Protip!</b> Make a list of your working experiences like a timeline.</html>");
+		getCityField().setToolTipText("Enter the current city and zipcode you're living in.");
+		getAddressField().setToolTipText("Enter your home address.");
+		getEmailField().setToolTipText("<html>Enter the email account that you are <br>most active at so the employer can contact you.</html>");
+		getPhoneField().setToolTipText("<html>Enter a phone number where <br>your employer can  reach you anytime.</html>");
+		getCurrentSection().setToolTipText("Enter your full name (first, mid and last name)");
+		getWorkExpHeader().setText("[HEADLINE]");
+		getWorkExpHeader().setToolTipText("<html><b>Protip!</b> Use a creative headline to attract your employer!</html>");
+		getImageLabel().setToolTipText("<html>This is where your picture will be located. <br><b>Protip!</b> Use a face frontal picture with good quality.</html>");
+		getEmptyField2().setToolTipText("<html>Write down whatever you want. <br>" +
+				"<b>Protip!</b> Your twitter account?</html>");
+		getEmptyField1().setToolTipText("<html>Write down whatever you want. <br>" +
+				"<b>Protip!</b> Your personal code number?</html>");
+		setToolTipText("<html><b>Protip!</b> <br> " +
+				"Attract your employer by making your <br><i>Curriculum Vitae</i> or <i>Personal Letter</i> interesting.</html>");
+		getCityTitle().setToolTipText("Fill in the name of your city and the zipcode.");
+		getAddressTitle().setToolTipText("Fill in your home address.");
+		getEmailTitle().setToolTipText("Fill in your mail address.");
+		getPhoneTitle().setToolTipText("Fill in your phone number.");
+		getNameTitle().setToolTipText("Fill in your first and last name.");
 	}
 
 	// -----Getters-----

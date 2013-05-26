@@ -44,6 +44,7 @@ public class PDFHandler {
 	 * @param filePathAndName
 	 *            the String used to decide where the PDF file will be saved and
 	 *            what its name will be
+	 * @param function
 	 * @throws DocumentException
 	 * @throws IOException
 	 */
@@ -52,15 +53,44 @@ public class PDFHandler {
 			String filePathAndName, String function) throws DocumentException,
 			IOException {
 
+		Document document = new Document();
+		
 		File file = getUniqueFile(filePathAndName);
-		if (function.equals(Labels.EXPORT_DOC)) {
-			createPDF(jc, file);
-			showFile(file);
-		} else if (function.equals(Labels.PRINT_DOC)) {
-			printFile(file);
-		} else if (function.equals(Labels.SEND_DOC)) {
-			sendFile(file);
+		
+		PdfWriter writer = PdfWriter.getInstance(document,
+				new FileOutputStream(file));
+		document.open();
+		PdfContentByte cb = writer.getDirectContent();
+		
+		int panelWidth = jc.getWidth();
+		int panelHeight = jc.getHeight();
+		int delta = panelHeight;
+		
+		// If the incoming JComponent representation of a Document is higher
+		// than a single PDF document, create new pages accordingly
+		while (delta >= 0) {
+			document.newPage();
+			PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
+
+			// Creates graphics where text is handled as fonts instead of simple
+			// graphics/shapes
+			Graphics2D g2 = tp.createGraphics(panelWidth, panelHeight);
+			jc.print(g2);
+
+			cb.addTemplate(tp, 0, document.top() - delta);
+
+			g2.dispose();
+			delta = (int) (delta - document.top());
 		}
+
+		document.close();
+
+		/*
+		 * if (function.equals(Labels.EXPORT_DOC)) { createPDF(jc, file);
+		 * showFile(file); } else if (function.equals(Labels.PRINT_DOC)) {
+		 * printFile(file); } else if (function.equals(Labels.SEND_DOC)) {
+		 * sendFile(file); }
+		 */
 
 	}
 
@@ -83,7 +113,7 @@ public class PDFHandler {
 	private static void createPDF(JComponent jc, File file)
 			throws FileNotFoundException, DocumentException {
 		Document document = new Document();
-		document.open();
+
 		PdfWriter writer = PdfWriter.getInstance(document,
 				new FileOutputStream(file));
 		PdfContentByte cb = writer.getDirectContent();
@@ -91,7 +121,7 @@ public class PDFHandler {
 		int panelWidth = jc.getWidth();
 		int panelHeight = jc.getHeight();
 		int delta = panelHeight;
-
+		document.open();
 		// If the incoming JComponent representation of a Document is higher
 		// than a single PDF document, create new pages accordingly
 		while (delta >= 0) {

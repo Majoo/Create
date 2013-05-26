@@ -40,31 +40,6 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 		
 		setPreferredSize(new Dimension(599, 1000));
 		this.templatePnl = templatePanel;
-		templatePnl.getEducationText().setToolTipText("Enter your education experiences.");
-		templatePnl.getEduHeader().setToolTipText("<html>Headline for your education experiences. <br><b>Protip!</b><br> Instead of <i>Education</i> you could use something more creative. <br> But be careful to not be too informal.</html>");
-		templatePnl.getEduHeader().setText("[EDUCATION HEADLINE]");
-		templatePnl.getWorkingExperienceText().setToolTipText("<html>Enter the work experiences you've got. " +
-				"<br>Do not forget to add a reference to your earlier employers. <br>" +
-				"<b>Protip!</b> Make a list of your working experiences like a timeline.</html>");
-		templatePnl.getCityField().setToolTipText("Enter the current city and zipcode you're living in.");
-		templatePnl.getAddressField().setToolTipText("Enter your home address.");
-		templatePnl.getEmailField().setToolTipText("<html>Enter the email account that you are <br>most active at so the employer can contact you.</html>");
-		templatePnl.getPhoneField().setToolTipText("<html>Enter a phone number where <br>your employer can  reach you anytime.</html>");
-		templatePnl.getCurrentSection().setToolTipText("Enter your full name (first, mid and last name)");
-		templatePnl.getWorkExpHeader().setText("[HEADLINE]");
-		templatePnl.getWorkExpHeader().setToolTipText("<html><b>Protip!</b> Use a creative headline to attract your employer!</html>");
-		templatePnl.getImageLabel().setToolTipText("<html>This is where your picture will be located. <br><b>Protip!</b> Use a face frontal picture with good quality.</html>");
-		templatePnl.getEmptyField2().setToolTipText("<html>Write down whatever you want. <br>" +
-				"<b>Protip!</b> Your twitter account?</html>");
-		templatePnl.getEmptyField1().setToolTipText("<html>Write down whatever you want. <br>" +
-				"<b>Protip!</b> Your personal code number?</html>");
-		templatePnl.setToolTipText("<html><b>Protip!</b> <br> " +
-				"Attract your employer by making your <br><i>Curriculum Vitae</i> or <i>Personal Letter</i> interesting.</html>");
-		templatePnl.getCityTitle().setToolTipText("Fill in the name of your city and the zipcode.");
-		templatePnl.getAddressTitle().setToolTipText("Fill in your home address.");
-		templatePnl.getEmailTitle().setToolTipText("Fill in your mail address.");
-		templatePnl.getPhoneTitle().setToolTipText("Fill in your phone number.");
-		templatePnl.getNameTitle().setToolTipText("Fill in your first and last name.");
 		templatePnl.getWorkingExperienceText().setFont
 		(new Font("Tahoma", Font.PLAIN, 14));
 		templatePnl.getCurrentSection().setFont

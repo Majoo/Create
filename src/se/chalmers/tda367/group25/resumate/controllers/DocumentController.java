@@ -26,8 +26,10 @@ public class DocumentController implements PropertyChangeListener{
 	private int curID;
 
 	/**
-	 * Constructs a new DocumentController with the DocumentView to be placed in
-	 * the docAndDocView Map. Max elements in the Map is set to 20.
+	 * Constructs a new DocumentController with the first Document.
+	 * Documents and DocumentViews are paired up, the DocumentView
+	 * shows the Document it is paired up with. You can only have 20 
+	 * Documents at once.
 	 */
 	public DocumentController() {
 		// Instantiate Map
@@ -41,37 +43,7 @@ public class DocumentController implements PropertyChangeListener{
 		this.docAndDocView.put(getCurrentID(), first);
 	}
 
-	// ---GETTERS--- //
-	/**
-	 * Get the Document in the List<Object> given
-	 * @param pair
-	 * 				the pair to be separated
-	 */
-	public Document separateDoc(List<Object> pair){
-		Document d = null;
-		for (Object o : pair) {
-			if (o instanceof Document) {
-				d = (Document) o;
-			}
-		}
-		return d;
-	}
-	
-	/**
-	 * Get the DocumentView in the List<Object> given
-	 * @param pair
-	 * 				the pair to be separated
-	 */
-	public DocumentView separateDocView(List<Object> pair){
-		DocumentView v = null;
-		for (Object o : pair) {
-			if (o instanceof DocumentView) {
-				v = (DocumentView) o;
-			}
-		}
-		return v;
-	}
-	
+	// ---GETTERS--- //	
 	/**
 	 * Get the Document associated with the DocumentView given as parameter.
 	 * @param
@@ -92,14 +64,12 @@ public class DocumentController implements PropertyChangeListener{
 				d = (Document)o;
 			}
 		}
-		System.out.println(d+" in docCon.separateDocument(docview)");
 		return d;
 	}
 
 	
 	/**
-	 * Returns the Key to the current DocAndDocView couple currently in use by
-	 * the user.
+	 * Returns the Key to the Document and DocumentView couple currently in use.
 	 * 
 	 * @return The String Key to the current couple
 	 */
@@ -149,18 +119,6 @@ public class DocumentController implements PropertyChangeListener{
 	}
 	
 	// ---SETTERS--- //
-	/**
-	 * Update the image of the Document associated with the BufferedImage img.
-	 * 
-	 * @param doc
-	 * 					The Document to put the BufferedImage in
-	 * @param img
-	 * 					The BufferedImage to put in the Document
-	 */
-	public void updateImage(Document doc, BufferedImage img) {
-		doc.setImage(img);
-		
-	}
 	
 	/**
 	 * Adds a new Document to the corresponding value (List) in the
@@ -211,7 +169,18 @@ public class DocumentController implements PropertyChangeListener{
 		this.curID = currentID;
 	}
 
-	
+	/**
+	 * Update the image of the Document associated with the BufferedImage img.
+	 * 
+	 * @param doc
+	 * 					The Document to put the BufferedImage in
+	 * @param img
+	 * 					The BufferedImage to put in the Document
+	 */
+	public void updateImage(Document doc, BufferedImage img) {
+		doc.setImage(img);
+
+	}	
 	
 	
 	/**

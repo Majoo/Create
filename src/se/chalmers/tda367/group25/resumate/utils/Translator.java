@@ -87,6 +87,42 @@ public class Translator {
 		return panel;
 	}
 
+	
+	public static SectionType containerToSection(JTextComponent container){
+		String name = container.getName();
+		SectionType section = null;
+
+		switch (name) {
+		// The text fields of personal info
+		case "nameField":		
+		case "cityzipcodeField":		
+		case "addressField":
+		case "phoneField":
+		case "emailField":
+		case "empty1Field":
+		case "empty2Field":
+			section = SectionType.PERSONAL_INFO;
+			break;
+
+		// Other text fields 
+		case "workExpText":
+			section = SectionType.WORK_EXPERIENCE;
+			break;
+
+		case "educationText":
+			section = SectionType.EDUCATION;
+			break;
+
+		// Headers
+		case "workExpHeader":
+		case "educationHeader":
+			section = SectionType.HEADER;
+			break;
+		}
+		return section;
+	}
+	
+	
 	/**
 	 * Translates a JTextComponent to a SectionType.
 	 * 
@@ -132,7 +168,7 @@ public class Translator {
 			break;
 
 		// Other text fields 
-		case "workingExperienceText":
+		case "workExpText":
 			section = SectionType.WORK_EXPERIENCE;
 			break;
 

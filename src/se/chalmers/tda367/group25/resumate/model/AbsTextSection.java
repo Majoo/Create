@@ -66,7 +66,7 @@ public abstract class AbsTextSection implements ITextSection {
 		section.setForeground(col);
 
 	}
-
+	
 	/**
 	 * Replaces the a text with another
 	 * 
@@ -81,7 +81,7 @@ public abstract class AbsTextSection implements ITextSection {
 	 */
 	public void replaceText(JTextComponent section, String replace,
 			String replaceWith) {
-		// Update the text in the view
+		//Update the text in the view
 		section.setText(section.getText().replaceAll(replace, replaceWith));
 	}
 

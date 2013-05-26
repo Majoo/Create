@@ -1,13 +1,12 @@
 package se.chalmers.tda367.group25.resumate.model;
 
 import javax.swing.JTextPane;
+import javax.swing.text.JTextComponent;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 /**
  * A class which represents a section with text of a template.
- * 
- * @author ResuMate
  * 
  */
 public class MultiRowSection extends AbsTextSection{
@@ -38,6 +37,25 @@ public class MultiRowSection extends AbsTextSection{
 	 */
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	/**
+	 * Replaces the a text with another
+	 * 
+	 * @param replace
+	 *            the text to replace
+	 * 
+	 * @param replaceWith
+	 *            the text to be replaced with
+	 * 
+	 * @param section
+	 *            the JTextPane whose contents is to be customized
+	 */
+	public void replaceText(JTextComponent section, String replace,
+			String replaceWith) {
+		setText(getText().replaceAll(replace, replaceWith));
+		// Update the text in the view
+		section.setText(section.getText().replaceAll(replace, replaceWith));
 	}
 	
 	/**

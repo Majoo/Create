@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -57,11 +58,12 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	private UndoManager manager = new UndoManager();
 	
 	// List of those who should have a border that can be removed easily.
-	int nbrOfBorderedComponents = 17;
+	int nbrOfAllComponents = 17;
 
-	private ArrayList<JComponent> borderedComponents = 
-			new ArrayList<JComponent>(nbrOfBorderedComponents);
+	private List<JComponent> allComponents = 
+			new ArrayList<JComponent>(nbrOfAllComponents);
 
+	private List<JTextComponent> allTextComponents = new ArrayList<JTextComponent>(nbrOfAllComponents-1);
 
  	/**
  	 * Create the template panel. 
@@ -75,7 +77,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		nameTitle.setText("Name:");
 		nameTitle.setColumns(10);
 		nameTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(nameTitle);
+		allComponents.add(nameTitle);
+		allTextComponents.add(nameTitle);
 		nameTitle.addFocusListener(this);
 		nameTitle.getDocument().addUndoableEditListener(manager);
 		
@@ -85,7 +88,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		cityzipcodeTitle.setColumns(10);
 		cityzipcodeTitle.setBorder
 		(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(cityzipcodeTitle);
+		allComponents.add(cityzipcodeTitle);
+		allTextComponents.add(cityzipcodeTitle);
 		cityzipcodeTitle.addFocusListener(this);
 		cityzipcodeTitle.getDocument().addUndoableEditListener(manager);
 		
@@ -94,7 +98,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		addressTitle.setText("Address:");
 		addressTitle.setColumns(10);
 		addressTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(addressTitle);
+		allComponents.add(addressTitle);
+		allTextComponents.add(addressTitle);
 		addressTitle.addFocusListener(this);
 		addressTitle.getDocument().addUndoableEditListener(manager);
 		
@@ -103,7 +108,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		phoneTitle.setText("Phone:");
 		phoneTitle.setColumns(10);
 		phoneTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(phoneTitle);
+		allComponents.add(phoneTitle);
+		allTextComponents.add(phoneTitle);
 		phoneTitle.addFocusListener(this);
 		phoneTitle.getDocument().addUndoableEditListener(manager);
 		
@@ -112,7 +118,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		emailTitle.setText("E-mail:");
 		emailTitle.setColumns(10);
 		emailTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(emailTitle);
+		allComponents.add(emailTitle);
+		allTextComponents.add(emailTitle);
 		emailTitle.addFocusListener(this);
 		emailTitle.getDocument().addUndoableEditListener(manager);
 		
@@ -122,7 +129,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		nameField.setColumns(10);
 		nameField.setName("nameField");
 		nameField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(nameField);
+		allComponents.add(nameField);
+		allTextComponents.add(nameField);
 		nameField.addFocusListener(this);
 		nameField.getDocument().addUndoableEditListener(manager);
 		
@@ -131,7 +139,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		addressField.setColumns(10);
 		addressField.setName("addressField");
 		addressField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(addressField);
+		allComponents.add(addressField);
+		allTextComponents.add(addressField);
 		addressField.addFocusListener(this);
 		addressField.getDocument().addUndoableEditListener(manager);
 		
@@ -140,7 +149,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		cityzipcodeField.setColumns(10);
 		cityzipcodeField.setBorder
 		(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(cityzipcodeField);
+		allComponents.add(cityzipcodeField);
+		allTextComponents.add(cityzipcodeField);
 		cityzipcodeField.addFocusListener(this);
 		cityzipcodeField.getDocument().addUndoableEditListener(manager);
 		
@@ -148,7 +158,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		phoneField.setName("phoneField");
 		phoneField.setColumns(10);
 		phoneField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(phoneField);
+		allComponents.add(phoneField);
+		allTextComponents.add(phoneField);
 		phoneField.addFocusListener(this);
 		phoneField.getDocument().addUndoableEditListener(manager);
 		
@@ -156,7 +167,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		emailField.setName("emailField");
 		emailField.setColumns(10);
 		emailField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(emailField);
+		allComponents.add(emailField);
+		allTextComponents.add(emailField);
 		emailField.addFocusListener(this);
 		emailField.getDocument().addUndoableEditListener(manager);
 		
@@ -164,7 +176,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		empty1Field.setName("empty1Field");
 		empty1Field.setColumns(10);
 		empty1Field.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(empty1Field);
+		allComponents.add(empty1Field);
+		allTextComponents.add(empty1Field);
 		empty1Field.addFocusListener(this);
 		empty1Field.getDocument().addUndoableEditListener(manager);
 		
@@ -172,7 +185,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		empty2Field.setName("empty2Field");
 		empty2Field.setColumns(10);
 		empty2Field.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(empty2Field);
+		allComponents.add(empty2Field);
+		allTextComponents.add(empty2Field);
 		empty2Field.addFocusListener(this);
 		empty2Field.getDocument().addUndoableEditListener(manager);
 		
@@ -181,7 +195,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		workExpHeader.setName("workExpHeader");
 		workExpHeader.setColumns(10);
 		workExpHeader.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(workExpHeader);
+		allComponents.add(workExpHeader);
+		allTextComponents.add(workExpHeader);
 		workExpHeader.addFocusListener(this);
 		workExpHeader.getDocument().addUndoableEditListener(manager);
 		
@@ -190,7 +205,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		educationHeader.setColumns(10);
 		educationHeader.setBorder
 		(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(educationHeader);
+		allComponents.add(educationHeader);
+		allTextComponents.add(educationHeader);
 		educationHeader.addFocusListener(this);
 		educationHeader.getDocument().addUndoableEditListener(manager);
 		
@@ -200,19 +216,21 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		imgLabel.setForeground(Color.WHITE);
 		imgLabel.setBackground(Color.WHITE);
 		imgLabel.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(imgLabel);
+		allComponents.add(imgLabel);
 		
 		workExpText = new JTextPane();
 		workExpText.setName("workExpText");
 		workExpText.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(workExpText);
+		allComponents.add(workExpText);
+		allTextComponents.add(workExpText);
 		workExpText.addFocusListener(this);
 		workExpText.getDocument().addUndoableEditListener(manager);
 		
 		educationText = new JTextPane();
 		educationText.setName("educationText");
 		educationText.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(educationText);
+		allComponents.add(educationText);
+		allTextComponents.add(educationText);
 		educationText.addFocusListener(this);
 		educationText.getDocument().addUndoableEditListener(manager);
 		
@@ -406,9 +424,14 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	}
 	
 	// List of bordered components
-	public ArrayList<JComponent> getBorderedComponents(){
-		return this.borderedComponents;
+	public List<JComponent> getAllComponents(){
+		return this.allComponents;
 	}
+	
+	public List<JTextComponent> getTextComponents(){
+		return this.allTextComponents;
+	}
+	
 	
 	// -----Setters for the image-----
 
@@ -457,6 +480,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public void focusGained(FocusEvent arg0) {
 		if(arg0.getComponent() instanceof JTextComponent){
 			currentSection = (JTextComponent)arg0.getComponent();
+			System.out.println("focus");
 			pcs.firePropertyChange(Labels.TEXTAREA_CHANGED, false, true);
 		}
 	}

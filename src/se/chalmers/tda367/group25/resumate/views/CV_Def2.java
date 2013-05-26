@@ -12,57 +12,24 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
+
 /**
  * A class that represents the Curriculum Vitae 2 template
  */
 
 public class CV_Def2 extends TemplatePanel {
 
-	private JTextField nameField;
-	private JTextField cityzipcodeField;
-	private JTextField addressField;
-	private JTextField phoneField;
-	private JTextField emailField;
-
-	private JTextField nameText;
-	private JTextField phoneText;
-	private JTextField emailText;
-	private JTextField textAdress;
-	private JTextField cityZipCodeText;
-	
-	private JTextField txtEmpty;
-	private JTextField txtEmpty2;
-	private JTextField workExpHeaderTF;
-	private JTextField educationHeaderTF;
-
 
 	public CV_Def2() {
-		setBorder(new LineBorder(new Color(0, 0, 0)));
+		super();
+		
 		this.setPreferredSize(new Dimension(599, 1000));
 		this.setBackground(Color.WHITE);
-
-//		JLabel imgLabel = new JLabel("");
-//		imgLabel.setForeground(Color.WHITE);
-//		imgLabel.setBackground(Color.WHITE);
-//		imgLabel.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 
 		JPanel pnlPersonalInfo = new JPanel();
 		pnlPersonalInfo.setBackground(Color.WHITE);
 
-//		workExpHeader = new JTextField();
-//		workExpHeader.setColumns(10);
-//		workExpHeader.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-//
-//		educationHeader = new JTextField();
-//		educationHeader.setColumns(10);
-//		educationHeader.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-
-//		JTextPane workExperienceText = new JTextPane();
-//		workExperienceText.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-//
-//		JTextPane educationText = new JTextPane();
-//		educationText.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-
+		//Place components
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 				groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -106,14 +73,7 @@ public class CV_Def2 extends TemplatePanel {
 				);
 
 		
-		//The Labels that tell the user what to write in the subsequent JTextField
-		
-//		nameField = new JTextField();
-//		nameField.setText("Name:");
-//		nameField.setColumns(10);
-//		nameField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		
-		
+		//Places components of the Personal Info Panel
 		GroupLayout gl_pnlPersonalInfo = new GroupLayout(pnlPersonalInfo);
 		gl_pnlPersonalInfo.setHorizontalGroup(
 				gl_pnlPersonalInfo.createParallelGroup(Alignment.LEADING)

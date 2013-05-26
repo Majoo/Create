@@ -11,10 +11,8 @@ public interface ITextSection {
 	public void changeColor(JTextComponent section, Color col, String colour);
 	public void replaceText(JTextComponent section, String replace,
 			String replaceWith);
-	
 	public String getFont();
 	public String getColor();
 	public int getSize();
-	
 	
 }

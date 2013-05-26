@@ -179,7 +179,7 @@ public class ViewHandler {
 	 * 		the template to set the back the borders to.
 	 */
 	public static void setBackBorder(TemplatePanel p){
-		for(JComponent comp :p.getBorderedComponents())
+		for(JComponent comp :p.getAllComponents())
 			comp.setBorder(BorderFactory.createDashedBorder(Color.black));
 	}
 	
@@ -190,33 +190,9 @@ public class ViewHandler {
 	 * 		the template to remove the borders from.	
 	 */	
 	public static void removeBorder(TemplatePanel p){
-		for(JComponent comp :p.getBorderedComponents())
+		for(JComponent comp :p.getAllComponents())
 			comp.setBorder(null);
 	}
-	
-	/*public static void changeTemplate
-	     (TemplatePanel previous, TemplatePanel current){
-	 
-
-		String workText = previous.getWorkingExperienceText().getText();
-		String persText = previous.getPersonalInfoText().getText();
-		String headText = previous.getHeaderTitle().getText();
-		String eduText = previous.getEducationText().getText();
-		
-		current.getWorkingExperienceText().setText(workText);
-		current.getPersonalInfoText().setText(persText);
-		current.getHeaderTitle().setText(headText);
-		current.getEducationText().setText(eduText);
-		
-		/*System.out.println(workText);
-		System.out.println(persText);
-		System.out.println(headText);
-		System.out.println(eduText);
-		
-	}
-	*/
-		
-	
 }
 	
 	

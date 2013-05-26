@@ -224,7 +224,7 @@ public class DocumentController implements PropertyChangeListener{
 	}
 
 	/**
-	 * Removes a propertychange listnener to this class.
+	 * Removes a PropertyChangeListener to this class.
 	 * @param pcl
 	 * 			the listener to be unregistered
 	 */
@@ -234,7 +234,7 @@ public class DocumentController implements PropertyChangeListener{
 	
 
 	/**
-	 * Fires the propertychange event further to the main controller
+	 * Fires the PropertyChangeEvent further to the main controller
 	 * where the events are to be handled.
 	 * 
 	 * @param arg0

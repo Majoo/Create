@@ -70,7 +70,6 @@ public class IOHandler {
 	public static synchronized Map<SectionType, String> openFile(String fileName)
 			throws IOException {
 		File chosenDir = new File(fileName);
-
 		if (chosenDir.getName().contains(".rsmt")) {
 			return readFromFiles(fileName);
 		}

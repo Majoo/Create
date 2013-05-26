@@ -19,8 +19,7 @@ import se.chalmers.tda367.group25.resumate.views.MainView;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 /**
- * A MainController delegates all kinds of events
- * between classes. 
+ * A MainController delegates all kinds of events between classes.
  */
 public class MainController implements PropertyChangeListener {
 
@@ -64,7 +63,7 @@ public class MainController implements PropertyChangeListener {
 		switch (e.getPropertyName()) {
 
 		case Labels.TEMPLATE_CHANGED:
-			// To be implemented 
+			// To be implemented
 			/*
 			 * TemplatePanel tempChange = Translator.templateToPanel(e
 			 * .getNewValue().toString()); docCon.saveTexts();
@@ -181,12 +180,9 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.LOAD_DOC:
-			System.out.println("WHAT");
 			docCon.getDoc(docCon.getCurrentID()).setAllTexts(
 					ioCon.getStringsMap());
-			System.out.println("OMG");
 			docCon.updateTexts();
-			System.out.println("SWAG");
 			break;
 
 		default:
@@ -206,8 +202,8 @@ public class MainController implements PropertyChangeListener {
 		/*
 		 * Text handling: e.getNewValue() contains the information neccesary for
 		 * the specific task. By the usage of the master translator we will know
-		 * which kind of section type it is so that the text section can be informed
-		 * which one to be updated.
+		 * which kind of section type it is so that the text section can be
+		 * informed which one to be updated.
 		 */
 		JTextComponent curTextSection = docCon.getView(docCon.getCurrentID())
 				.getTemplatePanel().getCurrentSection();

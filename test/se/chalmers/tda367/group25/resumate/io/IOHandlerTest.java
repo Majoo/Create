@@ -100,8 +100,9 @@ public class IOHandlerTest {
 		String name = "NAME.txt";
 		String work = "WORK_EXPERIENCE.txt";
 
-		strings.put(SectionType.NAME_PERSONAL, name); // Just a String to make the method
-												// work.
+		strings.put(SectionType.NAME_PERSONAL, name); // Just a String to make
+														// the method
+		// work.
 		strings.put(SectionType.WORK_EXPERIENCE, work);
 		IOHandler.saveFile(dirPath, strings);
 
@@ -142,11 +143,11 @@ public class IOHandlerTest {
 
 		IOHandler.saveFile(dirPath, strings);
 		
-		Map<SectionType, String> map = IOHandler.openFile(dirPath);
+		Map<SectionType, String> map = IOHandler.openFile(dirPath + "\\Project.rsmt");
 		
-		assertTrue(map.containsKey(SectionType.NAME_PERSONAL));
+		// assertTrue(map.containsKey(SectionType.NAME_PERSONAL));
 		assertTrue(map.containsValue(content));
 		assertTrue(map.get(SectionType.NAME_PERSONAL).equals(content));
-		
+
 	}
 }

@@ -15,11 +15,11 @@ import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 /**
- * This class controlls Documents and the DocumentViews who show these Documents.
- * Documents and DocumentViews are paired up. The DocumentView shows the
- * Document it is coupled up with.
+ * This class controlls Documents and the DocumentViews who show these
+ * Documents. Documents and DocumentViews are paired up. The DocumentView shows
+ * the Document it is coupled up with.
  */
-public class DocumentController implements PropertyChangeListener{
+public class DocumentController implements PropertyChangeListener {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 	// Each value (List) holds a Document object and a DocumentView object
@@ -28,16 +28,15 @@ public class DocumentController implements PropertyChangeListener{
 	private int curID;
 
 	/**
-	 * Constructs a new DocumentController with the first Document.
-	 * Documents and DocumentViews are paired up, the DocumentView
-	 * shows the Document it is paired up with. You can only have 20 
-	 * Documents at once.
+	 * Constructs a new DocumentController with the first Document. Documents
+	 * and DocumentViews are paired up, the DocumentView shows the Document it
+	 * is paired up with. You can only have 20 Documents at once.
 	 */
 	public DocumentController() {
 		// Instantiate Map
 		this.docAndDocView = new HashMap<Integer, List<Object>>(20);
-		
-		//create first document
+
+		// create first document
 		Document d = new Document();
 		List<Object> first = new ArrayList(2);
 		first.add(d);
@@ -45,31 +44,31 @@ public class DocumentController implements PropertyChangeListener{
 		this.docAndDocView.put(getCurrentID(), first);
 	}
 
-	// ---GETTERS--- //	
+	// ---GETTERS--- //
 	/**
 	 * Get the Document associated with the DocumentView given as parameter.
-	 * @param
-	 * 			docView - the DocumentView to extract the Document from
+	 * 
+	 * @param docView
+	 *            - the DocumentView to extract the Document from
 	 */
-	public Document separateDocument(DocumentView docView){
-		//Get the List that contains the DocView
+	public Document separateDocument(DocumentView docView) {
+		// Get the List that contains the DocView
 		List<Object> curDocAndDocView = null;
 		for (List<Object> value : this.docAndDocView.values()) {
 			if (value.contains(docView)) {
 				curDocAndDocView = value;
 			}
 		}
-		//Get the Document from this List
+		// Get the Document from this List
 		Document d = null;
-		for(Object o: curDocAndDocView){
-			if(o instanceof Document){
-				d = (Document)o;
+		for (Object o : curDocAndDocView) {
+			if (o instanceof Document) {
+				d = (Document) o;
 			}
 		}
 		return d;
 	}
 
-	
 	/**
 	 * Returns the Key to the Document and DocumentView couple currently in use.
 	 * 
@@ -119,9 +118,9 @@ public class DocumentController implements PropertyChangeListener{
 		}
 		return null;
 	}
-	
+
 	// ---SETTERS--- //
-	
+
 	/**
 	 * Adds a new Document to the corresponding value (List) in the
 	 * docAndDocView Map.
@@ -138,7 +137,7 @@ public class DocumentController implements PropertyChangeListener{
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(d);
-		//Problem: om listan redan finns och redan inneh�ller en av varje.
+		// Problem: om listan redan finns och redan inneh�ller en av varje.
 
 	}
 
@@ -157,7 +156,7 @@ public class DocumentController implements PropertyChangeListener{
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(v);
-		//Problem: om listan redan finns och redan inneh�ller en av varje.
+		// Problem: om listan redan finns och redan inneh�ller en av varje.
 
 	}
 
@@ -175,52 +174,55 @@ public class DocumentController implements PropertyChangeListener{
 	 * Update the image of the Document associated with the BufferedImage img.
 	 * 
 	 * @param doc
-	 * 					The Document to put the BufferedImage in
+	 *            The Document to put the BufferedImage in
 	 * @param img
-	 * 					The BufferedImage to put in the Document
+	 *            The BufferedImage to put in the Document
 	 */
 	public void updateImage(Document doc, BufferedImage img) {
 		doc.setImage(img);
 
-	}	
-	
-	
+	}
+
 	/**
 	 * Saves the texts from the template to the document
 	 */
-	public void saveTexts(){
-		Document doc = getDoc(getCurrentID()); 
+	public void saveTexts() {
+		Document doc = getDoc(getCurrentID());
 		TemplatePanel tp = getView(getCurrentID()).getTemplatePanel();
-		
-		//Setting texts for personal information
+
+		// Setting texts for personal information
 		doc.setText(SectionType.NAME_PERSONAL, tp.getNameField().getText());
-		doc.setText(SectionType.ADDRESS_PERSONAL, tp.getAddressField().getText());
-		doc.setText(SectionType.CITYZIPCODE_PERSONAL, tp.getCityField().getText());
+		doc.setText(SectionType.ADDRESS_PERSONAL, tp.getAddressField()
+				.getText());
+		doc.setText(SectionType.CITYZIPCODE_PERSONAL, tp.getCityField()
+				.getText());
 		doc.setText(SectionType.PHONE_PERSONAL, tp.getPhoneField().getText());
 		doc.setText(SectionType.EMAIL_PERSONAL, tp.getEmailField().getText());
 		doc.setText(SectionType.EMPTY1_PERSONAL, tp.getEmptyField1().getText());
 		doc.setText(SectionType.EMPTY2_PERSONAL, tp.getEmptyField2().getText());
-		
-		//Setting texts for work experience and education
-		doc.setText(SectionType.WORK_EXPERIENCE, tp.getWorkingExperienceText().getText());
-		doc.setText(SectionType.EDUCATION_EXPERIENCE, tp.getEducationText().getText());
-		
-		//Setting texts for the headers
+
+		// Setting texts for work experience and education
+		doc.setText(SectionType.WORK_EXPERIENCE, tp.getWorkingExperienceText()
+				.getText());
+		doc.setText(SectionType.EDUCATION_EXPERIENCE, tp.getEducationText()
+				.getText());
+
+		// Setting texts for the headers
 		doc.setText(SectionType.WORK_HEADER, tp.getWorkExpHeader().getText());
 		doc.setText(SectionType.EDU_HEADER, tp.getEduHeader().getText());
 
-		//Save text to model
+		// Save text to model
 		doc.setAllTexts();
 	}
-	
+
 	/**
 	 * Sets the texts from the model to the view
 	 */
-	public void updateTexts(){
-		Map<SectionType, String> texts = getDoc(getCurrentID()).getTexts(); 
+	public void updateTexts() {
+		Map<SectionType, String> texts = getDoc(getCurrentID()).getTexts();
 		TemplatePanel tc = getView(getCurrentID()).getTemplatePanel();
-		
-		//Setting texts in the view for the personal information
+
+		// Setting texts in the view for the personal information
 		tc.getNameField().setText(texts.get(SectionType.NAME_PERSONAL));
 		tc.getAddressField().setText(texts.get(SectionType.ADDRESS_PERSONAL));
 		tc.getCityField().setText(texts.get(SectionType.CITYZIPCODE_PERSONAL));
@@ -228,21 +230,25 @@ public class DocumentController implements PropertyChangeListener{
 		tc.getEmailField().setText(texts.get(SectionType.EMAIL_PERSONAL));
 		tc.getEmptyField1().setText(texts.get(SectionType.EMPTY1_PERSONAL));
 		tc.getEmptyField2().setText(texts.get(SectionType.EMPTY2_PERSONAL));
-		
-		//Setting texts in the view for work experience and education
-		tc.getWorkingExperienceText().setText(texts.get(SectionType.WORK_EXPERIENCE));
-		tc.getEducationText().setText(texts.get(SectionType.EDUCATION_EXPERIENCE));
-		
-		//Setting texts in the view for the headers
+
+		// Setting texts in the view for work experience and education
+		tc.getWorkingExperienceText().setText(
+				texts.get(SectionType.WORK_EXPERIENCE));
+		tc.getEducationText().setText(
+				texts.get(SectionType.EDUCATION_EXPERIENCE));
+
+		// Setting texts in the view for the headers
 		tc.getWorkExpHeader().setText(texts.get(SectionType.WORK_HEADER));
 		tc.getEduHeader().setText(texts.get(SectionType.EDU_HEADER));
 	}
-	
-	//-----PropertyChanged-Methods------
-	
-	 /** Adds a PropertyChangeListener to this class.
+
+	// -----PropertyChanged-Methods------
+
+	/**
+	 * Adds a PropertyChangeListener to this class.
+	 * 
 	 * @param pcl
-	 * 			the listener to be registered
+	 *            the listener to be registered
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.addPropertyChangeListener(pcl);
@@ -250,30 +256,25 @@ public class DocumentController implements PropertyChangeListener{
 
 	/**
 	 * Removes a PropertyChangeListener to this class.
+	 * 
 	 * @param pcl
-	 * 			the listener to be unregistered
+	 *            the listener to be unregistered
 	 */
 	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.removePropertyChangeListener(pcl);
 	}
-	
 
 	/**
-	 * Fires the PropertyChangeEvent further to the main controller
-	 * where the events are to be handled.
+	 * Fires the PropertyChangeEvent further to the main controller where the
+	 * events are to be handled.
 	 * 
 	 * @param arg0
-	 * 		the source of the event
-	 * 		
+	 *            the source of the event
+	 * 
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		try{
-			pcs.firePropertyChange(arg0.getPropertyName(),arg0.getOldValue(),
-					arg0.getNewValue());
-		} catch (NullPointerException e){
-			System.out.println("Caught NullPointerException " +
-					"in DocumentControllers propertyChange");
-		}
-	}	
+		pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(),
+				arg0.getNewValue());
+	}
 }

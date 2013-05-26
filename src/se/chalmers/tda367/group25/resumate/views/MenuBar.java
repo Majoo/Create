@@ -287,7 +287,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			// Set System Look&Feel
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
-			System.out.println("Couldn't set look and feel in MenuBar.");
+
 		}
 	}
 
@@ -484,7 +484,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				// Set the new lastOpenedDirectoryPath
 				setCurrentDirectoryPath(path);
 				// Fire PropertyChangEvent
-				System.out.println("You chose to open this file: " + path);
 				pcs.firePropertyChange(Labels.INSERT_IMAGE, path, false);
 			}
 			break;

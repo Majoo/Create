@@ -103,13 +103,31 @@ public class Translator {
 		switch (name) {
 		// The text fields of personal info
 		case "nameField":
+			section = SectionType.NAME;
+			break;
+			
 		case "cityzipcodeField":
+			section = SectionType.CITYZIPCODE;
+			break;
+			
 		case "addressField":
+			section = SectionType.ADDRESS;
+			break;
+			
 		case "phoneField":
+			section = SectionType.PHONE;
+			break;
+			
 		case "emailField":
+			section = SectionType.EMAIL;
+			break;
+			
 		case "empty1Field":
+			section = SectionType.EMPTY1;
+			break;
+			
 		case "empty2Field":
-			section = SectionType.PERSONAL_INFO;
+			section = SectionType.EMPTY2;
 			break;
 
 		// Other text fields 
@@ -123,8 +141,11 @@ public class Translator {
 
 		// Headers
 		case "workExpHeader":
+			section = SectionType.WORK_HEADER;
+			break;
+			
 		case "educationHeader":
-			section = SectionType.HEADER;
+			section = SectionType.EDU_HEADER;
 			break;
 
 		default: // Do nothing, never invoked.

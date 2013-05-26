@@ -183,7 +183,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		docViewList.add(docView);
 		tabbedPane.addTab(name, null, docView, "unsaved");
 		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
-		tabbedPane.setTabComponentAt(1, ctb);
+		tabbedPane.setTabComponentAt(tabbedPane.indexOfComponent(docView), ctb);
 		ctb.addPropertyChangeListener(this);		
 	}
 	

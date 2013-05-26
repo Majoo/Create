@@ -12,7 +12,7 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
  * A class to describe a document. A document has a template, a String,
  * text sections, an image and a FilePath. These can be set.
  */
-public class Document implements DocumentInterface {
+public class Document implements IDocument {
 
 	private String currentTempl;
 	private Map<SectionType, ITextSection> textSections = new HashMap<SectionType, ITextSection>(4);

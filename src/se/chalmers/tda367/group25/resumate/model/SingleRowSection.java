@@ -11,7 +11,7 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Styles;
 
 public class SingleRowSection extends AbsTextSection {
-	private Map<String, Boolean> styles;
+	private Map<String, Boolean> styles = new HashMap<String, Boolean>(17);
 	private Map<SectionType, String> texts;
 	
 	public SingleRowSection(){
@@ -29,6 +29,25 @@ public class SingleRowSection extends AbsTextSection {
 		if (Styles.U) {
 			changeStyle(section, "U");
 		}
+	}
+	
+	/**
+	 * Replaces the a text with another
+	 * 
+	 * @param replace
+	 *            the text to replace
+	 * 
+	 * @param replaceWith
+	 *            the text to be replaced with
+	 * 
+	 * @param section
+	 *            the JTextPane whose contents is to be customized
+	 */
+	public void replaceText(JTextComponent section, String replace,
+			String replaceWith, SectionType sectionType) {
+		setText(sectionType, getText(sectionType).replaceAll(replace, replaceWith));
+		// Update the text in the view
+		section.setText(section.getText().replaceAll(replace, replaceWith));
 	}
 	
 	public void changeStyle(JTextComponent section, String style) {

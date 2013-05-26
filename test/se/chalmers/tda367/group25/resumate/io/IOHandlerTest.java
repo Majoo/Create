@@ -64,7 +64,7 @@ public class IOHandlerTest {
 
 		String fileName = "NAME.txt";
 
-		strings.put(SectionType.NAME, "");
+		strings.put(SectionType.NAME_PERSONAL, "");
 		// Just a String to make the method work.
 
 		IOHandler.saveFile(dirPath, strings);
@@ -100,7 +100,7 @@ public class IOHandlerTest {
 		String name = "NAME.txt";
 		String work = "WORK_EXPERIENCE.txt";
 
-		strings.put(SectionType.NAME, name); // Just a String to make the method
+		strings.put(SectionType.NAME_PERSONAL, name); // Just a String to make the method
 												// work.
 		strings.put(SectionType.WORK_EXPERIENCE, work);
 		IOHandler.saveFile(dirPath, strings);
@@ -138,15 +138,15 @@ public class IOHandlerTest {
 
 		String content = "Content";
 
-		strings.put(SectionType.NAME, content);
+		strings.put(SectionType.NAME_PERSONAL, content);
 
 		IOHandler.saveFile(dirPath, strings);
 		
 		Map<SectionType, String> map = IOHandler.openFile(dirPath);
 		
-		assertTrue(map.containsKey(SectionType.NAME));
+		assertTrue(map.containsKey(SectionType.NAME_PERSONAL));
 		assertTrue(map.containsValue(content));
-		assertTrue(map.get(SectionType.NAME).equals(content));
+		assertTrue(map.get(SectionType.NAME_PERSONAL).equals(content));
 		
 	}
 }

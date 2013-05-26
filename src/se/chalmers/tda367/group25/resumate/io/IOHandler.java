@@ -70,7 +70,7 @@ public class IOHandler {
 		File chosenDir = new File(fileName);
 		
 		if (chosenDir.getName().contains(".rsmt")) {
-			readFromFiles(fileName);
+			return readFromFiles(fileName);
 		}
 		return null;
 	}
@@ -151,20 +151,17 @@ public class IOHandler {
 			File dir = rsmt.getParentFile();
 			try{
 			if (data.contains("WORK_HEADER")) {
-				System.out.println("ay yo marco polo");
 				strings.put(SectionType.WORK_HEADER, readSingleFile(new File(
 						dir + "\\WORK_HEADER.txt")));
 			}}catch (FileNotFoundException e){
 			}
 			try{
 			if (data.contains("EDU_HEADER")) {
-				System.out.println("ay yo marco polo2");
 				strings.put(SectionType.EDU_HEADER, readSingleFile(new File(
 						dir + "\\EDU_HEADER.txt")));
 			}}catch (FileNotFoundException e){
 			}try{
 			if (data.contains("WORK_EXPERIENCE")) {
-				System.out.println("ay yo marco polo3");
 				strings.put(SectionType.WORK_EXPERIENCE,
 						readSingleFile(new File(dir
 								+ "\\WORK_EXPERIENCE.txt")));

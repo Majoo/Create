@@ -178,7 +178,7 @@ public class MainController implements PropertyChangeListener {
 
 		 case Labels.LOAD_DOC:
 //		 docCon.getDoc(docCon.getCurrentID()).setAllTexts(
-		 ioCon.getStringsMap().toString();
+		 System.out.println(ioCon.getStringsMap().toString());
 		 break;
 
 		default:

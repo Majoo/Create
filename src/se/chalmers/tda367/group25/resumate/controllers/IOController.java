@@ -173,7 +173,6 @@ public class IOController implements PropertyChangeListener {
 				if (setStringsMap(IOHandler
 						.openFile(filePath + "\\" + fileName))) {
 					pcs.firePropertyChange(Labels.LOAD_DOC, true, false);
-					System.out.println(stringsFromFiles.toString());
 				}
 			}
 		} else if (returnVal == JFileChooser.CANCEL_OPTION) {

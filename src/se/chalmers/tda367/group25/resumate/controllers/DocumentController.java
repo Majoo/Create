@@ -14,6 +14,11 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
+/**
+ * This class controlls Documents and the DocumentViews who show these Documents.
+ * Documents and DocumentViews are paired up. The DocumentView shows the
+ * Document it is coupled up with.
+ */
 public class DocumentController implements PropertyChangeListener{
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 

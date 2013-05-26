@@ -18,6 +18,10 @@ import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.MainView;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
+/**
+ * A MainController delegates all kinds of events
+ * between classes. 
+ */
 public class MainController implements PropertyChangeListener {
 
 	private DocumentController docCon;

@@ -8,6 +8,10 @@ import javax.swing.JTextField;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
+/**
+ * A class to describe a document. A document has a template, a String,
+ * text sections, an image and a FilePath. These can be set.
+ */
 public class Document implements DocumentInterface {
 
 	private String currentTempl;
@@ -41,7 +45,7 @@ public class Document implements DocumentInterface {
 		createSections();
 	}
 
-	/**
+	/*
 	 * Create necessary Sections according to Template.
 	 */
 	private void createSections() {

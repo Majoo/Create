@@ -88,32 +88,47 @@ public class IOController implements PropertyChangeListener {
 		} catch (DocumentException e) {
 			// iText related exception
 		} catch (IOException e) {
-			// If incorrect file is chosen during OPEN_DOC (or SAVE_DOC) issue
-			// warning and
-			// try again.
-			if (e.getMessage().equals("Not project directory")
-					&& function.equals(Labels.OPEN_DOC)
-					|| function.equals(Labels.SAVE_DOC)) {
-				JOptionPane
-						.showMessageDialog(
-								null,
-								"You chose a directory that is not a ResuMate project folder, please try again. Hint: ResuMate project folders contain the file Project.rsmt.",
-								"Invalid choice made.",
-								JOptionPane.ERROR_MESSAGE);
-				chooseFunction(function, jc, doc, path);
+			String sourceClass = e.getStackTrace()[0].getClassName();
+			if (sourceClass.equals("IOHandler")) {
+				// If incorrect file is chosen during OPEN_DOC (or SAVE_DOC)
+				// issue
+				// warning and
+				// try again.
+				if (e.getMessage().equals("Not project directory")) {
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"You chose a directory that is not a ResuMate project folder, please try again. Hint: ResuMate project folders contain the file Project.rsmt.",
+									"Invalid choice made.",
+									JOptionPane.ERROR_MESSAGE);
+					chooseFunction(function, jc, doc, path);
+				} else if (e.getMessage().equals("Not directory")) {
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"You chose a file that is not a directory, please try again.",
+									"Invalid choice made.",
+									JOptionPane.ERROR_MESSAGE);
+					chooseFunction(function, jc, doc, path);
+				}
+			} else if (sourceClass.equals("PDFHandler")) {
+				String stackTraceTop = e.getStackTrace()[0].getMethodName();
+				if (stackTraceTop.contains("print")) {
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"Printing not available. Please check your printer settings.",
+									"Invalid choice made.",
+									JOptionPane.WARNING_MESSAGE);
+				} else if (stackTraceTop.contains("send")) {
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"Email not available. Please check your email provider.",
+									"Invalid choice made.",
+									JOptionPane.WARNING_MESSAGE);
+				}
 			}
-			if (e.getMessage().equals("Not directory")
-					&& function.equals(Labels.OPEN_DOC)
-					|| function.equals(Labels.SAVE_DOC)) {
-				JOptionPane
-						.showMessageDialog(
-								null,
-								"You chose a file that is not a directory, please try again.",
-								"Invalid choice made.",
-								JOptionPane.ERROR_MESSAGE);
-				chooseFunction(function, jc, doc, path);
-			}
-			// Must implement IOException handling from PDFHandler
 		}
 	}
 
@@ -144,7 +159,7 @@ public class IOController implements PropertyChangeListener {
 		int returnVal = chooser.showDialog(null, getApproveText(function));
 
 		String filePath = chooser.getCurrentDirectory().getPath();
-		setRecentPath(filePath);
+		recentPath = filePath;
 		String fileName = chooser.getSelectedFile().getName();
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -182,29 +197,6 @@ public class IOController implements PropertyChangeListener {
 			return null;
 		}
 	}
-
-	/**
-	 * Sets some properties of the JFileChooser that are dependent on the
-	 * function. Mainly relevant for saving in this iteration.
-	 * 
-	 * @param jfc
-	 *            the JFileChooser which will be set up
-	 * @param function
-	 *            the context of the JFileChooser
-	 */
-	/*
-	 * private void setChooser(JFileChooser jfc, String function) {
-	 * jfc.setAcceptAllFileFilterUsed(false);
-	 * 
-	 * // Depending on the desired function, different kinds of Filter are //
-	 * required, which is why the returnFilter method is called
-	 * jfc.setFileFilter(getFilter(function));
-	 * 
-	 * // When saving, only directories are relevant if
-	 * (function.equals(Labels.SAVE_DOC_AS) || function.equals(Labels.OPEN_DOC))
-	 * { jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); } else {
-	 * jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); } }
-	 */
 
 	/**
 	 * Gets the correct text for the Approve Button depending on the function
@@ -265,6 +257,10 @@ public class IOController implements PropertyChangeListener {
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent e) {
+		;
+	}
+
+	private void exceptionHandling() {
 
 	}
 }

@@ -50,13 +50,9 @@ public class IOHandler {
 	public static synchronized void saveFile(String fileName,
 			Map<SectionType, String> strings) throws IOException {
 		File directory = new File(fileName);
-		try {
-			if (directory.mkdirs() || directory.exists()) {
-				writeToFiles(fileName, strings);
-				showFile(directory);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (directory.mkdirs() || directory.exists()) {
+			writeToFiles(fileName, strings);
+			showFile(directory);
 		}
 	}
 

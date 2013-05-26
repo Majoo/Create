@@ -35,12 +35,9 @@ public class PDFHandler {
 	}
 
 	/**
-	 * Creates PDF, using the external iText library. If a document is longer
-	 * than a single page, the PDF is extended.
-	 * 
-	 * Original taken from
-	 * http://www.javaworld.com/javaworld/jw-12-2006/jw-1209-swing.html
-	 * (2013-4-28)
+	 * Delegates work to correct method, depending on the function parameter.
+	 * Available alternatives are Labels.EXPORT_DOC, Labels.PRINT_DOC and
+	 * Labels.SEND_DOC.
 	 * 
 	 * @param jc
 	 *            JComponent representation of Document to save as PDF
@@ -68,9 +65,18 @@ public class PDFHandler {
 	}
 
 	/**
+	 * Creates PDF, using the external iText library. If a document is longer
+	 * than a single page, the PDF is extended.
+	 * 
+	 * Original taken from
+	 * http://www.javaworld.com/javaworld/jw-12-2006/jw-1209-swing.html
+	 * (2013-4-28)
 	 * 
 	 * @param jc
+	 *            JComponent representation of Document to save as PDF
 	 * @param file
+	 *            the String used to decide where the PDF file will be saved and
+	 *            what its name will be
 	 * @throws DocumentException
 	 * @throws FileNotFoundException
 	 */

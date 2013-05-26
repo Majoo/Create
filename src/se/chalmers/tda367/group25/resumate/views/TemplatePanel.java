@@ -1,6 +1,7 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
@@ -43,11 +44,11 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	private JTextField empty1Field;
 	private JTextField empty2Field;
 	
-	// Headers
+	// Textfields for headers
 	private JTextField workExpHeader;
 	private JTextField educationHeader;	
 	
-	// Sections
+	// Textfields for sections
 	private JLabel imgLabel;
 	private JTextPane workExpText;
 	private JTextPane educationText;
@@ -74,6 +75,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		// Titles with personal info
 		nameTitle = new JTextField();
 		nameTitle.setName("nameTitle");
+		nameTitle.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		nameTitle.setText("Name:");
 		nameTitle.setColumns(10);
 		nameTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
@@ -82,29 +84,9 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		nameTitle.addFocusListener(this);
 		nameTitle.getDocument().addUndoableEditListener(manager);
 		
-		cityzipcodeTitle = new JTextField();
-		cityzipcodeTitle.setName("cityzipcodeTitle");
-		cityzipcodeTitle.setText("City/Zipcode:");
-		cityzipcodeTitle.setColumns(10);
-		cityzipcodeTitle.setBorder
-		(BorderFactory.createDashedBorder(Color.BLACK));
-		allComponents.add(cityzipcodeTitle);
-		allTextComponents.add(cityzipcodeTitle);
-		cityzipcodeTitle.addFocusListener(this);
-		cityzipcodeTitle.getDocument().addUndoableEditListener(manager);
-		
-		addressTitle = new JTextField();
-		addressTitle.setName("addressTitle");
-		addressTitle.setText("Address:");
-		addressTitle.setColumns(10);
-		addressTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		allComponents.add(addressTitle);
-		allTextComponents.add(addressTitle);
-		addressTitle.addFocusListener(this);
-		addressTitle.getDocument().addUndoableEditListener(manager);
-		
 		phoneTitle = new JTextField();
 		phoneTitle.setName("phoneTitle");
+		phoneTitle.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		phoneTitle.setText("Phone:");
 		phoneTitle.setColumns(10);
 		phoneTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
@@ -115,6 +97,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		
 		emailTitle = new JTextField();
 		emailTitle.setName("emailTitle");
+		emailTitle.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		emailTitle.setText("E-mail:");
 		emailTitle.setColumns(10);
 		emailTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
@@ -123,39 +106,43 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		emailTitle.addFocusListener(this);
 		emailTitle.getDocument().addUndoableEditListener(manager);
 		
+		addressTitle = new JTextField();
+		addressTitle.setName("addressTitle");
+		addressTitle.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		addressTitle.setText("Address:");
+		addressTitle.setColumns(10);
+		addressTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
+		allComponents.add(addressTitle);
+		allTextComponents.add(addressTitle);
+		addressTitle.addFocusListener(this);
+		addressTitle.getDocument().addUndoableEditListener(manager);
+		
+		cityzipcodeTitle = new JTextField();
+		cityzipcodeTitle.setName("cityzipcodeTitle");
+		cityzipcodeTitle.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		cityzipcodeTitle.setText("City/Zipcode:");
+		cityzipcodeTitle.setColumns(10);
+		cityzipcodeTitle.setBorder
+		(BorderFactory.createDashedBorder(Color.BLACK));
+		allComponents.add(cityzipcodeTitle);
+		allTextComponents.add(cityzipcodeTitle);
+		cityzipcodeTitle.addFocusListener(this);
+		cityzipcodeTitle.getDocument().addUndoableEditListener(manager);
+		
 		// Empty textfields with personal info
 		nameField = new JTextField();
 		nameField.setName("nameField");
+		nameField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		nameField.setColumns(10);
-		nameField.setName("nameField");
 		nameField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		allComponents.add(nameField);
 		allTextComponents.add(nameField);
 		nameField.addFocusListener(this);
 		nameField.getDocument().addUndoableEditListener(manager);
 		
-		addressField = new JTextField();
-		addressField.setName("addressField");
-		addressField.setColumns(10);
-		addressField.setName("addressField");
-		addressField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		allComponents.add(addressField);
-		allTextComponents.add(addressField);
-		addressField.addFocusListener(this);
-		addressField.getDocument().addUndoableEditListener(manager);
-		
-		cityzipcodeField = new JTextField();
-		cityzipcodeField.setName("cityzipcodeField");
-		cityzipcodeField.setColumns(10);
-		cityzipcodeField.setBorder
-		(BorderFactory.createDashedBorder(Color.BLACK));
-		allComponents.add(cityzipcodeField);
-		allTextComponents.add(cityzipcodeField);
-		cityzipcodeField.addFocusListener(this);
-		cityzipcodeField.getDocument().addUndoableEditListener(manager);
-		
 		phoneField = new JTextField();
 		phoneField.setName("phoneField");
+		phoneField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		phoneField.setColumns(10);
 		phoneField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		allComponents.add(phoneField);
@@ -165,6 +152,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		
 		emailField = new JTextField();
 		emailField.setName("emailField");
+		emailField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		emailField.setColumns(10);
 		emailField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		allComponents.add(emailField);
@@ -172,8 +160,30 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		emailField.addFocusListener(this);
 		emailField.getDocument().addUndoableEditListener(manager);
 		
+		addressField = new JTextField();
+		addressField.setName("addressField");
+		addressField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		addressField.setColumns(10);
+		addressField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
+		allComponents.add(addressField);
+		allTextComponents.add(addressField);
+		addressField.addFocusListener(this);
+		addressField.getDocument().addUndoableEditListener(manager);
+		
+		cityzipcodeField = new JTextField();
+		cityzipcodeField.setName("cityzipcodeField");
+		cityzipcodeField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		cityzipcodeField.setColumns(10);
+		cityzipcodeField.setBorder
+		(BorderFactory.createDashedBorder(Color.BLACK));
+		allComponents.add(cityzipcodeField);
+		allTextComponents.add(cityzipcodeField);
+		cityzipcodeField.addFocusListener(this);
+		cityzipcodeField.getDocument().addUndoableEditListener(manager);
+		
 		empty1Field = new JTextField();
 		empty1Field.setName("empty1Field");
+		empty1Field.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		empty1Field.setColumns(10);
 		empty1Field.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		allComponents.add(empty1Field);
@@ -183,6 +193,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		
 		empty2Field = new JTextField();
 		empty2Field.setName("empty2Field");
+		empty2Field.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		empty2Field.setColumns(10);
 		empty2Field.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		allComponents.add(empty2Field);
@@ -190,7 +201,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		empty2Field.addFocusListener(this);
 		empty2Field.getDocument().addUndoableEditListener(manager);
 		
-		// Headers
+		// Textfields for headers
 		workExpHeader = new JTextField();
 		workExpHeader.setName("workExpHeader");
 		workExpHeader.setColumns(10);
@@ -210,7 +221,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		educationHeader.addFocusListener(this);
 		educationHeader.getDocument().addUndoableEditListener(manager);
 		
-		// Sections
+		// Textfields for sections
 		imgLabel = new JLabel("");
 		imgLabel.setName("imgLabel");
 		imgLabel.setForeground(Color.WHITE);

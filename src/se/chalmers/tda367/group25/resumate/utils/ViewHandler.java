@@ -193,30 +193,6 @@ public class ViewHandler {
 		for(JComponent comp :p.getAllComponents())
 			comp.setBorder(null);
 	}
-	
-	/*public static void changeTemplate
-	     (TemplatePanel previous, TemplatePanel current){
-	 
-
-		String workText = previous.getWorkingExperienceText().getText();
-		String persText = previous.getPersonalInfoText().getText();
-		String headText = previous.getHeaderTitle().getText();
-		String eduText = previous.getEducationText().getText();
-		
-		current.getWorkingExperienceText().setText(workText);
-		current.getPersonalInfoText().setText(persText);
-		current.getHeaderTitle().setText(headText);
-		current.getEducationText().setText(eduText);
-		
-		/*System.out.println(workText);
-		System.out.println(persText);
-		System.out.println(headText);
-		System.out.println(eduText);
-		
-	}
-	*/
-		
-	
 }
 	
 	

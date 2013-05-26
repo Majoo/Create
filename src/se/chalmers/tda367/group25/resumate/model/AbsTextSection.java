@@ -85,8 +85,6 @@ public abstract class AbsTextSection implements ITextSection {
 		section.setText(section.getText().replaceAll(replace, replaceWith));
 	}
 
-	
-
 	// GETTERS
 
 	/**

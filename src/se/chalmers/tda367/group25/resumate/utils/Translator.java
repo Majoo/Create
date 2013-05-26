@@ -88,11 +88,12 @@ public class Translator {
 	}
 
 	/**
-	 * Translates a JTextPane to a SectionType.
+	 * Translates a JTextComponent to a SectionType.
 	 * 
-	 * @param c
-	 *            the Container to translate
-	 * @return the corresponding SectionType
+	 * @param container
+	 *            		the JTextComponent to translate
+	 * @return 
+	 * 					the corresponding SectionType
 	 */
 
 	public static SectionType containerToSectionType(JTextComponent container) {
@@ -103,31 +104,31 @@ public class Translator {
 		switch (name) {
 		// The text fields of personal info
 		case "nameField":
-			section = SectionType.NAME;
+			section = SectionType.NAME_PERSONAL;
 			break;
 			
 		case "cityzipcodeField":
-			section = SectionType.CITYZIPCODE;
+			section = SectionType.CITYZIPCODE_PERSONAL;
 			break;
 			
 		case "addressField":
-			section = SectionType.ADDRESS;
+			section = SectionType.ADDRESS_PERSONAL;
 			break;
 			
 		case "phoneField":
-			section = SectionType.PHONE;
+			section = SectionType.PHONE_PERSONAL;
 			break;
 			
 		case "emailField":
-			section = SectionType.EMAIL;
+			section = SectionType.EMAIL_PERSONAL;
 			break;
 			
 		case "empty1Field":
-			section = SectionType.EMPTY1;
+			section = SectionType.EMPTY1_PERSONAL;
 			break;
 			
 		case "empty2Field":
-			section = SectionType.EMPTY2;
+			section = SectionType.EMPTY2_PERSONAL;
 			break;
 
 		// Other text fields 

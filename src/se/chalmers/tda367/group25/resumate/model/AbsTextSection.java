@@ -2,37 +2,20 @@ package se.chalmers.tda367.group25.resumate.model;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.font.TextAttribute;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.text.JTextComponent;
-
-import se.chalmers.tda367.group25.resumate.utils.SectionType;
-import se.chalmers.tda367.group25.resumate.utils.Styles;
 
 public abstract class AbsTextSection implements ITextSection {
 
 	private String font;
 	private String color;
 	private int size;
-	private SectionType secType;
-	private Map<String, Boolean> styles;
 
-	public AbsTextSection(SectionType section, String font, String color,
+	public AbsTextSection(String font, String color,
 			int size) {
-		this.secType = section;
 		this.font = font;
 		this.color = color;
 		this.size = size;
-
-		if (section.equals(SectionType.HEADER)
-				|| section.equals(SectionType.PERSONAL_INFO)) {
-			this.styles = new HashMap<String, Boolean>();
-			this.styles.put("B", Styles.B);
-			this.styles.put("I", Styles.I);
-			this.styles.put("U", Styles.U);
-		}
 	}
 
 	// MUTATORS
@@ -48,6 +31,7 @@ public abstract class AbsTextSection implements ITextSection {
 	 */
 	public void changeSize(JTextComponent section, int size) {
 		this.size = size;
+		// Update the size in the view
 		Font currentFont = section.getFont();
 		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
 	}
@@ -61,60 +45,11 @@ public abstract class AbsTextSection implements ITextSection {
 	 *            the size by which the section is to be customized with
 	 */
 	public void changeFont(JTextComponent section, String font) {
-		// Store the font in the models
 		this.font = font;
 		// Update the font in the view
 		Font currentFont = section.getFont();
 		section.setFont(new Font(font, currentFont.getStyle(), currentFont
 				.getSize()));
-		if (Styles.U) {
-			changeStyle(section, "U");
-		}
-	}
-
-	public void changeStyle(JTextComponent section, String style) {
-		Font currentFont = section.getFont();
-		Font font = currentFont;
-
-		switch (style) {
-		case "B":
-			if (!Styles.B) {
-				font = currentFont.deriveFont(currentFont.getStyle()
-						+ Font.BOLD);
-			} else {
-				font = currentFont.deriveFont(currentFont.getStyle()
-						& ~Font.BOLD);
-			}
-			Styles.B = !Styles.B;
-			styles.put("B", Styles.B);
-			break;
-
-		case "I":
-			if (!Styles.I) {
-				font = currentFont.deriveFont(currentFont.getStyle()
-						+ Font.ITALIC);
-			} else {
-				font = currentFont.deriveFont(currentFont.getStyle()
-						& ~Font.ITALIC);
-			}
-			Styles.I = !Styles.I;
-			styles.put("I", Styles.I);
-			break;
-
-		case "U":
-			Map<TextAttribute, Integer> attributes = new HashMap<TextAttribute, Integer>();
-			if (!Styles.U) {
-				attributes.put(TextAttribute.UNDERLINE,
-						TextAttribute.UNDERLINE_ON);
-
-			} else {
-				attributes.put(TextAttribute.UNDERLINE, -1);
-			}
-			Styles.U = !Styles.U;
-			styles.put("U", Styles.U);
-			font = currentFont.deriveFont(attributes);
-		}
-		section.setFont(font);
 	}
 
 	/**
@@ -127,20 +62,30 @@ public abstract class AbsTextSection implements ITextSection {
 	 */
 	public void changeColor(JTextComponent section, Color col, String colour) {
 		this.color = colour;
+		// Update the colour in the view
 		section.setForeground(col);
 
 	}
 
-	// GETTERS
-
 	/**
-	 * Returns SectionType of this text section.
+	 * Replaces the a text with another
 	 * 
-	 * @return the SectionType of this text section
+	 * @param replace
+	 *            the text to replace
+	 * 
+	 * @param replaceWith
+	 *            the text to be replaced with
+	 * 
+	 * @param section
+	 *            the JTextPane whose contents is to be customized
 	 */
-	public SectionType getSecType() {
-		return this.secType;
+	public void replaceText(JTextComponent section, String replace,
+			String replaceWith) {
+		// Update the text in the view
+		section.setText(section.getText().replaceAll(replace, replaceWith));
 	}
+
+	// GETTERS
 
 	/**
 	 * Returns the font of the text section

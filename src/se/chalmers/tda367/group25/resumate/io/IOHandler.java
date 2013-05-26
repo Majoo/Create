@@ -105,33 +105,33 @@ public class IOHandler {
 			writeSingleFile(new File(fileName + "\\EDUCATION.txt"),
 					strings.get(SectionType.EDUCATION));
 		}
-		if (strings.containsKey(SectionType.NAME)) {
+		if (strings.containsKey(SectionType.NAME_PERSONAL)) {
 			writeSingleFile(new File(fileName + "\\NAME.txt"),
-					strings.get(SectionType.NAME));
+					strings.get(SectionType.NAME_PERSONAL));
 		}
-		if (strings.containsKey(SectionType.ADDRESS)) {
+		if (strings.containsKey(SectionType.ADDRESS_PERSONAL)) {
 			writeSingleFile(new File(fileName + "\\ADDRESS.txt"),
-					strings.get(SectionType.ADDRESS));
+					strings.get(SectionType.ADDRESS_PERSONAL));
 		}
-		if (strings.containsKey(SectionType.CITYZIPCODE)) {
+		if (strings.containsKey(SectionType.CITYZIPCODE_PERSONAL)) {
 			writeSingleFile(new File(fileName + "\\CITYZIPCODE.txt"),
-					strings.get(SectionType.CITYZIPCODE));
+					strings.get(SectionType.CITYZIPCODE_PERSONAL));
 		}
-		if (strings.containsKey(SectionType.PHONE)) {
+		if (strings.containsKey(SectionType.PHONE_PERSONAL)) {
 			writeSingleFile(new File(fileName + "\\PHONE.txt"),
-					strings.get(SectionType.PHONE));
+					strings.get(SectionType.PHONE_PERSONAL));
 		}
-		if (strings.containsKey(SectionType.EMAIL)) {
+		if (strings.containsKey(SectionType.EMAIL_PERSONAL)) {
 			writeSingleFile(new File(fileName + "\\EMAIL.txt"),
-					strings.get(SectionType.EMAIL));
+					strings.get(SectionType.EMAIL_PERSONAL));
 		}
-		if (strings.containsKey(SectionType.EMPTY1)) {
+		if (strings.containsKey(SectionType.EMPTY1_PERSONAL)) {
 			writeSingleFile(new File(fileName + "\\EMPTY1.txt"),
-					strings.get(SectionType.EMPTY1));
+					strings.get(SectionType.EMPTY1_PERSONAL));
 		}
-		if (strings.containsKey(SectionType.EMPTY2)) {
+		if (strings.containsKey(SectionType.EMPTY2_PERSONAL)) {
 			writeSingleFile(new File(fileName + "\\EMPTY2.txt"),
-					strings.get(SectionType.EMPTY2));
+					strings.get(SectionType.EMPTY2_PERSONAL));
 		}
 	}
 
@@ -167,32 +167,32 @@ public class IOHandler {
 				strings.put(SectionType.EDUCATION, readSingleFile(new File(
 						fileName + "\\EDUCATION.txt")));
 			}
-			if (strings.containsKey(SectionType.NAME)) {
-				strings.put(SectionType.NAME, readSingleFile(new File(fileName
+			if (strings.containsKey(SectionType.NAME_PERSONAL)) {
+				strings.put(SectionType.NAME_PERSONAL, readSingleFile(new File(fileName
 						+ "\\NAME.txt")));
 			}
-			if (strings.containsKey(SectionType.ADDRESS)) {
-				strings.put(SectionType.ADDRESS, readSingleFile(new File(
+			if (strings.containsKey(SectionType.ADDRESS_PERSONAL)) {
+				strings.put(SectionType.ADDRESS_PERSONAL, readSingleFile(new File(
 						fileName + "\\ADDRESS.txt")));
 			}
-			if (strings.containsKey(SectionType.CITYZIPCODE)) {
-				strings.put(SectionType.CITYZIPCODE, readSingleFile(new File(
+			if (strings.containsKey(SectionType.CITYZIPCODE_PERSONAL)) {
+				strings.put(SectionType.CITYZIPCODE_PERSONAL, readSingleFile(new File(
 						fileName + "\\CITYZIPCODE.txt")));
 			}
-			if (strings.containsKey(SectionType.PHONE)) {
-				strings.put(SectionType.PHONE, readSingleFile(new File(fileName
+			if (strings.containsKey(SectionType.PHONE_PERSONAL)) {
+				strings.put(SectionType.PHONE_PERSONAL, readSingleFile(new File(fileName
 						+ "\\PHONE.txt")));
 			}
-			if (strings.containsKey(SectionType.EMAIL)) {
-				strings.put(SectionType.EMAIL, readSingleFile(new File(fileName
+			if (strings.containsKey(SectionType.EMAIL_PERSONAL)) {
+				strings.put(SectionType.EMAIL_PERSONAL, readSingleFile(new File(fileName
 						+ "\\EMAIL.txt")));
 			}
-			if (strings.containsKey(SectionType.EMPTY1)) {
-				strings.put(SectionType.EMPTY1, readSingleFile(new File(
+			if (strings.containsKey(SectionType.EMPTY1_PERSONAL)) {
+				strings.put(SectionType.EMPTY1_PERSONAL, readSingleFile(new File(
 						fileName + "\\EMPTY1.txt")));
 			}
-			if (strings.containsKey(SectionType.EMPTY2)) {
-				strings.put(SectionType.EMPTY2, readSingleFile(new File(
+			if (strings.containsKey(SectionType.EMPTY2_PERSONAL)) {
+				strings.put(SectionType.EMPTY2_PERSONAL, readSingleFile(new File(
 						fileName + "\\EMPTY2.txt")));
 			}
 			return strings;

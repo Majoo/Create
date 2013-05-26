@@ -10,7 +10,7 @@ import javax.swing.text.JTextComponent;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.ITextSection;
-import se.chalmers.tda367.group25.resumate.model.TextSection;
+import se.chalmers.tda367.group25.resumate.model.MultiRowSection;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.utils.ViewHandler;
@@ -98,12 +98,11 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.UPDATE_INITIAL_TOOLBAR:
-			JTextComponent curTextSection = docCon
+		JTextComponent curTextSection = docCon
 					.getView(docCon.getCurrentID()).getTemplatePanel()
 					.getCurrentSection();
 			ITextSection curText = docCon.getDoc(docCon.getCurrentID())
-					.getTexts()
-					.get(Translator.containerToSectionType(curTextSection));
+					.getSectionTexts().get(Translator.containerToSectionType(curTextSection));
 			mainView.getToolbarPanel().getTextFontCombo()
 					.setSelectedItem(curText.getFont());
 			System.out.println(curText.getFont());
@@ -131,6 +130,8 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.SAVE_DOC:
+			System.out.println("Save");
+			docCon.saveTexts();
 			if (!(docCon.getDoc(docCon.getCurrentID()).hasFilePath())) {
 				ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
 						docCon.getDoc(docCon.getCurrentID()), null);
@@ -143,6 +144,8 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.SAVE_DOC_AS:
+			System.out.println("Save As");
+			docCon.saveTexts();
 			ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
 					docCon.getDoc(docCon.getCurrentID()), null);
 
@@ -205,8 +208,7 @@ public class MainController implements PropertyChangeListener {
 		 */
 		JTextComponent curTextSection = docCon.getView(docCon.getCurrentID())
 				.getTemplatePanel().getCurrentSection();
-		ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getTexts()
-				.get(Translator.containerToSectionType(curTextSection));
+		ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getSectionTexts().get(Translator.containerToSectionType(curTextSection));
 
 		switch (e.getPropertyName()) {
 
@@ -240,7 +242,7 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.SAVE_TEXT:
-			// TODO
+			docCon.saveTexts();
 			break;
 
 		case Labels.TEXTFONT_CHANGED:
@@ -255,7 +257,13 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
-			curText.changeStyle(curTextSection, style);
+			
+			if(curTextSection.getClass().equals(JTextPane.class)){
+				JTextPane tmp = (JTextPane)curTextSection;
+				curText.changeFont(tmp, style);
+			}
+			System.out.println("Changing fonts ");
+			//curText.changeStyle(curTextSection, style);
 			break;
 
 		case Labels.TEXTCOLOUR_CHANGED:
@@ -268,8 +276,7 @@ public class MainController implements PropertyChangeListener {
 			String[] replaceTexts = e.getNewValue().toString().split("/");
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
-			// curRMText.replaceText(curTextSection, replace, replaceWith);
-			// TODO
+			curText.replaceText(curTextSection, replace, replaceWith);
 			break;
 
 		case Labels.REPLACE_ALL_TEXT:
@@ -295,15 +302,13 @@ public class MainController implements PropertyChangeListener {
 			// TODO
 
 			JTextPane textAreaWork = docCon.getView(docCon.getCurrentID())
-					.getTemplatePanel().getWorkingExperienceText();
-			TextSection textWork = (TextSection) docCon
-					.getDoc(docCon.getCurrentID()).getTexts()
+					.getTemplatePanel().getWorkingExperienceText();		
+			MultiRowSection textWork = (MultiRowSection) docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
 					.get(Translator.containerToSectionType(textAreaWork));
 
 			JTextPane textAreaEd = docCon.getView(docCon.getCurrentID())
-					.getTemplatePanel().getEducationText();
-			TextSection textEd = (TextSection) docCon
-					.getDoc(docCon.getCurrentID()).getTexts()
+					.getTemplatePanel().getEducationText();		
+			MultiRowSection textEd= (MultiRowSection) docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
 					.get(Translator.containerToSectionType(textAreaEd));
 
 			textWork.replaceText(textAreaWork, replaceA, replaceWithA);
@@ -332,14 +337,11 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.TEXTAREA_CHANGED:
-			mainView.getToolbarPanel().getTextFontCombo().getModel()
-					.setSelectedItem(curText.getFont());
-			mainView.getToolbarPanel().getTextSizeCombo().getModel()
-					.setSelectedItem(curText.getSize());
-			mainView.getToolbarPanel().getTextColorCombo().getModel()
-					.setSelectedItem(curText.getColor());
+			/*mainView.getToolbarPanel().getTextFontCombo().getModel().setSelectedItem(curText.getFont());
+			mainView.getToolbarPanel().getTextSizeCombo().getModel().setSelectedItem(curText.getSize());
+			mainView.getToolbarPanel().getTextColorCombo().getModel().setSelectedItem(curText.getColor());
 			mainView.getToolbarPanel().updateUI();
-			mainView.getToolbarPanel().validate();
+			mainView.getToolbarPanel().validate();*/
 			break;
 
 		case Labels.RENAME_DOC:

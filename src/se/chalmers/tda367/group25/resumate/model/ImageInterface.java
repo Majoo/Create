@@ -1,11 +1,6 @@
 package se.chalmers.tda367.group25.resumate.model;
 
 import java.awt.Rectangle;
-import java.awt.color.ColorSpace;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorConvertOp;
 
 public interface ImageInterface {
 	

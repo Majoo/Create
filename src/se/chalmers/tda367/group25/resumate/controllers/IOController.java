@@ -60,7 +60,8 @@ public class IOController implements PropertyChangeListener {
 		try {
 			if (function.equals(Labels.SAVE_DOC)
 					|| function.equals(Labels.SAVE_DOC_AS)) {
-				strings = doc.getStrings();
+				strings = doc.getTexts();
+			System.out.print(strings.toString());
 			} else {
 				strings = null;
 			}
@@ -69,9 +70,9 @@ public class IOController implements PropertyChangeListener {
 		}
 		try {
 			if (function.equals(Labels.SAVE_DOC)) {
-				IOHandler.saveFile(path, doc.getStrings());
+				IOHandler.saveFile(path, doc.getTexts());
 			} else if ((function.equals(Labels.SAVE_DOC_AS))) {
-				choosePath(jc, function, doc.getStrings());
+				choosePath(jc, function, doc.getTexts());
 			} else if ((function.equals(Labels.EXPORT_DOC))
 					|| function.equals(Labels.OPEN_DOC)) {
 				choosePath(jc, function, null);

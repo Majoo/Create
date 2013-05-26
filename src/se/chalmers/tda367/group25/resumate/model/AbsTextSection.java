@@ -66,6 +66,26 @@ public abstract class AbsTextSection implements ITextSection {
 		section.setForeground(col);
 
 	}
+	
+	/**
+	 * Replaces the a text with another
+	 * 
+	 * @param replace
+	 *            the text to replace
+	 * 
+	 * @param replaceWith
+	 *            the text to be replaced with
+	 * 
+	 * @param section
+	 *            the JTextPane whose contents is to be customized
+	 */
+	public void replaceText(JTextComponent section, String replace,
+			String replaceWith) {
+		//Update the text in the view
+		section.setText(section.getText().replaceAll(replace, replaceWith));
+	}
+
+	
 
 	// GETTERS
 

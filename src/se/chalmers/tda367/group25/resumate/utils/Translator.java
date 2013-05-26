@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
 import se.chalmers.tda367.group25.resumate.views.CV_Classy;
@@ -15,11 +14,12 @@ import se.chalmers.tda367.group25.resumate.views.PL_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 /**
- * A class that translates different components 
+ * A class which translates different components 
  */
 
 public class Translator {
 
+	// To be used for future implemented methods
 	/**
 	 * Translates a an Object which is an instance of Template into its
 	 * corresponding TemplatePanel.
@@ -51,6 +51,15 @@ public class Translator {
 	}
 
 	
+	/**
+	 * Translates a JTextComponent to a SectionType.
+	 * Here the SectionType is the type for the components as a group.
+	 * 
+	 * @param container
+	 *            		the JTextComponent to translate
+	 * @return 
+	 * 					the corresponding SectionType
+	 */
 	public static SectionType containerToSection(JTextComponent container){
 		String name = container.getName();
 		SectionType section = null;
@@ -103,7 +112,6 @@ public class Translator {
 	 * @return 
 	 * 					the corresponding SectionType
 	 */
-
 	public static SectionType containerToSectionType(JTextComponent container) {
 
 		String name = container.getName();
@@ -185,9 +193,16 @@ public class Translator {
 		return section;
 	}
 
-	public static Color stringToColor(String name) {
+	/**
+	 * Translates a string representation of a colour to a Color.
+	 * @param colour
+	 * 			the text to be translated
+	 * @return
+	 * 			the colour which the text represents
+	 */
+	public static Color stringToColor(String colour) {
 		Color col = null;
-		switch (name) {
+		switch (colour) {
 		case "Black":
 			col = Color.BLACK;
 			break;

@@ -8,7 +8,7 @@ import javax.swing.text.JTextComponent;
 /**
  * AbsTextSection is an abstract class for representing a text section. The 
  * size, font and color of the text section can be changed. 
- * Also, all text can be replaced.
+ * Text may also be replaced.
  */
 public abstract class AbsTextSection implements ITextSection {
 
@@ -35,7 +35,7 @@ public abstract class AbsTextSection implements ITextSection {
 		this.size = size;
 	}
 
-	// GETTERS
+	// -----Queries-----//	
 
 	@Override
 	public String getFont() {
@@ -52,29 +52,35 @@ public abstract class AbsTextSection implements ITextSection {
 		return this.color;
 	}
 	
-	// MUTATORS
+	// -----Commands-----//
 
+	/**
+	 * Stores in the model and updates the size in the the view 
+	 */
 	@Override
 	public void changeSize(JTextComponent section, int size) {
 		this.size = size;
-		// Update the size in the view
 		Font currentFont = section.getFont();
 		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
 	}
 
+	/**
+	 * Stores in the model and updates the font in the the view 
+	 */
 	@Override
 	public void changeFont(JTextComponent section, String font) {
 		this.font = font;
-		// Update the font in the view
 		Font currentFont = section.getFont();
 		section.setFont(new Font(font, currentFont.getStyle(), currentFont
 				.getSize()));
 	}
 
+	/**
+	 * Stores in the model and updates the colour in the the view 
+	 */
 	@Override
 	public void changeColor(JTextComponent section, Color col, String colour) {
 		this.color = colour;
-		// Update the colour in the view
 		section.setForeground(col);
 
 	}

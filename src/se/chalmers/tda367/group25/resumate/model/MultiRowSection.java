@@ -7,7 +7,7 @@ import javax.swing.text.StyleConstants;
 /**
  * A class which represents a section with text of multiple rows. 
  * The size, font, style and color of the text section can be changed. 
- * Also, all text can be replaced. The text can be changed.
+ * The text is stored for saving references.
  */
 public class MultiRowSection extends AbsTextSection{
 

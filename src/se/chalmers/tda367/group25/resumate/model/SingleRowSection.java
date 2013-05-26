@@ -13,7 +13,7 @@ import se.chalmers.tda367.group25.resumate.utils.Styles;
 /**
  * A class which represents a section with many fields of
  * single row text. The size, font, style and color of the text section can be changed. 
- * Also, all text can be replaced. The text can be changed.
+ *  The text is stored for saving references.
  */
 public class SingleRowSection extends AbsTextSection {
 	private Map<String, Boolean> styles = new HashMap<String, Boolean>(17);

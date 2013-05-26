@@ -73,9 +73,14 @@ public class Document implements DocumentInterface {
 	 * @param type
 	 * 			the section to be checked
 	 */
-	public void checkSections(SectionType type){
+	private void checkSections(SectionType type){
+		switch(type){
+		case ADDRESS_PERSONAL:
+			
+			
+		}
 		if (!textSections.containsKey(type)) {
-			if(type.equals(SectionType.HEADER) || type.equals(SectionType.PERSONAL_INFO)){
+			if(type.toString().contains("HEADER") || type.toString().contains("PERSONAL")){
 				textSections.put(type, new SingleRowSection());
 			}else if (type.equals(SectionType.EDUCATION)|| type.equals(SectionType.WORK_EXPERIENCE)){
 				textSections.put(type, new MultiRowSection());
@@ -156,7 +161,7 @@ public class Document implements DocumentInterface {
 	 */
 	public void setText(SectionType name, String text){
 		if(name.toString().contains("PERSONAL")){
-			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
+			SingleRowSection personalSec = (SingleRowSection)textSections.get(name);
 			personalSec.setText(name, text);
 		}
 		else if(name.toString().contains("HEADER")){
@@ -181,6 +186,7 @@ public class Document implements DocumentInterface {
 		if (textSections.containsKey(SectionType.PERSONAL_INFO)) {
 			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
 			texts.put(SectionType.ADDRESS_PERSONAL, personalSec.getText(SectionType.ADDRESS_PERSONAL));
+			texts.get(SectionType.ADDRESS_PERSONAL);
 			texts.put(SectionType.CITYZIPCODE_PERSONAL, personalSec.getText(SectionType.CITYZIPCODE_PERSONAL));
 			texts.put(SectionType.PHONE_PERSONAL, personalSec.getText(SectionType.PHONE_PERSONAL));
 			texts.put(SectionType.EMAIL_PERSONAL, personalSec.getText(SectionType.EMAIL_PERSONAL));

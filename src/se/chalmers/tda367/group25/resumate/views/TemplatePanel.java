@@ -431,7 +431,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	 * 			the listener to be registered 
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
-		pcs.addPropertyChangeListener(pcl);
+			pcs.addPropertyChangeListener(pcl);
 	}
 
 	

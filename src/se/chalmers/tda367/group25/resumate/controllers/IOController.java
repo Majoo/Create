@@ -25,7 +25,11 @@ import com.itextpdf.text.DocumentException;
  * 
  * @author Laszlo Sall Vesselenyi
  */
+<<<<<<< HEAD
 public class IOController {
+=======
+public class IOController{
+>>>>>>> deleted unused things
 
 	private PropertyChangeSupport pcs;
 
@@ -253,4 +257,8 @@ public class IOController {
 	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.removePropertyChangeListener(pcl);
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> deleted unused things
 }

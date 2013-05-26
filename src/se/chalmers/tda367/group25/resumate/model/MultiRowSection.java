@@ -6,8 +6,9 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 /**
- * A class which represents a section with text of a template.
- * 
+ * A class which represents a section with text of multiple rows. 
+ * The size, font, style and color of the text section can be changed. 
+ * Also, all text can be replaced. The text can be changed.
  */
 public class MultiRowSection extends AbsTextSection{
 
@@ -19,38 +20,23 @@ public class MultiRowSection extends AbsTextSection{
 
 	
 	/**
-	 * Constructs a MutliRowSection with the specified SectionType in a Document.
-	 * 
-	 * @param sectionType
-	 *            the specified SectionType, deciding what kind of Section this
-	 *            MutliRowSection is
+	 * Constructs a new MutliRowSection with the default attributes.
 	 */
 	public MultiRowSection() {
 		super("Tahoma", "Black", 16);
 	}
 	
 	/**
-	 * Sets the String text to the parameter text.
+	 * Sets the text of this MultiRowSection to the parameter text.
 	 * 
 	 * @param text
-	 *            the new String to which to set the String text
+	 *            the text to be set
 	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 	
-	/**
-	 * Replaces the a text with another
-	 * 
-	 * @param replace
-	 *            the text to replace
-	 * 
-	 * @param replaceWith
-	 *            the text to be replaced with
-	 * 
-	 * @param section
-	 *            the JTextPane whose contents is to be customized
-	 */
+    @Override
 	public void replaceText(JTextComponent section, String replace,
 			String replaceWith) {
 		setText(getText().replaceAll(replace, replaceWith));
@@ -60,7 +46,7 @@ public class MultiRowSection extends AbsTextSection{
 	
 	/**
 	 * Changes the style of the specific textarea 
-	 * Checks wether the current style is the one which has been chosen. 
+	 * Checks whether the current style is the one which has been chosen. 
 	 * If so then it will remove the specified style. 
 	 * Changes the style of the MutliRowSection depending on the parameter style.
 	 * 
@@ -69,9 +55,7 @@ public class MultiRowSection extends AbsTextSection{
 	 * @param style
 	 *            the style by which the section is to be customized with
 	 */
-	
-	public void changeStyle(JTextPane sectiion, String style) {
-		JTextPane section = (JTextPane)sectiion;
+	public void changeStyle(JTextPane section, String style) {
 		int start = 0;
 		int end = section.getText().length();
 		
@@ -101,9 +85,9 @@ public class MultiRowSection extends AbsTextSection{
 	}
 
 	/**
-	 * Returns the String text from this MutliRowSection.
+	 * Returns the text in this MutliRowSection as a String.
 	 * 
-	 * @return the String text from this MutliRowSection
+	 * @return the text in this MutliRowSection as a String
 	 */
 
 	public String getText(){

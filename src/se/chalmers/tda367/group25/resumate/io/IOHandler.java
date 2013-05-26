@@ -68,7 +68,7 @@ public class IOHandler {
 	public static synchronized Map<SectionType, String> openFile(String fileName)
 			throws IOException {
 		File chosenDir = new File(fileName);
-		
+
 		if (chosenDir.getName().contains(".rsmt")) {
 			return readFromFiles(fileName);
 		}
@@ -145,88 +145,55 @@ public class IOHandler {
 	 */
 	private static Map<SectionType, String> readFromFiles(String fileName)
 			throws IOException {
-			Map<SectionType, String> strings = new HashMap<SectionType, String>();
-			File rsmt = new File(fileName);
-			String data = readSingleFile(rsmt);
-			File dir = rsmt.getParentFile();
-			try{
-			if (data.contains("WORK_HEADER")) {
-				strings.put(SectionType.WORK_HEADER, readSingleFile(new File(
-						dir + "\\WORK_HEADER.txt")));
-			}}catch (FileNotFoundException e){
-			}
-			try{
-			if (data.contains("EDU_HEADER")) {
-				strings.put(SectionType.EDU_HEADER, readSingleFile(new File(
-						dir + "\\EDU_HEADER.txt")));
-			}}catch (FileNotFoundException e){
-			}try{
-			if (data.contains("WORK_EXPERIENCE")) {
-				strings.put(SectionType.WORK_EXPERIENCE,
-						readSingleFile(new File(dir
-								+ "\\WORK_EXPERIENCE.txt")));
-			}}catch (FileNotFoundException e){
-			}
-			try{
-			if (data.contains("EDUCATION")) {
-				System.out.println("ay yo marco polo4");
-				strings.put(SectionType.EDUCATION_EXPERIENCE, readSingleFile(new File(
-						dir + "\\EDUCATION.txt")));
-			}}catch (FileNotFoundException e){
-			}
-			try{
-			if (data.contains("NAME_PERSONAL")) {
-				System.out.println("ay yo marco polo5");
-				strings.put(SectionType.NAME_PERSONAL, readSingleFile(new File(dir
-						+ "\\NAME.txt")));
-			}}catch (FileNotFoundException e){
-			}
-			try{
-			if (data.contains("ADDRESS_PERSONAL")) {
-				System.out.println("ay yo marco polo6");
-				strings.put(SectionType.ADDRESS_PERSONAL, readSingleFile(new File(
-						dir + "\\ADDRESS.txt")));
-			}}catch (FileNotFoundException e){
-			}
-			try{
-			if (data.contains("CITYZIPCODE_PERSONAL")) {
-				System.out.println("ay yo marco polo7");
-				strings.put(SectionType.CITYZIPCODE_PERSONAL, readSingleFile(new File(
-						dir + "\\CITYZIPCODE.txt")));
-			}}catch (FileNotFoundException e){
-			}
-			try{
-			if (data.contains("PHONE_PERSONAL")) {
-				System.out.println("ay yo marco polo8");
-				strings.put(SectionType.PHONE_PERSONAL, readSingleFile(new File(dir
-						+ "\\PHONE.txt")));
-			}}catch (FileNotFoundException e){
-			}
-			try{
-			if (data.contains("EMAIL_PERSONAL")) {
-				System.out.println("ay yo marco polo9");
-				strings.put(SectionType.EMAIL_PERSONAL, readSingleFile(new File(dir
-						+ "\\EMAIL.txt")));
-			}}catch (FileNotFoundException e){
-			}
-			try{
-			if (data.contains("EMPTY1_PERSONAL")) {
-				System.out.println("ay yo marco polo10");
-				strings.put(SectionType.EMPTY1_PERSONAL, readSingleFile(new File(
-						dir + "\\EMPTY1.txt")));
-			}}catch (FileNotFoundException e){
-			}
-			try{
-			if (data.contains("EMPTY2_PERSONAL")) {
-				System.out.println("ay yo marco polo11");
-				strings.put(SectionType.EMPTY2_PERSONAL, readSingleFile(new File(
-						dir + "\\EMPTY2.txt")));
-			}}catch (FileNotFoundException e){
-				System.out.println("Exception");
-			}
-			System.out.println("ay yo marco polo12");
-			System.out.println(strings.toString());
-			return strings;
+		Map<SectionType, String> strings = new HashMap<SectionType, String>();
+		File rsmt = new File(fileName);
+		String data = readSingleFile(rsmt);
+		File dir = rsmt.getParentFile();
+		if (data.contains("WORK_HEADER")) {
+			strings.put(SectionType.WORK_HEADER, readSingleFile(new File(dir
+					+ "\\WORK_HEADER.txt")));
+		}
+		if (data.contains("EDU_HEADER")) {
+			strings.put(SectionType.EDU_HEADER, readSingleFile(new File(dir
+					+ "\\EDU_HEADER.txt")));
+		}
+		if (data.contains("WORK_EXPERIENCE")) {
+			strings.put(SectionType.WORK_EXPERIENCE, readSingleFile(new File(
+					dir + "\\WORK_EXPERIENCE.txt")));
+		}
+		if (data.contains("EDUCATION")) {
+			strings.put(SectionType.EDUCATION_EXPERIENCE,
+					readSingleFile(new File(dir + "\\EDUCATION.txt")));
+		}
+		if (data.contains("NAME_PERSONAL")) {
+			strings.put(SectionType.NAME_PERSONAL, readSingleFile(new File(dir
+					+ "\\NAME.txt")));
+		}
+		if (data.contains("ADDRESS_PERSONAL")) {
+			strings.put(SectionType.ADDRESS_PERSONAL, readSingleFile(new File(
+					dir + "\\ADDRESS.txt")));
+		}
+		if (data.contains("CITYZIPCODE_PERSONAL")) {
+			strings.put(SectionType.CITYZIPCODE_PERSONAL,
+					readSingleFile(new File(dir + "\\CITYZIPCODE.txt")));
+		}
+		if (data.contains("PHONE_PERSONAL")) {
+			strings.put(SectionType.PHONE_PERSONAL, readSingleFile(new File(dir
+					+ "\\PHONE.txt")));
+		}
+		if (data.contains("EMAIL_PERSONAL")) {
+			strings.put(SectionType.EMAIL_PERSONAL, readSingleFile(new File(dir
+					+ "\\EMAIL.txt")));
+		}
+		if (data.contains("EMPTY1_PERSONAL")) {
+			strings.put(SectionType.EMPTY1_PERSONAL, readSingleFile(new File(
+					dir + "\\EMPTY1.txt")));
+		}
+		if (data.contains("EMPTY2_PERSONAL")) {
+			strings.put(SectionType.EMPTY2_PERSONAL, readSingleFile(new File(
+					dir + "\\EMPTY2.txt")));
+		}
+		return strings;
 	}
 
 	/**

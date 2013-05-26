@@ -13,6 +13,11 @@ import se.chalmers.tda367.group25.resumate.views.CV_Def;
 import se.chalmers.tda367.group25.resumate.views.PL_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
+/**
+ * A class that translates different components 
+ */
+
+
 public class Translator {
 
 	/**
@@ -96,7 +101,7 @@ public class Translator {
 		SectionType section = null;
 
 		switch (name) {
-		// Personal Info
+		// The text fields of personal info
 		case "nameField":
 		case "cityzipcodeField":
 		case "addressField":
@@ -107,7 +112,7 @@ public class Translator {
 			section = SectionType.PERSONAL_INFO;
 			break;
 
-		// Texts
+		// Other text fields 
 		case "workingExperienceText":
 			section = SectionType.WORK_EXPERIENCE;
 			break;
@@ -179,8 +184,8 @@ public class Translator {
 	}
 
 	/**
-	 * Takes in a String that represents an image in the filesystem and converts
-	 * it to a BufferedImage.
+	 * Takes in a String that represents an image in the filesystem 
+	 * and converts it to a BufferedImage.
 	 * 
 	 * @param filepath
 	 *            the filename of the image to make a BufferedImage from
@@ -192,7 +197,8 @@ public class Translator {
 			img = ImageIO.read(new File(filepath));
 		} catch (IOException e) {
 			System.out
-					.println("Kunde inte ï¿½versï¿½tta filnamn till BufferedImage i Translator");
+					.println("Kunde inte översätta filnamn " +
+							"till BufferedImage i Translator");
 		}
 		return img;
 	}

@@ -69,8 +69,6 @@ public class RMImage implements ImageInterface{
 
 	/**
 	 * Crop the Image of this RMImage.
-	 * UNFINISHED DOESN'T WORK QUITE AS IT SHOULD
-	 * somtimes RasterFormatException is thrown)
 	 * 
 	 * @param rect 
 	 * 				a rectangle with the coordinates

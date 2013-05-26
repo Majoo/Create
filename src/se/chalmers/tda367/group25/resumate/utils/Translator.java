@@ -88,11 +88,12 @@ public class Translator {
 	}
 
 	/**
-	 * Translates a JTextPane to a SectionType.
+	 * Translates a JTextComponent to a SectionType.
 	 * 
-	 * @param c
-	 *            the Container to translate
-	 * @return the corresponding SectionType
+	 * @param container
+	 *            		the JTextComponent to translate
+	 * @return 
+	 * 					the corresponding SectionType
 	 */
 
 	public static SectionType containerToSectionType(JTextComponent container) {

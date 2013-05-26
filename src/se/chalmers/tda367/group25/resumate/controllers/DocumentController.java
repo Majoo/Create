@@ -213,6 +213,31 @@ public class DocumentController implements PropertyChangeListener{
 		doc.setAllTexts();
 	}
 	
+	/**
+	 * Sets the texts from the model to the view
+	 */
+	public void updateTexts(){
+		Map<SectionType, String> texts = getDoc(getCurrentID()).getTexts(); 
+		TemplatePanel tc = getView(getCurrentID()).getTemplatePanel();
+		
+		//Setting texts in the view for the personal information
+		tc.getNameField().setText(texts.get(SectionType.NAME_PERSONAL));
+		tc.getAddressField().setText(texts.get(SectionType.ADDRESS_PERSONAL));
+		tc.getCityField().setText(texts.get(SectionType.CITYZIPCODE_PERSONAL));
+		tc.getPhoneField().setText(texts.get(SectionType.PHONE_PERSONAL));
+		tc.getEmailField().setText(texts.get(SectionType.EMAIL_PERSONAL));
+		tc.getEmptyField1().setText(texts.get(SectionType.EMPTY1_PERSONAL));
+		tc.getEmptyField2().setText(texts.get(SectionType.EMPTY2_PERSONAL));
+		
+		//Setting texts in the view for work experience and education
+		tc.getWorkingExperienceText().setText(texts.get(SectionType.WORK_EXPERIENCE));
+		tc.getEducationText().setText(texts.get(SectionType.EDUCATION_EXPERIENCE));
+		
+		//Setting texts in the view for the headers
+		tc.getWorkExpHeader().setText(texts.get(SectionType.WORK_HEADER));
+		tc.getEduHeader().setText(texts.get(SectionType.EDU_HEADER));
+	}
+	
 	//-----PropertyChanged-Methods------
 	
 	 /** Adds a PropertyChangeListener to this class.

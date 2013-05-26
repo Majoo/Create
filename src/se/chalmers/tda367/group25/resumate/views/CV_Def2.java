@@ -12,6 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
+/**
+ * A class that represents the Curriculum Vitae 2 template
+ */
 
 public class CV_Def2 extends TemplatePanel {
 

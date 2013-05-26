@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.text.JTextComponent;
 
 import se.chalmers.tda367.group25.resumate.views.CV_Classy;
@@ -15,8 +13,13 @@ import se.chalmers.tda367.group25.resumate.views.CV_Def;
 import se.chalmers.tda367.group25.resumate.views.PL_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
+/**
+ * A class that translates different components 
+ */
+
+
 public class Translator {
-	
+
 	/**
 	 * Translates a DocumentView Panel to a Template.
 	 * 
@@ -26,48 +29,47 @@ public class Translator {
 	 */
 	public static Template panelToTemplate(String name) {
 		Template template = null;
-		switch(name){
+		switch (name) {
 		case "CV_Def":
 			template = Template.DEF_CV;
 			break;
-			
+
 		case "CV_Classy":
 			template = Template.CLASSY_CV;
 			break;
-			
+
 		case "PL_Def":
 			template = Template.DEF_PL;
 			break;
-		
-		default: //Do nothing, never invoked.
-		
+
+		default: // Do nothing, never invoked.
+
 		}
 		return template;
-		
+
 	}
-	
+
 	/**
 	 * Translates a an Object which is an instance of Template into its
 	 * corresponding TemplatePanel.
 	 * 
 	 * @param o
-	 * 		the object to be translated
-	 * @return
-	 * 		the TemplatePanel which the template corresponds to.
+	 *            the object to be translated
+	 * @return the TemplatePanel which the template corresponds to.
 	 */
-	public static TemplatePanel templateToPanel(Object o){
-		
+	public static TemplatePanel templateToPanel(Object o) {
+
 		TemplatePanel panel = null;
 		Template template = null;
-		if(o instanceof Template){
-			template = (Template)o;
+		if (o instanceof Template) {
+			template = (Template) o;
 		}
 		System.out.println(template);
-		
-		switch(template){
+
+		switch (template) {
 
 		case DEF_CV:
-			panel = new CV_Def(); 
+			panel = new CV_Def();
 			break;
 
 		case DEF_PL:
@@ -78,149 +80,148 @@ public class Translator {
 			panel = new CV_Classy();
 			break;
 
-		default: //Do nothing, never invoke
+		default: // Do nothing, never invoke
 
 		}
-			
+
 		return panel;
 	}
-	
 
 	/**
 	 * Translates a JTextPane to a SectionType.
 	 * 
 	 * @param c
-	 *          the Container to translate
-	 * @return 
-	 * 			the corresponding SectionType
+	 *            the Container to translate
+	 * @return the corresponding SectionType
 	 */
 
 	public static SectionType containerToSectionType(JTextComponent container) {
 
 		String name = container.getName();
 		SectionType section = null;
-		
-		switch(name){
-		//Personal Info			
+
+		switch (name) {
+		// The text fields of personal info
 		case "nameField":
-		section = SectionType.PERSONAL_INFO;
-		break;
-		
-		case "cityzipcodeField": 
-		section = SectionType.PERSONAL_INFO;
-		break;
-		
-		case "addressField": 
-		section = SectionType.PERSONAL_INFO;
-		break;
-		
-		case "phoneField": 
-		section = SectionType.PERSONAL_INFO;
-		break;
-		
-		case "emailField": 
-		section = SectionType.PERSONAL_INFO;
-		break;
-		
-		case "empty1Field": 
-		section = SectionType.PERSONAL_INFO;
-		break;
-		
-		case "empty2Field": 
-		section = SectionType.PERSONAL_INFO;
-		break;
-		
-		//Texts
+			section = SectionType.NAME;
+			break;
+			
+		case "cityzipcodeField":
+			section = SectionType.CITYZIPCODE;
+			break;
+			
+		case "addressField":
+			section = SectionType.ADDRESS;
+			break;
+			
+		case "phoneField":
+			section = SectionType.PHONE;
+			break;
+			
+		case "emailField":
+			section = SectionType.EMAIL;
+			break;
+			
+		case "empty1Field":
+			section = SectionType.EMPTY1;
+			break;
+			
+		case "empty2Field":
+			section = SectionType.EMPTY2;
+			break;
+
+		// Other text fields 
 		case "workingExperienceText":
 			section = SectionType.WORK_EXPERIENCE;
 			break;
-			
+
 		case "educationText":
 			section = SectionType.EDUCATION;
 			break;
-			
-		//Headers
+
+		// Headers
 		case "workExpHeader":
-			section = SectionType.HEADER;
+			section = SectionType.WORK_HEADER;
 			break;
 			
 		case "educationHeader":
-			section = SectionType.HEADER;
+			section = SectionType.EDU_HEADER;
 			break;
-		
-		default: //Do nothing, never invoked.
-		
+
+		default: // Do nothing, never invoked.
+
 		}
 
-		
 		return section;
 	}
-	
-	public static Color stringToColor(String name){
+
+	public static Color stringToColor(String name) {
 		Color col = null;
-		
-		switch(name){
-			case "Black":
-				col = Color.BLACK;
+
+		switch (name) {
+		case "Black":
+			col = Color.BLACK;
 			break;
-			case "Blue":
-				col = Color.BLUE;
+		case "Blue":
+			col = Color.BLUE;
 			break;
-			case "Cyan":
-				col = Color.CYAN;
-				break;
-			case "Dark Gray":
-				col = Color.DARK_GRAY;
-				break;
-			case "Gray":
-				col = Color.GRAY;
-				break;
-			case "Green":
-				col = Color.GREEN;
-				break;
-			case "Light Gray":
-				col = Color.LIGHT_GRAY;
-				break;
-			case "Magenta":
-				col = Color.MAGENTA;
-				break;
-			case "Orange":
-				col = Color.ORANGE;
-				break;
-			case "Pink":
-				col = Color.PINK;
-				break;
-			case "Red":
-				col = Color.RED;
-				break;
-			case "White":
-				col = Color.WHITE;
-				break;
-			case "Yellow":
-				col = Color.YELLOW;
-				break;
-			
-		default: //Do nothing, never invoked	
+		case "Cyan":
+			col = Color.CYAN;
+			break;
+		case "Dark Gray":
+			col = Color.DARK_GRAY;
+			break;
+		case "Gray":
+			col = Color.GRAY;
+			break;
+		case "Green":
+			col = Color.GREEN;
+			break;
+		case "Light Gray":
+			col = Color.LIGHT_GRAY;
+			break;
+		case "Magenta":
+			col = Color.MAGENTA;
+			break;
+		case "Orange":
+			col = Color.ORANGE;
+			break;
+		case "Pink":
+			col = Color.PINK;
+			break;
+		case "Red":
+			col = Color.RED;
+			break;
+		case "White":
+			col = Color.WHITE;
+			break;
+		case "Yellow":
+			col = Color.YELLOW;
+			break;
+
+		default: // Do nothing, never invoked
 		}
 		return col;
 	}
-	
-	
+
 	/**
-	 * Takes in a String that represents an image in the filesystem
+	 * Takes in a String that represents an image in the filesystem 
 	 * and converts it to a BufferedImage.
-	 * @param filepath 
-	 * 					the filename of the image to make a BufferedImage from
+	 * 
+	 * @param filepath
+	 *            the filename of the image to make a BufferedImage from
 	 * @return a BufferedImage
 	 */
 	public static BufferedImage stringToImage(String filepath) {
 		BufferedImage img = null;
-		try{
+		try {
 			img = ImageIO.read(new File(filepath));
-		}catch(IOException e){
-			System.out.println("Kunde inte ï¿½versï¿½tta filnamn till BufferedImage i Translator");
+		} catch (IOException e) {
+			System.out
+					.println("Kunde inte översätta filnamn " +
+							"till BufferedImage i Translator");
 		}
 		return img;
 	}
-	
+
 }

@@ -5,10 +5,12 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JTextPane;
 import javax.swing.text.JTextComponent;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.ITextSection;
+import se.chalmers.tda367.group25.resumate.model.TextSection;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.utils.ViewHandler;
@@ -99,15 +101,16 @@ public class MainController implements PropertyChangeListener {
 			JTextComponent curTextSection = docCon
 					.getView(docCon.getCurrentID()).getTemplatePanel()
 					.getCurrentSection();
-			ITextSection curRMText = docCon.getDoc(docCon.getCurrentID())
+			ITextSection curText = docCon.getDoc(docCon.getCurrentID())
 					.getTexts()
 					.get(Translator.containerToSectionType(curTextSection));
 			mainView.getToolbarPanel().getTextFontCombo()
-					.setSelectedItem(curRMText.getFont());
+					.setSelectedItem(curText.getFont());
+			System.out.println(curText.getFont());
 			mainView.getToolbarPanel().getTextSizeCombo()
-					.setSelectedItem(curRMText.getSize());
+					.setSelectedItem(curText.getSize());
 			mainView.getToolbarPanel().getTextColorCombo()
-					.setSelectedItem(curRMText.getColor());
+					.setSelectedItem(curText.getColor());
 
 		default:
 			// Do nothing, never invoked
@@ -159,11 +162,13 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.EXPORT_DOC:
-			// ViewHandler.removeBorder(docCon.getView(docCon.getCurrentID()).getTemplatePanel());
+			ViewHandler.removeBorder(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel());
 			ioCon.chooseFunction(Labels.EXPORT_DOC,
 					docCon.getView(docCon.getCurrentID()).getTemplatePanel(),
 					null, null);
-			// ViewHandler.setBackBorder(docCon.getView(docCon.getCurrentID()).getTemplatePanel());
+			ViewHandler.setBackBorder(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel());
 			break;
 
 		case Labels.SEND_DOC:
@@ -239,9 +244,8 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXT_SELECTALL:
 			ViewHandler.selectAll(curTextSection);
 			break;
-		case Labels.TEXT_ENTERED:
-			String text = e.getNewValue().toString();
-			// curRMText.setText(text);
+
+		case Labels.SAVE_TEXT:
 			// TODO
 			break;
 
@@ -258,7 +262,6 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
 			curText.changeStyle(curTextSection, style);
-			// TODO
 			break;
 
 		case Labels.TEXTCOLOUR_CHANGED:
@@ -279,28 +282,38 @@ public class MainController implements PropertyChangeListener {
 			String[] replaceTextsA = e.getNewValue().toString().split("/");
 			String replaceA = replaceTextsA[0];
 			String replaceWithA = replaceTextsA[1];
+
 			/*
-			 * // JTextPane textAreaPersonal =
-			 * docCon.getView(docCon.getCurrentID()) //
-			 * .getTemplatePanel().getPersonalInfoText(); // JTextPane
-			 * textAreaHeader = docCon.getView(docCon.getCurrentID()) //
-			 * .getTemplatePanel().getHeaderTitle(); JTextPane textAreaWork =
+			 * JTextPane textAreaPersonal =
 			 * docCon.getView(docCon.getCurrentID())
-			 * .getTemplatePanel().getWorkingExperienceText(); ITextSection
+			 * .getTemplatePanel().getPersonalInfoText(); ITextSection
 			 * textPersonal = docCon.getDoc(docCon.getCurrentID()).getTexts()
 			 * .get(Translator.containerToSectionType(textAreaPersonal));
-			 * ITextSection textHeader =
+			 * JTextPane textAreaHeader =
+			 * docCon.getView(docCon.getCurrentID()).getTemplatePanel
+			 * ().getHeaderTitle(); ITextSection textHeader =
 			 * docCon.getDoc(docCon.getCurrentID()).getTexts()
 			 * .get(Translator.containerToSectionType(textAreaHeader));
-			 * ITextSection textWork =
-			 * docCon.getDoc(docCon.getCurrentID()).getTexts()
-			 * .get(Translator.containerToSectionType(textAreaWork)); //
 			 * textPersonal.replaceText(textAreaPersonal, replaceA,
-			 * replaceWithA); // textHeader.replaceText(textAreaHeader,
-			 * replaceA, replaceWithA); // textWork.replaceText(textAreaWork,
-			 * replaceA, replaceWithA);
+			 * replaceWithA); textHeader.replaceText(textAreaHeader, replaceA,
+			 * replaceWithA);
 			 */
 			// TODO
+
+			JTextPane textAreaWork = docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel().getWorkingExperienceText();
+			TextSection textWork = (TextSection) docCon
+					.getDoc(docCon.getCurrentID()).getTexts()
+					.get(Translator.containerToSectionType(textAreaWork));
+
+			JTextPane textAreaEd = docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel().getEducationText();
+			TextSection textEd = (TextSection) docCon
+					.getDoc(docCon.getCurrentID()).getTexts()
+					.get(Translator.containerToSectionType(textAreaEd));
+
+			textWork.replaceText(textAreaWork, replaceA, replaceWithA);
+			textEd.replaceText(textAreaEd, replaceA, replaceWithA);
 			break;
 
 		case Labels.FIND_TEXT:
@@ -309,22 +322,30 @@ public class MainController implements PropertyChangeListener {
 			// .getPersonalInfoText(), txt);
 			// ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
 			// .getHeaderTitle(), txt);
-			// ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
-			// .getWorkingExperienceText(), txt);
 			// TODO
+
+			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel().getWorkExpHeader(), txt);
+			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel().getWorkingExperienceText(), txt);
+			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel().getEduHeader(), txt);
+			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel().getEducationText(), txt);
+
+			ViewHandler.showNoMatchesPopUp(txt, 4);
+
 			break;
 
 		case Labels.TEXTAREA_CHANGED:
-			/*
-			 * mainView.getToolbarPanel().getTextFontCombo().getModel().
-			 * setSelectedItem(curText.getFont());
-			 * mainView.getToolbarPanel().getTextSizeCombo
-			 * ().getModel().setSelectedItem(curText.getSize());
-			 * mainView.getToolbarPanel
-			 * ().getTextColorCombo().getModel().setSelectedItem
-			 * (curText.getColor()); mainView.getToolbarPanel().updateUI();
-			 * mainView.getToolbarPanel().validate();
-			 */
+			mainView.getToolbarPanel().getTextFontCombo().getModel()
+					.setSelectedItem(curText.getFont());
+			mainView.getToolbarPanel().getTextSizeCombo().getModel()
+					.setSelectedItem(curText.getSize());
+			mainView.getToolbarPanel().getTextColorCombo().getModel()
+					.setSelectedItem(curText.getColor());
+			mainView.getToolbarPanel().updateUI();
+			mainView.getToolbarPanel().validate();
 			break;
 
 		case Labels.RENAME_DOC:

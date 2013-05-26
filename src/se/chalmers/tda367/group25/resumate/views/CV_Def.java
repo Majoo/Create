@@ -5,6 +5,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+/**
+ * A class that represents the Curriculum Vitae template.
+ */
 
 public class CV_Def extends TemplatePanel {
 	

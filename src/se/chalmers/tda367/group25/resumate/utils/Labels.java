@@ -3,8 +3,8 @@ package se.chalmers.tda367.group25.resumate.utils;
 import java.beans.PropertyChangeEvent;
 
 /**
- * The Template enum is used to decide what kind 
- * of label it is
+ * This class represents all the Template enums 
+ * where they are used to decide what kind of label it is.
  */
 
 public class Labels {
@@ -25,7 +25,7 @@ public class Labels {
 	public static final String RENAME_DOC = "RENAME_DOC";
 	public static final String SEND_DOC = "SEND_DOC";
 	
-	public static final String TEXT_ENTERED = "TEXT_ENTERED";
+	public static final String SAVE_TEXT = "SAVE_TEXT";
 	public static final String TEXTFONT_CHANGED = "TEXTFONT_CHANGED";
 	public static final String TEXTSTYLE_CHANGED = "TEXTSTYLE_CHANGED";
 	public static final String TEXTSIZE_CHANGED = "TEXTSIZE_CHANGED";

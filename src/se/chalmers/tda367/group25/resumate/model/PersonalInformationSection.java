@@ -8,20 +8,20 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
 public class PersonalInformationSection extends AbsTextSection {
 
 	//Personal Info Titles
-	private String nameTitles;
-	private String phoneTitles;
-	private String emailTitles;
-	private String addressTitles;
-	private String cityZipCodeTitles;
+	private String nameTitles = "";
+	private String phoneTitles = "";
+	private String emailTitles = "";
+	private String addressTitles = "";
+	private String cityZipCodeTitles = "";
 	
 	//Personal Info TextFields
-	private String nameField;
-	private String cityZipCodeField;
-	private String addressField;
-	private String phoneField;
-	private String emailField;
-	private String emptyField1;
-	private String emptyField2;
+	private String nameField = "";
+	private String cityZipCodeField = "";
+	private String addressField = "";
+	private String phoneField = "";
+	private String emailField = "";
+	private String emptyField1 = "";
+	private String emptyField2 = "";
 
 	private List <String> textList;
 	

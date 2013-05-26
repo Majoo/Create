@@ -1,15 +1,15 @@
 package se.chalmers.tda367.group25.resumate.utils;
 
 import java.awt.Color;
-import java.awt.Paint;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.JTextComponent;
@@ -19,11 +19,18 @@ import javax.swing.undo.UndoManager;
 
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
+/**
+ * A class that handles nongraphical methods, 
+ * mostly used in the views package. 
+ */
 
 public class ViewHandler {
+	
+	private static int isFalse = 0;
+	
 	/**
 	 * Searches after the String input in variable text. 
-	 * If it is found then the current textcontainer will mark this text.
+	 * If it is found then the current text container will mark this text.
 	 * 
 	 * @param input
 	 *            the String which is to be found
@@ -38,20 +45,23 @@ public class ViewHandler {
 			return;
 		}
 		/*
-		 * Gets the text from the chosen editorpane and searches after the input from the beginning of the text.
+		 * Gets the text from the chosen editorpane 
+		 * and searches after the input from the beginning of the text.
 		 */
 		String content = section.getText();
 		int start = content.indexOf(input, 0);
 		int end;
-		DefaultHighlighter.DefaultHighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(
-				Color.YELLOW);
+		DefaultHighlighter.DefaultHighlightPainter painter = 
+				new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
 		int matchesFound = 0;
 		boolean isSearching = true;
 		
 		/*
 		 * Searches for the specific word.
-		 * The text is found if the index of start is larger or equal to zero. The indexes of start and end it will change 
-		 * so that it will be after the found word. The found word is marked by a highlighter.
+		 * The text is found if the index of start is larger 
+		 * or equal to zero. The indexes of start and end it will change 
+		 * so that it will be after the found word. 
+		 * The found word is marked by a highlighter.
 		 */
 		while (isSearching) {
 			if (start >= 0) {
@@ -68,13 +78,21 @@ public class ViewHandler {
 			} else {
 				isSearching = false;
 				if (matchesFound == 0) {
-					JOptionPane.showMessageDialog(null, "'" + input
-							+ "' not found.");
-				}
+					isFalse++;
+				} 
 			}
 		}
 	//	JOptionPane.showMessageDialog(null, "Matches found: " + matchesFound);
 	}
+	
+	public static void showNoMatchesPopUp(String input, int searchedComponents){
+		if(isFalse == searchedComponents){
+			JOptionPane.showMessageDialog(null, "'" + input
+					+ "' not found.");
+		}
+	}
+	
+	
 	/**
 	 * Copy the text made in the current textarea.
 	 * @param section
@@ -127,15 +145,13 @@ public class ViewHandler {
 	 * Undo's the change made in the current textarea.
 	 * Only undo one character (event) at a time.
 	 * @param section
-	 * 			the current textarea.
+	 * 			the current text area.
 	 * @param manager
 	 * 			the manager which is connected to the current section
 	 */
 	public static void undoAction(UndoManager manager){
 		try {
-				// while(section.getCaret().equals(" ")){
 			manager.undo();
-				// }
 			} catch (CannotUndoException e) {
 			Toolkit.getDefaultToolkit().beep();
 		}
@@ -157,33 +173,30 @@ public class ViewHandler {
 	}
 	
 	/**
-	 * Removes the border around a panel in the current document
-	 * 
-	 * @param p
-	 * 		the template to remove the borders from.	
-	 */	
-	/*public static void removeBorder(TemplatePanel p){
-		p.getPersonalInfoText().setBorder(null);
-		p.getWorkingExperienceText().setBorder(null);
-		p.getHeaderTitle().setBorder(null);
-		p.getEducationText().setBorder(null);
-	}
-	
-	/**
 	 * Adds the original borders around the panel in the current document.
 	 * 
 	 * @param p
 	 * 		the template to set the back the borders to.
 	 */
-	/*public static void setBackBorder(TemplatePanel p){
-		Paint blackPaint = Color.black;
-		p.getPersonalInfoText().setBorder(BorderFactory.createDashedBorder(blackPaint));
-		p.getWorkingExperienceText().setBorder(BorderFactory.createDashedBorder(blackPaint));
-		p.getHeaderTitle().setBorder(BorderFactory.createDashedBorder(blackPaint));
-		p.getEducationText().setBorder(BorderFactory.createDashedBorder(blackPaint));
-	}*/
+	public static void setBackBorder(TemplatePanel p){
+		for(JComponent comp :p.getBorderedComponents())
+			comp.setBorder(BorderFactory.createDashedBorder(Color.black));
+	}
 	
-	/*public static void changeTemplate(TemplatePanel previous, TemplatePanel current){
+	/**
+	 * Removes the border around a panel in the current document.
+	 * 
+	 * @param p
+	 * 		the template to remove the borders from.	
+	 */	
+	public static void removeBorder(TemplatePanel p){
+		for(JComponent comp :p.getBorderedComponents())
+			comp.setBorder(null);
+	}
+	
+	/*public static void changeTemplate
+	     (TemplatePanel previous, TemplatePanel current){
+	 
 
 		String workText = previous.getWorkingExperienceText().getText();
 		String persText = previous.getPersonalInfoText().getText();
@@ -198,9 +211,13 @@ public class ViewHandler {
 		/*System.out.println(workText);
 		System.out.println(persText);
 		System.out.println(headText);
-		System.out.println(eduText);*/
+		System.out.println(eduText);
 		
 	}
+	*/
+		
+	
+}
 	
 	
 

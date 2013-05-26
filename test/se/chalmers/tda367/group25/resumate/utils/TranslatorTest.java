@@ -23,7 +23,7 @@ public class TranslatorTest {
 	
 	@Test
 	public void templateToPanelTest() {
-		TemplatePanel newTempl = Translator.templateToPanel(Template.DEF_CV);
+		TemplatePanel newTempl = Translator.templateToPanel("DEF_CV");
 		
 		//tests only if it has been instantiated 
 		assertTrue(newTempl != null);

@@ -5,30 +5,56 @@ import java.awt.Font;
 
 import javax.swing.text.JTextComponent;
 
+/**
+ * AbsTextSection is an abstract class for representing a text section. The 
+ * size, font and color of the text section can be changed. 
+ * Also, all text can be replaced.
+ */
 public abstract class AbsTextSection implements ITextSection {
 
 	private String font;
+	//A String representation of the color of this text section
 	private String color;
 	private int size;
 
-	public AbsTextSection(String font, String color,
+	/**
+	 * Creates a new AbsTextSection with the specified font, size & color.
+	 * Envoked by its subclasses.
+	 * 
+	 * @param font
+	 * 				the font of the new instance
+	 * @param color
+	 * 				the color of the new instance
+	 * @param size
+	 * 				the size of the new instance
+	 */
+	protected AbsTextSection(String font, String color,
 			int size) {
 		this.font = font;
 		this.color = color;
 		this.size = size;
 	}
 
+	// GETTERS
+
+	@Override
+	public String getFont() {
+		return this.font;
+	}
+
+	@Override
+	public int getSize() {
+		return this.size;
+	}
+
+	@Override
+	public String getColor() {
+		return this.color;
+	}
+	
 	// MUTATORS
 
-	/**
-	 * Changes the font of the text area depending on the parameter font.
-	 * 
-	 * @param section
-	 *            the JTextComponent whose contents is to be customized
-	 * 
-	 * @param font
-	 *            the font by which the section is to be customized with
-	 */
+	@Override
 	public void changeSize(JTextComponent section, int size) {
 		this.size = size;
 		// Update the size in the view
@@ -36,14 +62,7 @@ public abstract class AbsTextSection implements ITextSection {
 		section.setFont(currentFont.deriveFont(currentFont.getStyle(), size));
 	}
 
-	/**
-	 * Changes the size of the text area depending on the parameter size.
-	 * 
-	 * @param section
-	 *            the JTextComponent whose contents is to be customized
-	 * @param size
-	 *            the size by which the section is to be customized with
-	 */
+	@Override
 	public void changeFont(JTextComponent section, String font) {
 		this.font = font;
 		// Update the font in the view
@@ -52,14 +71,7 @@ public abstract class AbsTextSection implements ITextSection {
 				.getSize()));
 	}
 
-	/**
-	 * Changes the colour in the textarea
-	 * 
-	 * @param section
-	 *            the textarea of which its colour is to be changed
-	 * @param col
-	 *            the colour which the textarea is to be updated with
-	 */
+	@Override
 	public void changeColor(JTextComponent section, Color col, String colour) {
 		this.color = colour;
 		// Update the colour in the view
@@ -67,45 +79,12 @@ public abstract class AbsTextSection implements ITextSection {
 
 	}
 	
-	/**
-	 * Replaces the a text with another
-	 * 
-	 * @param replace
-	 *            the text to replace
-	 * 
-	 * @param replaceWith
-	 *            the text to be replaced with
-	 * 
-	 * @param section
-	 *            the JTextPane whose contents is to be customized
-	 */
+	@Override
 	public void replaceText(JTextComponent section, String replace,
 			String replaceWith) {
 		//Update the text in the view
 		section.setText(section.getText().replaceAll(replace, replaceWith));
 	}
-
-	// GETTERS
-
-	/**
-	 * Returns the font of the text section
-	 */
-	public String getFont() {
-		return this.font;
-	}
-
-	/**
-	 * Returns the size of the text section
-	 */
-	public int getSize() {
-		return this.size;
-	}
-
-	/**
-	 * Returns the colour of the text section
-	 */
-	public String getColor() {
-		return this.color;
-	}
+	
 
 }

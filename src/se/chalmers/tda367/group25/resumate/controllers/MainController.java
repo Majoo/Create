@@ -153,12 +153,9 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.PRINT_DOC:
-			/*
-			 * ioCon.chooseFunction(Labels.PRINT_DOC,
-			 * docCon.getView(docCon.getCurrent()).getTemplatePanel(), null,
-			 * null);
-			 */
-			// To be implemented
+			ioCon.chooseFunction(Labels.PRINT_DOC,
+					docCon.getView(docCon.getCurrentID()).getTemplatePanel(),
+					null, null);
 			break;
 
 		case Labels.EXPORT_DOC:
@@ -172,19 +169,16 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.SEND_DOC:
-			/*
-			 * ioCon.chooseFunction(Labels.SEND_DOC,
-			 * docCon.getView(docCon.getCurrent()).getTemplatePanel(), null,
-			 * null);
-			 */
-			// To be implemented
+			ioCon.chooseFunction(Labels.SEND_DOC,
+					docCon.getView(docCon.getCurrentID()).getTemplatePanel(),
+					null, null);
 			break;
 
 		case Labels.NEW_DOC:
 			mainView.newTab((String) e.getNewValue());
 			break;
 
-		// case Labels.DOC_LOAD:
+		// case Labels.LOAD_DOC:
 		// docCon.getDoc(docCon.getCurrent()).setAllTexts(
 		// ioCon.getStringsMap());
 		// break;

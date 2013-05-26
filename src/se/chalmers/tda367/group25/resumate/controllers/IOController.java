@@ -169,8 +169,10 @@ public class IOController implements PropertyChangeListener {
 			} else if (function.equals(Labels.SAVE_DOC_AS)) {
 				IOHandler.saveFile(filePath + "\\" + fileName, strings);
 			} else if (function.equals(Labels.OPEN_DOC)) {
-				stringsFromFiles = IOHandler.openFile(filePath + "\\"
-						+ fileName);
+				if (setStringsMap(IOHandler
+						.openFile(filePath + "\\" + fileName))) {
+					pcs.firePropertyChange(Labels.LOAD_DOC, true, false);
+				}
 			}
 		} else if (returnVal == JFileChooser.CANCEL_OPTION) {
 			// Do nothing
@@ -234,8 +236,9 @@ public class IOController implements PropertyChangeListener {
 		this.recentPath = newPath;
 	}
 
-	public void setStringsMap(Map<SectionType, String> strings) {
+	public boolean setStringsMap(Map<SectionType, String> strings) {
 		this.stringsFromFiles = strings;
+		return this.stringsFromFiles.equals(strings);
 	}
 
 	// ---PropertyChanged Methods--- //
@@ -258,9 +261,5 @@ public class IOController implements PropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent e) {
 		;
-	}
-
-	private void exceptionHandling() {
-
 	}
 }

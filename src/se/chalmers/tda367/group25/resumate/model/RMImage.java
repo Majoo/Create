@@ -8,8 +8,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 
 public class RMImage implements ImageInterface{
-
+	//The original image
 	private BufferedImage origImg;
+	//The current image with all changes
 	private BufferedImage curImg;
 
 	//-----Constructors-----//
@@ -21,8 +22,7 @@ public class RMImage implements ImageInterface{
 	}
 
 	/**
-	 * Creates an RMImage with a BufferedImage. This image will
-	 * not be changed. Changes will be made on a copy of this image.
+	 * Creates an RMImage with a BufferedImage. 
 	 * 
 	 * @param image
 	 *				the image to make an RMImage of.
@@ -64,7 +64,7 @@ public class RMImage implements ImageInterface{
 
 	/**
 	 * Crop the Image of this RMImage.
-	 * (UNFINISHED DOESN'T WORK QUITE AS IT SHOULD
+	 * UNFINISHED DOESN'T WORK QUITE AS IT SHOULD
 	 * somtimes RasterFormatException is thrown)
 	 * 
 	 * @param rect 
@@ -72,6 +72,7 @@ public class RMImage implements ImageInterface{
 	 * 				the image will have after the cropping.
 	 */
 	public void crop(Rectangle rect) {
+		// TODO
 		this.curImg = this.curImg.getSubimage(rect.x
 				,rect.y, rect.width-rect.x, rect.height-rect.y);
 	}

@@ -61,7 +61,7 @@ public class IOController implements PropertyChangeListener {
 			if (function.equals(Labels.SAVE_DOC)
 					|| function.equals(Labels.SAVE_DOC_AS)) {
 				strings = doc.getTexts();
-			System.out.print(strings.toString());
+				System.out.print(strings.toString());
 			} else {
 				strings = null;
 			}
@@ -92,9 +92,7 @@ public class IOController implements PropertyChangeListener {
 			String sourceClass = e.getStackTrace()[0].getClassName();
 			if (sourceClass.equals("IOHandler")) {
 				// If incorrect file is chosen during OPEN_DOC (or SAVE_DOC)
-				// issue
-				// warning and
-				// try again.
+				// issue warning and try again.
 				if (e.getMessage().equals("Not project directory")) {
 					JOptionPane
 							.showMessageDialog(
@@ -111,7 +109,8 @@ public class IOController implements PropertyChangeListener {
 									"Invalid choice made.",
 									JOptionPane.ERROR_MESSAGE);
 					chooseFunction(function, jc, doc, path);
-				} System.out.println("IO");
+				}
+				System.out.println("IO");
 			} else if (sourceClass.equals("PDFHandler")) {
 				String stackTraceTop = e.getStackTrace()[0].getMethodName();
 				if (stackTraceTop.contains("print")) {
@@ -139,15 +138,18 @@ public class IOController implements PropertyChangeListener {
 	 * A method for choosing path and file name.
 	 * 
 	 * @param jc
+	 *            a JComponent, only relevant when exporting
 	 * @param function
 	 *            the context of the function e.g. save, save as, export as PDF
 	 * @param stringsFromFiles
 	 *            the Strings from the RMText instances in an instance of
 	 *            Document
-	 * 
 	 * @throws DocumentException
+	 *             Signals that an error has occurred in
+	 *             com.itextpdf.text.Document.
 	 * @throws NullPointerException
 	 * @throws IOException
+	 *             If an I/O error occurs
 	 */
 	private void choosePath(JComponent jc, String function,
 			Map<SectionType, String> strings) throws DocumentException,
@@ -159,19 +161,17 @@ public class IOController implements PropertyChangeListener {
 
 		int returnVal = chooser.showDialog(null, getApproveText(function));
 
-		String filePath = chooser.getCurrentDirectory().getPath();
-		recentPath = filePath;
-		String fileName = chooser.getSelectedFile().getName();
+		String dirPath = chooser.getCurrentDirectory().getPath();
+		recentPath = dirPath;
+		String filePath = chooser.getSelectedFile().getPath();
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			if (function.equals(Labels.EXPORT_DOC)) {
-				PDFHandler.initPdfCreation(jc, filePath + "\\" + fileName,
-						function);
+				PDFHandler.initPdfCreation(jc, filePath, function);
 			} else if (function.equals(Labels.SAVE_DOC_AS)) {
-				IOHandler.saveFile(filePath + "\\" + fileName, strings);
+				IOHandler.saveFile(filePath, strings);
 			} else if (function.equals(Labels.OPEN_DOC)) {
-				if (setStringsMap(IOHandler
-						.openFile(filePath + "\\" + fileName))) {
+				if (setStringsMap(IOHandler.openFile(filePath))) {
 					pcs.firePropertyChange(Labels.LOAD_DOC, true, false);
 				}
 			}
@@ -194,8 +194,7 @@ public class IOController implements PropertyChangeListener {
 			return new FileNameExtensionFilter("ResuMate Project Directories",
 					"doc");
 		} else if (function.equals(Labels.OPEN_DOC)) {
-			return new FileNameExtensionFilter("ResuMate Project",
-					"rsmt");
+			return new FileNameExtensionFilter("ResuMate Project", "rsmt");
 		} else {
 			return null;
 		}
@@ -237,8 +236,17 @@ public class IOController implements PropertyChangeListener {
 		this.recentPath = newPath;
 	}
 
+	/**
+	 * Checks whether it was possible to put the Map<SectionType, String>
+	 * parameter in the Map<SectionType, String> stringsFromFiles variable in
+	 * this class.
+	 * 
+	 * @param strings
+	 * @return boolean value of whether the putAll() operation was successful or
+	 *         not
+	 */
 	public boolean setStringsMap(Map<SectionType, String> strings) {
-		this.stringsFromFiles = strings;
+		this.stringsFromFiles.putAll(strings);
 		return this.stringsFromFiles.equals(strings);
 	}
 

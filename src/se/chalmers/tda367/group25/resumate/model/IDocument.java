@@ -6,7 +6,7 @@ package se.chalmers.tda367.group25.resumate.model;
  * structures. Usually this involves different storing of text, images, charts
  * etc. The only thing they have in common is that they have a FilePath.
  */
-public interface DocumentInterface {
+public interface IDocument {
 
 	/**
 	 * Gets the FilePath of the Document.

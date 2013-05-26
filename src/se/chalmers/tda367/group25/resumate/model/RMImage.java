@@ -12,7 +12,7 @@ import java.awt.image.ColorConvertOp;
  * was set. A copy of it can be cropped, scaled and made gray. You access this
  * enhanced image with getCurImage(). It can be reset to the shape it was set.
  */
-public class RMImage implements ImageInterface{
+public class RMImage implements IImage{
 	//The original image
 	private BufferedImage origImg;
 	//The current image with all changes

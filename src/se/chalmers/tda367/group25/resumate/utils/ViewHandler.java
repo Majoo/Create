@@ -179,7 +179,7 @@ public class ViewHandler {
 	 * 		the template to set the back the borders to.
 	 */
 	public static void setBackBorder(TemplatePanel p){
-		for(JComponent comp :p.getBorderedComponents())
+		for(JComponent comp :p.getAllComponents())
 			comp.setBorder(BorderFactory.createDashedBorder(Color.black));
 	}
 	
@@ -190,7 +190,7 @@ public class ViewHandler {
 	 * 		the template to remove the borders from.	
 	 */	
 	public static void removeBorder(TemplatePanel p){
-		for(JComponent comp :p.getBorderedComponents())
+		for(JComponent comp :p.getAllComponents())
 			comp.setBorder(null);
 	}
 	

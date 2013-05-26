@@ -32,6 +32,7 @@ public class SingleRowSection extends AbsTextSection {
 	}
 	
 	public void changeStyle(JTextComponent section, String style) {
+		System.out.println("In changeStyle in SingleRow");
 		Font currentFont = section.getFont();
 		Font font = currentFont;
 

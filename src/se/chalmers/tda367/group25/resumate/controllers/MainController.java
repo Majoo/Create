@@ -4,13 +4,16 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
+import javax.swing.JComponent;
 import javax.swing.JTextPane;
 import javax.swing.text.JTextComponent;
 
 import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.model.ITextSection;
 import se.chalmers.tda367.group25.resumate.model.MultiRowSection;
+import se.chalmers.tda367.group25.resumate.model.SingleRowSection;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.utils.ViewHandler;
@@ -214,8 +217,8 @@ public class MainController implements PropertyChangeListener {
 		 */
 		JTextComponent curTextSection = docCon.getView(docCon.getCurrentID())
 				.getTemplatePanel().getCurrentSection();
-		ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getSectionTexts().get(Translator.containerToSectionType(curTextSection));
-
+		ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getSectionTexts().get(Translator.containerToSection(curTextSection));
+		
 		switch (e.getPropertyName()) {
 
 		case Labels.TEXT_UNDO:
@@ -236,7 +239,6 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.TEXT_CUT:
 			ViewHandler.textCut(curTextSection);
-			// replaceCurrent("");
 			break;
 
 		case Labels.TEXT_PASTE:
@@ -264,15 +266,18 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXTSTYLE_CHANGED:
 			String style = e.getNewValue().toString();
 			
-			if(curTextSection.getClass().equals(JTextPane.class)){
-				JTextPane tmp = (JTextPane)curTextSection;
-				curText.changeFont(tmp, style);
-			}
-			System.out.println("Changing fonts ");
-			//curText.changeStyle(curTextSection, style);
+			if(curTextSection instanceof JTextPane){
+				JTextPane textSec = (JTextPane)curTextSection;
+				MultiRowSection mulRowSec= (MultiRowSection)curText;
+				mulRowSec.changeStyle(textSec, style);
+			} else {
+				SingleRowSection singRowSec= (SingleRowSection)curText;
+				singRowSec.changeStyle(curTextSection, style);
+			}			
 			break;
 
 		case Labels.TEXTCOLOUR_CHANGED:
+			
 			String colour = e.getNewValue().toString();
 			curText.changeColor(curTextSection,
 					Translator.stringToColor(colour), colour);
@@ -323,23 +328,9 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.FIND_TEXT:
 			String txt = e.getNewValue().toString();
-			// ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
-			// .getPersonalInfoText(), txt);
-			// ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
-			// .getHeaderTitle(), txt);
-			// TODO
-
-			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
-					.getTemplatePanel().getWorkExpHeader(), txt);
-			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
-					.getTemplatePanel().getWorkingExperienceText(), txt);
-			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
-					.getTemplatePanel().getEduHeader(), txt);
-			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
-					.getTemplatePanel().getEducationText(), txt);
-
+			for (JTextComponent comp: docCon.getView(docCon.getCurrentID()).getTemplatePanel().getTextComponents())
+			ViewHandler.findText(comp, txt);
 			ViewHandler.showNoMatchesPopUp(txt, 4);
-
 			break;
 
 		case Labels.TEXTAREA_CHANGED:

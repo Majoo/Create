@@ -75,7 +75,6 @@ public class RMImage implements IImage{
 	 * 				the image will have after the cropping.
 	 */
 	public void crop(Rectangle rect) {
-		// TODO
 		this.curImg = this.curImg.getSubimage(rect.x
 				,rect.y, rect.width-rect.x, rect.height-rect.y);
 	}

@@ -9,8 +9,6 @@ import java.io.IOException;
 
 import javax.swing.JComponent;
 
-import se.chalmers.tda367.group25.resumate.utils.Labels;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfContentByte;

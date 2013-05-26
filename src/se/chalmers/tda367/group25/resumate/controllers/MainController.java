@@ -64,7 +64,7 @@ public class MainController implements PropertyChangeListener {
 		switch (e.getPropertyName()) {
 
 		case Labels.TEMPLATE_CHANGED:
-			// To be implemented
+			// To be implemented 
 			/*
 			 * TemplatePanel tempChange = Translator.templateToPanel(e
 			 * .getNewValue().toString()); docCon.saveTexts();
@@ -206,7 +206,7 @@ public class MainController implements PropertyChangeListener {
 		/*
 		 * Text handling: e.getNewValue() contains the information neccesary for
 		 * the specific task. By the usage of the master translator we will know
-		 * which kind of section type it is so that the RMText can be informed
+		 * which kind of section type it is so that the text section can be informed
 		 * which one to be updated.
 		 */
 		JTextComponent curTextSection = docCon.getView(docCon.getCurrentID())

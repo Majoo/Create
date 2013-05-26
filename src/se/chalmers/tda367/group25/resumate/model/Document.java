@@ -4,8 +4,6 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JTextField;
-
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 /**
@@ -38,14 +36,12 @@ public class Document implements IDocument {
 	 *            the Template to which currentTempl will be set
 	 */
 	public Document(String templ) {
-		// Set variables
 		this.currentTempl = templ;
 		rmI = new RMImage(null);
-		// create Sections according to Template.
 		createSections();
 	}
 
-	/*
+	/**
 	 * Create necessary Sections according to Template.
 	 */
 	private void createSections() {
@@ -90,7 +86,7 @@ public class Document implements IDocument {
 		}
 	}
 	
-	// ---Getters---//
+	// -----Queries-----//	
 
 	/**
 	 * Get the image in the RMImage of the Document.
@@ -98,7 +94,6 @@ public class Document implements IDocument {
 	 * @return the image
 	 */
 	public RMImage getImage() {
-		// TODO Make clone safe
 		return rmI;
 	}
 
@@ -108,7 +103,6 @@ public class Document implements IDocument {
 	 * @return the Map of the RMTexts
 	 */
 	public Map<SectionType, ITextSection> getSectionTexts() {
-		// TODO Make clone safe
 		return textSections;
 	}
 
@@ -131,7 +125,7 @@ public class Document implements IDocument {
 		return filePath;
 	}
 
-	// ---Setters---//
+	// -----Commands-----//
 
 	/**
 	 * Sets the image of the RMImage of the Document.
@@ -220,14 +214,19 @@ public class Document implements IDocument {
 	}
 	
 	/**
-	 * 
+	 * Sets the text from a map to the variabel texts
 	 * @param strings
+	 * 				the map with the strings
 	 */
 	public void setAllTexts(Map<SectionType, String> strings){
 		this.texts.putAll(strings);
 	}
 	
+	
 	@Override
+	/**
+	 * Checks whether this class has a path or not
+	 */
 	public boolean hasFilePath() {
 		return !(filePath.isEmpty());
 	}

@@ -81,9 +81,9 @@ public abstract class AbsTextSection implements ITextSection {
 	
 	@Override
 	public void replaceText(JTextComponent section, String replace,
-			String replaceWith) {
+			String replacement) {
 		//Update the text in the view
-		section.setText(section.getText().replaceAll(replace, replaceWith));
+		section.setText(section.getText().replaceAll(replace, replacement));
 	}
 	
 

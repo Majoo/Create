@@ -57,11 +57,11 @@ public interface ITextSection {
 	 * @param replace
 	 *            the text to be replaced
 	 *            
-	 * @param replaceWith
+	 * @param replacement
 	 * 			  the text to replace with
 	 */
 	public void replaceText(JTextComponent section, String replace,
-			String replaceWith);
+			String replacement);
 	/**
 	 * Get the font of the text.
 	 * 

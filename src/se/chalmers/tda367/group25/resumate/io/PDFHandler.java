@@ -9,6 +9,8 @@ import java.io.IOException;
 
 import javax.swing.JComponent;
 
+import se.chalmers.tda367.group25.resumate.utils.Labels;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -33,12 +35,9 @@ public class PDFHandler {
 	}
 
 	/**
-	 * Creates PDF, using the external iText library. If a document is longer
-	 * than a single page, the PDF is extended.
-	 * 
-	 * Original taken from
-	 * http://www.javaworld.com/javaworld/jw-12-2006/jw-1209-swing.html
-	 * (2013-4-28)
+	 * Delegates work to correct method, depending on the function parameter.
+	 * Available alternatives are Labels.EXPORT_DOC, Labels.PRINT_DOC and
+	 * Labels.SEND_DOC.
 	 * 
 	 * @param jc
 	 *            JComponent representation of Document to save as PDF
@@ -49,17 +48,44 @@ public class PDFHandler {
 	 * @throws IOException
 	 */
 	@SuppressWarnings("deprecation")
-	public static synchronized void createPdf(JComponent jc,
-			String filePathAndName) throws DocumentException, IOException {
-
-		Document document = new Document();
+	public static synchronized void initPdfCreation(JComponent jc,
+			String filePathAndName, String function) throws DocumentException,
+			IOException {
 
 		File file = getUniqueFile(filePathAndName);
+		if (function.equals(Labels.EXPORT_DOC)) {
+			createPDF(jc, file);
+			showFile(file);
+		} else if (function.equals(Labels.PRINT_DOC)) {
+			printFile(file);
+		} else if (function.equals(Labels.SEND_DOC)) {
+			sendFile(file);
+		}
 
+	}
+
+	/**
+	 * Creates PDF, using the external iText library. If a document is longer
+	 * than a single page, the PDF is extended.
+	 * 
+	 * Original taken from
+	 * http://www.javaworld.com/javaworld/jw-12-2006/jw-1209-swing.html
+	 * (2013-4-28)
+	 * 
+	 * @param jc
+	 *            JComponent representation of Document to save as PDF
+	 * @param file
+	 *            the String used to decide where the PDF file will be saved and
+	 *            what its name will be
+	 * @throws DocumentException
+	 * @throws FileNotFoundException
+	 */
+	private static void createPDF(JComponent jc, File file)
+			throws FileNotFoundException, DocumentException {
+		Document document = new Document();
+		document.open();
 		PdfWriter writer = PdfWriter.getInstance(document,
 				new FileOutputStream(file));
-
-		document.open();
 		PdfContentByte cb = writer.getDirectContent();
 
 		int panelWidth = jc.getWidth();
@@ -85,8 +111,6 @@ public class PDFHandler {
 		}
 
 		document.close();
-
-		showFile(file);
 	}
 
 	/**
@@ -121,6 +145,41 @@ public class PDFHandler {
 			Desktop desktop = Desktop.getDesktop();
 			if (desktop.isSupported(Desktop.Action.OPEN)) {
 				desktop.open(file);
+			}
+		}
+	}
+
+	/**
+	 * Prints the PDF that was temporarily created, if supported by the current
+	 * platform.
+	 * 
+	 * @param file
+	 *            the PDF file to print
+	 * @throws IOException
+	 */
+	private static void printFile(File file) throws IOException {
+		if (Desktop.isDesktopSupported()) {
+			Desktop desktop = Desktop.getDesktop();
+			if (desktop.isSupported(Desktop.Action.PRINT)) {
+				desktop.print(file);
+			}
+		}
+	}
+
+	/**
+	 * Opens the native email application and the folder containing the PDF to
+	 * be sent as an email attachment.
+	 * 
+	 * @param file
+	 *            the PDF to send as an email attachment
+	 * @throws IOException
+	 */
+	private static void sendFile(File file) throws IOException {
+		if (Desktop.isDesktopSupported()) {
+			Desktop desktop = Desktop.getDesktop();
+			if (desktop.isSupported(Desktop.Action.MAIL)) {
+				desktop.mail();
+				showFile(file.getParentFile());
 			}
 		}
 	}

@@ -131,9 +131,9 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the combo box in which the fonts are listed
 		textFontCB = new JComboBox();
-		textFontCB.setToolTipText("Protip! " +
+		textFontCB.setToolTipText("<html><b>Protip!</b><br> " +
 				"Don't have too many different fonts! \n" +
-				"It will look unprofessional.");
+				"It will look unprofessional.</html>");
 		textFontCB.addActionListener(this);
 		textFontCB.setActionCommand("Font");
 		GraphicsEnvironment e = GraphicsEnvironment
@@ -145,9 +145,9 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		* in which the sizes for the text are listed
 		*/
 		textSizeCB = new JComboBox();
-		textSizeCB.setToolTipText("Protip! " +
-				"Size 20 is perfect for headlines. " +
-				"Otherwise, use size 11 as default.");
+		textSizeCB.setToolTipText("<html><b>Protip!</b><br> " +
+				"Size 20 is perfect for headlines. <br>" +
+				"Otherwise, use size 11 as default.</html>");
 		textSizeCB.addActionListener(this);
 		textSizeCB.setActionCommand("Size");
 		
@@ -157,7 +157,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		
 		// Setting properties for the button which makes the text bold
 		JToggleButton btnBold = new JToggleButton("B");
-		btnBold.setToolTipText("Protip! " +
+		btnBold.setToolTipText("<html><b>Protip!</b><br> " +
 				"You can make the personal info titles bolded " +
 				"or all the headlines!");
 		btnBold.addActionListener(this);
@@ -166,7 +166,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the button which make the text italic
 		JToggleButton btnItalic = new JToggleButton("I");
-		btnItalic.setToolTipText("Protip! " +
+		btnItalic.setToolTipText("<html><b>Protip!</b><br> " +
 				"Use this for names of schools, programs etc.");
 		btnItalic.addActionListener(this);
 		btnItalic.setActionCommand("Italic");	
@@ -174,7 +174,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 
 		// Setting properties for the button which make the text underlined
 		JToggleButton btnUnderline = new JToggleButton("U");
-		btnUnderline.setToolTipText("Protip! " +
+		btnUnderline.setToolTipText("<html><b>Protip!</b> " +
 				"Use this to emphasize.");
 		btnUnderline.addActionListener(this);
 		btnUnderline.setActionCommand("Underline");	
@@ -185,8 +185,8 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		
 		// Setting properties for the button which make the text coloured
 		textColorCB = new JComboBox();
-		textColorCB.setToolTipText("Protip! " +
-				"Do not use too many different colors!");
+		textColorCB.setToolTipText("<html><b>Protip!</b><br> " +
+				"Do not use too many different colors!</html>");
 		textColorCB.setModel(new DefaultComboBoxModel(new String[] 
 				{"Black", "Blue", "Cyan", "Dark Gray", "Gray", "Green",
 				"Light Gray", "Magenta", "Orange", "Pink", "Red", "White", 
@@ -262,24 +262,24 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		
 		// Setting template buttons
 		JButton btnTemp1 = new JButton("Default PL");
-		btnTemp1.setToolTipText("Protip! " +
-				"This template works in almost all jobs you are searching for.");
+		btnTemp1.setToolTipText("<html><b>Protip!</b><br> " +
+				"This template works in almost all jobs you are searching for.</html>");
 		btnTemp1.addActionListener(this);
 		btnTemp1.setActionCommand("DefPL");
 		tempPanel.add(btnTemp1);
 		
 		JButton btnTemp2 = new JButton("Default CV");
-		btnTemp2.setToolTipText("Protip! " +
-				"This template is the default one to write a CV. " +
-				"Use this if you are searching for a regular job.");
+		btnTemp2.setToolTipText("<html><b>Protip!</b><br> " +
+				"This template is the default one to write a CV.<br> " +
+				"Use this if you are searching for a regular job.</html>");
 		btnTemp2.addActionListener(this);
 		btnTemp2.setActionCommand("DefCV");
 		tempPanel.add(btnTemp2);
 		
 		JButton btnTemp3 = new JButton("Classy CV");
-		btnTemp3.setToolTipText("Protip! " +
+		btnTemp3.setToolTipText("<html><b>Protip!</b><br> " +
 				"The Classy CV template is a way to show off " +
-				"your experiences for your boss!");
+				"your experiences for your boss!</html>");
 		btnTemp3.addActionListener(this);
 		btnTemp3.setActionCommand("ClassyCV");
 		tempPanel.add(btnTemp3);
@@ -303,9 +303,9 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		
 		JComboBox otherTemps = new JComboBox(templateChange);
 		otherTemps.setAlignmentX(Component.LEFT_ALIGNMENT);
-		otherTemps.setToolTipText("Protip! " +
-				"A list of different templates. " +
-				"Choose something that fits your future job.");
+		otherTemps.setToolTipText("<html><b>Protip!</b><br> " +
+				"A list of different templates. <br>" +
+				"Choose something that fits your future job.</html>");
 		otherTemps.setMaximumRowCount(4);
 		tempPanel.add(otherTemps);
 		add(tempPanel);

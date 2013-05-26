@@ -6,7 +6,7 @@ import java.awt.Color;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import se.chalmers.tda367.group25.resumate.model.TextSection;
+import se.chalmers.tda367.group25.resumate.model.MultiRowSection;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.CV_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
@@ -17,13 +17,13 @@ import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
  */
 public class RMTextTest {
 	
-	static TextSection t;
+	static MultiRowSection t;
 	static TemplatePanel p;
 
 	@BeforeClass 
 	public static void method(){
 		p = new CV_Def();
-		t = new TextSection(Translator.containerToSectionType(p.getCurrentSection()));
+		t = new MultiRowSection(Translator.containerToSectionType(p.getCurrentSection()));
 		//t = new RMText(SectionType.PERSONAL_INFO);
 		t.setText("This is a test");
 		p.getCurrentSection().setText("This a test");

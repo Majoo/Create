@@ -6,13 +6,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
-import se.chalmers.tda367.group25.resumate.utils.SectionType;
-import se.chalmers.tda367.group25.resumate.views.MenuBar;
 
 public class RMImage implements ImageInterface{
 

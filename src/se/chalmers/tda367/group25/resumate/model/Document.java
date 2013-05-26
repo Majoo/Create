@@ -55,22 +55,19 @@ public class Document implements DocumentInterface{
 				texts.put(SectionType.HEADER, new Header());
 			}
 			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-				texts.put(SectionType.WORK_EXPERIENCE, new TextSection(
-						SectionType.WORK_EXPERIENCE));
+				texts.put(SectionType.WORK_EXPERIENCE, new MultiRowSection());
 			}
 			
 			break;
 		case DEF_PL:
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new TextSection(
-						SectionType.PERSONAL_INFO));
+				texts.put(SectionType.PERSONAL_INFO, new MultiRowSection());
 			}
 			if (!texts.containsKey(SectionType.HEADER)) {
 				texts.put(SectionType.HEADER, new Header());
 			}
 			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-				texts.put(SectionType.WORK_EXPERIENCE, new TextSection(
-						SectionType.WORK_EXPERIENCE));
+				texts.put(SectionType.WORK_EXPERIENCE, new MultiRowSection());
 			}
 
 			break;
@@ -82,12 +79,10 @@ public class Document implements DocumentInterface{
 				texts.put(SectionType.HEADER, new Header());
 			}
 			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-				texts.put(SectionType.WORK_EXPERIENCE, new TextSection(
-						SectionType.WORK_EXPERIENCE));
+				texts.put(SectionType.WORK_EXPERIENCE, new MultiRowSection());
 			}
 			if (!texts.containsKey(SectionType.EDUCATION)) {
-				texts.put(SectionType.EDUCATION, new TextSection(
-						SectionType.EDUCATION));
+				texts.put(SectionType.EDUCATION, new MultiRowSection());
 			}
 			break;
 		}

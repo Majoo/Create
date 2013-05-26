@@ -102,6 +102,9 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
+		pcs.firePropertyChange(evt.getPropertyName(),evt.getOldValue(),
+				evt.getNewValue());
+		
 		try{
 			pcs.firePropertyChange(evt.getPropertyName(),evt.getOldValue(),
 					evt.getNewValue());

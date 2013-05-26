@@ -28,7 +28,11 @@ import javax.swing.border.LineBorder;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.Template;
-
+/**
+ * A class which represents the toolbar panel 
+ * which is located on top of the document
+ * with buttons and drop down lists 
+ */
 public class ToolbarPanel extends JPanel implements ActionListener{
 	private PropertyChangeSupport pcs;
 	private JComboBox textSizeCB;
@@ -351,7 +355,8 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 			if(!st.equals("")){
 				pcs.firePropertyChange(Labels.NEW_DOC, false, st);
 			}else{
-				JOptionPane.showMessageDialog(null, "Please enter a valid name.");
+				JOptionPane.showMessageDialog(null, 
+						"Please enter a valid name.");
 			}
 			
 		break;
@@ -407,14 +412,17 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 					textColorCB.getSelectedItem().toString());
 			break;
 		case "DefPL":
-			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.DEF_PL);
+			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, 
+					null, Template.DEF_PL);
 			break;
 		case "DefCV":
-			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.DEF_CV);
+			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, 
+					null, Template.DEF_CV);
 			break;
 		case "ClassyCV":			
 			System.out.println("sends event with CLASSY_CV");
-			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, null, Template.CLASSY_CV);
+			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, 
+					null, Template.CLASSY_CV);
 			break;		
 			
 		default: // Do nothing, never invoked.	

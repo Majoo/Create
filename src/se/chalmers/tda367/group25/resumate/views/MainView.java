@@ -19,7 +19,7 @@ import com.itextpdf.awt.geom.Dimension;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 /**
- * This class is the visual and graphical user interface 
+ * This class represents all the visual and graphical user interface 
  * of the frame, panels and toolbar.
  */
 public class MainView extends JFrame implements MainViewInterface {

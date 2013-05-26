@@ -11,8 +11,8 @@ import java.beans.PropertyChangeSupport;
 
 /**
  * A close component to the JTabbedPane in MainView
- * Contains a JLabel to show the name of the document (yet to be implemented) and 
- * a JButton to close the tab it belongs to
+ * Contains a JLabel to show the name of the document (yet to be implemented) 
+ * and a JButton to close the tab it belongs to
  */ 
 
 public class ButtonTabClose extends JPanel {

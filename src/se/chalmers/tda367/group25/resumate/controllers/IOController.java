@@ -75,9 +75,11 @@ public class IOController {
 					|| function.equals(Labels.OPEN_DOC)) {
 				choosePath(jc, function, null);
 			} else if (function.equals(Labels.PRINT_DOC)
-					|| (function.equals(Labels.SEND_DOC) || (function
-							.equals(Labels.RENAME_DOC)))) {
-				// To be implemented in the future
+					|| function.equals(Labels.SEND_DOC)) {
+				PDFHandler.initPdfCreation(jc, System.getProperty("user.home"),
+						function);
+			} else if (function.equals(Labels.RENAME_DOC)) {
+				// To be implemented
 			}
 		} catch (NullPointerException e) {
 			// If no file is chosen or operation is aborted, nothing
@@ -85,19 +87,32 @@ public class IOController {
 		} catch (DocumentException e) {
 			// iText related exception
 		} catch (IOException e) {
-			// If incorrect file is chosen during OPEN_DOC issue warning and
+			// If incorrect file is chosen during OPEN_DOC (or SAVE_DOC) issue
+			// warning and
 			// try again.
-			if (e.getMessage().equals("Not project folder")
+			if (e.getMessage().equals("Not project directory")
 					&& function.equals(Labels.OPEN_DOC)
 					|| function.equals(Labels.SAVE_DOC)) {
 				JOptionPane
 						.showMessageDialog(
 								null,
-								"You chose a directory that is not a ResuMate project folder, try again. Hint: ResuMate project folders contain the file Project.rsmt.",
+								"You chose a directory that is not a ResuMate project folder, please try again. Hint: ResuMate project folders contain the file Project.rsmt.",
 								"Invalid choice made.",
 								JOptionPane.ERROR_MESSAGE);
 				chooseFunction(function, jc, doc, path);
 			}
+			if (e.getMessage().equals("Not directory")
+					&& function.equals(Labels.OPEN_DOC)
+					|| function.equals(Labels.SAVE_DOC)) {
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"You chose a file that is not a directory, please try again.",
+								"Invalid choice made.",
+								JOptionPane.ERROR_MESSAGE);
+				chooseFunction(function, jc, doc, path);
+			}
+			// Must implement IOException handling from PDFHandler
 		}
 	}
 
@@ -133,7 +148,8 @@ public class IOController {
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			if (function.equals(Labels.EXPORT_DOC)) {
-				PDFHandler.createPdf(jc, filePath + "\\" + fileName);
+				PDFHandler.initPdfCreation(jc, filePath + "\\" + fileName,
+						function);
 			} else if (function.equals(Labels.SAVE_DOC_AS)) {
 				IOHandler.saveFile(filePath + "\\" + fileName, strings);
 			} else if (function.equals(Labels.OPEN_DOC)) {

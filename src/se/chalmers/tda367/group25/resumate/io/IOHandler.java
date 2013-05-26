@@ -70,41 +70,17 @@ public class IOHandler {
 	 */
 	public static synchronized Map<SectionType, String> openFile(String fileName)
 			throws IOException {
-		System.out.println("In openFile");
 		File chosenDir = new File(fileName);
-		File rsmtInDir = new File(fileName + "\\Project.rsmt");
 
-		if (chosenDir.isDirectory() && rsmtInDir.exists()) {
-			System.out.println("In if-block in openFile");
-
-			Map<SectionType, String> strings = new HashMap<SectionType, String>(
-					3);
-			String data = readSingleFile(rsmtInDir);
-			if (data.contains("PERSONAL_INFO")) {
-				strings.put(SectionType.PERSONAL_INFO, readSingleFile(new File(
-						chosenDir + "\\PERSONAL_INFO.txt")));
-			}
-			if (data.contains("WORK_EXPERIENCE")) {
-				strings.put(SectionType.WORK_EXPERIENCE,
-						readSingleFile(new File(chosenDir
-								+ "\\WORK_EXPERIENCE.txt")));
-			}
-			if (data.contains("EDUCATION")) {
-				strings.put(SectionType.EDUCATION, readSingleFile(new File(
-						chosenDir + "\\EDUCATION.txt")));
-			}
-			if (data.contains("HEADER")) {
-				strings.put(SectionType.HEADER, readSingleFile(new File(
-						chosenDir + "\\HEADER.txt")));
-			}
-			return strings;
+		if (chosenDir.isDirectory()) {
+			readFromFiles(fileName);
 		}
-		throw new IOException("Not project folder");
+		throw new IOException("Not directory");
 	}
 
 	/**
-	 * Writes the content from the RMText objects stored in the Map to text
-	 * files, and creates the RSMT file.
+	 * Writes the content from String objects stored in the Map to text files,
+	 * and creates the RSMT file.
 	 * 
 	 * @param fileName
 	 *            the directory in which to write the files
@@ -112,7 +88,7 @@ public class IOHandler {
 	 *            the Map with the contents
 	 * @throws IOException
 	 */
-	private static synchronized void writeToFiles(String fileName,
+	private static void writeToFiles(String fileName,
 			Map<SectionType, String> strings) throws IOException {
 
 		writeSingleFile(new File(fileName + "\\Project.rsmt"),
@@ -133,6 +109,43 @@ public class IOHandler {
 			writeSingleFile(new File(fileName + "\\EDUCATION.txt"),
 					strings.get(SectionType.EDUCATION));
 		}
+	}
+
+	/**
+	 * Reads the content of the text files in the directory and stores them in a
+	 * Map to be loaded by a Document object.
+	 * 
+	 * @return a Map with SectionType keys and String values to be used when
+	 *         loading a Document
+	 * @throws IOException
+	 */
+	private static Map<SectionType, String> readFromFiles(String fileName)
+			throws IOException {
+		File rsmtInDir = new File(fileName + "\\Project.rsmt");
+		if (rsmtInDir.exists()) {
+			Map<SectionType, String> strings = new HashMap<SectionType, String>(
+					3);
+			String data = readSingleFile(rsmtInDir);
+			if (data.contains("PERSONAL_INFO")) {
+				strings.put(SectionType.PERSONAL_INFO, readSingleFile(new File(
+						fileName + "\\PERSONAL_INFO.txt")));
+			}
+			if (data.contains("WORK_EXPERIENCE")) {
+				strings.put(SectionType.WORK_EXPERIENCE,
+						readSingleFile(new File(fileName
+								+ "\\WORK_EXPERIENCE.txt")));
+			}
+			if (data.contains("EDUCATION")) {
+				strings.put(SectionType.EDUCATION, readSingleFile(new File(
+						fileName + "\\EDUCATION.txt")));
+			}
+			if (data.contains("HEADER")) {
+				strings.put(SectionType.HEADER, readSingleFile(new File(
+						fileName + "\\HEADER.txt")));
+			}
+			return strings;
+		}
+		throw new IOException("Not project directory");
 	}
 
 	/**
@@ -167,6 +180,7 @@ public class IOHandler {
 		while (br.readLine() != null) {
 			content = content + br.readLine();
 		}
+		br.close();
 		return content;
 	}
 

@@ -52,7 +52,7 @@ public class MainController implements PropertyChangeListener {
 			imagePropertyChange(e);
 		} else if (e.getPropertyName().contains("TEXT")) {
 			textPropertyChange(e);
-		}else if(e.getPropertyName().contains("DOC")){
+		} else if (e.getPropertyName().contains("DOC")) {
 			ioPropertyChange(e);
 		}
 
@@ -62,9 +62,11 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEMPLATE_CHANGED:
 
 			System.out.println("in tempchanged in maincontroller");
-			TemplatePanel prevTemp = docCon.getView(docCon.getCurrentID()).getTemplatePanel();
-			TemplatePanel tempChange = Translator.templateToPanel(e.getNewValue());
-			//			ViewHandler.changeTemplate(prevTemp, tempChange);
+			TemplatePanel prevTemp = docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel();
+			TemplatePanel tempChange = Translator.templateToPanel(e
+					.getNewValue());
+			// ViewHandler.changeTemplate(prevTemp, tempChange);
 			docCon.getView(docCon.getCurrentID()).setTemplate(tempChange);
 			mainView.validate();
 			mainView.setVisible(true);
@@ -86,27 +88,31 @@ public class MainController implements PropertyChangeListener {
 	private void initialPropertyChange(PropertyChangeEvent e) {
 		switch (e.getPropertyName()) {
 		case Labels.SEND_INITIAL_DVIEW:
-			if(e.getOldValue() instanceof DocumentView 
-					&& e.getNewValue() instanceof Integer){
-				DocumentView docView = (DocumentView)e.getOldValue();
-				docCon.addDocView((int)e.getNewValue()
-						,docView);
-				docCon.getView(docCon.getCurrentID()).addPropertyChangeListener(this);
+			if (e.getOldValue() instanceof DocumentView
+					&& e.getNewValue() instanceof Integer) {
+				DocumentView docView = (DocumentView) e.getOldValue();
+				docCon.addDocView((int) e.getNewValue(), docView);
+				docCon.getView(docCon.getCurrentID())
+						.addPropertyChangeListener(this);
 			}
 			break;
 
 		case Labels.UPDATE_INITIAL_TOOLBAR:
-			JTextComponent curTextSection = docCon.getView(docCon.getCurrentID()).getTemplatePanel()
-			.getCurrentSection();
-			ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
-					.get(Translator.containerToSectionType(curTextSection));
-			mainView.getToolbarPanel().getTextFontCombo().setSelectedItem(curText.getFont());
+		JTextComponent curTextSection = docCon
+					.getView(docCon.getCurrentID()).getTemplatePanel()
+					.getCurrentSection();
+			ITextSection curText = docCon.getDoc(docCon.getCurrentID())
+					.getSectionTexts().get(Translator.containerToSectionType(curTextSection));
+			mainView.getToolbarPanel().getTextFontCombo()
+					.setSelectedItem(curText.getFont());
 			System.out.println(curText.getFont());
-			mainView.getToolbarPanel().getTextSizeCombo().setSelectedItem(curText.getSize());
-			mainView.getToolbarPanel().getTextColorCombo().setSelectedItem(curText.getColor());
+			mainView.getToolbarPanel().getTextSizeCombo()
+					.setSelectedItem(curText.getSize());
+			mainView.getToolbarPanel().getTextColorCombo()
+					.setSelectedItem(curText.getColor());
 
-		default: 
-			//Do nothing, never invoked
+		default:
+			// Do nothing, never invoked
 			break;
 		}
 	}
@@ -124,10 +130,10 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.SAVE_DOC:
-			if (docCon.getDoc(docCon.getCurrentID()).getFilePath().isEmpty()) {
+			if (!(docCon.getDoc(docCon.getCurrentID()).hasFilePath())) {
 				ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
 						docCon.getDoc(docCon.getCurrentID()), null);
-			} else if (!(docCon.getDoc(docCon.getCurrentID()).getFilePath().isEmpty())) {
+			} else if (docCon.getDoc(docCon.getCurrentID()).hasFilePath()) {
 				ioCon.chooseFunction(Labels.SAVE_DOC, null,
 						docCon.getDoc(docCon.getCurrentID()),
 						docCon.getDoc(docCon.getCurrentID()).getFilePath());
@@ -155,10 +161,13 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.EXPORT_DOC:
-			ViewHandler.removeBorder(docCon.getView(docCon.getCurrentID()).getTemplatePanel());
+			ViewHandler.removeBorder(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel());
 			ioCon.chooseFunction(Labels.EXPORT_DOC,
-			docCon.getView(docCon.getCurrentID()).getTemplatePanel(),null, null);
-			ViewHandler.setBackBorder(docCon.getView(docCon.getCurrentID()).getTemplatePanel());
+					docCon.getView(docCon.getCurrentID()).getTemplatePanel(),
+					null, null);
+			ViewHandler.setBackBorder(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel());
 			break;
 
 		case Labels.SEND_DOC:
@@ -171,13 +180,13 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.NEW_DOC:
-			mainView.newTab((String)e.getNewValue());
+			mainView.newTab((String) e.getNewValue());
 			break;
 
-			//		case Labels.DOC_LOAD:
-			//			docCon.getDoc(docCon.getCurrent()).setAllTexts(
-			//					ioCon.getStringsMap());
-			//			break;
+		// case Labels.DOC_LOAD:
+		// docCon.getDoc(docCon.getCurrent()).setAllTexts(
+		// ioCon.getStringsMap());
+		// break;
 
 		default:
 			// Do nothing, never invoked
@@ -199,22 +208,21 @@ public class MainController implements PropertyChangeListener {
 		 * which kind of section type it is so that the RMText can be informed
 		 * which one to be updated.
 		 */
-		JTextComponent curTextSection = docCon.getView(docCon.getCurrentID()).getTemplatePanel()
-				.getCurrentSection();
-		ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
-				.get(Translator.containerToSectionType(curTextSection));
+		JTextComponent curTextSection = docCon.getView(docCon.getCurrentID())
+				.getTemplatePanel().getCurrentSection();
+		ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getSectionTexts().get(Translator.containerToSectionType(curTextSection));
 
 		switch (e.getPropertyName()) {
 
 		case Labels.TEXT_UNDO:
 			TemplatePanel undoPAction = docCon.getView(docCon.getCurrentID())
-			.getTemplatePanel();
+					.getTemplatePanel();
 			ViewHandler.undoAction(undoPAction.getManager());
 			break;
 
 		case Labels.TEXT_REDO:
 			TemplatePanel redoPAction = docCon.getView(docCon.getCurrentID())
-			.getTemplatePanel();
+					.getTemplatePanel();
 			ViewHandler.redoAction(redoPAction.getManager());
 			break;
 
@@ -234,6 +242,7 @@ public class MainController implements PropertyChangeListener {
 		case Labels.TEXT_SELECTALL:
 			ViewHandler.selectAll(curTextSection);
 			break;
+
 		case Labels.SAVE_TEXT:
 			docCon.saveTexts();
 			break;
@@ -261,7 +270,8 @@ public class MainController implements PropertyChangeListener {
 
 		case Labels.TEXTCOLOUR_CHANGED:
 			String colour = e.getNewValue().toString();
-			curText.changeColor(curTextSection, Translator.stringToColor(colour), colour);
+			curText.changeColor(curTextSection,
+					Translator.stringToColor(colour), colour);
 			break;
 
 		case Labels.TEXT_REPLACED:
@@ -276,46 +286,56 @@ public class MainController implements PropertyChangeListener {
 			String replaceA = replaceTextsA[0];
 			String replaceWithA = replaceTextsA[1];
 
-			/*JTextPane textAreaPersonal = docCon.getView(docCon.getCurrentID())
-					.getTemplatePanel().getPersonalInfoText();
-			ITextSection textPersonal = docCon.getDoc(docCon.getCurrentID()).getTexts()
-					.get(Translator.containerToSectionType(textAreaPersonal));
-			JTextPane textAreaHeader = docCon.getView(docCon.getCurrentID()).getTemplatePanel().getHeaderTitle();
-			ITextSection textHeader = docCon.getDoc(docCon.getCurrentID()).getTexts()
-					.get(Translator.containerToSectionType(textAreaHeader));
-			textPersonal.replaceText(textAreaPersonal, replaceA, replaceWithA);
-			textHeader.replaceText(textAreaHeader, replaceA, replaceWithA);*/
+			/*
+			 * JTextPane textAreaPersonal =
+			 * docCon.getView(docCon.getCurrentID())
+			 * .getTemplatePanel().getPersonalInfoText(); ITextSection
+			 * textPersonal = docCon.getDoc(docCon.getCurrentID()).getTexts()
+			 * .get(Translator.containerToSectionType(textAreaPersonal));
+			 * JTextPane textAreaHeader =
+			 * docCon.getView(docCon.getCurrentID()).getTemplatePanel
+			 * ().getHeaderTitle(); ITextSection textHeader =
+			 * docCon.getDoc(docCon.getCurrentID()).getTexts()
+			 * .get(Translator.containerToSectionType(textAreaHeader));
+			 * textPersonal.replaceText(textAreaPersonal, replaceA,
+			 * replaceWithA); textHeader.replaceText(textAreaHeader, replaceA,
+			 * replaceWithA);
+			 */
 			// TODO
-			
+
 			JTextPane textAreaWork = docCon.getView(docCon.getCurrentID())
 					.getTemplatePanel().getWorkingExperienceText();		
 			MultiRowSection textWork = (MultiRowSection) docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
 					.get(Translator.containerToSectionType(textAreaWork));
-			
+
 			JTextPane textAreaEd = docCon.getView(docCon.getCurrentID())
 					.getTemplatePanel().getEducationText();		
 			MultiRowSection textEd= (MultiRowSection) docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
 					.get(Translator.containerToSectionType(textAreaEd));
-			
+
 			textWork.replaceText(textAreaWork, replaceA, replaceWithA);
 			textEd.replaceText(textAreaEd, replaceA, replaceWithA);
 			break;
 
 		case Labels.FIND_TEXT:
 			String txt = e.getNewValue().toString();
-			//			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
-			//					.getPersonalInfoText(), txt);
-			//			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
-			//					.getHeaderTitle(), txt);
+			// ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
+			// .getPersonalInfoText(), txt);
+			// ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel()
+			// .getHeaderTitle(), txt);
 			// TODO
-			
-			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel().getWorkExpHeader(), txt);
-			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel().getWorkingExperienceText(), txt);
-			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel().getEduHeader(), txt);
-			ViewHandler.findText(docCon.getView(docCon.getCurrentID()).getTemplatePanel().getEducationText(), txt);
-			
-				ViewHandler.showNoMatchesPopUp(txt,4);
-			
+
+			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel().getWorkExpHeader(), txt);
+			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel().getWorkingExperienceText(), txt);
+			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel().getEduHeader(), txt);
+			ViewHandler.findText(docCon.getView(docCon.getCurrentID())
+					.getTemplatePanel().getEducationText(), txt);
+
+			ViewHandler.showNoMatchesPopUp(txt, 4);
+
 			break;
 
 		case Labels.TEXTAREA_CHANGED:
@@ -351,8 +371,8 @@ public class MainController implements PropertyChangeListener {
 
 		switch (e.getPropertyName()) {
 		case Labels.INSERT_IMAGE:
-			BufferedImage img = Translator.stringToImage(e
-					.getOldValue().toString());
+			BufferedImage img = Translator.stringToImage(e.getOldValue()
+					.toString());
 			// Update the image of the Document associated with the DocumentView
 			// in focus.
 			docCon.updateImage(doc, img);
@@ -378,11 +398,12 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.CROP_IMAGE:
-			if(e.getOldValue() instanceof Rectangle){
+			if (e.getOldValue() instanceof Rectangle) {
 				Rectangle rect = (Rectangle) e.getOldValue();
 				doc.getImage().crop(rect);
 				// Then update the view with the image of the Document.
-				docView.getTemplatePanel().showImage(doc.getImage().getCurImage());
+				docView.getTemplatePanel().showImage(
+						doc.getImage().getCurImage());
 			}
 			break;
 		default:

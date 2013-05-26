@@ -7,7 +7,7 @@ import java.util.Map;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Template;
 
-public class Document implements DocumentInterface{
+public class Document implements DocumentInterface {
 
 	private Template currentTempl;
 	private Map<SectionType, ITextSection> textSections = new HashMap<SectionType, ITextSection>(4);
@@ -195,5 +195,9 @@ public class Document implements DocumentInterface{
 			MultiRowSection eduSec = (MultiRowSection)textSections.get(SectionType.EDUCATION);
 			texts.put(SectionType.EDU_HEADER, eduSec.getText());
 		}
+	}
+	@Override
+	public boolean hasFilePath() {
+		return !(filePath.isEmpty());
 	}
 }

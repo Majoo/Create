@@ -2,6 +2,10 @@ package se.chalmers.tda367.group25.resumate.model;
 
 import java.awt.Rectangle;
 
+/**
+ * An interface to describe an image.
+ * The image can be cropped, scaled and made gray.
+ */
 public interface ImageInterface {
 	
 	/**

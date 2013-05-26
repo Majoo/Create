@@ -7,6 +7,11 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 
+/**
+ * A class to describe an image. The image will be stored in the shape it
+ * was set. A copy of it can be cropped, scaled and made gray. You access this
+ * enhanced image with getCurImage(). It can be reset to the shape it was set.
+ */
 public class RMImage implements ImageInterface{
 	//The original image
 	private BufferedImage origImg;

@@ -61,6 +61,7 @@ public class IOController implements PropertyChangeListener {
 			if (function.equals(Labels.SAVE_DOC)
 					|| function.equals(Labels.SAVE_DOC_AS)) {
 				strings = doc.getTexts();
+			System.out.print(strings.toString());
 			} else {
 				strings = null;
 			}

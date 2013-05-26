@@ -16,7 +16,8 @@ public class SingleRowSection extends AbsTextSection {
 	
 	public SingleRowSection(){
 		super("Tahoma","Black", 12);
-		this.styles = new HashMap<String, Boolean>(17);
+		this.styles = new HashMap<String, Boolean>(3);
+		this.texts = new HashMap <SectionType, String>(17);
 	}
 	
 	public void setText(SectionType name, String text){

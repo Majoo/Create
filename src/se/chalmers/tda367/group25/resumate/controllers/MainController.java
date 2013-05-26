@@ -130,6 +130,8 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.SAVE_DOC:
+			System.out.println("Save");
+			docCon.saveTexts();
 			if (!(docCon.getDoc(docCon.getCurrentID()).hasFilePath())) {
 				ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
 						docCon.getDoc(docCon.getCurrentID()), null);
@@ -142,6 +144,8 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.SAVE_DOC_AS:
+			System.out.println("Save As");
+			docCon.saveTexts();
 			ioCon.chooseFunction(Labels.SAVE_DOC_AS, null,
 					docCon.getDoc(docCon.getCurrentID()), null);
 

@@ -72,7 +72,7 @@ public class Translator {
 			break;
 
 		case "educationText":
-			section = SectionType.EDUCATION;
+			section = SectionType.EDUCATION_EXPERIENCE;
 			break;
 
 		// Headers
@@ -135,7 +135,7 @@ public class Translator {
 			break;
 
 		case "educationText":
-			section = SectionType.EDUCATION;
+			section = SectionType.EDUCATION_EXPERIENCE;
 			break;
 
 		// Headers

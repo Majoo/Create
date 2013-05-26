@@ -490,7 +490,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	public void focusGained(FocusEvent arg0) {
 		if(arg0.getComponent() instanceof JTextComponent){
 			currentSection = (JTextComponent)arg0.getComponent();
-			System.out.println("focus");
 			pcs.firePropertyChange(Labels.TEXTAREA_CHANGED, false, true);
 		}
 	}

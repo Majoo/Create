@@ -9,11 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-
 import se.chalmers.tda367.group25.resumate.model.Document;
-import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
@@ -202,7 +198,7 @@ public class DocumentController implements PropertyChangeListener{
 		
 		//Setting texts for work experience and education
 		doc.setText(SectionType.WORK_EXPERIENCE, tp.getWorkingExperienceText().getText());
-		doc.setText(SectionType.EDUCATION, tp.getEducationText().getText());
+		doc.setText(SectionType.EDUCATION_EXPERIENCE, tp.getEducationText().getText());
 		
 		//Setting texts for the headers
 		doc.setText(SectionType.WORK_HEADER, tp.getWorkExpHeader().getText());

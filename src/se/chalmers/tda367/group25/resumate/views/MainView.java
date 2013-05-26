@@ -1,6 +1,7 @@
 package se.chalmers.tda367.group25.resumate.views;
 
 
+import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -8,16 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
-import com.itextpdf.awt.geom.Dimension;
-
 import se.chalmers.tda367.group25.resumate.utils.Labels;
-import java.awt.Font;
 
 /**
  * This class represents all the visual and graphical user interface 
@@ -151,8 +148,7 @@ public class MainView extends JFrame implements MainViewInterface {
 			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(),
 					arg0.getNewValue());
 		} catch (NullPointerException e){
-			System.out.println("Caught NullPointerException " +
-					"in MainViews propertyChange");
+			e.printStackTrace();
 		}
 	}
 

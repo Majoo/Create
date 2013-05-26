@@ -177,10 +177,10 @@ public class MainController implements PropertyChangeListener {
 			mainView.newTab((String) e.getNewValue());
 			break;
 
-		// case Labels.LOAD_DOC:
-		// docCon.getDoc(docCon.getCurrent()).setAllTexts(
-		// ioCon.getStringsMap());
-		// break;
+		 case Labels.LOAD_DOC:
+//		 docCon.getDoc(docCon.getCurrentID()).setAllTexts(
+		 ioCon.getStringsMap().toString();
+		 break;
 
 		default:
 			// Do nothing, never invoked

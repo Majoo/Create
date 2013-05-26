@@ -111,7 +111,7 @@ public class IOController implements PropertyChangeListener {
 									"Invalid choice made.",
 									JOptionPane.ERROR_MESSAGE);
 					chooseFunction(function, jc, doc, path);
-				}
+				} System.out.println("IO");
 			} else if (sourceClass.equals("PDFHandler")) {
 				String stackTraceTop = e.getStackTrace()[0].getMethodName();
 				if (stackTraceTop.contains("print")) {
@@ -173,6 +173,7 @@ public class IOController implements PropertyChangeListener {
 				if (setStringsMap(IOHandler
 						.openFile(filePath + "\\" + fileName))) {
 					pcs.firePropertyChange(Labels.LOAD_DOC, true, false);
+					System.out.println(stringsFromFiles.toString());
 				}
 			}
 		} else if (returnVal == JFileChooser.CANCEL_OPTION) {
@@ -194,8 +195,8 @@ public class IOController implements PropertyChangeListener {
 			return new FileNameExtensionFilter("ResuMate Project Directories",
 					"doc");
 		} else if (function.equals(Labels.OPEN_DOC)) {
-			return new FileNameExtensionFilter("ResuMate Project Directories",
-					"doc");
+			return new FileNameExtensionFilter("ResuMate Project",
+					"rsmt");
 		} else {
 			return null;
 		}

@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -67,11 +68,11 @@ public class IOHandler {
 	public static synchronized Map<SectionType, String> openFile(String fileName)
 			throws IOException {
 		File chosenDir = new File(fileName);
-
-		if (chosenDir.isDirectory()) {
+		
+		if (chosenDir.getName().contains(".rsmt")) {
 			readFromFiles(fileName);
 		}
-		throw new IOException("Not directory");
+		return null;
 	}
 
 	/**
@@ -86,7 +87,6 @@ public class IOHandler {
 	 */
 	private static void writeToFiles(String fileName,
 			Map<SectionType, String> strings) throws IOException {
-
 		writeSingleFile(new File(fileName + "\\Project.rsmt"),
 				strings.toString());
 		if (strings.containsKey(SectionType.WORK_HEADER)) {
@@ -145,59 +145,91 @@ public class IOHandler {
 	 */
 	private static Map<SectionType, String> readFromFiles(String fileName)
 			throws IOException {
-		File rsmtInDir = new File(fileName + "\\Project.rsmt");
-		if (rsmtInDir.exists()) {
-			Map<SectionType, String> strings = new HashMap<SectionType, String>(
-					3);
-			String data = readSingleFile(rsmtInDir);
+			Map<SectionType, String> strings = new HashMap<SectionType, String>();
+			File rsmt = new File(fileName);
+			String data = readSingleFile(rsmt);
+			File dir = rsmt.getParentFile();
+			try{
 			if (data.contains("WORK_HEADER")) {
+				System.out.println("ay yo marco polo");
 				strings.put(SectionType.WORK_HEADER, readSingleFile(new File(
-						fileName + "\\WORK_HEADER.txt")));
+						dir + "\\WORK_HEADER.txt")));
+			}}catch (FileNotFoundException e){
 			}
+			try{
 			if (data.contains("EDU_HEADER")) {
+				System.out.println("ay yo marco polo2");
 				strings.put(SectionType.EDU_HEADER, readSingleFile(new File(
-						fileName + "\\EDU_HEADER.txt")));
-			}
+						dir + "\\EDU_HEADER.txt")));
+			}}catch (FileNotFoundException e){
+			}try{
 			if (data.contains("WORK_EXPERIENCE")) {
+				System.out.println("ay yo marco polo3");
 				strings.put(SectionType.WORK_EXPERIENCE,
-						readSingleFile(new File(fileName
+						readSingleFile(new File(dir
 								+ "\\WORK_EXPERIENCE.txt")));
+			}}catch (FileNotFoundException e){
 			}
+			try{
 			if (data.contains("EDUCATION")) {
+				System.out.println("ay yo marco polo4");
 				strings.put(SectionType.EDUCATION_EXPERIENCE, readSingleFile(new File(
-						fileName + "\\EDUCATION.txt")));
+						dir + "\\EDUCATION.txt")));
+			}}catch (FileNotFoundException e){
 			}
-			if (strings.containsKey(SectionType.NAME_PERSONAL)) {
-				strings.put(SectionType.NAME_PERSONAL, readSingleFile(new File(fileName
+			try{
+			if (data.contains("NAME_PERSONAL")) {
+				System.out.println("ay yo marco polo5");
+				strings.put(SectionType.NAME_PERSONAL, readSingleFile(new File(dir
 						+ "\\NAME.txt")));
+			}}catch (FileNotFoundException e){
 			}
-			if (strings.containsKey(SectionType.ADDRESS_PERSONAL)) {
+			try{
+			if (data.contains("ADDRESS_PERSONAL")) {
+				System.out.println("ay yo marco polo6");
 				strings.put(SectionType.ADDRESS_PERSONAL, readSingleFile(new File(
-						fileName + "\\ADDRESS.txt")));
+						dir + "\\ADDRESS.txt")));
+			}}catch (FileNotFoundException e){
 			}
-			if (strings.containsKey(SectionType.CITYZIPCODE_PERSONAL)) {
+			try{
+			if (data.contains("CITYZIPCODE_PERSONAL")) {
+				System.out.println("ay yo marco polo7");
 				strings.put(SectionType.CITYZIPCODE_PERSONAL, readSingleFile(new File(
-						fileName + "\\CITYZIPCODE.txt")));
+						dir + "\\CITYZIPCODE.txt")));
+			}}catch (FileNotFoundException e){
 			}
-			if (strings.containsKey(SectionType.PHONE_PERSONAL)) {
-				strings.put(SectionType.PHONE_PERSONAL, readSingleFile(new File(fileName
+			try{
+			if (data.contains("PHONE_PERSONAL")) {
+				System.out.println("ay yo marco polo8");
+				strings.put(SectionType.PHONE_PERSONAL, readSingleFile(new File(dir
 						+ "\\PHONE.txt")));
+			}}catch (FileNotFoundException e){
 			}
-			if (strings.containsKey(SectionType.EMAIL_PERSONAL)) {
-				strings.put(SectionType.EMAIL_PERSONAL, readSingleFile(new File(fileName
+			try{
+			if (data.contains("EMAIL_PERSONAL")) {
+				System.out.println("ay yo marco polo9");
+				strings.put(SectionType.EMAIL_PERSONAL, readSingleFile(new File(dir
 						+ "\\EMAIL.txt")));
+			}}catch (FileNotFoundException e){
 			}
-			if (strings.containsKey(SectionType.EMPTY1_PERSONAL)) {
+			try{
+			if (data.contains("EMPTY1_PERSONAL")) {
+				System.out.println("ay yo marco polo10");
 				strings.put(SectionType.EMPTY1_PERSONAL, readSingleFile(new File(
-						fileName + "\\EMPTY1.txt")));
+						dir + "\\EMPTY1.txt")));
+			}}catch (FileNotFoundException e){
 			}
-			if (strings.containsKey(SectionType.EMPTY2_PERSONAL)) {
+			try{
+			if (data.contains("EMPTY2_PERSONAL")) {
+				System.out.println("ay yo marco polo11");
 				strings.put(SectionType.EMPTY2_PERSONAL, readSingleFile(new File(
-						fileName + "\\EMPTY2.txt")));
+						dir + "\\EMPTY2.txt")));
+			}}catch (FileNotFoundException e){
+				System.out.println("Exception");
 			}
+			System.out.println("ay yo marco polo12");
+			System.out.println(strings.toString());
 			return strings;
-		}
-		throw new IOException("Not project directory");
 	}
 
 	/**
@@ -229,8 +261,9 @@ public class IOHandler {
 				new FileInputStream(file), Charset.forName("UTF-8")
 						.newDecoder()));
 		String content = "";
-		while (br.readLine() != null) {
-			content = content + br.readLine();
+		String bufferedContent;
+		while ((bufferedContent = br.readLine()) != null) {
+			content = content + bufferedContent;
 		}
 		br.close();
 		return content;

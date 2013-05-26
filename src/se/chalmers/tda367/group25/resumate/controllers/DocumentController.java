@@ -16,6 +16,7 @@ import se.chalmers.tda367.group25.resumate.model.Document;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.views.DocumentView;
+import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 public class DocumentController implements PropertyChangeListener{
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
@@ -136,7 +137,7 @@ public class DocumentController implements PropertyChangeListener{
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(d);
-		//Problem: om listan redan finns och redan innehåller en av varje.
+		//Problem: om listan redan finns och redan innehï¿½ller en av varje.
 
 	}
 
@@ -155,7 +156,7 @@ public class DocumentController implements PropertyChangeListener{
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(v);
-		//Problem: om listan redan finns och redan innehåller en av varje.
+		//Problem: om listan redan finns och redan innehï¿½ller en av varje.
 
 	}
 
@@ -187,30 +188,34 @@ public class DocumentController implements PropertyChangeListener{
 	 * Saves the texts from the template to the document
 	 */
 	public void saveTexts(){
+		System.out.println("In saveText");
+		Document doc = getDoc(getCurrentID()); 
+		TemplatePanel tp = getView(getCurrentID()).getTemplatePanel();
+		
 		//Setting texts for personal information
-		getDoc(getCurrentID()).setText(SectionType.NAME_PERSONAL, getView(getCurrentID()).getTemplatePanel().getNameField().getText());
-		getDoc(getCurrentID()).setText(SectionType.ADDRESS_PERSONAL, getView(getCurrentID()).getTemplatePanel().getAddressField().getText());
-		getDoc(getCurrentID()).setText(SectionType.CITYZIPCODE_PERSONAL, getView(getCurrentID()).getTemplatePanel().getCityField().getText());
-		getDoc(getCurrentID()).setText(SectionType.PHONE_PERSONAL, getView(getCurrentID()).getTemplatePanel().getPhoneField().getText());
-		getDoc(getCurrentID()).setText(SectionType.EMAIL_PERSONAL, getView(getCurrentID()).getTemplatePanel().getEmailField().getText());
-		getDoc(getCurrentID()).setText(SectionType.EMPTY1_PERSONAL, getView(getCurrentID()).getTemplatePanel().getEmptyField1().getText());
-		getDoc(getCurrentID()).setText(SectionType.EMPTY2_PERSONAL, getView(getCurrentID()).getTemplatePanel().getEmptyField2().getText());
+		doc.setText(SectionType.NAME_PERSONAL, tp.getNameField().getText());
+		doc.setText(SectionType.ADDRESS_PERSONAL, tp.getAddressField().getText());
+		doc.setText(SectionType.CITYZIPCODE_PERSONAL, tp.getCityField().getText());
+		doc.setText(SectionType.PHONE_PERSONAL, tp.getPhoneField().getText());
+		doc.setText(SectionType.EMAIL_PERSONAL, tp.getEmailField().getText());
+		doc.setText(SectionType.EMPTY1_PERSONAL, tp.getEmptyField1().getText());
+		doc.setText(SectionType.EMPTY2_PERSONAL, tp.getEmptyField2().getText());
 		
 		//Setting texts for work experience and education
-		getDoc(getCurrentID()).setText(SectionType.WORK_EXPERIENCE, getView(getCurrentID()).getTemplatePanel().getWorkingExperienceText().getText());
-		getDoc(getCurrentID()).setText(SectionType.EDUCATION, getView(getCurrentID()).getTemplatePanel().getEducationText().getText());
+		doc.setText(SectionType.WORK_EXPERIENCE, tp.getWorkingExperienceText().getText());
+		doc.setText(SectionType.EDUCATION, tp.getEducationText().getText());
 		
-		//Setting texs for the headers
-		getDoc(getCurrentID()).setText(SectionType.WORK_HEADER,getView(getCurrentID()).getTemplatePanel().getWorkExpHeader().getText());
-		getDoc(getCurrentID()).setText(SectionType.EDU_HEADER, getView(getCurrentID()).getTemplatePanel().getEduHeader().getText());
+		//Setting texts for the headers
+		doc.setText(SectionType.WORK_HEADER, tp.getWorkExpHeader().getText());
+		doc.setText(SectionType.EDU_HEADER, tp.getEduHeader().getText());
 
 		//Save text to model
-		getDoc(getCurrentID()).setAllTexts();
+		doc.setAllTexts();
 	}
 	
 	//-----PropertyChanged-Methods------
 	
-	 /** Adds a propertychange listnener to this class.
+	 /** Adds a PropertyChangeListener to this class.
 	 * @param pcl
 	 * 			the listener to be registered
 	 */
@@ -219,7 +224,7 @@ public class DocumentController implements PropertyChangeListener{
 	}
 
 	/**
-	 * Removes a propertychange listnener to this class.
+	 * Removes a PropertyChangeListener to this class.
 	 * @param pcl
 	 * 			the listener to be unregistered
 	 */
@@ -229,7 +234,7 @@ public class DocumentController implements PropertyChangeListener{
 	
 
 	/**
-	 * Fires the propertychange event further to the main controller
+	 * Fires the PropertyChangeEvent further to the main controller
 	 * where the events are to be handled.
 	 * 
 	 * @param arg0

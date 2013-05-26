@@ -5,9 +5,8 @@ import java.awt.Color;
 import javax.swing.text.JTextComponent;
 
 /**
- * ITextSection is an interface for representing a text section. The 
- * size, font and color of the text section can be changed. 
- * Also, all text can be replaced.
+ * ITextSection is an interface for representing a text section. The size, font
+ * and color of the text section can be changed. Also, all text can be replaced.
  */
 public interface ITextSection {
 
@@ -21,7 +20,7 @@ public interface ITextSection {
 	 *            the new size of the text
 	 */
 	public void changeSize(JTextComponent section, int size);
-	
+
 	/**
 	 * Changes the font of the text depending on the parameter font.
 	 * 
@@ -32,7 +31,7 @@ public interface ITextSection {
 	 *            the new font of the text
 	 */
 	public void changeFont(JTextComponent section, String font);
-	
+
 	/**
 	 * Changes the color of the text depending on the parameter color.
 	 * 
@@ -41,13 +40,13 @@ public interface ITextSection {
 	 * 
 	 * @param col
 	 *            the new color of the text
-	 *            
+	 * 
 	 * @param colour
-	 * 			  the name of the color. Needs to be given with a large first letter.
-	 * 			  Example: "Cyan", "White" or "Black".
+	 *            the name of the color. Needs to be given with a large first
+	 *            letter. Example: "Cyan", "White" or "Black".
 	 */
 	public void changeColor(JTextComponent section, Color col, String colour);
-	
+
 	/**
 	 * Replaces a String with another.
 	 * 
@@ -56,34 +55,32 @@ public interface ITextSection {
 	 * 
 	 * @param replace
 	 *            the text to be replaced
-	 *            
+	 * 
 	 * @param replacement
-	 * 			  the text to replace with
+	 *            the text to replace with
 	 */
 	public void replaceText(JTextComponent section, String replace,
 			String replacement);
+
 	/**
 	 * Get the font of the text.
 	 * 
-	 * @return
-	 * 			the font of the text.
+	 * @return the font of the text.
 	 */
 	public String getFont();
-	
+
 	/**
 	 * Get a String representation of the color of the text.
 	 * 
-	 * @return
-	 * 			a String representation of the color of the text.
+	 * @return a String representation of the color of the text.
 	 */
 	public String getColor();
-	
+
 	/**
 	 * Get the size of the text.
 	 * 
-	 * @return
-	 * 			the size of the text.
+	 * @return the size of the text.
 	 */
 	public int getSize();
-	
+
 }

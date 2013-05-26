@@ -14,7 +14,7 @@ import se.chalmers.tda367.group25.resumate.views.PL_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 /**
- * A class which translates different components 
+ * A class which translates different components
  */
 
 public class Translator {
@@ -31,7 +31,7 @@ public class Translator {
 	public static TemplatePanel templateToPanel(String name) {
 
 		TemplatePanel panel = null;
-		
+
 		switch (name) {
 		case "CV_Def":
 			panel = new CV_Def();
@@ -50,24 +50,22 @@ public class Translator {
 		return panel;
 	}
 
-	
 	/**
-	 * Translates a JTextComponent to a SectionType.
-	 * Here the SectionType is the type for the components as a group.
+	 * Translates a JTextComponent to a SectionType. Here the SectionType is the
+	 * type for the components as a group.
 	 * 
 	 * @param container
-	 *            		the JTextComponent to translate
-	 * @return 
-	 * 					the corresponding SectionType
+	 *            the JTextComponent to translate
+	 * @return the corresponding SectionType
 	 */
-	public static SectionType containerToSection(JTextComponent container){
+	public static SectionType containerToSection(JTextComponent container) {
 		String name = container.getName();
 		SectionType section = null;
 
 		switch (name) {
 		// The text fields of personal info
-		case "nameField":		
-		case "cityzipcodeField":		
+		case "nameField":
+		case "cityzipcodeField":
 		case "addressField":
 		case "phoneField":
 		case "emailField":
@@ -75,17 +73,17 @@ public class Translator {
 		case "empty2Field":
 			section = SectionType.PERSONAL_INFO;
 			break;
-			
-		// The info title fields of personal info	
+
+		// The info title fields of personal info
 		case "nameTitle":
 		case "cityzipcodeTitle":
 		case "addressTitle":
 		case "phoneTitle":
-		case "emailTitle":	
+		case "emailTitle":
 			section = SectionType.INFO_TITLE;
 			break;
-			
-		// Other text fields 
+
+		// Other text fields
 		case "workExpText":
 			section = SectionType.WORK_EXPERIENCE;
 			break;
@@ -102,15 +100,13 @@ public class Translator {
 		}
 		return section;
 	}
-	
-	
+
 	/**
 	 * Translates a JTextComponent to a SectionType.
 	 * 
 	 * @param container
-	 *            		the JTextComponent to translate
-	 * @return 
-	 * 					the corresponding SectionType
+	 *            the JTextComponent to translate
+	 * @return the corresponding SectionType
 	 */
 	public static SectionType containerToSectionType(JTextComponent container) {
 
@@ -122,53 +118,53 @@ public class Translator {
 		case "nameTitle":
 			section = SectionType.NAME_TITLE;
 			break;
-	
+
 		case "cityzipcodeTitle":
 			section = SectionType.CITYZIPCODE_TITLE;
 			break;
-			
+
 		case "addressTitle":
 			section = SectionType.ADDRESS_TITLE;
 			break;
-			
+
 		case "phoneTitle":
 			section = SectionType.PHONE_TITLE;
 			break;
-			
+
 		case "emailTitle":
 			section = SectionType.EMAIL_TITLE;
 			break;
-		
+
 		// The text fields of personal info
 		case "nameField":
 			section = SectionType.NAME_PERSONAL;
 			break;
-			
+
 		case "cityzipcodeField":
 			section = SectionType.CITYZIPCODE_PERSONAL;
 			break;
-			
+
 		case "addressField":
 			section = SectionType.ADDRESS_PERSONAL;
 			break;
-			
+
 		case "phoneField":
 			section = SectionType.PHONE_PERSONAL;
 			break;
-			
+
 		case "emailField":
 			section = SectionType.EMAIL_PERSONAL;
 			break;
-			
+
 		case "empty1Field":
 			section = SectionType.EMPTY1_PERSONAL;
 			break;
-			
+
 		case "empty2Field":
 			section = SectionType.EMPTY2_PERSONAL;
 			break;
 
-		// Other text fields 
+		// Other text fields
 		case "workExpText":
 			section = SectionType.WORK_EXPERIENCE;
 			break;
@@ -181,7 +177,7 @@ public class Translator {
 		case "workExpHeader":
 			section = SectionType.WORK_HEADER;
 			break;
-			
+
 		case "educationHeader":
 			section = SectionType.EDU_HEADER;
 			break;
@@ -195,10 +191,10 @@ public class Translator {
 
 	/**
 	 * Translates a string representation of a colour to a Color.
+	 * 
 	 * @param colour
-	 * 			the text to be translated
-	 * @return
-	 * 			the colour which the text represents
+	 *            the text to be translated
+	 * @return the colour which the text represents
 	 */
 	public static Color stringToColor(String colour) {
 		Color col = null;
@@ -249,8 +245,8 @@ public class Translator {
 	}
 
 	/**
-	 * Takes in a String that represents an image in the filesystem 
-	 * and converts it to a BufferedImage.
+	 * Takes in a String that represents an image in the filesystem and converts
+	 * it to a BufferedImage.
 	 * 
 	 * @param filepath
 	 *            the filename of the image to make a BufferedImage from
@@ -261,9 +257,8 @@ public class Translator {
 		try {
 			img = ImageIO.read(new File(filepath));
 		} catch (IOException e) {
-			System.out
-					.println("Kunde inte översätta filnamn " +
-							"till BufferedImage i Translator");
+			System.out.println("Kunde inte översätta filnamn "
+					+ "till BufferedImage i Translator");
 		}
 		return img;
 	}

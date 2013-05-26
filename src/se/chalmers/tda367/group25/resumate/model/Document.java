@@ -88,8 +88,8 @@ public class Document implements IDocument {
 			}
 		}
 	}
-	
-	// -----Queries-----//	
+
+	// -----Queries-----//
 	/**
 	 * Get the image in the RMImage of the Document.
 	 * 
@@ -239,8 +239,9 @@ public class Document implements IDocument {
 
 	/**
 	 * Sets the text from a map to the variabel texts
+	 * 
 	 * @param strings
-	 * 				the map with the strings
+	 *            the map with the strings
 	 */
 	public void setAllTexts(Map<SectionType, String> strings) {
 		this.texts.putAll(strings);

@@ -5,11 +5,11 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 /**
- * A class which represents a section with text of multiple rows. 
- * The size, font, style and color of the text section can be changed. 
- * The text is stored for saving references.
+ * A class which represents a section with text of multiple rows. The size,
+ * font, style and color of the text section can be changed. The text is stored
+ * for saving references.
  */
-public class MultiRowSection extends AbsTextSection{
+public class MultiRowSection extends AbsTextSection {
 
 	private String text = "";
 	private boolean bold;
@@ -17,14 +17,13 @@ public class MultiRowSection extends AbsTextSection{
 	private boolean underline;
 	private SimpleAttributeSet attributes = new SimpleAttributeSet();
 
-	
 	/**
 	 * Constructs a new MutliRowSection with the default attributes.
 	 */
 	public MultiRowSection() {
 		super("Tahoma", "Black", 16);
 	}
-	
+
 	/**
 	 * Sets the text of this MultiRowSection to the parameter text.
 	 * 
@@ -34,12 +33,12 @@ public class MultiRowSection extends AbsTextSection{
 	public void setText(String text) {
 		this.text = text;
 	}
-	
+
 	/**
-	 * Changes the style of the specific textarea 
-	 * Checks whether the current style is the one which has been chosen. 
-	 * If so then it will remove the specified style. 
-	 * Changes the style of the MutliRowSection depending on the parameter style.
+	 * Changes the style of the specific textarea Checks whether the current
+	 * style is the one which has been chosen. If so then it will remove the
+	 * specified style. Changes the style of the MutliRowSection depending on
+	 * the parameter style.
 	 * 
 	 * @param section
 	 *            the JTextPane whose contents is to be customized
@@ -49,12 +48,12 @@ public class MultiRowSection extends AbsTextSection{
 	public void changeStyle(JTextPane section, String style) {
 		int start = 0;
 		int end = section.getText().length();
-		
-		if(!section.getSelectedText().isEmpty()){
+
+		if (!section.getSelectedText().isEmpty()) {
 			start = section.getSelectionStart();
 			end = section.getSelectedText().length();
 		}
-		
+
 		switch (style) {
 		case "B":
 			bold = (StyleConstants.isBold(attributes)) ? false : true;
@@ -81,7 +80,7 @@ public class MultiRowSection extends AbsTextSection{
 	 * @return the text in this MutliRowSection as a String
 	 */
 
-	public String getText(){
+	public String getText() {
 		return text;
 	}
 

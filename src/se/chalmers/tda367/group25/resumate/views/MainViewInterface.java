@@ -4,9 +4,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * An interface to describe a MainView. 
+ * An interface to describe a MainView.
  */
-public interface MainViewInterface extends PropertyChangeListener{
+public interface MainViewInterface extends PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent e);

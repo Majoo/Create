@@ -11,14 +11,14 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 /**
- * This class contains a TemplatePanel which shows the Document. 
- * The TemplatePanel can be changed.
+ * This class contains a TemplatePanel which shows the Document. The
+ * TemplatePanel can be changed.
  */
 public class DocumentView extends JPanel implements PropertyChangeListener {
 	private PropertyChangeSupport pcs;
 
 	private TemplatePanel templatePnl;
-	
+
 	/**
 	 * A new DocumentView with the default template is created.
 	 */
@@ -28,92 +28,93 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 
 	/**
 	 * A new DocumentView with a specified template is created.
+	 * 
 	 * @param templatePanel
-	 * 				the TemplatePanel specified for the new DocumentView.
-	 *
+	 *            the TemplatePanel specified for the new DocumentView.
+	 * 
 	 */
 	public DocumentView(TemplatePanel templatePanel) {
 		pcs = new PropertyChangeSupport(this);
-		
+
 		setPreferredSize(new Dimension(599, 1000));
 		this.templatePnl = templatePanel;
-		templatePnl.getWorkingExperienceText().setFont
-		(new Font("Tahoma", Font.PLAIN, 14));
-		templatePnl.getCurrentSection().setFont
-		(new Font("Tahoma", Font.PLAIN, 14));
-		templatePnl.getWorkExpHeader().setFont
-		(new Font("Tahoma", Font.PLAIN, 25));
+		templatePnl.getWorkingExperienceText().setFont(
+				new Font("Tahoma", Font.PLAIN, 14));
+		templatePnl.getCurrentSection().setFont(
+				new Font("Tahoma", Font.PLAIN, 14));
+		templatePnl.getWorkExpHeader().setFont(
+				new Font("Tahoma", Font.PLAIN, 25));
 		templatePnl.addPropertyChangeListener(this);
 		add(templatePnl);
-		
+
 		// A Scrollpane to the template panel
 		JScrollPane scroller = new JScrollPane(templatePnl);
-		scroller.setVerticalScrollBarPolicy
-		(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroller.setHorizontalScrollBarPolicy
-		(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		add(scroller);
 	}
 
+	// -----Queries-----//
 
-	// -----Queries-----//	
-
-	 /** Get the TemplatePanel of the DocumentView.
-	 * @return
-	 * 			the TemplatePanel of this DocumentView.
+	/**
+	 * Get the TemplatePanel of the DocumentView.
+	 * 
+	 * @return the TemplatePanel of this DocumentView.
 	 */
-	public TemplatePanel getTemplatePanel(){
+	public TemplatePanel getTemplatePanel() {
 		return templatePnl;
 	}
-	
+
 	// -----Commands-----//
 	/**
 	 * Set the TemplatePanel of this DocumentView.
+	 * 
 	 * @param tmplPnl
-	 * 			the template panel to be set.
+	 *            the template panel to be set.
 	 */
-	public void setTemplate(TemplatePanel tmplPnl){
+	public void setTemplate(TemplatePanel tmplPnl) {
 		this.templatePnl = tmplPnl;
 		this.templatePnl.validate();
 		this.templatePnl.updateUI();
 	}
-	
 
 	// ----- PROPERTY-CHANGE-METHODS ------
 	/**
 	 * Adds a propertychange listnener to this class.
+	 * 
 	 * @param pcl
-	 * 			the listener to be registered
+	 *            the listener to be registered
 	 */
-	public void addPropertyChangeListener(PropertyChangeListener pcl){
-			pcs.addPropertyChangeListener(pcl);
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		pcs.addPropertyChangeListener(pcl);
 	}
 
 	/**
-	 *Removes a propertychange listener to this class.
+	 * Removes a propertychange listener to this class.
+	 * 
 	 * @param pcl
-	 * 			the listener to be unregistered
+	 *            the listener to be unregistered
 	 */
-	public void removePropertyChangeListener(PropertyChangeListener pcl){
+	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.removePropertyChangeListener(pcl);
 	}
-	
+
 	/**
-	 * Fires the propertychange event further to the main controller
-	 * where the events are to be handled.
+	 * Fires the propertychange event further to the main controller where the
+	 * events are to be handled.
 	 * 
 	 * @param arg0
-	 * 		the source of the event
-	 * 		
+	 *            the source of the event
+	 * 
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		try{
-			pcs.firePropertyChange(evt.getPropertyName(),evt.getOldValue(),
+		try {
+			pcs.firePropertyChange(evt.getPropertyName(), evt.getOldValue(),
 					evt.getNewValue());
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }

@@ -43,7 +43,7 @@ public class DocumentController implements PropertyChangeListener {
 		this.docAndDocView.put(getCurrentID(), first);
 	}
 
-	// -----Queries-----//	
+	// -----Queries-----//
 	/**
 	 * Get the Document associated with the DocumentView given as parameter.
 	 * 

@@ -8,36 +8,36 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 
 /**
- * A class to describe an image. The image will be stored in the shape it
- * was set. A copy of it can be cropped, scaled and made gray. You access this
+ * A class to describe an image. The image will be stored in the shape it was
+ * set. A copy of it can be cropped, scaled and made gray. You access this
  * enhanced image with getCurImage(). It can be reset to the shape it was set.
  */
-public class RMImage implements IImage{
-	//The original image
+public class RMImage implements IImage {
+	// The original image
 	private BufferedImage origImg;
-	//The current image with all changes
+	// The current image with all changes
 	private BufferedImage curImg;
 
-	//-----Constructors-----//
+	// -----Constructors-----//
 
 	/**
-	 * Creates an empty RMImage. 
+	 * Creates an empty RMImage.
 	 **/
-	public RMImage(){
+	public RMImage() {
 	}
 
 	/**
-	 * Creates an RMImage with a BufferedImage. 
+	 * Creates an RMImage with a BufferedImage.
 	 * 
 	 * @param image
-	 *				the image to make an RMImage of.
+	 *            the image to make an RMImage of.
 	 */
 	public RMImage(BufferedImage image) {
 		this.origImg = image;
 		this.curImg = image;
 	}
 
-	// -----Queries-----//	
+	// -----Queries-----//
 	/**
 	 * Get the current BufferedImage.
 	 * 
@@ -48,7 +48,7 @@ public class RMImage implements IImage{
 	}
 
 	// -----Commands-----//
-	
+
 	/**
 	 * Set a new image.
 	 * 
@@ -58,57 +58,58 @@ public class RMImage implements IImage{
 		this.origImg = image;
 		this.curImg = image;
 	}
-	
+
 	/**
-	 * Reset the image. Will return to the format in which 
-	 * the image was first uploaded.
+	 * Reset the image. Will return to the format in which the image was first
+	 * uploaded.
 	 */
-	public void resetImage(){
+	public void resetImage() {
 		this.curImg = this.origImg;
 	}
 
 	/**
 	 * Crop the Image of this RMImage.
 	 * 
-	 * @param rect 
-	 * 				a rectangle with the coordinates
-	 * 				the image will have after the cropping.
+	 * @param rect
+	 *            a rectangle with the coordinates the image will have after the
+	 *            cropping.
 	 */
 	public void crop(Rectangle rect) {
-		this.curImg = this.curImg.getSubimage(rect.x
-				,rect.y, rect.width-rect.x, rect.height-rect.y);
+		this.curImg = this.curImg.getSubimage(rect.x, rect.y, rect.width
+				- rect.x, rect.height - rect.y);
 	}
 
 	/**
 	 * Scale the image to the width and height given as parameter.
 	 * 
 	 * @param width
-	 * 				the width of the product
+	 *            the width of the product
 	 * @param height
-	 * 				the height of the product
+	 *            the height of the product
 	 */
 	public void scaleImage(int width, int height) {
-	    int preWidth  = curImg.getWidth();
-	    int preHeight = curImg.getHeight();
+		int preWidth = curImg.getWidth();
+		int preHeight = curImg.getHeight();
 
-	    double scaleX = (double)width/preWidth;
-	    double scaleY = (double)height/preHeight;
-	    AffineTransform affineTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
-	    AffineTransformOp affineTransformOp = new AffineTransformOp(affineTransform,
-	    		AffineTransformOp.TYPE_BILINEAR);
+		double scaleX = (double) width / preWidth;
+		double scaleY = (double) height / preHeight;
+		AffineTransform affineTransform = AffineTransform.getScaleInstance(
+				scaleX, scaleY);
+		AffineTransformOp affineTransformOp = new AffineTransformOp(
+				affineTransform, AffineTransformOp.TYPE_BILINEAR);
 
-	    this.curImg = affineTransformOp.filter(
-	        curImg,new BufferedImage(width, height, curImg.getType()));
-	    
+		this.curImg = affineTransformOp.filter(curImg, new BufferedImage(width,
+				height, curImg.getType()));
+
 	}
 
 	/**
 	 * Grayscale the Image of this RMImage.
 	 */
-	public void makeGray(){		
+	public void makeGray() {
 		ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
 		ColorConvertOp op = new ColorConvertOp(cs, null);
-		this.curImg = op.filter(this.origImg, null); 
+		this.curImg = op.filter(this.origImg, null);
 	}
 
 }

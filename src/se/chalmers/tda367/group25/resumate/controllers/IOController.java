@@ -56,13 +56,6 @@ public class IOController {
 	public synchronized void chooseFunction(String function, JComponent jc,
 			Document doc, String path) {
 
-		Map<SectionType, String> strings;
-		if (function.equals(Labels.SAVE_DOC)
-				|| function.equals(Labels.SAVE_DOC_AS)) {
-			strings = doc.getTexts();
-		} else {
-			strings = null;
-		}
 		try {
 			if (function.equals(Labels.SAVE_DOC)) {
 				IOHandler.saveFile(path, doc.getTexts());
@@ -214,7 +207,7 @@ public class IOController {
 		}
 	}
 
-	// -----Queries-----//	
+	// -----Queries-----//
 
 	public String getRecentPath() {
 		return recentPath;

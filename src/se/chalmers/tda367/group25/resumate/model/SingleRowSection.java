@@ -8,76 +8,78 @@ import java.util.Map;
 import javax.swing.text.JTextComponent;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
-import se.chalmers.tda367.group25.resumate.utils.Styles;
 
 /**
- * A class which represents a section with many fields of
- * single row text. The size, font, style and color of the text section can be changed. 
- *  The text is stored for saving references.
+ * A class which represents a section with many fields of single row text. The
+ * size, font, style and color of the text section can be changed. The text is
+ * stored for saving references.
  */
 public class SingleRowSection extends AbsTextSection {
-	private Map<String, Boolean> styles = new HashMap<String, Boolean>(17);
+
 	private Map<SectionType, String> texts;
+	private boolean B = false;
+	private boolean U = false;
+	private boolean I = false;
 
 	/**
 	 * Creates a new SingleRowSection with the default font, size and color.
 	 */
-	public SingleRowSection(int size){
-		super("Tahoma","Black", size);
-		this.styles = new HashMap<String, Boolean>(3);
-		this.texts = new HashMap <SectionType, String>(17);
+	public SingleRowSection(int size) {
+		super("Tahoma", "Black", size);
+		this.texts = new HashMap<SectionType, String>(17);
 	}
 
 	/**
-	 * Sets the text of the single row to the parameter text.
-	 * Which single row to set is specified by the parameter name.
+	 * Sets the text of the single row to the parameter text. Which single row
+	 * to set is specified by the parameter name.
 	 * 
 	 * @param text
 	 *            the text to be set
-	 *            
+	 * 
 	 * @param name
-	 * 			  the SectionType whichs text is to be set
+	 *            the SectionType whichs text is to be set
 	 */
-	public void setText(SectionType name, String text){
+	public void setText(SectionType name, String text) {
 		texts.put(name, text);
 	}
 
 	@Override
-	public void changeFont(JTextComponent section, String font){
+	public void changeFont(JTextComponent section, String font) {
 		super.changeFont(section, font);
-		if (Styles.U) {
+		if (U) {
 			changeStyle(section, "U");
 		}
 	}
 
 	/**
-	 * Replace a part of a single row with the String specified.
-	 * Which single row to replace in is specified by the parameter name.
+	 * Replace a part of a single row with the String specified. Which single
+	 * row to replace in is specified by the parameter name.
 	 * 
 	 * @param section
 	 *            the JTextComponent in which text is to be replaced
 	 * 
 	 * @param replace
 	 *            the text to be replaced
-	 *            
+	 * 
 	 * @param replaceWith
-	 * 			  the text to replace with
+	 *            the text to replace with
 	 * 
 	 * @param sectionType
-	 * 			  the name of the single row to replaced in		  
+	 *            the name of the single row to replaced in
 	 */
 	public void replaceText(JTextComponent section, String replace,
 			String replaceWith, SectionType sectionType) {
-		setText(sectionType, getText(sectionType).replaceAll(replace, replaceWith));
+		setText(sectionType,
+				getText(sectionType).replaceAll(replace, replaceWith));
 		// Update the text in the view
 		section.setText(section.getText().replaceAll(replace, replaceWith));
 	}
 
 	/**
-	 * Changes the style of the specific textarea 
-	 * Checks whether the current style is the one which has been chosen. 
-	 * If so then it will remove the specified style. 
-	 * Changes the style of the MutliRowSection depending on the parameter style.
+	 * Changes the style of the specific textarea Checks whether the current
+	 * style is the one which has been chosen. If so then it will remove the
+	 * specified style. Changes the style of the MutliRowSection depending on
+	 * the parameter style.
 	 * 
 	 * @param section
 	 *            the JTextPane whose contents is to be customized
@@ -90,40 +92,37 @@ public class SingleRowSection extends AbsTextSection {
 
 		switch (style) {
 		case "B":
-			if (!Styles.B) {
+			if (!B) {
 				font = currentFont.deriveFont(currentFont.getStyle()
 						+ Font.BOLD);
 			} else {
 				font = currentFont.deriveFont(currentFont.getStyle()
 						& ~Font.BOLD);
 			}
-			Styles.B = !Styles.B;
-			styles.put("B", Styles.B);
+			B = !B;
 			break;
 
 		case "I":
-			if (!Styles.I) {
+			if (!I) {
 				font = currentFont.deriveFont(currentFont.getStyle()
 						+ Font.ITALIC);
 			} else {
 				font = currentFont.deriveFont(currentFont.getStyle()
 						& ~Font.ITALIC);
 			}
-			Styles.I = !Styles.I;
-			styles.put("I", Styles.I);
+			I = !I;
 			break;
 
 		case "U":
 			Map<TextAttribute, Integer> attributes = new HashMap<TextAttribute, Integer>();
-			if (!Styles.U) {
+			if (!U) {
 				attributes.put(TextAttribute.UNDERLINE,
 						TextAttribute.UNDERLINE_ON);
 
 			} else {
 				attributes.put(TextAttribute.UNDERLINE, -1);
 			}
-			Styles.U = !Styles.U;
-			styles.put("U", Styles.U);
+			U = !U;
 			font = currentFont.deriveFont(attributes);
 		}
 		section.setFont(font);
@@ -131,12 +130,12 @@ public class SingleRowSection extends AbsTextSection {
 
 	/**
 	 * Get the text of a single row by SectionType
+	 * 
 	 * @param name
-	 * 				the SectionType from which to get the text
-	 * @return
-	 * 				the text of the SectionType name
+	 *            the SectionType from which to get the text
+	 * @return the text of the SectionType name
 	 */
-	public String getText(SectionType name){
+	public String getText(SectionType name) {
 		return texts.get(name);
 	}
 

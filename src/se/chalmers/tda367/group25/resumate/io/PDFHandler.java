@@ -94,7 +94,7 @@ public class PDFHandler {
 		int panelWidth = jc.getWidth();
 		int panelHeight = jc.getHeight();
 		int delta = panelHeight;
-		
+
 		// If the incoming JComponent representation of a Document is higher
 		// than a single PDF document, create new pages accordingly
 		while (delta >= 0) {

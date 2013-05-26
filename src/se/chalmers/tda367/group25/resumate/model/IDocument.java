@@ -1,6 +1,5 @@
 package se.chalmers.tda367.group25.resumate.model;
 
-
 /**
  * An interface to describe a Document. A Document can have different inner
  * structures. Usually this involves different storing of text, images, charts

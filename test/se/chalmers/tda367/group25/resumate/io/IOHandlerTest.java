@@ -142,9 +142,10 @@ public class IOHandlerTest {
 		strings.put(SectionType.NAME_PERSONAL, content);
 
 		IOHandler.saveFile(dirPath, strings);
-		
-		Map<SectionType, String> map = IOHandler.openFile(dirPath + "\\Project.rsmt");
-		
+
+		Map<SectionType, String> map = IOHandler.openFile(dirPath
+				+ "\\Project.rsmt");
+
 		// assertTrue(map.containsKey(SectionType.NAME_PERSONAL));
 		assertTrue(map.containsValue(content));
 		assertTrue(map.get(SectionType.NAME_PERSONAL).equals(content));

@@ -1,6 +1,5 @@
 package se.chalmers.tda367.group25.resumate.views;
 
-
 import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -17,15 +16,15 @@ import javax.swing.border.EmptyBorder;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 /**
- * This class represents all the visual and graphical user interface 
- * of the frame, panels and toolbar.
+ * This class represents all the visual and graphical user interface of the
+ * frame, panels and toolbar.
  */
 public class MainView extends JFrame implements MainViewInterface {
 	private MenuBar menuBar;
 	private ToolbarPanel toolbarPanel;
 	private JTabbedPane tabbedPane;
 
-	// A list of DocViews. 
+	// A list of DocViews.
 	// Each one will be in an own tab.
 	private List<DocumentView> docViewList = new ArrayList<DocumentView>(20);
 	private PropertyChangeSupport pcs;
@@ -42,50 +41,50 @@ public class MainView extends JFrame implements MainViewInterface {
 		setVisible(true);
 		setTitle("ResuMate" + " - your best friend in job hunting.");
 		// Default size when not maximized
-		setSize(840,500);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
+		setSize(840, 500);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// Always make it maximized when the program starts
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		// Creating and setting background panel
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
-		
+
 		// Initializing components
 		menuBar = new MenuBar();
 		menuBar.addPropertyChangeListener(this);
-		
+
 		// Set the layout of the components
 		SpringLayout spLayout = new SpringLayout();
-		spLayout.putConstraint(SpringLayout.NORTH, menuBar, 
-				0, SpringLayout.NORTH, contentPane);
-		spLayout.putConstraint(SpringLayout.WEST, menuBar, 
-				0, SpringLayout.WEST, contentPane);
-		spLayout.putConstraint(SpringLayout.SOUTH, menuBar, 
-				26, SpringLayout.NORTH, contentPane);
-		spLayout.putConstraint(SpringLayout.EAST, menuBar, 
-				1280, SpringLayout.WEST, contentPane);
+		spLayout.putConstraint(SpringLayout.NORTH, menuBar, 0,
+				SpringLayout.NORTH, contentPane);
+		spLayout.putConstraint(SpringLayout.WEST, menuBar, 0,
+				SpringLayout.WEST, contentPane);
+		spLayout.putConstraint(SpringLayout.SOUTH, menuBar, 26,
+				SpringLayout.NORTH, contentPane);
+		spLayout.putConstraint(SpringLayout.EAST, menuBar, 1280,
+				SpringLayout.WEST, contentPane);
 		contentPane.setLayout(spLayout);
 		contentPane.add(menuBar);
 
 		toolbarPanel = new ToolbarPanel();
-		toolbarPanel.setToolTipText("<html><b>Protip!</b><br> " +
-				"Don't change too much of the document!</html>");
-		spLayout.putConstraint(SpringLayout.NORTH, toolbarPanel, 
-				6, SpringLayout.SOUTH, menuBar);
-		spLayout.putConstraint(SpringLayout.WEST, toolbarPanel, 
-				0, SpringLayout.WEST, contentPane);
-		spLayout.putConstraint(SpringLayout.SOUTH, toolbarPanel, 
-				111, SpringLayout.NORTH, contentPane);
-		spLayout.putConstraint(SpringLayout.EAST, toolbarPanel, 
-				1280, SpringLayout.WEST, contentPane);
+		toolbarPanel.setToolTipText("<html><b>Protip!</b><br> "
+				+ "Don't change too much of the document!</html>");
+		spLayout.putConstraint(SpringLayout.NORTH, toolbarPanel, 6,
+				SpringLayout.SOUTH, menuBar);
+		spLayout.putConstraint(SpringLayout.WEST, toolbarPanel, 0,
+				SpringLayout.WEST, contentPane);
+		spLayout.putConstraint(SpringLayout.SOUTH, toolbarPanel, 111,
+				SpringLayout.NORTH, contentPane);
+		spLayout.putConstraint(SpringLayout.EAST, toolbarPanel, 1280,
+				SpringLayout.WEST, contentPane);
 		toolbarPanel.addPropertyChangeListener(this);
 		toolbarPanel.setVisible(true);
 		contentPane.add(toolbarPanel);
-		
+
 		// Create a tabbed pane
 		tabbedPane = new JTabbedPane();
-		
+
 		spLayout.putConstraint(SpringLayout.NORTH, tabbedPane, 6,
 				SpringLayout.SOUTH, toolbarPanel);
 		spLayout.putConstraint(SpringLayout.WEST, tabbedPane, 0,
@@ -96,11 +95,12 @@ public class MainView extends JFrame implements MainViewInterface {
 				SpringLayout.EAST, menuBar);
 
 		DocumentView docView = new DocumentView();
-		docView.getTemplatePanel().getCurrentSection().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		docView.setToolTipText("<html><b>Protip!</b><br> " +
-				"Open new tabs to work with seperate CV's and PL's!</html>");
+		docView.getTemplatePanel().getCurrentSection()
+				.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		docView.setToolTipText("<html><b>Protip!</b><br> "
+				+ "Open new tabs to work with seperate CV's and PL's!</html>");
 		docViewList.add(docView);
-		
+
 		tabbedPane.setSize(599, 1000);
 		tabbedPane.addTab("unsaved", null, docView, "unsaved");
 		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
@@ -115,11 +115,12 @@ public class MainView extends JFrame implements MainViewInterface {
 		this.validate();
 	}
 
-	// -----PropertyChange methods-----//	
+	// -----PropertyChange methods-----//
 	/**
 	 * Adds a propertychange listnener to this class.
+	 * 
 	 * @param pcl
-	 * 			the listener to be registered
+	 *            the listener to be registered
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.addPropertyChangeListener(pcl);
@@ -127,54 +128,55 @@ public class MainView extends JFrame implements MainViewInterface {
 
 	/**
 	 * Removes a propertychange listnener to this class.
+	 * 
 	 * @param pcl
-	 * 			the listener to be unregistered
+	 *            the listener to be unregistered
 	 */
 	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.removePropertyChangeListener(pcl);
 	}
 
 	/**
-	 * Fires the propertychange event further to the main controller
-	 * where the events are to be handled.
+	 * Fires the propertychange event further to the main controller where the
+	 * events are to be handled.
 	 * 
 	 * @param arg0
-	 * 		the source of the event
-	 * 		
+	 *            the source of the event
+	 * 
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		try{
+		try {
 			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(),
 					arg0.getNewValue());
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// -----Queries-----//	
+	// -----Queries-----//
 	/**
 	 * Get the DocView in the tab that is currently in focus.
 	 * 
-	 * @return 
-	 * 		the DocView that is in the tab that is currently in focus.
+	 * @return the DocView that is in the tab that is currently in focus.
 	 */
 	public DocumentView getCurDocView() {
 		return (DocumentView) tabbedPane.getSelectedComponent();
 	}
+
 	/**
 	 * Get the ToolbarPanel in the tab that is currently in focus.
 	 * 
-	 * @return 
-	 * 		the toolbarPanel that is in the tab that is currently in focus.
+	 * @return the toolbarPanel that is in the tab that is currently in focus.
 	 */
-	public ToolbarPanel getToolbarPanel(){
+	public ToolbarPanel getToolbarPanel() {
 		return toolbarPanel;
 	}
 
 	// -----Commands-----//
 	/**
-	 * Creates a new tab and puts a DocumentView within it. 
+	 * Creates a new tab and puts a DocumentView within it.
+	 * 
 	 * @param docView
 	 *            the template the new DocumentView will have.
 	 */
@@ -183,11 +185,11 @@ public class MainView extends JFrame implements MainViewInterface {
 		tabbedPane.addTab(name, null, docView, "unsaved");
 		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
 		tabbedPane.setTabComponentAt(tabbedPane.indexOfComponent(docView), ctb);
-		ctb.addPropertyChangeListener(this);		
+		ctb.addPropertyChangeListener(this);
 	}
-	
+
 	/**
-	 * Creates a new tab with the default template 
+	 * Creates a new tab with the default template
 	 */
 	public void newTab(String name) {
 		DocumentView docView = new DocumentView();
@@ -209,6 +211,5 @@ public class MainView extends JFrame implements MainViewInterface {
 		DocumentView docView = this.docViewList.get(0);
 		pcs.firePropertyChange(Labels.SEND_DOC, docView, 0);
 	}
-	
-	
+
 }

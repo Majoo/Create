@@ -74,11 +74,6 @@ public class Document implements DocumentInterface {
 	 * 			the section to be checked
 	 */
 	private void checkSections(SectionType type){
-		switch(type){
-		case ADDRESS_PERSONAL:
-			
-			
-		}
 		if (!textSections.containsKey(type)) {
 			if(type.toString().contains("HEADER") || type.toString().contains("PERSONAL")){
 				textSections.put(type, new SingleRowSection());
@@ -160,6 +155,7 @@ public class Document implements DocumentInterface {
 	 * 			the string which is to be saved
 	 */
 	public void setText(SectionType name, String text){
+		System.out.println("In setText");
 		if(name.toString().contains("PERSONAL")){
 			SingleRowSection personalSec = (SingleRowSection)textSections.get(name);
 			personalSec.setText(name, text);
@@ -178,6 +174,7 @@ public class Document implements DocumentInterface {
 	 * Saves all the texts in the text sections to the map texts.
 	 */
 	public void setAllTexts() {
+		System.out.println("In setAllTexts");
 		if (textSections.containsKey(SectionType.HEADER)) {
 			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
 			texts.put(SectionType.WORK_HEADER, headerSec.getText(SectionType.WORK_HEADER));
@@ -186,7 +183,6 @@ public class Document implements DocumentInterface {
 		if (textSections.containsKey(SectionType.PERSONAL_INFO)) {
 			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
 			texts.put(SectionType.ADDRESS_PERSONAL, personalSec.getText(SectionType.ADDRESS_PERSONAL));
-			texts.get(SectionType.ADDRESS_PERSONAL);
 			texts.put(SectionType.CITYZIPCODE_PERSONAL, personalSec.getText(SectionType.CITYZIPCODE_PERSONAL));
 			texts.put(SectionType.PHONE_PERSONAL, personalSec.getText(SectionType.PHONE_PERSONAL));
 			texts.put(SectionType.EMAIL_PERSONAL, personalSec.getText(SectionType.EMAIL_PERSONAL));

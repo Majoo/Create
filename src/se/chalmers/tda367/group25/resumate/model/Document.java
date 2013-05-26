@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
-import se.chalmers.tda367.group25.resumate.utils.Template;
+
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 
 public class Document implements DocumentInterface {
 
-	private Template currentTempl;
+	private String currentTempl;
 	private Map<SectionType, ITextSection> textSections = new HashMap<SectionType, ITextSection>(4);
 	private Map<SectionType, String> texts = new HashMap<SectionType, String>(
 			textSections.size());
@@ -23,7 +24,7 @@ public class Document implements DocumentInterface {
 	 * Create a new Document using the default Template.
 	 */
 	public Document() {
-		this(Template.DEF_CV);
+		this("DEF_CV");
 	}
 
 	/**
@@ -32,7 +33,7 @@ public class Document implements DocumentInterface {
 	 * @param templ
 	 *            the Template to which currentTempl will be set
 	 */
-	public Document(Template templ) {
+	public Document(String templ) {
 		// Set variables
 		this.currentTempl = templ;
 		rmI = new RMImage(null);
@@ -46,20 +47,19 @@ public class Document implements DocumentInterface {
 	private void createSections() {
 		switch (currentTempl) {
 
-		case DEF_CV:
-			checkSections(SectionType.PERSONAL_INFO);
-			checkSections(SectionType.HEADER);
-			checkSections(SectionType.WORK_EXPERIENCE);
-			break;
-		case DEF_PL:
-			
+		case "DEF_CV":
 			checkSections(SectionType.PERSONAL_INFO);
 			checkSections(SectionType.HEADER);
 			checkSections(SectionType.WORK_EXPERIENCE);
 			break;
 			
-		case CLASSY_CV:
+		case "DEF_PL":
+			checkSections(SectionType.PERSONAL_INFO);
+			checkSections(SectionType.HEADER);
+			checkSections(SectionType.WORK_EXPERIENCE);
+			break;
 			
+		case "CLASSY_CV":
 			checkSections(SectionType.PERSONAL_INFO);
 			checkSections(SectionType.HEADER);
 			checkSections(SectionType.WORK_EXPERIENCE);
@@ -142,7 +142,7 @@ public class Document implements DocumentInterface {
 	 * @param tmpl
 	 *            the Template to change to
 	 */
-	public void setTemplate(Template tmpl) {
+	public void setTemplate(String tmpl) {
 		this.currentTempl = tmpl;
 		createSections();
 	}

@@ -27,7 +27,6 @@ import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
-import se.chalmers.tda367.group25.resumate.utils.Template;
 /**
  * A class which represents the toolbar panel 
  * which is located on top of the document

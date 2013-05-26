@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -193,6 +191,7 @@ public class ViewHandler {
 		for(JComponent comp :p.getAllComponents())
 			comp.setBorder(null);
 	}
+
 }
 	
 	

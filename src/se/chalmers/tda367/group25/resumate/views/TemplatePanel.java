@@ -29,29 +29,17 @@ import se.chalmers.tda367.group25.resumate.utils.Labels;
  */
 public abstract class TemplatePanel extends JPanel implements FocusListener {
 	// Textfields with personal info titles
-	private JTextField nameTitle;
-	private JTextField cityzipcodeTitle;
-	private JTextField addressTitle;
-	private JTextField phoneTitle;
-	private JTextField emailTitle;
+	private JTextField nameTitle, cityzipcodeTitle, addressTitle, phoneTitle, emailTitle;
 		
 	// Empty textfields with personal info
-	private JTextField nameField;
-	private JTextField cityzipcodeField;
-	private JTextField addressField;
-	private JTextField phoneField;
-	private JTextField emailField;
-	private JTextField empty1Field;
-	private JTextField empty2Field;
+	private JTextField nameField, cityzipcodeField, addressField, phoneField, emailField, empty1Field, empty2Field;
 	
 	// Textfields for headers
-	private JTextField workExpHeader;
-	private JTextField educationHeader;	
+	private JTextField workExpHeader, educationHeader;	
 	
 	// Textfields for sections
 	private JLabel imgLabel;
-	private JTextPane workExpText;
-	private JTextPane educationText;
+	private JTextPane workExpText, educationText;
 	
 	// Important variables
 	private JTextComponent currentSection;

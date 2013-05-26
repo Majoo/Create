@@ -161,7 +161,6 @@ public class Document implements DocumentInterface {
 		if(name.toString().contains("PERSONAL")){
 			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
 			personalSec.setText(name, text);
-			System.out.println(name +": " + personalSec.getText(name));
 		}
 		else if(name.toString().contains("HEADER")){
 			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
@@ -181,7 +180,6 @@ public class Document implements DocumentInterface {
 	 * Saves all the texts in the text sections to the map texts.
 	 */
 	public void setAllTexts() {
-		System.out.println("In setAllTexts");
 		if (textSections.containsKey(SectionType.HEADER)) {
 			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
 			texts.put(SectionType.WORK_HEADER, headerSec.getText(SectionType.WORK_HEADER));
@@ -216,6 +214,15 @@ public class Document implements DocumentInterface {
 			texts.put(SectionType.EDU_HEADER, eduSec.getText());
 		}
 	}
+	
+	/**
+	 * 
+	 * @param strings
+	 */
+	public void setAllTexts(Map<SectionType, String> strings){
+		this.texts.putAll(strings);
+	}
+	
 	@Override
 	public boolean hasFilePath() {
 		return !(filePath.isEmpty());

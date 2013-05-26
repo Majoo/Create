@@ -44,6 +44,7 @@ public class PDFHandler {
 	 * @param filePathAndName
 	 *            the String used to decide where the PDF file will be saved and
 	 *            what its name will be
+	 * @param function
 	 * @throws DocumentException
 	 * @throws IOException
 	 */
@@ -83,7 +84,7 @@ public class PDFHandler {
 	private static void createPDF(JComponent jc, File file)
 			throws FileNotFoundException, DocumentException {
 		Document document = new Document();
-		document.open();
+		
 		PdfWriter writer = PdfWriter.getInstance(document,
 				new FileOutputStream(file));
 		PdfContentByte cb = writer.getDirectContent();
@@ -91,7 +92,7 @@ public class PDFHandler {
 		int panelWidth = jc.getWidth();
 		int panelHeight = jc.getHeight();
 		int delta = panelHeight;
-
+		document.open();
 		// If the incoming JComponent representation of a Document is higher
 		// than a single PDF document, create new pages accordingly
 		while (delta >= 0) {

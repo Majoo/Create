@@ -60,13 +60,13 @@ public class MainController implements PropertyChangeListener {
 		switch (e.getPropertyName()) {
 
 		case Labels.TEMPLATE_CHANGED:
-			//To be implemented
-			/*TemplatePanel tempChange = Translator.templateToPanel(e
-					.getNewValue().toString());
-			docCon.saveTexts();
-			docCon.getView(docCon.getCurrentID()).setTemplate(tempChange);
-			mainView.validate();
-			mainView.setVisible(true);*/
+			// To be implemented
+			/*
+			 * TemplatePanel tempChange = Translator.templateToPanel(e
+			 * .getNewValue().toString()); docCon.saveTexts();
+			 * docCon.getView(docCon.getCurrentID()).setTemplate(tempChange);
+			 * mainView.validate(); mainView.setVisible(true);
+			 */
 			break;
 
 		default:
@@ -130,10 +130,10 @@ public class MainController implements PropertyChangeListener {
 		case Labels.SAVE_DOC:
 			docCon.saveTexts();
 			Document doc = docCon.getDoc(docCon.getCurrentID());
-			if (!doc.hasFilePath()) {
+			if (doc.hasFilePath()) {
 				ioCon.chooseFunction(Labels.SAVE_DOC, null, doc,
 						doc.getFilePath());
-			} else if (doc.hasFilePath()) {
+			} else if (!doc.hasFilePath()) {
 				ioCon.chooseFunction(Labels.SAVE_DOC_AS, null, doc, null);
 			}
 
@@ -176,10 +176,14 @@ public class MainController implements PropertyChangeListener {
 			mainView.newTab((String) e.getNewValue());
 			break;
 
-		 case Labels.LOAD_DOC:
-//		 docCon.getDoc(docCon.getCurrentID()).setAllTexts(
-		 System.out.println(ioCon.getStringsMap().toString());
-		 break;
+		case Labels.LOAD_DOC:
+			System.out.println("WHAT");
+			docCon.getDoc(docCon.getCurrentID()).setAllTexts(
+					ioCon.getStringsMap());
+			System.out.println("OMG");
+			docCon.updateTexts();
+			System.out.println("SWAG");
+			break;
 
 		default:
 			// Do nothing, never invoked

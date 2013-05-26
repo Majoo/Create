@@ -42,7 +42,7 @@ public class MainView extends JFrame implements MainViewInterface {
 
 		// The frame
 		setVisible(true);
-		setTitle("ResuMate" + " - your best friend in jobsearching.");
+		setTitle("ResuMate" + " - your best friend in job hunting.");
 		// Default size when not maximized
 		setSize(840,500);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	

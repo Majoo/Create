@@ -44,7 +44,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		SpringLayout spLayout = new SpringLayout();
 		setLayout(spLayout);
 
-		//Setting Tools panel
+		// Setting panel for tools
 		JPanel toolsPan = new JPanel();
 		spLayout.putConstraint
 		(SpringLayout.NORTH, toolsPan, 0, SpringLayout.NORTH, this);
@@ -54,21 +54,21 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		(SpringLayout.SOUTH, toolsPan, 69, SpringLayout.NORTH, this);
 		toolsPan.setLayout(new GridLayout(2,1));
 		
-		//Setting upper part tools panel
+		// Setting upper part of panel for tools
 		JPanel upperToolsPan = new JPanel();
 		upperToolsPan.setBackground(Color.WHITE);
 		upperToolsPan.setLayout(new GridLayout(1,10));
 		toolsPan.add(upperToolsPan);
 
-		//Setting all the buttons and giving them actions
+		// Setting all the buttons and giving them actions
 		JButton btnNewDoc = new JButton("New");
-		btnNewDoc.setToolTipText("New document.");
+		btnNewDoc.setToolTipText("Open a new tab.");
 		btnNewDoc.addActionListener(this);
 		btnNewDoc.setActionCommand("New");
 		upperToolsPan.add(btnNewDoc);
 
 		JButton btnOpen = new JButton("Open");
-		btnOpen.setToolTipText("Open document.");
+		btnOpen.setToolTipText("Open a document.");
 		btnOpen.addActionListener(this);
 		btnOpen.setActionCommand("Open");
 		upperToolsPan.add(btnOpen);
@@ -125,10 +125,10 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		JPanel lowerToolsPan = new JPanel();
 		lowerToolsPan.setBackground(Color.WHITE);
 
-		// Setting properties for the combobox in which the fonts are listed
+		// Setting properties for the combo box in which the fonts are listed
 		textFontCB = new JComboBox();
 		textFontCB.setToolTipText("Protip! " +
-				"Don't have too many different fonts! " +
+				"Don't have too many different fonts! \n" +
 				"It will look unprofessional.");
 		textFontCB.addActionListener(this);
 		textFontCB.setActionCommand("Font");
@@ -137,7 +137,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		String [] fontes = e.getAvailableFontFamilyNames();
 		textFontCB.setModel(new DefaultComboBoxModel(fontes));
 
-		/* Setting properties for the combobox 
+		/* Setting properties for the combo box 
 		* in which the sizes for the text are listed
 		*/
 		textSizeCB = new JComboBox();
@@ -154,7 +154,8 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		// Setting properties for the button which makes the text bold
 		JToggleButton btnBold = new JToggleButton("B");
 		btnBold.setToolTipText("Protip! " +
-				"You can make the headline bolded and all the subheadlines!");
+				"You can make the personal info titles bolded " +
+				"or all the headlines!");
 		btnBold.addActionListener(this);
 		btnBold.setActionCommand("Bold");
 		btnBold.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -180,14 +181,16 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		
 		// Setting properties for the button which make the text coloured
 		textColorCB = new JComboBox();
-		textColorCB.setToolTipText("Protip! Do not use too many different colors!");
+		textColorCB.setToolTipText("Protip! " +
+				"Do not use too many different colors!");
 		textColorCB.setModel(new DefaultComboBoxModel(new String[] 
 				{"Black", "Blue", "Cyan", "Dark Gray", "Gray", "Green",
-				"Light Gray", "Magenta", "Orange", "Pink", "Red", "White", "Yellow"}));
+				"Light Gray", "Magenta", "Orange", "Pink", "Red", "White", 
+				"Yellow"}));
 		textColorCB.addActionListener(this);
 		textColorCB.setActionCommand("Color");
 
-		//Setting placement of the GUI
+		// Setting placement of the GUI
 		GroupLayout layoutToolsPan = new GroupLayout(lowerToolsPan);
 		layoutToolsPan.setHorizontalGroup(
 			layoutToolsPan.createParallelGroup(Alignment.LEADING)
@@ -197,7 +200,8 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 							136, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(textSizeCB, GroupLayout.PREFERRED_SIZE, 
-							GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							GroupLayout.DEFAULT_SIZE, 
+							GroupLayout.PREFERRED_SIZE)
 					.addGap(32)
 					.addComponent(btnBold)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -206,23 +210,32 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 					.addComponent(btnUnderline)
 					.addGap(46)
 					.addComponent(textColorCB, 
-							GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+							GroupLayout.PREFERRED_SIZE, 63, 
+							GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(363, Short.MAX_VALUE))
 		);
 		layoutToolsPan.setVerticalGroup(
 			layoutToolsPan.createParallelGroup(Alignment.LEADING)
 				.addGroup(layoutToolsPan.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(layoutToolsPan.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textFontCB, GroupLayout.PREFERRED_SIZE, 
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textColorCB, GroupLayout.PREFERRED_SIZE, 
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap
+					(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup
+					(layoutToolsPan.createParallelGroup(Alignment.BASELINE)
+						.addComponent
+						(textFontCB, GroupLayout.PREFERRED_SIZE, 
+								GroupLayout.DEFAULT_SIZE, 
+								GroupLayout.PREFERRED_SIZE)
+						.addComponent(textColorCB, 
+								GroupLayout.PREFERRED_SIZE, 
+								GroupLayout.DEFAULT_SIZE, 
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnBold)
 						.addComponent(btnItalic)
 						.addComponent(btnUnderline)
-						.addComponent(textSizeCB, GroupLayout.PREFERRED_SIZE, 
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(textSizeCB, 
+								GroupLayout.PREFERRED_SIZE, 
+								GroupLayout.DEFAULT_SIZE, 
+								GroupLayout.PREFERRED_SIZE)))
 		);
 		lowerToolsPan.setLayout(layoutToolsPan);
 		toolsPan.add(lowerToolsPan);
@@ -268,7 +281,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		tempPanel.add(btnTemp3);
 		
 		// A list with different templates.
-		// Not yet implemented actions
+		// Not yet implemented with actions.
 		String[] templateChange = {
 				"Advanced PL", 
 				"Advanced CV",
@@ -332,10 +345,13 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);
 
 			}
-			String st = JOptionPane.showInputDialog("New document:", "untitled");
+			String st = JOptionPane.showInputDialog(null, 
+					"New document:");
 
 			if(!st.equals("")){
 				pcs.firePropertyChange(Labels.NEW_DOC, false, st);
+			}else{
+				JOptionPane.showMessageDialog(null, "Please enter a valid name.");
 			}
 			
 		break;
@@ -405,7 +421,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		}
 	}
 	
-	//-----Getters------
+	// -----Getters------
 	
 	public JComboBox getTextSizeCombo(){
 		return textSizeCB;

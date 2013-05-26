@@ -48,8 +48,8 @@ public class ButtonTabClose extends JPanel {
         
         pcs = new PropertyChangeSupport(this);
     }
-	/*
-	 * Settings, the tab button 
+	/**
+	 * Settings for the close tab button. 
 	 */
     private class TabButton extends JButton implements ActionListener {
         public TabButton() {
@@ -90,10 +90,10 @@ public class ButtonTabClose extends JPanel {
         	;
         }
 
-        /* Paint the close button (a cross)
+        /** Paint the close tab button
          * with the help of 2 dimensional graphics
          * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-         * for more information
+         * 			for more information about 2D graphics
          */
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);

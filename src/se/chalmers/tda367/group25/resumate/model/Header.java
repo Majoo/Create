@@ -8,8 +8,8 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
 public class Header extends AbsTextSection{
 	
 	//Headers
-	private String workExpHeader;
-	private String educationHeader;
+	private String workExpHeader = "";
+	private String educationHeader = "";
 	private List <String> textList;
 	
 	public Header(){

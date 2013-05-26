@@ -18,7 +18,7 @@ import se.chalmers.tda367.group25.resumate.utils.SectionType;
  */
 public class TextSection extends AbsTextSection{
 
-	private String text;
+	private String text = "";
 	private boolean bold;
 	private boolean italic;
 	private boolean underline;

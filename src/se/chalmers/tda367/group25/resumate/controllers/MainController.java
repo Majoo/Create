@@ -287,7 +287,7 @@ public class MainController implements PropertyChangeListener {
 			String[] replaceTexts = e.getNewValue().toString().split("/");
 			String replace = replaceTexts[0];
 			String replaceWith = replaceTexts[1];
-			curText.replaceText(curTextSection, replace, replaceWith);
+//			curText.replaceText(curTextSection, replace, replaceWith);
 			break;
 
 		case Labels.REPLACE_ALL_TEXT:

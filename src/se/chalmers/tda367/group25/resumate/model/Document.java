@@ -7,19 +7,19 @@ import java.util.Map;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 /**
- * A class to describe a document. A document has a template, a String,
- * text sections, an image and a FilePath. These can be set.
+ * A class to describe a document. A document has a template, a String, text
+ * sections, an image and a FilePath. These can be set.
  */
 public class Document implements IDocument {
 
 	private String currentTempl;
-	private Map<SectionType, ITextSection> textSections = new HashMap<SectionType, ITextSection>(4);
+	private Map<SectionType, ITextSection> textSections = new HashMap<SectionType, ITextSection>(
+			4);
 	private Map<SectionType, String> texts = new HashMap<SectionType, String>(
 			textSections.size());
 	private RMImage rmI;
 
-	// Unsurprisingly, the path to the file representation of this Document is
-	// stored here. This variable is used for "quick save" functionality.
+	// This variable is used for "quick save" functionality.
 	private String filePath = "";
 
 	/**
@@ -54,40 +54,42 @@ public class Document implements IDocument {
 			checkSections(SectionType.WORK_EXPERIENCE);
 			checkSections(SectionType.EDUCATION_EXPERIENCE);
 			break;
-			
+
 		case "DEF_PL":
 			checkSections(SectionType.PERSONAL_INFO);
 			checkSections(SectionType.HEADER);
 			checkSections(SectionType.WORK_EXPERIENCE);
 			break;
-			
+
 		case "CLASSY_CV":
 			checkSections(SectionType.PERSONAL_INFO);
 			checkSections(SectionType.HEADER);
 			checkSections(SectionType.WORK_EXPERIENCE);
-			break;	
+			break;
 		}
 	}
-	
+
 	/**
-	 * Checks if Sections have already been created; if they haven't, this method creates them.
+	 * Checks if Sections have already been created; if they haven't, this
+	 * method creates them.
+	 * 
 	 * @param type
-	 * 			the section to be checked
+	 *            the section to be checked
 	 */
-	private void checkSections(SectionType type){
+	private void checkSections(SectionType type) {
 		if (!textSections.containsKey(type)) {
-			if(type.toString().contains("HEADER")){
+			if (type.toString().contains("HEADER")) {
 				textSections.put(type, new SingleRowSection(25));
-			} else if(type.toString().contains("PERSONAL") || type.toString().contains("TITLE")){
-				textSections.put(type, new SingleRowSection(12));	
-			}else if (type.toString().contains("EXPERIENCE")){
+			} else if (type.toString().contains("PERSONAL")
+					|| type.toString().contains("TITLE")) {
+				textSections.put(type, new SingleRowSection(12));
+			} else if (type.toString().contains("EXPERIENCE")) {
 				textSections.put(type, new MultiRowSection());
 			}
 		}
 	}
 	
 	// -----Queries-----//	
-
 	/**
 	 * Get the image in the RMImage of the Document.
 	 * 
@@ -118,8 +120,7 @@ public class Document implements IDocument {
 	/**
 	 * Gets the FilePath of the Document
 	 * 
-	 * @return 
-	 * 		the FilePath of the Document
+	 * @return the FilePath of the Document
 	 */
 	public String getFilePath() {
 		return filePath;
@@ -150,79 +151,101 @@ public class Document implements IDocument {
 
 	/**
 	 * Saves the text from the sectiontype in textsections
+	 * 
 	 * @param name
-	 * 			the sectiontype which is to save text
+	 *            the sectiontype which is to save text
 	 * @param text
-	 * 			the string which is to be saved
+	 *            the string which is to be saved
 	 */
-	public void setText(SectionType name, String text){
-		if(name.toString().contains("PERSONAL")){
-			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
+	public void setText(SectionType name, String text) {
+		if (name.toString().contains("PERSONAL")) {
+			SingleRowSection personalSec = (SingleRowSection) textSections
+					.get(SectionType.PERSONAL_INFO);
 			personalSec.setText(name, text);
-		}
-		else if(name.toString().contains("HEADER")){
-			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
+		} else if (name.toString().contains("HEADER")) {
+			SingleRowSection headerSec = (SingleRowSection) textSections
+					.get(SectionType.HEADER);
 			headerSec.setText(name, text);
-		}
-		else if(name.toString().contains("TITLE")){
-			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.INFO_TITLE);
+		} else if (name.toString().contains("TITLE")) {
+			SingleRowSection headerSec = (SingleRowSection) textSections
+					.get(SectionType.INFO_TITLE);
 			headerSec.setText(name, text);
-		}
-		else if(name.toString().contains("EXPERIENCE")){
-			MultiRowSection multiRowSec = (MultiRowSection)textSections.get(name);
+		} else if (name.toString().contains("EXPERIENCE")) {
+			MultiRowSection multiRowSec = (MultiRowSection) textSections
+					.get(name);
 			multiRowSec.setText(text);
 		}
 	}
-	
+
 	/**
 	 * Saves all the texts in the text sections to the map texts.
 	 */
 	public void setAllTexts() {
 		if (textSections.containsKey(SectionType.HEADER)) {
-			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
-			texts.put(SectionType.WORK_HEADER, headerSec.getText(SectionType.WORK_HEADER));
-			texts.put(SectionType.EDU_HEADER, headerSec.getText(SectionType.EDU_HEADER));
+			SingleRowSection headerSec = (SingleRowSection) textSections
+					.get(SectionType.HEADER);
+			texts.put(SectionType.WORK_HEADER,
+					headerSec.getText(SectionType.WORK_HEADER));
+			texts.put(SectionType.EDU_HEADER,
+					headerSec.getText(SectionType.EDU_HEADER));
 		}
 		if (textSections.containsKey(SectionType.INFO_TITLE)) {
-			SingleRowSection titleSec = (SingleRowSection)textSections.get(SectionType.HEADER);
-			texts.put(SectionType.NAME_TITLE, titleSec.getText(SectionType.NAME_TITLE));
-			texts.put(SectionType.ADDRESS_TITLE, titleSec.getText(SectionType.ADDRESS_TITLE));
-			texts.put(SectionType.CITYZIPCODE_TITLE, titleSec.getText(SectionType.CITYZIPCODE_TITLE));
-			texts.put(SectionType.PHONE_TITLE, titleSec.getText(SectionType.PHONE_TITLE));
-			texts.put(SectionType.EMAIL_TITLE, titleSec.getText(SectionType.EMAIL_TITLE));
-			texts.put(SectionType.EMPTY1_TITLE, titleSec.getText(SectionType.EMPTY1_TITLE));
-			texts.put(SectionType.EMPTY2_TITLE, titleSec.getText(SectionType.EMPTY2_TITLE));
+			SingleRowSection titleSec = (SingleRowSection) textSections
+					.get(SectionType.HEADER);
+			texts.put(SectionType.NAME_TITLE,
+					titleSec.getText(SectionType.NAME_TITLE));
+			texts.put(SectionType.ADDRESS_TITLE,
+					titleSec.getText(SectionType.ADDRESS_TITLE));
+			texts.put(SectionType.CITYZIPCODE_TITLE,
+					titleSec.getText(SectionType.CITYZIPCODE_TITLE));
+			texts.put(SectionType.PHONE_TITLE,
+					titleSec.getText(SectionType.PHONE_TITLE));
+			texts.put(SectionType.EMAIL_TITLE,
+					titleSec.getText(SectionType.EMAIL_TITLE));
+			texts.put(SectionType.EMPTY1_TITLE,
+					titleSec.getText(SectionType.EMPTY1_TITLE));
+			texts.put(SectionType.EMPTY2_TITLE,
+					titleSec.getText(SectionType.EMPTY2_TITLE));
 		}
 		if (textSections.containsKey(SectionType.PERSONAL_INFO)) {
-			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
-			texts.put(SectionType.NAME_PERSONAL, personalSec.getText(SectionType.NAME_PERSONAL));
-			texts.put(SectionType.ADDRESS_PERSONAL, personalSec.getText(SectionType.ADDRESS_PERSONAL));
-			texts.put(SectionType.CITYZIPCODE_PERSONAL, personalSec.getText(SectionType.CITYZIPCODE_PERSONAL));
-			texts.put(SectionType.PHONE_PERSONAL, personalSec.getText(SectionType.PHONE_PERSONAL));
-			texts.put(SectionType.EMAIL_PERSONAL, personalSec.getText(SectionType.EMAIL_PERSONAL));
-			texts.put(SectionType.EMPTY1_PERSONAL, personalSec.getText(SectionType.EMPTY1_PERSONAL));
-			texts.put(SectionType.EMPTY2_PERSONAL, personalSec.getText(SectionType.EMPTY2_PERSONAL));
+			SingleRowSection personalSec = (SingleRowSection) textSections
+					.get(SectionType.PERSONAL_INFO);
+			texts.put(SectionType.NAME_PERSONAL,
+					personalSec.getText(SectionType.NAME_PERSONAL));
+			texts.put(SectionType.ADDRESS_PERSONAL,
+					personalSec.getText(SectionType.ADDRESS_PERSONAL));
+			texts.put(SectionType.CITYZIPCODE_PERSONAL,
+					personalSec.getText(SectionType.CITYZIPCODE_PERSONAL));
+			texts.put(SectionType.PHONE_PERSONAL,
+					personalSec.getText(SectionType.PHONE_PERSONAL));
+			texts.put(SectionType.EMAIL_PERSONAL,
+					personalSec.getText(SectionType.EMAIL_PERSONAL));
+			texts.put(SectionType.EMPTY1_PERSONAL,
+					personalSec.getText(SectionType.EMPTY1_PERSONAL));
+			texts.put(SectionType.EMPTY2_PERSONAL,
+					personalSec.getText(SectionType.EMPTY2_PERSONAL));
 		}
 		if (textSections.containsKey(SectionType.WORK_EXPERIENCE)) {
-			MultiRowSection workSec = (MultiRowSection)textSections.get(SectionType.WORK_EXPERIENCE);
+			MultiRowSection workSec = (MultiRowSection) textSections
+					.get(SectionType.WORK_EXPERIENCE);
 			texts.put(SectionType.WORK_EXPERIENCE, workSec.getText());
 		}
 		if (textSections.containsKey(SectionType.EDUCATION_EXPERIENCE)) {
-			MultiRowSection eduSec = (MultiRowSection)textSections.get(SectionType.EDUCATION_EXPERIENCE);
+			MultiRowSection eduSec = (MultiRowSection) textSections
+					.get(SectionType.EDUCATION_EXPERIENCE);
 			texts.put(SectionType.EDU_HEADER, eduSec.getText());
 		}
 	}
-	
+
 	/**
 	 * Sets the text from a map to the variabel texts
 	 * @param strings
 	 * 				the map with the strings
 	 */
-	public void setAllTexts(Map<SectionType, String> strings){
+	public void setAllTexts(Map<SectionType, String> strings) {
 		this.texts.putAll(strings);
 	}
-	
-	
+
 	@Override
 	/**
 	 * Checks whether this class has a path or not

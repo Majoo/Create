@@ -9,6 +9,8 @@ import java.io.IOException;
 
 import javax.swing.JComponent;
 
+import se.chalmers.tda367.group25.resumate.utils.Labels;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -51,44 +53,16 @@ public class PDFHandler {
 			String filePathAndName, String function) throws DocumentException,
 			IOException {
 
-		Document document = new Document();
-		
 		File file = getUniqueFile(filePathAndName);
-		
-		PdfWriter writer = PdfWriter.getInstance(document,
-				new FileOutputStream(file));
-		document.open();
-		PdfContentByte cb = writer.getDirectContent();
-		
-		int panelWidth = jc.getWidth();
-		int panelHeight = jc.getHeight();
-		int delta = panelHeight;
-		
-		// If the incoming JComponent representation of a Document is higher
-		// than a single PDF document, create new pages accordingly
-		while (delta >= 0) {
-			document.newPage();
-			PdfTemplate tp = cb.createTemplate(panelWidth, panelHeight);
 
-			// Creates graphics where text is handled as fonts instead of simple
-			// graphics/shapes
-			Graphics2D g2 = tp.createGraphics(panelWidth, panelHeight);
-			jc.print(g2);
-
-			cb.addTemplate(tp, 0, document.top() - delta);
-
-			g2.dispose();
-			delta = (int) (delta - document.top());
+		if (function.equals(Labels.EXPORT_DOC)) {
+			createPDF(jc, file);
+			showFile(file);
+		} else if (function.equals(Labels.PRINT_DOC)) {
+			printFile(file);
+		} else if (function.equals(Labels.SEND_DOC)) {
+			sendFile(file);
 		}
-
-		document.close();
-
-		/*
-		 * if (function.equals(Labels.EXPORT_DOC)) { createPDF(jc, file);
-		 * showFile(file); } else if (function.equals(Labels.PRINT_DOC)) {
-		 * printFile(file); } else if (function.equals(Labels.SEND_DOC)) {
-		 * sendFile(file); }
-		 */
 
 	}
 
@@ -114,12 +88,13 @@ public class PDFHandler {
 
 		PdfWriter writer = PdfWriter.getInstance(document,
 				new FileOutputStream(file));
+		document.open();
 		PdfContentByte cb = writer.getDirectContent();
 
 		int panelWidth = jc.getWidth();
 		int panelHeight = jc.getHeight();
 		int delta = panelHeight;
-		document.open();
+		
 		// If the incoming JComponent representation of a Document is higher
 		// than a single PDF document, create new pages accordingly
 		while (delta >= 0) {
@@ -130,14 +105,10 @@ public class PDFHandler {
 			// graphics/shapes
 			Graphics2D g2 = tp.createGraphics(panelWidth, panelHeight);
 			jc.print(g2);
-
 			cb.addTemplate(tp, 0, document.top() - delta);
-			// -25 instead of document.left(document.leftMargin())
-
 			g2.dispose();
 			delta = (int) (delta - document.top());
 		}
-
 		document.close();
 	}
 

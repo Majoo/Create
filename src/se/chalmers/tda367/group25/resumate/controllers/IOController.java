@@ -1,9 +1,9 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JComponent;
@@ -25,11 +25,11 @@ import com.itextpdf.text.DocumentException;
  * 
  * @author Laszlo Sall Vesselenyi
  */
-public class IOController implements PropertyChangeListener {
+public class IOController {
 
 	private PropertyChangeSupport pcs;
 
-	private Map<SectionType, String> stringsFromFiles;
+	private Map<SectionType, String> stringsFromFiles = new HashMap<SectionType, String>();
 
 	private String recentPath;
 
@@ -57,23 +57,16 @@ public class IOController implements PropertyChangeListener {
 			Document doc, String path) {
 
 		Map<SectionType, String> strings;
-		try {
-			if (function.equals(Labels.SAVE_DOC)
-					|| function.equals(Labels.SAVE_DOC_AS)) {
-				strings = doc.getTexts();
-			} else {
-				strings = null;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (function.equals(Labels.SAVE_DOC)
+				|| function.equals(Labels.SAVE_DOC_AS)) {
+			strings = doc.getTexts();
+		} else {
+			strings = null;
 		}
-		System.out.println("CHOOSE FUNCTION");
 		try {
-			System.out.println(function);
 			if (function.equals(Labels.SAVE_DOC)) {
 				IOHandler.saveFile(path, doc.getTexts());
 			} else if ((function.equals(Labels.SAVE_DOC_AS))) {
-				System.out.println("SAVE DOC AS");
 				choosePath(jc, function, doc.getTexts());
 			} else if ((function.equals(Labels.EXPORT_DOC))
 					|| function.equals(Labels.OPEN_DOC)) {
@@ -259,17 +252,5 @@ public class IOController implements PropertyChangeListener {
 
 	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.removePropertyChangeListener(pcl);
-	}
-
-	/**
-	 * Fires the propertychange event further to the main controller where the
-	 * events are to be handled.
-	 * 
-	 * @param e
-	 *            the source of the event
-	 */
-	@Override
-	public void propertyChange(PropertyChangeEvent e) {
-		;
 	}
 }

@@ -88,7 +88,6 @@ public class MainView extends JFrame implements MainViewInterface {
 		// Create a tabbed pane
 		tabbedPane = new JTabbedPane();
 		
-		
 		spLayout.putConstraint(SpringLayout.NORTH, tabbedPane, 6,
 				SpringLayout.SOUTH, toolbarPanel);
 		spLayout.putConstraint(SpringLayout.WEST, tabbedPane, 0,
@@ -183,13 +182,9 @@ public class MainView extends JFrame implements MainViewInterface {
 	public void newTab(DocumentView docView, String name) {
 		docViewList.add(docView);
 		tabbedPane.addTab(name, null, docView, "unsaved");
-		
-//		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
-//		tabbedPane.setTabComponentAt(0, ctb);
-//		ctb.addPropertyChangeListener(this);
-//		tabbedPane.setSelectedComponent(docView);
-//		this.validate();
-		
+		ButtonTabClose ctb = new ButtonTabClose(tabbedPane);
+		tabbedPane.setTabComponentAt(1, ctb);
+		ctb.addPropertyChangeListener(this);		
 	}
 	
 	/**

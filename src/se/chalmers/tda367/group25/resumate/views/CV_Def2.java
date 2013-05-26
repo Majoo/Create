@@ -23,7 +23,6 @@ public class CV_Def2 extends TemplatePanel {
 	public CV_Def2() {
 		super();
 		
-		setBorder(new LineBorder(new Color(0, 0, 0)));
 		this.setPreferredSize(new Dimension(599, 1000));
 		this.setBackground(Color.WHITE);
 

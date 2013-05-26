@@ -6,8 +6,6 @@ import java.util.Map;
 
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
-
 public class Document implements DocumentInterface {
 
 	private String currentTempl;
@@ -155,19 +153,16 @@ public class Document implements DocumentInterface {
 	 * 			the string which is to be saved
 	 */
 	public void setText(SectionType name, String text){
-		System.out.println("In setText");
 		if(name.toString().contains("PERSONAL")){
 			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
 			personalSec.setText(name, text);
 			System.out.println(name +": " + personalSec.getText(name));
 		}
 		else if(name.toString().contains("HEADER")){
-			System.out.println("In setText second if");
 			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
 			headerSec.setText(name, text);
 		}
 		else if(name.toString().contains("EXPERIENCE")){
-			System.out.println("In setText third if");
 			MultiRowSection multiRowSec = (MultiRowSection)textSections.get(name);
 			multiRowSec.setText(text);
 		}

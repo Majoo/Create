@@ -202,4 +202,13 @@ public class MainView extends JFrame implements MainViewInterface {
 		pcs.firePropertyChange(Labels.SEND_INITIAL_DVIEW, docView, 0);
 	}
 
+	/**
+	 * Sends the DocumentView to its listener(s).
+	 */
+	public void sendDocView() {
+		DocumentView docView = this.docViewList.get(0);
+		pcs.firePropertyChange(Labels.SEND_DOC, docView, 0);
+	}
+	
+	
 }

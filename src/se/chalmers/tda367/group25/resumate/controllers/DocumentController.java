@@ -184,7 +184,6 @@ public class DocumentController implements PropertyChangeListener{
 	 * Saves the texts from the template to the document
 	 */
 	public void saveTexts(){
-		System.out.println("In saveText");
 		Document doc = getDoc(getCurrentID()); 
 		TemplatePanel tp = getView(getCurrentID()).getTemplatePanel();
 		

@@ -1,6 +1,5 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -61,13 +60,14 @@ public class MainController implements PropertyChangeListener {
 		switch (e.getPropertyName()) {
 
 		case Labels.TEMPLATE_CHANGED:
-			System.out.println("in tempchanged in maincontroller");
+			//To be implemented
+			/*System.out.println("in tempchanged in maincontroller");
 			TemplatePanel tempChange = Translator.templateToPanel(e
-					.getNewValue());
+					.getNewValue().toString());
 			docCon.saveTexts();
 			docCon.getView(docCon.getCurrentID()).setTemplate(tempChange);
 			mainView.validate();
-			mainView.setVisible(true);
+			mainView.setVisible(true);*/
 			break;
 
 		default:
@@ -239,10 +239,6 @@ public class MainController implements PropertyChangeListener {
 			ViewHandler.selectAll(curTextSection);
 			break;
 
-		case Labels.SAVE_TEXT:
-			docCon.saveTexts();
-			break;
-
 		case Labels.TEXTFONT_CHANGED:
 			String font = e.getNewValue().toString();
 			curText.changeFont(curTextSection, font);
@@ -267,7 +263,6 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.TEXTCOLOUR_CHANGED:
-			
 			String colour = e.getNewValue().toString();
 			curText.changeColor(curTextSection,
 					Translator.stringToColor(colour), colour);
@@ -281,12 +276,13 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.REPLACE_ALL_TEXT:
-			String[] replaceTextsA = e.getNewValue().toString().split("/");
+			//To be implemented
+			/*String[] replaceTextsA = e.getNewValue().toString().split("/");
 			String replaceA = replaceTextsA[0];
 			String replaceWithA = replaceTextsA[1];
 			for (JTextComponent comps: docCon.getView(docCon.getCurrentID()).getTemplatePanel().getTextComponents())
 				docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
-					.get(Translator.containerToSection(comps)).replaceText(comps, replaceA, replaceWithA);
+					.get(Translator.containerToSection(comps)).replaceText(comps, replaceA, replaceWithA);*/
 			break;
 
 		case Labels.FIND_TEXT:
@@ -304,13 +300,6 @@ public class MainController implements PropertyChangeListener {
 			mainView.getToolbarPanel().updateUI();
 			mainView.getToolbarPanel().validate();
 			break;
-
-		case Labels.RENAME_DOC:
-
-			break;
-
-		case Labels.NEW_DOC:
-
 		default:
 			// Do nothing, never invoked
 			break;
@@ -357,13 +346,14 @@ public class MainController implements PropertyChangeListener {
 			break;
 
 		case Labels.CROP_IMAGE:
-			if (e.getOldValue() instanceof Rectangle) {
+			//To be implemented
+			/*if (e.getOldValue() instanceof Rectangle) {
 				Rectangle rect = (Rectangle) e.getOldValue();
 				doc.getImage().crop(rect);
 				// Then update the view with the image of the Document.
 				docView.getTemplatePanel().showImage(
 						doc.getImage().getCurImage());
-			}
+			}*/
 			break;
 		default:
 			// Do nothing, never invoked

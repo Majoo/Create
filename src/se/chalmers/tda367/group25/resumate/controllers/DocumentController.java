@@ -243,24 +243,12 @@ public class DocumentController implements PropertyChangeListener{
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		System.out.println("In doccon change");
-		switch (arg0.getPropertyName()) {
-		
-	
-		case Labels.SEND_INITIAL_TSECTIONS:
-			JTextPane workText = getView(getCurrentID()).getTemplatePanel().getWorkingExperienceText();			
-			JTextField headerTitleText = getView(getCurrentID()).getTemplatePanel().getWorkExpHeader();	
-			JTextPane educationText = getView(getCurrentID()).getTemplatePanel().getEducationText();	
-			
-			getDoc(getCurrentID()).setText(SectionType.HEADER, headerTitleText.getText());
-			getDoc(getCurrentID()).setText(SectionType.WORK_EXPERIENCE, workText.getText());
-			getDoc(getCurrentID()).setText(SectionType.EDUCATION, educationText.getText());
-			break;
-		default:	
-			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(),
+		try{
+			pcs.firePropertyChange(arg0.getPropertyName(),arg0.getOldValue(),
 					arg0.getNewValue());
-			
+		} catch (NullPointerException e){
+			System.out.println("Caught NullPointerException " +
+					"in DocumentControllers propertyChange");
 		}
-	}
-		
+	}	
 }

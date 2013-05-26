@@ -155,19 +155,15 @@ public class Document implements DocumentInterface {
 	 * 			the string which is to be saved
 	 */
 	public void setText(SectionType name, String text){
-		System.out.println("In setText");
 		if(name.toString().contains("PERSONAL")){
-			System.out.println("In setText first if");
 			SingleRowSection personalSec = (SingleRowSection)textSections.get(name);
 			personalSec.setText(name, text);
 		}
 		else if(name.toString().contains("HEADER")){
-			System.out.println("In setText second if");
 			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
 			headerSec.setText(name, text);
 		}
 		else{
-			System.out.println("In setText third if");
 			MultiRowSection multiRowSec = (MultiRowSection)textSections.get(name);
 			multiRowSec.setText(text);
 		}

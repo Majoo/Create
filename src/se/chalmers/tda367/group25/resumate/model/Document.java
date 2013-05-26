@@ -158,6 +158,7 @@ public class Document implements DocumentInterface {
 		if(name.toString().contains("PERSONAL")){
 			SingleRowSection personalSec = (SingleRowSection)textSections.get(name);
 			personalSec.setText(name, text);
+			System.out.println(name +": " + personalSec.getText(name));
 		}
 		else if(name.toString().contains("HEADER")){
 			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);

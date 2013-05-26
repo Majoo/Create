@@ -89,13 +89,13 @@ public class IOHandler {
 
 		writeSingleFile(new File(fileName + "\\Project.rsmt"),
 				strings.toString());
-		if (strings.containsKey(SectionType.HEADER)) {
-			writeSingleFile(new File(fileName + "\\HEADER.txt"),
-					strings.get(SectionType.HEADER));
+		if (strings.containsKey(SectionType.WORK_HEADER)) {
+			writeSingleFile(new File(fileName + "\\WORK_HEADER.txt"),
+					strings.get(SectionType.WORK_HEADER));
 		}
-		if (strings.containsKey(SectionType.PERSONAL_INFO)) {
-			writeSingleFile(new File(fileName + "\\PERSONAL_INFO.txt"),
-					strings.get(SectionType.PERSONAL_INFO));
+		if (strings.containsKey(SectionType.EDU_HEADER)) {
+			writeSingleFile(new File(fileName + "\\EDU_HEADER.txt"),
+					strings.get(SectionType.EDU_HEADER));
 		}
 		if (strings.containsKey(SectionType.WORK_EXPERIENCE)) {
 			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
@@ -104,6 +104,34 @@ public class IOHandler {
 		if (strings.containsKey(SectionType.EDUCATION)) {
 			writeSingleFile(new File(fileName + "\\EDUCATION.txt"),
 					strings.get(SectionType.EDUCATION));
+		}
+		if (strings.containsKey(SectionType.NAME)) {
+			writeSingleFile(new File(fileName + "\\NAME.txt"),
+					strings.get(SectionType.NAME));
+		}
+		if (strings.containsKey(SectionType.ADDRESS)) {
+			writeSingleFile(new File(fileName + "\\ADDRESS.txt"),
+					strings.get(SectionType.ADDRESS));
+		}
+		if (strings.containsKey(SectionType.CITYZIPCODE)) {
+			writeSingleFile(new File(fileName + "\\CITYZIPCODE.txt"),
+					strings.get(SectionType.CITYZIPCODE));
+		}
+		if (strings.containsKey(SectionType.PHONE)) {
+			writeSingleFile(new File(fileName + "\\PHONE.txt"),
+					strings.get(SectionType.PHONE));
+		}
+		if (strings.containsKey(SectionType.EMAIL)) {
+			writeSingleFile(new File(fileName + "\\EMAIL.txt"),
+					strings.get(SectionType.EMAIL));
+		}
+		if (strings.containsKey(SectionType.EMPTY1)) {
+			writeSingleFile(new File(fileName + "\\EMPTY1.txt"),
+					strings.get(SectionType.EMPTY1));
+		}
+		if (strings.containsKey(SectionType.EMPTY2)) {
+			writeSingleFile(new File(fileName + "\\EMPTY2.txt"),
+					strings.get(SectionType.EMPTY2));
 		}
 	}
 
@@ -122,9 +150,13 @@ public class IOHandler {
 			Map<SectionType, String> strings = new HashMap<SectionType, String>(
 					3);
 			String data = readSingleFile(rsmtInDir);
-			if (data.contains("PERSONAL_INFO")) {
-				strings.put(SectionType.PERSONAL_INFO, readSingleFile(new File(
-						fileName + "\\PERSONAL_INFO.txt")));
+			if (data.contains("WORK_HEADER")) {
+				strings.put(SectionType.WORK_HEADER, readSingleFile(new File(
+						fileName + "\\WORK_HEADER.txt")));
+			}
+			if (data.contains("EDU_HEADER")) {
+				strings.put(SectionType.EDU_HEADER, readSingleFile(new File(
+						fileName + "\\EDU_HEADER.txt")));
 			}
 			if (data.contains("WORK_EXPERIENCE")) {
 				strings.put(SectionType.WORK_EXPERIENCE,
@@ -135,9 +167,33 @@ public class IOHandler {
 				strings.put(SectionType.EDUCATION, readSingleFile(new File(
 						fileName + "\\EDUCATION.txt")));
 			}
-			if (data.contains("HEADER")) {
-				strings.put(SectionType.HEADER, readSingleFile(new File(
-						fileName + "\\HEADER.txt")));
+			if (strings.containsKey(SectionType.NAME)) {
+				strings.put(SectionType.NAME, readSingleFile(new File(fileName
+						+ "\\NAME.txt")));
+			}
+			if (strings.containsKey(SectionType.ADDRESS)) {
+				strings.put(SectionType.ADDRESS, readSingleFile(new File(
+						fileName + "\\ADDRESS.txt")));
+			}
+			if (strings.containsKey(SectionType.CITYZIPCODE)) {
+				strings.put(SectionType.CITYZIPCODE, readSingleFile(new File(
+						fileName + "\\CITYZIPCODE.txt")));
+			}
+			if (strings.containsKey(SectionType.PHONE)) {
+				strings.put(SectionType.PHONE, readSingleFile(new File(fileName
+						+ "\\PHONE.txt")));
+			}
+			if (strings.containsKey(SectionType.EMAIL)) {
+				strings.put(SectionType.EMAIL, readSingleFile(new File(fileName
+						+ "\\EMAIL.txt")));
+			}
+			if (strings.containsKey(SectionType.EMPTY1)) {
+				strings.put(SectionType.EMPTY1, readSingleFile(new File(
+						fileName + "\\EMPTY1.txt")));
+			}
+			if (strings.containsKey(SectionType.EMPTY2)) {
+				strings.put(SectionType.EMPTY2, readSingleFile(new File(
+						fileName + "\\EMPTY2.txt")));
 			}
 			return strings;
 		}

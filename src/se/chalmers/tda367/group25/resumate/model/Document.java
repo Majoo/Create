@@ -206,6 +206,6 @@ public class Document implements DocumentInterface {
 
 	@Override
 	public boolean hasFilePath() {
-		return !(filePath.isEmpty() || filePath == null);
+		return !(filePath.isEmpty());
 	}
 }

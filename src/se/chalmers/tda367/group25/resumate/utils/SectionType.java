@@ -19,5 +19,5 @@ public enum SectionType {
 	EDUCATION,
 	
 	WORK_HEADER,
-	EDU_HEADER
+	EDU_HEADER;
 }

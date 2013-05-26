@@ -115,7 +115,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		this.validate();
 	}
 
-	//-----PropertyChanged-Methods------
+	// -----PropertyChange methods-----//	
 	/**
 	 * Adds a propertychange listnener to this class.
 	 * @param pcl
@@ -152,7 +152,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		}
 	}
 
-	//-----Getters------
+	// -----Queries-----//	
 	/**
 	 * Get the DocView in the tab that is currently in focus.
 	 * 
@@ -172,7 +172,7 @@ public class MainView extends JFrame implements MainViewInterface {
 		return toolbarPanel;
 	}
 
-	//----Setters------
+	// -----Commands-----//
 	/**
 	 * Creates a new tab and puts a DocumentView within it. 
 	 * @param docView

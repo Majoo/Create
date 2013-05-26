@@ -1,6 +1,5 @@
 package se.chalmers.tda367.group25.resumate.views;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.beans.PropertyChangeEvent;
@@ -10,8 +9,6 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 /**
  * This class contains a TemplatePanel which shows the Document. 
@@ -26,7 +23,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	 * A new DocumentView with the default template is created.
 	 */
 	public DocumentView() {
-		this(new CV_Def2());
+		this(new CV_Def());
 	}
 
 	/**
@@ -59,7 +56,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	}
 
 
-	// -----Getters------
+	// -----Queries-----//	
 
 	 /** Get the TemplatePanel of the DocumentView.
 	 * @return
@@ -68,7 +65,8 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	public TemplatePanel getTemplatePanel(){
 		return templatePnl;
 	}
-	// -----Setters------
+	
+	// -----Commands-----//
 	/**
 	 * Set the TemplatePanel of this DocumentView.
 	 * @param tmplPnl

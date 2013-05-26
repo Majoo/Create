@@ -1,13 +1,7 @@
 package se.chalmers.tda367.group25.resumate.views;
 
-import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**

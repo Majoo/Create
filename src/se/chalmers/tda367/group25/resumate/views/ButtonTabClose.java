@@ -1,13 +1,25 @@
 package se.chalmers.tda367.group25.resumate.views;
-import javax.swing.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicButtonUI;
-
-import se.chalmers.tda367.group25.resumate.utils.Labels;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 /**
  * A close component to the JTabbedPane in MainView
@@ -17,7 +29,6 @@ import java.beans.PropertyChangeSupport;
 
 public class ButtonTabClose extends JPanel {
     private final JTabbedPane tabbedPane;
-    private PropertyChangeSupport pcs;
 
     public ButtonTabClose(final JTabbedPane tabbedPane) {
         // Set FlowLayout to the left (of the tab)
@@ -45,8 +56,6 @@ public class ButtonTabClose extends JPanel {
         add(button);
         // Add more space to the top of the component
         setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
-        
-        pcs = new PropertyChangeSupport(this);
     }
 	/**
 	 * Settings for the close tab button. 

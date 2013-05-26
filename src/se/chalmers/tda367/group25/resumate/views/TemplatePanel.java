@@ -265,7 +265,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		getNameTitle().setToolTipText("Fill in your first and last name.");
 	}
 
-	// -----Getters-----
+	// -----Queries-----//	
 	// Textfields with personal info titles
 	
 	/**
@@ -448,17 +448,30 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		return manager;
 	}
 	
-	// List of bordered components
+	/**
+	 * Returns a list of all the components
+	 * 
+	 * @return
+	 * 		All the components
+	 */
+	
 	public List<JComponent> getAllComponents(){
 		return this.allComponents;
 	}
+	
+	/**
+	 * Returns a list with all the textcomponents
+	 * 
+	 * @return
+	 * 		all the text components
+	 */
 	
 	public List<JTextComponent> getTextComponents(){
 		return this.allTextComponents;
 	}
 	
 	
-	// -----Setters for the image-----
+	// -----Commands-----//
 
 	/**
 	 * Shows in view the image given as parameter. 
@@ -511,8 +524,9 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 
 	@Override
 	public void focusLost(FocusEvent arg0) {
-		// Do nothing, the JTextPane which is in focus 
-		// will remain until another one is focused
-
+		// Do nothing.
+		/*
+		 * The JText which is in focus will remain until another one is focused
+		 */
 	}
 }

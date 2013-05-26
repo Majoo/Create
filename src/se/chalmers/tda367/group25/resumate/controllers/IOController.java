@@ -214,7 +214,7 @@ public class IOController {
 		}
 	}
 
-	// ---Getters--- //
+	// -----Queries-----//	
 
 	public String getRecentPath() {
 		return recentPath;
@@ -224,7 +224,7 @@ public class IOController {
 		return stringsFromFiles;
 	}
 
-	// ---Setters--- //
+	// -----Commands-----//
 
 	public void setRecentPath(String newPath) {
 		this.recentPath = newPath;

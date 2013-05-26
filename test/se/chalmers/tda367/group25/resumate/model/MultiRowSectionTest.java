@@ -9,7 +9,7 @@ import org.junit.Test;
 import se.chalmers.tda367.group25.resumate.model.MultiRowSection;
 import se.chalmers.tda367.group25.resumate.utils.Translator;
 import se.chalmers.tda367.group25.resumate.views.CV_Def;
-import se.chalmers.tda367.group25.resumate.views.CV_Def2;
+import se.chalmers.tda367.group25.resumate.views.CV_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
 
@@ -23,7 +23,7 @@ public class MultiRowSectionTest {
 
 	@BeforeClass 
 	public static void method(){
-		p = new CV_Def2();
+		p = new CV_Def();
 		t = new MultiRowSection();
 		t.setText("This is a test");
 		p.getCurrentSection().setText("This a test");

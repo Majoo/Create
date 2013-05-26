@@ -22,8 +22,6 @@ public class DocumentControllerTest {
 	
 	@Test
 	public void getDocTest() {		
-		Document doc = docCon.getDoc(docCon.getCurrentID());
-		
 		assertTrue(docCon.getDoc(docCon.getCurrentID()) != null);
 		
 	}

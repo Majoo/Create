@@ -427,7 +427,7 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 		}
 	}
 	
-	// -----Getters------
+	// -----Queries-----//	
 	
 	public JComboBox getTextSizeCombo(){
 		return textSizeCB;

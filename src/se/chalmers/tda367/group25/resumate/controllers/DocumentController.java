@@ -33,18 +33,17 @@ public class DocumentController implements PropertyChangeListener {
 	 * is paired up with. You can only have 20 Documents at once.
 	 */
 	public DocumentController() {
-		// Instantiate Map
 		this.docAndDocView = new HashMap<Integer, List<Object>>(20);
 
-		// create first document
+		// Create the first document
 		Document d = new Document();
-		List<Object> first = new ArrayList(2);
+		List<Object> first = new ArrayList<Object>(2);
 		first.add(d);
 		setCurrentID(0);
 		this.docAndDocView.put(getCurrentID(), first);
 	}
 
-	// ---GETTERS--- //
+	// -----Queries-----//	
 	/**
 	 * Get the Document associated with the DocumentView given as parameter.
 	 * 
@@ -119,7 +118,7 @@ public class DocumentController implements PropertyChangeListener {
 		return null;
 	}
 
-	// ---SETTERS--- //
+	// -----Commands-----//
 
 	/**
 	 * Adds a new Document to the corresponding value (List) in the
@@ -137,8 +136,6 @@ public class DocumentController implements PropertyChangeListener {
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(d);
-		// Problem: om listan redan finns och redan inneh�ller en av varje.
-
 	}
 
 	/**
@@ -156,8 +153,6 @@ public class DocumentController implements PropertyChangeListener {
 			docAndDocView.put(ID, list);
 		}
 		docAndDocView.get(ID).add(v);
-		// Problem: om listan redan finns och redan inneh�ller en av varje.
-
 	}
 
 	/**

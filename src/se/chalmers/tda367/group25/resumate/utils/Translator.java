@@ -13,6 +13,11 @@ import se.chalmers.tda367.group25.resumate.views.CV_Def;
 import se.chalmers.tda367.group25.resumate.views.PL_Def;
 import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
 
+/**
+ * A class that translates different components 
+ */
+
+
 public class Translator {
 
 	/**
@@ -96,18 +101,36 @@ public class Translator {
 		SectionType section = null;
 
 		switch (name) {
-		// Personal Info
+		// The text fields of personal info
 		case "nameField":
+			section = SectionType.NAME_PERSONAL;
+			break;
+			
 		case "cityzipcodeField":
+			section = SectionType.CITYZIPCODE_PERSONAL;
+			break;
+			
 		case "addressField":
+			section = SectionType.ADDRESS_PERSONAL;
+			break;
+			
 		case "phoneField":
+			section = SectionType.PHONE_PERSONAL;
+			break;
+			
 		case "emailField":
+			section = SectionType.EMAIL_PERSONAL;
+			break;
+			
 		case "empty1Field":
+			section = SectionType.EMPTY1_PERSONAL;
+			break;
+			
 		case "empty2Field":
-			section = SectionType.PERSONAL_INFO;
+			section = SectionType.EMPTY2_PERSONAL;
 			break;
 
-		// Texts
+		// Other text fields 
 		case "workingExperienceText":
 			section = SectionType.WORK_EXPERIENCE;
 			break;
@@ -118,8 +141,11 @@ public class Translator {
 
 		// Headers
 		case "workExpHeader":
+			section = SectionType.WORK_HEADER;
+			break;
+			
 		case "educationHeader":
-			section = SectionType.HEADER;
+			section = SectionType.EDU_HEADER;
 			break;
 
 		default: // Do nothing, never invoked.
@@ -179,8 +205,8 @@ public class Translator {
 	}
 
 	/**
-	 * Takes in a String that represents an image in the filesystem and converts
-	 * it to a BufferedImage.
+	 * Takes in a String that represents an image in the filesystem 
+	 * and converts it to a BufferedImage.
 	 * 
 	 * @param filepath
 	 *            the filename of the image to make a BufferedImage from
@@ -192,7 +218,8 @@ public class Translator {
 			img = ImageIO.read(new File(filepath));
 		} catch (IOException e) {
 			System.out
-					.println("Kunde inte ï¿½versï¿½tta filnamn till BufferedImage i Translator");
+					.println("Kunde inte översätta filnamn " +
+							"till BufferedImage i Translator");
 		}
 		return img;
 	}

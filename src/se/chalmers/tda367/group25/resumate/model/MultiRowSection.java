@@ -12,7 +12,7 @@ import javax.swing.text.StyleConstants;
  */
 public class MultiRowSection extends AbsTextSection{
 
-	private String text;
+	private String text = "";
 	private boolean bold;
 	private boolean italic;
 	private boolean underline;

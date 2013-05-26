@@ -21,19 +21,19 @@ import javax.swing.undo.UndoManager;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 /**
- * A class which represents the core of a Template. It holds the
- * methods for accesing the text in the different fields, for 
- * styling the text in the text areas and basic functions involving writing.
+ * A class which represents the core of a Template. 
+ * It holds the methods for accesing the text in the different fields, 
+ * for styling the text in the text areas and basic functions involving writing.
  */
 public abstract class TemplatePanel extends JPanel implements FocusListener {
-	//Personal Info Titles
+	// Textfields with personal info titles
 	private JTextField nameTitle;
 	private JTextField cityzipcodeTitle;
 	private JTextField addressTitle;
 	private JTextField phoneTitle;
 	private JTextField emailTitle;
 		
-	//Personal Info TextFields
+	// Empty textfields with personal info
 	private JTextField nameField;
 	private JTextField cityzipcodeField;
 	private JTextField addressField;
@@ -42,34 +42,34 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	private JTextField empty1Field;
 	private JTextField empty2Field;
 	
-	//Headers
+	// Headers
 	private JTextField workExpHeader;
 	private JTextField educationHeader;	
 	
-	//Sections
+	// Sections
 	private JLabel imgLabel;
-	private JTextPane workExperienceText;
+	private JTextPane workExpText;
 	private JTextPane educationText;
 	
-	//Important
+	// Important variables
 	private JTextComponent currentSection;
 	private PropertyChangeSupport pcs;
 	private UndoManager manager = new UndoManager();
 	
-	//List of those who should have a border that can be removed easily.
+	// List of those who should have a border that can be removed easily.
 	int nbrOfBorderedComponents = 17;
-	private ArrayList<JComponent> borderedComponents = new ArrayList<JComponent>(nbrOfBorderedComponents);
-	
-	//List/Map for field
-	//List/Map for title
-	//List/Map for headers
+
+	private ArrayList<JComponent> borderedComponents = 
+			new ArrayList<JComponent>(nbrOfBorderedComponents);
+
 
  	/**
- 	 * Create the panel. 
+ 	 * Create the template panel. 
  	 * Is invoked in subclasses with the proper JTextPanes.
+ 	 * Setting all textfields.
  	 */
 	public TemplatePanel(){		
-		//Personal Info Titles
+		// Titles with personal info
 		nameTitle = new JTextField();
 		nameTitle.setName("nameTitle");
 		nameTitle.setText("Name:");
@@ -83,7 +83,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		cityzipcodeTitle.setName("cityzipcodeTitle");
 		cityzipcodeTitle.setText("City/Zipcode:");
 		cityzipcodeTitle.setColumns(10);
-		cityzipcodeTitle.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
+		cityzipcodeTitle.setBorder
+		(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(cityzipcodeTitle);
 		cityzipcodeTitle.addFocusListener(this);
 		cityzipcodeTitle.getDocument().addUndoableEditListener(manager);
@@ -115,7 +116,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		emailTitle.addFocusListener(this);
 		emailTitle.getDocument().addUndoableEditListener(manager);
 		
-		//Personal Info TextFields
+		// Empty textfields with personal info
 		nameField = new JTextField();
 		nameField.setName("nameField");
 		nameField.setColumns(10);
@@ -137,7 +138,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		cityzipcodeField = new JTextField();
 		cityzipcodeField.setName("cityzipcodeField");
 		cityzipcodeField.setColumns(10);
-		cityzipcodeField.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
+		cityzipcodeField.setBorder
+		(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(cityzipcodeField);
 		cityzipcodeField.addFocusListener(this);
 		cityzipcodeField.getDocument().addUndoableEditListener(manager);
@@ -174,7 +176,7 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		empty2Field.addFocusListener(this);
 		empty2Field.getDocument().addUndoableEditListener(manager);
 		
-		//Headers
+		// Headers
 		workExpHeader = new JTextField();
 		workExpHeader.setName("workExpHeader");
 		workExpHeader.setColumns(10);
@@ -186,12 +188,13 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		educationHeader = new JTextField();
 		educationHeader.setName("educationHeader");
 		educationHeader.setColumns(10);
-		educationHeader.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
+		educationHeader.setBorder
+		(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(educationHeader);
 		educationHeader.addFocusListener(this);
 		educationHeader.getDocument().addUndoableEditListener(manager);
 		
-		//Sections
+		// Sections
 		imgLabel = new JLabel("");
 		imgLabel.setName("imgLabel");
 		imgLabel.setForeground(Color.WHITE);
@@ -199,12 +202,12 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		imgLabel.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
 		borderedComponents.add(imgLabel);
 		
-		workExperienceText = new JTextPane();
-		workExperienceText.setName("workExperienceText");
-		workExperienceText.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-		borderedComponents.add(workExperienceText);
-		workExperienceText.addFocusListener(this);
-		workExperienceText.getDocument().addUndoableEditListener(manager);
+		workExpText = new JTextPane();
+		workExpText.setName("workExpText");
+		workExpText.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
+		borderedComponents.add(workExpText);
+		workExpText.addFocusListener(this);
+		workExpText.getDocument().addUndoableEditListener(manager);
 		
 		educationText = new JTextPane();
 		educationText.setName("educationText");
@@ -213,147 +216,150 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		educationText.addFocusListener(this);
 		educationText.getDocument().addUndoableEditListener(manager);
 		
-		//Important
+		// Important variables
 		this.currentSection = nameField;
 		this.pcs = new PropertyChangeSupport(this);
 		pcs.firePropertyChange(Labels.SEND_INITIAL_TSECTIONS, false, true);
 	}
 
-	//-----Getters-----
-	//Personal Info Titles
+	// -----Getters-----
+	// Textfields with personal info titles
 	
 	/**
-	 * Get the JTextField that tells the user to write their name.
+	 * Get the JTextField that indicates the user to write their name.
 	 * @return
-	 * 			the JTextField that tells the user to write their name.
+	 * 			the JTextField that indicates the user to write their name.
 	 */
 	public JTextField getNameTitle(){
 		return this.nameTitle;
 	}
 	
 	/**
-	 * Get the JTextField that tells the user to write their address.
+	 * Get the JTextField that indicates the user to write their address.
 	 * @return
-	 * 			the JTextField that tells the user to write their address.
+	 * 			the JTextField that indicates the user to write their address.
 	 */
 	public JTextField getAddressTitle(){
 		return this.addressTitle;
 	}
 	
 	/**
-	 * Get the JTextField that tells the user to write their City/Zipcode.
+	 * Get the JTextField that indicates the user to write their City/Zipcode.
 	 * @return
-	 * 			the JTextField that tells the user to write their City/Zipcode.
+	 * 			the JTextField that indicates the user 
+	 * 			to write their City/Zipcode.
 	 */
 	public JTextField getCityTitle(){
 		return this.cityzipcodeTitle;
 	} 
 	
 	/**
-	 * Get the JTextField that tells the user to write their phone number.
+	 * Get the JTextField that indicates the user to write their phone number.
 	 * @return
-	 * 			the JTextField that tells the user to write their phone number.
+	 * 			the JTextField that indicates the user 
+	 * 			to write their phone number.
 	 */
 	public JTextField getPhoneTitle(){
 		return this.phoneTitle;
 	}
 	
 	/**
-	 * Get the JTextField that tells the user to write their email-address.
+	 * Get the JTextField that indicates the user to write their email-address.
 	 * @return
-	 * 			the JTextField that tells the user to write their email-address.
+	 * 			the JTextField that indicates the user 
+	 * 			to write their email-address.
 	 */
 	public JTextField getEmailTitle(){
 		return this.emailTitle;
 	}
 	
-	//Personal Info TextFields
+	// Empty textfields with personal info
 	/**
-	 * Get the JTextField were´the user usually writes their name.
+	 * Get the JTextField where the user usually writes their name.
 	 * @return
-	 * 			the JTextField were´the user usually writes their name.
+	 * 			the JTextField where the user usually writes their name.
 	 */
 	public JTextField getNameField(){
 		return this.nameField;
 	}
 	
 	/**
-	 * Get the JTextField were´the user usually writes their address.
+	 * Get the JTextField where the user usually writes their address.
 	 * @return
-	 * 			the JTextField were´the user usually writes their address.
+	 * 			the JTextField where the user usually writes their address.
 	 */
 	public JTextField getAddressField(){
 		return this.addressField;
 	}
 	
 	/**
-	 * Get the JTextField were´the user usually writes their City/Zipcode.
+	 * Get the JTextField where the user usually writes their city.
 	 * @return
-	 * 			the JTextField were´the user usually writes their City/Zipcode.
+	 * 			the JTextField where the user usually writes their city.
 	 */
 	public JTextField getCityField(){
 		return this.cityzipcodeField;
 	} 
 	
 	/**
-	 * Get the JTextField were´the user usually writes their phone number.
+	 * Get the JTextField where the user usually writes their phone number.
 	 * @return
-	 * 			the JTextField were´the user usually writes their phone number.
+	 * 			the JTextField where the user usually writes their phone number.
 	 */
 	public JTextField getPhoneField(){
 		return this.phoneField;
 	}
 	
 	/**
-	 * Get the JTextField were´the user usually writes their email-address.
+	 * Get the JTextField where the user usually writes their mail address.
 	 * @return
-	 * 			the JTextField were´the user usually writes their email-address.
+	 * 			the JTextField where the user usually writes their mail address.
 	 */
 	public JTextField getEmailField(){
 		return this.emailField;
 	}
 	
 	/**
-	 * Get the first JTextField were the user can write whatever personal info they like.
+	 * Get the JTextField where the user can manually writes whatever they like.
 	 * @return
-	 * 			the first JTextField were the user can write whatever personal info they like.
+	 * 			the JTextField where the user can write whatever they like.
 	 */
 	public JTextField getEmptyField1(){
 		return this.empty1Field;
 	}
 	
 	/**
-	 * Get the second JTextField were the user can write whatever personal info they like.
+	 * Get the JTextField where the user can manually writes whatever they like.
 	 * @return
-	 * 			the second JTextField were the user can write whatever personal info they like.
+	 * 			the JTextField where the user can write whatever they like.
 	 */
 	public JTextField getEmptyField2(){
 		return this.empty2Field;
 	}
 	
-	//Headers
+	// Headers
 	/**
-	 * Get the header for writing "Education".
+	 * Get the header (headline) for writing "Education".
 	 * @return
-	 * 			the header for writing "Education".
+	 * 			the header (headline) for writing "Education".
 	 */
 	public JTextField getEduHeader(){
 		return this.educationHeader;
 	}
 	
 	/**
-	 * Get the header for writing "Work Experience".
+	 * Get the header (headline) for writing "Work Experience".
 	 * @return
-	 * 			the header for writing "Work Experience".
+	 * 			the header (headline) for writing "Work Experience".
 	 */
 	public JTextField getWorkExpHeader(){
 		return this.workExpHeader;
 	}
 	
 
-	//Sections
+	// Sections
 	/**
-	 * Get the Image Label
+	 * Get the "Image Label"
 	 * @return
 	 * 			the Image Label
 	 */
@@ -362,16 +368,16 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 	}
 	
 	/**
-	 * Get the Working Experience Text
+	 * Get the "Working Experience Text"
 	 * @return
 	 * 			the Working Experience Text
 	 */
 	public JTextPane getWorkingExperienceText(){
-		return this.workExperienceText;
+		return this.workExpText;
 	}
 	
 	/**
-	 * Get the Education Text
+	 * Get the "Education Text"
 	 * @return
 	 * 			the Education text
 	 */
@@ -379,35 +385,37 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		return this.educationText;
 	}
 	
-	//Important
+	// Important variables
 	/**
-	 * Returns the textarea for the current section
+	 * Returns the textarea for the current section.
 	 * 
-	 * @return JTextPane for the section
+	 * @return 
+	 * 			JTextPane for the section.
 	 */
 	public JTextComponent getCurrentSection(){
 		return currentSection;
 	}
 
 	/**
-	 * Returns the manager handling undo & redo
-	 * 
-	 * @return UndoManager for the sections
+	 * Returns the manager handling undo and redo
+	 * @return 
+	 * 			UndoManager for the sections.
 	 */
 	public UndoManager getManager() {
 		return manager;
 	}
 	
-	//List
+	// List of bordered components
 	public ArrayList<JComponent> getBorderedComponents(){
 		return this.borderedComponents;
 	}
 	
-	//-----Setters for the image-----
+	// -----Setters for the image-----
 
 	/**
-	 * Shows in view the image given as parameter. The idea is to get the image
-	 * from the model and use this method to show it.
+	 * Shows in view the image given as parameter. 
+	 * The idea is to get the image from the model 
+	 * and use this method to show it.
 	 * 
 	 * @param image
 	 *            BufferedImage to be shown in view
@@ -416,11 +424,11 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		imgLabel.setIcon(new ImageIcon(image));
 	}
 
-	//-----PropertyChanged-Methods------
+	// -----PropertyChanged-Methods------
 	/**
-	 * Adds a propertychange listnener to this class.
+	 * Adds a propertychange listener to this class.
 	 * @param pcl
-	 * 			the listener to be registered
+	 * 			the listener to be registered 
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl){
 		pcs.addPropertyChangeListener(pcl);
@@ -428,19 +436,19 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 
 	
 	/**
-	 * Removes a propertychange listnener to this class.
-	 * @param pcl
+	 * Removes a propertychange listener to this class.
+	 * @param pcl 
 	 * 			the listener to be unregistered
 	 */
 	public void removePropertyChangeListener(PropertyChangeListener pcl){
 		pcs.removePropertyChangeListener(pcl);
 	}	
 	
-	//-----Focus-related methods------
+	// -----Focus-related methods------
 	/**
 	 * Sets the current section which is the one currently in focus.
-	 * Informs the controller that the text area has changed so 
-	 * that the view may be informed of these changes. 
+	 * Informs the controller that the text area has changed 
+	 * so that the view may be informed of these changes.  
 	 * @param arg0 
 	 * 			the focused container		
 	 */
@@ -455,8 +463,8 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 
 	@Override
 	public void focusLost(FocusEvent arg0) {
-		//Do nothing, the JTextPane which is in focus 
-		//will remain until another one is focused
+		// Do nothing, the JTextPane which is in focus 
+		// will remain until another one is focused
 
 	}
 }

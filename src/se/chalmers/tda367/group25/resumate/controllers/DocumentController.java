@@ -214,13 +214,30 @@ public class DocumentController implements PropertyChangeListener{
 	
 	
 	
-	//Other
+	/**
+	 * Saves the texts from the template to the document
+	 */
 	public void saveTexts(){
-		//Get the text from TemplatePanel & Store in Text Section
+		//Setting texts for personal information
+		getDoc(getCurrentID()).setText(SectionType.NAME_PERSONAL, getView(getCurrentID()).getTemplatePanel().getNameField().getText());
+		getDoc(getCurrentID()).setText(SectionType.ADDRESS_PERSONAL, getView(getCurrentID()).getTemplatePanel().getAddressField().getText());
+		getDoc(getCurrentID()).setText(SectionType.CITYZIPCODE_PERSONAL, getView(getCurrentID()).getTemplatePanel().getCityField().getText());
+		getDoc(getCurrentID()).setText(SectionType.PHONE_PERSONAL, getView(getCurrentID()).getTemplatePanel().getPhoneField().getText());
+		getDoc(getCurrentID()).setText(SectionType.EMAIL_PERSONAL, getView(getCurrentID()).getTemplatePanel().getEmailField().getText());
+		getDoc(getCurrentID()).setText(SectionType.EMPTY1_PERSONAL, getView(getCurrentID()).getTemplatePanel().getEmptyField1().getText());
+		getDoc(getCurrentID()).setText(SectionType.EMPTY2_PERSONAL, getView(getCurrentID()).getTemplatePanel().getEmptyField2().getText());
 		
+		//Setting texts for work experience and education
+		getDoc(getCurrentID()).setText(SectionType.WORK_EXPERIENCE, getView(getCurrentID()).getTemplatePanel().getWorkingExperienceText().getText());
+		getDoc(getCurrentID()).setText(SectionType.EDUCATION, getView(getCurrentID()).getTemplatePanel().getEducationText().getText());
+		
+		//Setting texs for the headers
+		getDoc(getCurrentID()).setText(SectionType.WORK_HEADER,getView(getCurrentID()).getTemplatePanel().getWorkExpHeader().getText());
+		getDoc(getCurrentID()).setText(SectionType.EDU_HEADER, getView(getCurrentID()).getTemplatePanel().getEduHeader().getText());
+
+		//Save text to model
+		getDoc(getCurrentID()).setAllTexts();
 	}
-	
-	
 	
 	//-----PropertyChanged-Methods------
 	

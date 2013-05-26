@@ -243,6 +243,23 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		// Adding menu items and setting properties located in the About Menu
 		JMenu mnAbout = new JMenu("About");
 		add(mnAbout);
+		
+		JMenuItem mntmResumate = new JMenuItem("ResuMate");
+		mntmResumate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, 
+						"               ResuMate v1.0\n \n" +
+						"Danny Lam, Laszlo Sall Vesselenyi\n" +
+						"Patricia Paulsson, Sara Nadi\n\n" +
+						"Last update: 26/05-2013                  ");
+				
+			}
+		});
+		mntmResumate.setMnemonic('e');
+		mntmResumate.setAccelerator(KeyStroke.getKeyStroke
+				(KeyEvent.VK_E, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		mntmResumate.setToolTipText("Your best friend in job hunting.");
+		mnAbout.add(mntmResumate);
 	}
 
 	// Setters
@@ -255,14 +272,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	}
 
 	/**
-	 * Set look and feel
+	 * Set look and feel for the menu bar
 	 */
 	private void setLookAndFeel() {
 		try {
-			// Set System L&F
+			// Set System Look&Feel
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
-			System.out.println("Couldn't set look and feel in MenuBar");
+			System.out.println("Couldn't set look and feel in MenuBar.");
 		}
 	}
 
@@ -282,8 +299,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	}
 
 	/**
-	 * Settles the actions to be performed depeding on which component which was
-	 * the source.
+	 * Settles the actions to be performed depeding 
+	 * on which component which was the source.
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 
@@ -296,9 +313,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				pcs.firePropertyChange(Labels.SAVE_DOC, false, true);
 
 			}
-			String st = JOptionPane.showInputDialog("New document:", "untitled");
-			if(!st.equals(null)){
+			String st = JOptionPane.showInputDialog(null, 
+					"New document:");
+
+			if(!st.equals("")){
 				pcs.firePropertyChange(Labels.NEW_DOC, false, st);
+			}else{
+				JOptionPane.showMessageDialog(null, 
+						"Please enter a valid name.");
 			}
 
 		case "Save":
@@ -319,13 +341,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					JOptionPane.YES_NO_OPTION);
 			if (selection == JOptionPane.YES_OPTION) {
 				pcs.firePropertyChange(Labels.SAVE_DOC, false, true); 
-
 				System.exit(0);
 			} else if (selection == JOptionPane.CLOSED_OPTION) {
 				// Do nothing
 			} else {
 				System.exit(0);
 			}
+			break;
 		case "Export":
 			pcs.firePropertyChange(Labels.EXPORT_DOC, false, true);
 			break;
@@ -376,10 +398,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					replaceNeedsInput = false;
 					while (replaceWithNeedsInput) {
 						replaceWith = JOptionPane.showInputDialog
-								(null, null, "Replace " + replaceThis + " with:", 2);
+								(null, null, "Replace " + 
+						replaceThis + " with:", 2);
 						if (replaceWith.isEmpty()) {
 							JOptionPane.showMessageDialog
-							(null, "Please enter a word to replace with");
+							(null, "Please enter a word to replace with:");
 						} else {
 							replaceWithNeedsInput = false;
 							pcs.firePropertyChange(Labels.TEXT_REPLACED, 
@@ -409,7 +432,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 								"Replace all " + replaceThiis + " with:", 2);
 						if (replaceWiith.isEmpty()) {
 							JOptionPane.showMessageDialog(null,
-									"Please enter a word to replace with");
+									"Please enter a word to replace with:");
 						} else {
 							replaceWithNeedsInputA = false;
 							pcs.firePropertyChange(Labels.REPLACE_ALL_TEXT,
@@ -432,7 +455,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			pcs.firePropertyChange(Labels.TEXTSTYLE_CHANGED, null, "U");
 			break;
 
-			/* Image related: */
+			/* 
+			 * Image related actions 
+			 * 
+			 * */
 		case "Upload":
 			JFileChooser chooser;
 			if(this.curDirectoryPath == null){
@@ -447,9 +473,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			int returnVal = chooser.showOpenDialog(getParent());
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				String path = chooser.getSelectedFile().getPath();
-				//Set the new lastOpenedDirectoryPath
+				// Set the new lastOpenedDirectoryPath
 				setCurrentDirectoryPath(path);
-				//Fire PropertyChangEvent
+				// Fire PropertyChangEvent
 				System.out.println("You chose to open this file: " + path);
 				pcs.firePropertyChange(Labels.INSERT_IMAGE, path, false);
 			}

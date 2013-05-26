@@ -10,6 +10,10 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+/**
+ * A class that represents the CV Classy template.
+ */
+
 public class CV_Classy extends TemplatePanel {
 	
 	public CV_Classy() {

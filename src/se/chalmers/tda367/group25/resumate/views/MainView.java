@@ -19,7 +19,7 @@ import com.itextpdf.awt.geom.Dimension;
 import se.chalmers.tda367.group25.resumate.utils.Labels;
 
 /**
- * This class is the visual and graphical user interface 
+ * This class represents all the visual and graphical user interface 
  * of the frame, panels and toolbar.
  */
 public class MainView extends JFrame implements MainViewInterface {
@@ -42,7 +42,7 @@ public class MainView extends JFrame implements MainViewInterface {
 
 		// The frame
 		setVisible(true);
-		setTitle("ResuMate" + " - your best friend in jobsearching.");
+		setTitle("ResuMate" + " - your best friend in job hunting.");
 		// Default size when not maximized
 		setSize(840,500);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	

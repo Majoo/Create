@@ -10,8 +10,9 @@ import se.chalmers.tda367.group25.resumate.utils.Template;
 public class Document implements DocumentInterface{
 
 	private Template currentTempl;
-	// Sections
-	private Map<SectionType, ITextSection> texts = new HashMap<SectionType, ITextSection>(4);
+	private Map<SectionType, ITextSection> textSections = new HashMap<SectionType, ITextSection>(4);
+	private Map<SectionType, String> texts = new HashMap<SectionType, String>(
+			textSections.size());
 	private RMImage rmI;
 
 	// Unsurprisingly, the path to the file representation of this Document is
@@ -40,54 +41,48 @@ public class Document implements DocumentInterface{
 	}
 
 	/**
-	 * Create necessary Sections according to Template. Checks if Sections have
-	 * already been created; if they haven't, this method creates them
+	 * Create necessary Sections according to Template.
 	 */
 	private void createSections() {
 		switch (currentTempl) {
 
 		case DEF_CV:
-
-			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new PersonalInformationSection());
-			}
-			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new Header());
-			}
-			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-				texts.put(SectionType.WORK_EXPERIENCE, new MultiRowSection());
-			}
-			
+			checkSections(SectionType.PERSONAL_INFO);
+			checkSections(SectionType.HEADER);
+			checkSections(SectionType.WORK_EXPERIENCE);
 			break;
 		case DEF_PL:
-			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new MultiRowSection());
-			}
-			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new Header());
-			}
-			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-				texts.put(SectionType.WORK_EXPERIENCE, new MultiRowSection());
-			}
-
+			
+			checkSections(SectionType.PERSONAL_INFO);
+			checkSections(SectionType.HEADER);
+			checkSections(SectionType.WORK_EXPERIENCE);
 			break;
+			
 		case CLASSY_CV:
-			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new PersonalInformationSection());
-			}
-			if (!texts.containsKey(SectionType.HEADER)) {
-				texts.put(SectionType.HEADER, new Header());
-			}
-			if (!texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-				texts.put(SectionType.WORK_EXPERIENCE, new MultiRowSection());
-			}
-			if (!texts.containsKey(SectionType.EDUCATION)) {
-				texts.put(SectionType.EDUCATION, new MultiRowSection());
-			}
-			break;
+			
+			checkSections(SectionType.PERSONAL_INFO);
+			checkSections(SectionType.HEADER);
+			checkSections(SectionType.WORK_EXPERIENCE);
+			checkSections(SectionType.EDUCATION);
+			break;	
 		}
 	}
-
+	
+	/**
+	 * Checks if Sections have already been created; if they haven't, this method creates them.
+	 * @param type
+	 * 			the section to be checked
+	 */
+	public void checkSections(SectionType type){
+		if (!textSections.containsKey(type)) {
+			if(type.equals(SectionType.HEADER) || type.equals(SectionType.PERSONAL_INFO)){
+				textSections.put(type, new SingleRowSection());
+			}else if (type.equals(SectionType.EDUCATION)|| type.equals(SectionType.WORK_EXPERIENCE)){
+				textSections.put(type, new MultiRowSection());
+			}
+		}
+	}
+	
 	// ---Getters---//
 
 	/**
@@ -105,9 +100,9 @@ public class Document implements DocumentInterface{
 	 * 
 	 * @return the Map of the RMTexts
 	 */
-	public Map<SectionType, ITextSection> getTexts() {
+	public Map<SectionType, ITextSection> getSectionTexts() {
 		// TODO Make clone safe
-		return texts;
+		return textSections;
 	}
 
 	/**
@@ -115,38 +110,15 @@ public class Document implements DocumentInterface{
 	 * 
 	 * @return List of Strings
 	 */
-	public Map<SectionType, String> getStrings() {
-		Map<SectionType, String> strings = new HashMap<SectionType, String>(
-				texts.size());
-		if (texts.containsKey(SectionType.HEADER)) {
-			
-			for (String text: texts.get(SectionType.HEADER).getText())	
-			strings.put(SectionType.HEADER, text);
-		}
-		if (texts.containsKey(SectionType.PERSONAL_INFO)) {
-			for(String text: texts.get(SectionType.PERSONAL_INFO).getText())
-			strings.put(SectionType.PERSONAL_INFO, text);
-		}
-		if (texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-			for(String text: texts.get(SectionType.WORK_EXPERIENCE).getText())
-			strings.put(SectionType.WORK_EXPERIENCE, text);
-		}
-		if (texts.containsKey(SectionType.EDUCATION)) {
-			for(String text: texts.get(SectionType.EDUCATION).getText())
-			strings.put(SectionType.EDUCATION, text);
-		}
-		return strings;
+	public Map<SectionType, String> getTexts() {
+		return texts;
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Gets the FilePath of the
-=======
 	 * Gets the FilePath of the Document
->>>>>>> master
 	 * 
 	 * @return 
-	 * 			the FilePath of the Document
+	 * 		the FilePath of the Document
 	 */
 	public String getFilePath() {
 		return filePath;
@@ -176,27 +148,52 @@ public class Document implements DocumentInterface{
 	}
 
 	/**
-	 * Change the content of an RMText in the Map of the RMTexts of the
-	 * Document. If the specified RMText Section doesn't exist, create it
-	 * 
-	 * @param st
-	 *            the SectionType identity of the RMText
+	 * Saves the text from the sectiontype in textsections
+	 * @param name
+	 * 			the sectiontype which is to save text
 	 * @param text
-	 *            the text to change to
+	 * 			the string which is to be saved
 	 */
-	public void setText(SectionType st, String text) {
-		if (!texts.containsKey(st)) {
-			createSections();
+	public void setText(SectionType name, String text){
+		if(name.toString().contains("PERSONAL")){
+			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
+			personalSec.setText(name, text);
 		}
-
-		//texts.get(st).setText(text);
+		else if(name.toString().contains("HEADER")){
+			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.HEADER);
+			personalSec.setText(name, text);
+		}
+		else{
+			MultiRowSection multiRowSec = (MultiRowSection)textSections.get(name);
+			multiRowSec.setText(text);
+		}
 	}
-
+	
 	/**
-	 * 
-	 * @param strings
+	 * Saves all the texts in the text sections to the map texts.
 	 */
-	public void setAllTexts(Map<SectionType, String> strings) {
-//		texts.putAll(strings);
+	public void setAllTexts() {
+		if (textSections.containsKey(SectionType.HEADER)) {
+			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
+			texts.put(SectionType.WORK_HEADER, headerSec.getText(SectionType.WORK_HEADER));
+			texts.put(SectionType.EDU_HEADER, headerSec.getText(SectionType.EDU_HEADER));
+		}
+		if (textSections.containsKey(SectionType.PERSONAL_INFO)) {
+			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
+			texts.put(SectionType.ADDRESS_PERSONAL, personalSec.getText(SectionType.ADDRESS_PERSONAL));
+			texts.put(SectionType.CITYZIPCODE_PERSONAL, personalSec.getText(SectionType.CITYZIPCODE_PERSONAL));
+			texts.put(SectionType.PHONE_PERSONAL, personalSec.getText(SectionType.PHONE_PERSONAL));
+			texts.put(SectionType.EMAIL_PERSONAL, personalSec.getText(SectionType.EMAIL_PERSONAL));
+			texts.put(SectionType.EMPTY1_PERSONAL, personalSec.getText(SectionType.EMPTY1_PERSONAL));
+			texts.put(SectionType.EMPTY2_PERSONAL, personalSec.getText(SectionType.EMPTY2_PERSONAL));
+		}
+		if (textSections.containsKey(SectionType.WORK_EXPERIENCE)) {
+			MultiRowSection workSec = (MultiRowSection)textSections.get(SectionType.WORK_EXPERIENCE);
+			texts.put(SectionType.WORK_EXPERIENCE, workSec.getText());
+		}
+		if (textSections.containsKey(SectionType.EDUCATION)) {
+			MultiRowSection eduSec = (MultiRowSection)textSections.get(SectionType.EDUCATION);
+			texts.put(SectionType.EDU_HEADER, eduSec.getText());
+		}
 	}
 }

@@ -98,7 +98,7 @@ public class MainController implements PropertyChangeListener {
 		case Labels.UPDATE_INITIAL_TOOLBAR:
 			JTextComponent curTextSection = docCon.getView(docCon.getCurrentID()).getTemplatePanel()
 			.getCurrentSection();
-			ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getTexts()
+			ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
 					.get(Translator.containerToSectionType(curTextSection));
 			mainView.getToolbarPanel().getTextFontCombo().setSelectedItem(curText.getFont());
 			System.out.println(curText.getFont());
@@ -201,7 +201,7 @@ public class MainController implements PropertyChangeListener {
 		 */
 		JTextComponent curTextSection = docCon.getView(docCon.getCurrentID()).getTemplatePanel()
 				.getCurrentSection();
-		ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getTexts()
+		ITextSection curText = docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
 				.get(Translator.containerToSectionType(curTextSection));
 
 		switch (e.getPropertyName()) {
@@ -235,7 +235,7 @@ public class MainController implements PropertyChangeListener {
 			ViewHandler.selectAll(curTextSection);
 			break;
 		case Labels.SAVE_TEXT:
-			//TODO
+			docCon.saveTexts();
 			break;
 
 		case Labels.TEXTFONT_CHANGED:
@@ -256,7 +256,7 @@ public class MainController implements PropertyChangeListener {
 				curText.changeFont(tmp, style);
 			}
 			System.out.println("Changing fonts ");
-			curText.changeStyle(curTextSection, style);
+			//curText.changeStyle(curTextSection, style);
 			break;
 
 		case Labels.TEXTCOLOUR_CHANGED:
@@ -289,12 +289,12 @@ public class MainController implements PropertyChangeListener {
 			
 			JTextPane textAreaWork = docCon.getView(docCon.getCurrentID())
 					.getTemplatePanel().getWorkingExperienceText();		
-			MultiRowSection textWork = (MultiRowSection) docCon.getDoc(docCon.getCurrentID()).getTexts()
+			MultiRowSection textWork = (MultiRowSection) docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
 					.get(Translator.containerToSectionType(textAreaWork));
 			
 			JTextPane textAreaEd = docCon.getView(docCon.getCurrentID())
 					.getTemplatePanel().getEducationText();		
-			MultiRowSection textEd= (MultiRowSection) docCon.getDoc(docCon.getCurrentID()).getTexts()
+			MultiRowSection textEd= (MultiRowSection) docCon.getDoc(docCon.getCurrentID()).getSectionTexts()
 					.get(Translator.containerToSectionType(textAreaEd));
 			
 			textWork.replaceText(textAreaWork, replaceA, replaceWithA);

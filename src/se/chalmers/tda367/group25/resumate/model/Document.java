@@ -7,11 +7,12 @@ import java.util.Map;
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 import se.chalmers.tda367.group25.resumate.utils.Template;
 
-public class Document implements DocumentInterface{
+public class Document implements DocumentInterface {
 
 	private Template currentTempl;
 	// Sections
-	private Map<SectionType, ITextSection> texts = new HashMap<SectionType, ITextSection>(4);
+	private Map<SectionType, ITextSection> texts = new HashMap<SectionType, ITextSection>(
+			4);
 	private RMImage rmI;
 
 	// Unsurprisingly, the path to the file representation of this Document is
@@ -49,7 +50,8 @@ public class Document implements DocumentInterface{
 		case DEF_CV:
 
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new PersonalInformationSection());
+				texts.put(SectionType.PERSONAL_INFO,
+						new PersonalInformationSection());
 			}
 			if (!texts.containsKey(SectionType.HEADER)) {
 				texts.put(SectionType.HEADER, new Header());
@@ -58,7 +60,7 @@ public class Document implements DocumentInterface{
 				texts.put(SectionType.WORK_EXPERIENCE, new TextSection(
 						SectionType.WORK_EXPERIENCE));
 			}
-			
+
 			break;
 		case DEF_PL:
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
@@ -76,7 +78,8 @@ public class Document implements DocumentInterface{
 			break;
 		case CLASSY_CV:
 			if (!texts.containsKey(SectionType.PERSONAL_INFO)) {
-				texts.put(SectionType.PERSONAL_INFO, new PersonalInformationSection());
+				texts.put(SectionType.PERSONAL_INFO,
+						new PersonalInformationSection());
 			}
 			if (!texts.containsKey(SectionType.HEADER)) {
 				texts.put(SectionType.HEADER, new Header());
@@ -124,34 +127,30 @@ public class Document implements DocumentInterface{
 		Map<SectionType, String> strings = new HashMap<SectionType, String>(
 				texts.size());
 		if (texts.containsKey(SectionType.HEADER)) {
-			
-			for (String text: texts.get(SectionType.HEADER).getText())	
-			strings.put(SectionType.HEADER, text);
+
+			for (String text : texts.get(SectionType.HEADER).getText())
+				strings.put(SectionType.HEADER, text);
 		}
 		if (texts.containsKey(SectionType.PERSONAL_INFO)) {
-			for(String text: texts.get(SectionType.PERSONAL_INFO).getText())
-			strings.put(SectionType.PERSONAL_INFO, text);
+			for (String text : texts.get(SectionType.PERSONAL_INFO).getText())
+				strings.put(SectionType.PERSONAL_INFO, text);
 		}
 		if (texts.containsKey(SectionType.WORK_EXPERIENCE)) {
-			for(String text: texts.get(SectionType.WORK_EXPERIENCE).getText())
-			strings.put(SectionType.WORK_EXPERIENCE, text);
+			for (String text : texts.get(SectionType.WORK_EXPERIENCE).getText())
+				strings.put(SectionType.WORK_EXPERIENCE, text);
 		}
 		if (texts.containsKey(SectionType.EDUCATION)) {
-			for(String text: texts.get(SectionType.EDUCATION).getText())
-			strings.put(SectionType.EDUCATION, text);
+			for (String text : texts.get(SectionType.EDUCATION).getText())
+				strings.put(SectionType.EDUCATION, text);
 		}
 		return strings;
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Gets the FilePath of the
-=======
-	 * Gets the FilePath of the Document
->>>>>>> master
+	 * <<<<<<< HEAD Gets the FilePath of the ======= Gets the FilePath of the
+	 * Document >>>>>>> master
 	 * 
-	 * @return 
-	 * 			the FilePath of the Document
+	 * @return the FilePath of the Document
 	 */
 	public String getFilePath() {
 		return filePath;
@@ -194,7 +193,7 @@ public class Document implements DocumentInterface{
 			createSections();
 		}
 
-		//texts.get(st).setText(text);
+		// texts.get(st).setText(text);
 	}
 
 	/**
@@ -202,6 +201,11 @@ public class Document implements DocumentInterface{
 	 * @param strings
 	 */
 	public void setAllTexts(Map<SectionType, String> strings) {
-//		texts.putAll(strings);
+		// texts.putAll(strings);
+	}
+
+	@Override
+	public boolean hasFilePath() {
+		return !(filePath.isEmpty() || filePath == null);
 	}
 }

@@ -1,5 +1,6 @@
 package se.chalmers.tda367.group25.resumate.controllers;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
@@ -24,7 +25,7 @@ import com.itextpdf.text.DocumentException;
  * 
  * @author Laszlo Sall Vesselenyi
  */
-public class IOController {
+public class IOController implements PropertyChangeListener {
 
 	private PropertyChangeSupport pcs;
 
@@ -253,5 +254,17 @@ public class IOController {
 
 	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.removePropertyChangeListener(pcl);
+	}
+
+	/**
+	 * Fires the propertychange event further to the main controller where the
+	 * events are to be handled.
+	 * 
+	 * @param e
+	 *            the source of the event
+	 */
+	@Override
+	public void propertyChange(PropertyChangeEvent e) {
+
 	}
 }

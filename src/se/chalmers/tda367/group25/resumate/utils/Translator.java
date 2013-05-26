@@ -17,37 +17,7 @@ import se.chalmers.tda367.group25.resumate.views.TemplatePanel;
  * A class that translates different components 
  */
 
-
 public class Translator {
-
-	/**
-	 * Translates a DocumentView Panel to a Template.
-	 * 
-	 * @param name
-	 *            the name of Panel to translate
-	 * @return the corresponding Template
-	 */
-	public static Template panelToTemplate(String name) {
-		Template template = null;
-		switch (name) {
-		case "CV_Def":
-			template = Template.DEF_CV;
-			break;
-
-		case "CV_Classy":
-			template = Template.CLASSY_CV;
-			break;
-
-		case "PL_Def":
-			template = Template.DEF_PL;
-			break;
-
-		default: // Do nothing, never invoked.
-
-		}
-		return template;
-
-	}
 
 	/**
 	 * Translates a an Object which is an instance of Template into its
@@ -57,33 +27,25 @@ public class Translator {
 	 *            the object to be translated
 	 * @return the TemplatePanel which the template corresponds to.
 	 */
-	public static TemplatePanel templateToPanel(Object o) {
+	public static TemplatePanel templateToPanel(String name) {
 
 		TemplatePanel panel = null;
-		Template template = null;
-		if (o instanceof Template) {
-			template = (Template) o;
-		}
-		System.out.println(template);
-
-		switch (template) {
-
-		case DEF_CV:
+		
+		switch (name) {
+		case "CV_Def":
 			panel = new CV_Def();
 			break;
 
-		case DEF_PL:
+		case "DEF_PL":
 			panel = new PL_Def();
 			break;
 
-		case CLASSY_CV:
+		case "CLASSY_CV":
 			panel = new CV_Classy();
 			break;
 
 		default: // Do nothing, never invoke
-
 		}
-
 		return panel;
 	}
 
@@ -194,7 +156,6 @@ public class Translator {
 
 	public static Color stringToColor(String name) {
 		Color col = null;
-
 		switch (name) {
 		case "Black":
 			col = Color.BLACK;

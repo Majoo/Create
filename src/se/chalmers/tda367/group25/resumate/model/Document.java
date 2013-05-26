@@ -73,14 +73,9 @@ public class Document implements DocumentInterface {
 	 * @param type
 	 * 			the section to be checked
 	 */
-	private void checkSections(SectionType type){
-		switch(type){
-		case ADDRESS_PERSONAL:
-			
-			
-		}
-		if (!textSections.containsKey(type)) {
-			if(type.toString().contains("HEADER") || type.toString().contains("PERSONAL")){
+	public void checkSections(SectionType type){
+		if (!textSections.containsKey(type) ) {
+			if(type.equals(SectionType.HEADER) || type.equals(SectionType.PERSONAL_INFO)){
 				textSections.put(type, new SingleRowSection());
 			}else if (type.equals(SectionType.EDUCATION)|| type.equals(SectionType.WORK_EXPERIENCE)){
 				textSections.put(type, new MultiRowSection());
@@ -165,8 +160,8 @@ public class Document implements DocumentInterface {
 			personalSec.setText(name, text);
 		}
 		else if(name.toString().contains("HEADER")){
-			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.HEADER);
-			personalSec.setText(name, text);
+			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
+			headerSec.setText(name, text);
 		}
 		else{
 			MultiRowSection multiRowSec = (MultiRowSection)textSections.get(name);

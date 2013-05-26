@@ -237,7 +237,6 @@ public abstract class TemplatePanel extends JPanel implements FocusListener {
 		// Important variables
 		this.currentSection = nameField;
 		this.pcs = new PropertyChangeSupport(this);
-		pcs.firePropertyChange(Labels.SEND_INITIAL_TSECTIONS, false, true);
 	}
 
 	// -----Getters-----

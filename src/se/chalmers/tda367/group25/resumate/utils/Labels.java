@@ -1,6 +1,5 @@
 package se.chalmers.tda367.group25.resumate.utils;
 
-import java.beans.PropertyChangeEvent;
 
 /**
  * This class represents all the Template enums 
@@ -25,7 +24,6 @@ public class Labels {
 	public static final String RENAME_DOC = "RENAME_DOC";
 	public static final String SEND_DOC = "SEND_DOC";
 	
-	public static final String SAVE_TEXT = "SAVE_TEXT";
 	public static final String TEXTFONT_CHANGED = "TEXTFONT_CHANGED";
 	public static final String TEXTSTYLE_CHANGED = "TEXTSTYLE_CHANGED";
 	public static final String TEXTSIZE_CHANGED = "TEXTSIZE_CHANGED";

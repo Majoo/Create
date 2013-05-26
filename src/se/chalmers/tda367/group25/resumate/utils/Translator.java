@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
 import se.chalmers.tda367.group25.resumate.views.CV_Classy;
@@ -65,7 +66,16 @@ public class Translator {
 		case "empty2Field":
 			section = SectionType.PERSONAL_INFO;
 			break;
-
+			
+		// The info title fields of personal info	
+		case "nameTitle":
+		case "cityzipcodeTitle":
+		case "addressTitle":
+		case "phoneTitle":
+		case "emailTitle":	
+			section = SectionType.INFO_TITLE;
+			break;
+			
 		// Other text fields 
 		case "workExpText":
 			section = SectionType.WORK_EXPERIENCE;
@@ -100,6 +110,27 @@ public class Translator {
 		SectionType section = null;
 
 		switch (name) {
+		// The info titles of personal info
+		case "nameTitle":
+			section = SectionType.NAME_TITLE;
+			break;
+	
+		case "cityzipcodeTitle":
+			section = SectionType.CITYZIPCODE_TITLE;
+			break;
+			
+		case "addressTitle":
+			section = SectionType.ADDRESS_TITLE;
+			break;
+			
+		case "phoneTitle":
+			section = SectionType.PHONE_TITLE;
+			break;
+			
+		case "emailTitle":
+			section = SectionType.EMAIL_TITLE;
+			break;
+		
 		// The text fields of personal info
 		case "nameField":
 			section = SectionType.NAME_PERSONAL;

@@ -14,8 +14,8 @@ public class SingleRowSection extends AbsTextSection {
 	private Map<String, Boolean> styles = new HashMap<String, Boolean>(17);
 	private Map<SectionType, String> texts;
 	
-	public SingleRowSection(){
-		super("Tahoma","Black", 12);
+	public SingleRowSection(int size){
+		super("Tahoma","Black", size);
 		this.styles = new HashMap<String, Boolean>(3);
 		this.texts = new HashMap <SectionType, String>(17);
 	}

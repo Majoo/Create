@@ -60,14 +60,13 @@ public class MainController implements PropertyChangeListener {
 		switch (e.getPropertyName()) {
 
 		case Labels.TEMPLATE_CHANGED:
-			// To be implemented
-			/*
-			 * System.out.println("in tempchanged in maincontroller");
-			 * TemplatePanel tempChange = Translator.templateToPanel(e
-			 * .getNewValue().toString()); docCon.saveTexts();
-			 * docCon.getView(docCon.getCurrentID()).setTemplate(tempChange);
-			 * mainView.validate(); mainView.setVisible(true);
-			 */
+			//To be implemented
+			/*TemplatePanel tempChange = Translator.templateToPanel(e
+					.getNewValue().toString());
+			docCon.saveTexts();
+			docCon.getView(docCon.getCurrentID()).setTemplate(tempChange);
+			mainView.validate();
+			mainView.setVisible(true);*/
 			break;
 
 		default:

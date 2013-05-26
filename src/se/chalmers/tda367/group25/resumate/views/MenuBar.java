@@ -85,7 +85,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmExportAsPdf.addActionListener(this);
 		mntmExportAsPdf.setActionCommand("Export");
 		mnFile.add(mntmExportAsPdf);
-
+		
+		JSeparator separator = new JSeparator();
+		mnFile.add(separator);
+		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mntmExit.setMnemonic('e');
 		mntmExit.setAccelerator(KeyStroke.getKeyStroke
@@ -149,7 +152,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmSA.setActionCommand("SelectAll");
 		mnEdit.add(mntmSA);
 
-		JSeparator separator = new JSeparator();
+		separator = new JSeparator();
 		mnEdit.add(separator);
 
 		JMenuItem mntmFind = new JMenuItem("Find");
@@ -169,6 +172,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mnEdit.add(mntmReplace);
 
 		JMenuItem mntmReplaceAll = new JMenuItem("Replace All");
+		mntmReplaceAll.setEnabled(false);
 		mntmReplaceAll.setAccelerator(KeyStroke.getKeyStroke
 				(KeyEvent.VK_L, InputEvent.CTRL_MASK));
 		mntmReplaceAll.setMnemonic('A');
@@ -222,6 +226,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		grayscaleImage.addActionListener(this);
 		grayscaleImage.setActionCommand("Grayscale");
 		mnImage.add(grayscaleImage);
+		
+		separator = new JSeparator();
+		mnImage.add(separator);
 
 		JMenuItem resetImage = new JMenuItem("Reset");
 		resetImage.setMnemonic('R');
@@ -234,10 +241,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		// Adding menu items and setting properties located in the Show Menu
 		JMenu mnShow = new JMenu("Show");
+		mnShow.setEnabled(false);
 		add(mnShow);
 
 		// Adding menu items and setting properties located in the Help Menu
 		JMenu mnHelp = new JMenu("Help");
+		mnHelp.setEnabled(false);
 		add(mnHelp);
 
 		// Adding menu items and setting properties located in the About Menu
@@ -248,11 +257,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		mntmResumate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, 
-						"               ResuMate v1.0\n \n" +
-						"Danny Lam, Laszlo Sall Vesselenyi\n" +
-						"Patricia Paulsson, Sara Nadi\n\n" +
-						"Last update: 26/05-2013                  ");
-				
+						"<html>               <b>ResuMate v1.0</b><br><br>" +
+						"Author: <br>Danny Lam, Laszlo Sall Vesselenyi<br>" +
+						"Patricia Paulsson, Sara Nadi<br><br>" +
+						"Last update: 26/05-2013                     </html>");
 			}
 		});
 		mntmResumate.setMnemonic('e');

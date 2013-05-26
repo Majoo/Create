@@ -100,7 +100,6 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 	 * 			the template panel to be set.
 	 */
 	public void setTemplate(TemplatePanel tmplPnl){
-		System.out.println("Setting template in DocumentViews");
 		this.templatePnl = tmplPnl;
 		this.templatePnl.validate();
 		this.templatePnl.updateUI();
@@ -140,8 +139,7 @@ public class DocumentView extends JPanel implements PropertyChangeListener {
 			pcs.firePropertyChange(evt.getPropertyName(),evt.getOldValue(),
 					evt.getNewValue());
 		} catch (NullPointerException e){
-			System.out.println("Caught NullPointerException " +
-					"in DocumentViews propertyChange");
+			e.printStackTrace();
 		}
 		
 	}

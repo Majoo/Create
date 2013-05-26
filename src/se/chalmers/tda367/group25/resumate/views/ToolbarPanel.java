@@ -419,7 +419,6 @@ public class ToolbarPanel extends JPanel implements ActionListener{
 					null, "Def_CV");
 			break;
 		case "ClassyCV":			
-			System.out.println("sends event with CLASSY_CV");
 			pcs.firePropertyChange(Labels.TEMPLATE_CHANGED, 
 					null, "Classy_CV");
 			break;		

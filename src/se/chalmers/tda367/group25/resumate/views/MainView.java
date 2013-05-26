@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import com.itextpdf.awt.geom.Dimension;
 
 import se.chalmers.tda367.group25.resumate.utils.Labels;
+import java.awt.Font;
 
 /**
  * This class represents all the visual and graphical user interface 
@@ -98,6 +99,7 @@ public class MainView extends JFrame implements MainViewInterface {
 				SpringLayout.EAST, menuBar);
 
 		DocumentView docView = new DocumentView();
+		docView.getTemplatePanel().getCurrentSection().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		docView.setToolTipText("<html><b>Protip!</b><br> " +
 				"Open new tabs to work with seperate CV's and PL's!</html>");
 		docViewList.add(docView);

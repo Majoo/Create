@@ -101,9 +101,9 @@ public class IOHandler {
 			writeSingleFile(new File(fileName + "\\WORK_EXPERIENCE.txt"),
 					strings.get(SectionType.WORK_EXPERIENCE));
 		}
-		if (strings.containsKey(SectionType.EDUCATION)) {
+		if (strings.containsKey(SectionType.EDUCATION_EXPERIENCE)) {
 			writeSingleFile(new File(fileName + "\\EDUCATION.txt"),
-					strings.get(SectionType.EDUCATION));
+					strings.get(SectionType.EDUCATION_EXPERIENCE));
 		}
 		if (strings.containsKey(SectionType.NAME_PERSONAL)) {
 			writeSingleFile(new File(fileName + "\\NAME.txt"),
@@ -164,7 +164,7 @@ public class IOHandler {
 								+ "\\WORK_EXPERIENCE.txt")));
 			}
 			if (data.contains("EDUCATION")) {
-				strings.put(SectionType.EDUCATION, readSingleFile(new File(
+				strings.put(SectionType.EDUCATION_EXPERIENCE, readSingleFile(new File(
 						fileName + "\\EDUCATION.txt")));
 			}
 			if (strings.containsKey(SectionType.NAME_PERSONAL)) {

@@ -51,6 +51,7 @@ public class Document implements DocumentInterface {
 			checkSections(SectionType.PERSONAL_INFO);
 			checkSections(SectionType.HEADER);
 			checkSections(SectionType.WORK_EXPERIENCE);
+			checkSections(SectionType.EDUCATION_EXPERIENCE);
 			break;
 			
 		case "DEF_PL":
@@ -63,7 +64,6 @@ public class Document implements DocumentInterface {
 			checkSections(SectionType.PERSONAL_INFO);
 			checkSections(SectionType.HEADER);
 			checkSections(SectionType.WORK_EXPERIENCE);
-			checkSections(SectionType.EDUCATION);
 			break;	
 		}
 	}
@@ -77,7 +77,7 @@ public class Document implements DocumentInterface {
 		if (!textSections.containsKey(type)) {
 			if(type.toString().contains("HEADER") || type.toString().contains("PERSONAL")){
 				textSections.put(type, new SingleRowSection());
-			}else if (type.equals(SectionType.EDUCATION)|| type.equals(SectionType.WORK_EXPERIENCE)){
+			}else if (type.toString().contains("EXPERIENCE")){
 				textSections.put(type, new MultiRowSection());
 			}
 		}
@@ -157,8 +157,7 @@ public class Document implements DocumentInterface {
 	public void setText(SectionType name, String text){
 		System.out.println("In setText");
 		if(name.toString().contains("PERSONAL")){
-			System.out.println("In setText first if");
-			SingleRowSection personalSec = (SingleRowSection)textSections.get(name);
+			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
 			personalSec.setText(name, text);
 			System.out.println(name +": " + personalSec.getText(name));
 		}
@@ -167,7 +166,7 @@ public class Document implements DocumentInterface {
 			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
 			headerSec.setText(name, text);
 		}
-		else{
+		else if(name.toString().contains("EXPERIENCE")){
 			System.out.println("In setText third if");
 			MultiRowSection multiRowSec = (MultiRowSection)textSections.get(name);
 			multiRowSec.setText(text);
@@ -186,6 +185,7 @@ public class Document implements DocumentInterface {
 		}
 		if (textSections.containsKey(SectionType.PERSONAL_INFO)) {
 			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
+			texts.put(SectionType.NAME_PERSONAL, personalSec.getText(SectionType.NAME_PERSONAL));
 			texts.put(SectionType.ADDRESS_PERSONAL, personalSec.getText(SectionType.ADDRESS_PERSONAL));
 			texts.put(SectionType.CITYZIPCODE_PERSONAL, personalSec.getText(SectionType.CITYZIPCODE_PERSONAL));
 			texts.put(SectionType.PHONE_PERSONAL, personalSec.getText(SectionType.PHONE_PERSONAL));
@@ -197,8 +197,8 @@ public class Document implements DocumentInterface {
 			MultiRowSection workSec = (MultiRowSection)textSections.get(SectionType.WORK_EXPERIENCE);
 			texts.put(SectionType.WORK_EXPERIENCE, workSec.getText());
 		}
-		if (textSections.containsKey(SectionType.EDUCATION)) {
-			MultiRowSection eduSec = (MultiRowSection)textSections.get(SectionType.EDUCATION);
+		if (textSections.containsKey(SectionType.EDUCATION_EXPERIENCE)) {
+			MultiRowSection eduSec = (MultiRowSection)textSections.get(SectionType.EDUCATION_EXPERIENCE);
 			texts.put(SectionType.EDU_HEADER, eduSec.getText());
 		}
 	}

@@ -148,8 +148,7 @@ public class MainView extends JFrame implements MainViewInterface {
 			pcs.firePropertyChange(arg0.getPropertyName(), arg0.getOldValue(),
 					arg0.getNewValue());
 		} catch (NullPointerException e){
-			System.out.println("Caught NullPointerException " +
-					"in MainViews propertyChange");
+			e.printStackTrace();
 		}
 	}
 

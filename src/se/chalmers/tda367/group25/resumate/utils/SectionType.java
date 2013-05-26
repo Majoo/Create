@@ -7,6 +7,15 @@ package se.chalmers.tda367.group25.resumate.utils;
  */
 
 public enum SectionType {
+	INFO_TITLE,
+	NAME_TITLE,
+	ADDRESS_TITLE,
+	CITYZIPCODE_TITLE,
+	PHONE_TITLE,
+	EMAIL_TITLE,
+	EMPTY1_TITLE,
+	EMPTY2_TITLE,
+	
 	PERSONAL_INFO,
 	NAME_PERSONAL,
 	ADDRESS_PERSONAL,

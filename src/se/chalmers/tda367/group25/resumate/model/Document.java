@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JTextField;
+
 import se.chalmers.tda367.group25.resumate.utils.SectionType;
 
 public class Document implements DocumentInterface {
@@ -46,6 +48,7 @@ public class Document implements DocumentInterface {
 		switch (currentTempl) {
 
 		case "DEF_CV":
+			checkSections(SectionType.INFO_TITLE);
 			checkSections(SectionType.PERSONAL_INFO);
 			checkSections(SectionType.HEADER);
 			checkSections(SectionType.WORK_EXPERIENCE);
@@ -73,8 +76,10 @@ public class Document implements DocumentInterface {
 	 */
 	private void checkSections(SectionType type){
 		if (!textSections.containsKey(type)) {
-			if(type.toString().contains("HEADER") || type.toString().contains("PERSONAL")){
-				textSections.put(type, new SingleRowSection());
+			if(type.toString().contains("HEADER")){
+				textSections.put(type, new SingleRowSection(25));
+			} else if(type.toString().contains("PERSONAL") || type.toString().contains("TITLE")){
+				textSections.put(type, new SingleRowSection(12));	
 			}else if (type.toString().contains("EXPERIENCE")){
 				textSections.put(type, new MultiRowSection());
 			}
@@ -162,6 +167,10 @@ public class Document implements DocumentInterface {
 			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
 			headerSec.setText(name, text);
 		}
+		else if(name.toString().contains("TITLE")){
+			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.INFO_TITLE);
+			headerSec.setText(name, text);
+		}
 		else if(name.toString().contains("EXPERIENCE")){
 			MultiRowSection multiRowSec = (MultiRowSection)textSections.get(name);
 			multiRowSec.setText(text);
@@ -177,6 +186,16 @@ public class Document implements DocumentInterface {
 			SingleRowSection headerSec = (SingleRowSection)textSections.get(SectionType.HEADER);
 			texts.put(SectionType.WORK_HEADER, headerSec.getText(SectionType.WORK_HEADER));
 			texts.put(SectionType.EDU_HEADER, headerSec.getText(SectionType.EDU_HEADER));
+		}
+		if (textSections.containsKey(SectionType.INFO_TITLE)) {
+			SingleRowSection titleSec = (SingleRowSection)textSections.get(SectionType.HEADER);
+			texts.put(SectionType.NAME_TITLE, titleSec.getText(SectionType.NAME_TITLE));
+			texts.put(SectionType.ADDRESS_TITLE, titleSec.getText(SectionType.ADDRESS_TITLE));
+			texts.put(SectionType.CITYZIPCODE_TITLE, titleSec.getText(SectionType.CITYZIPCODE_TITLE));
+			texts.put(SectionType.PHONE_TITLE, titleSec.getText(SectionType.PHONE_TITLE));
+			texts.put(SectionType.EMAIL_TITLE, titleSec.getText(SectionType.EMAIL_TITLE));
+			texts.put(SectionType.EMPTY1_TITLE, titleSec.getText(SectionType.EMPTY1_TITLE));
+			texts.put(SectionType.EMPTY2_TITLE, titleSec.getText(SectionType.EMPTY2_TITLE));
 		}
 		if (textSections.containsKey(SectionType.PERSONAL_INFO)) {
 			SingleRowSection personalSec = (SingleRowSection)textSections.get(SectionType.PERSONAL_INFO);
